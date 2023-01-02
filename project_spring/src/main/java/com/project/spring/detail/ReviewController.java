@@ -1,7 +1,6 @@
 package com.project.spring.detail;
 
 import java.io.FileInputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,23 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.vo.ProductVo;
-import com.project.spring.vo.ReviewVo;
 
 @Controller
-@RequestMapping("/product/*")
-public class ProductController {
+@RequestMapping("/review/*")
+public class ReviewController {
 	@Autowired
 	ProductService productService;
-	@Autowired
-	ReviewService reviewService;
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String product_id,HttpServletRequest request) {
 		ProductVo productVo = productService.detail("p_001");
-		List<ReviewVo> reviewList = reviewService.getList("p_001");
-		System.out.println(reviewList);
 		request.setAttribute("productVo", productVo);
-		request.setAttribute("reviewList", reviewList);
 		return "product/detail";
 	}
 	
