@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../include/header.jsp"%>
-
+<script>
+$(document).ready(function(){
+	
+	
+});
+</script>
 
 
 
@@ -40,7 +46,7 @@
 						</div>
 
 					</div>
-					<a href="#" class="primary-btn">ADD TO CARD</a> <a href="#"
+					<a href="#" class="primary-btn">ADD TO CART</a> <a href="#"
 						class="heart-icon"><span class="icon_heart_alt"></span></a>
 					<ul>
 						<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
@@ -63,7 +69,7 @@
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
 							href="#tabs-2" role="tab" aria-selected="false">상세 정보</a></li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-3" role="tab" aria-selected="false">리뷰 <span>(1)</span></a>
+							href="#tabs-3" role="tab" aria-selected="false">리뷰<span>(1)</span></a>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -82,6 +88,8 @@
 						<div class="tab-pane" id="tabs-3" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<h6>리뷰</h6>
+								
+								
 								<table class="table table-hover table-striped">
 									<thead>
 										<tr>
@@ -89,22 +97,24 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td rowspan="2">아이디 <br>
-												<i class="fa fa-star" style="color:yellow"></i>
-												<i class="fa fa-star" style="color:yellow"></i>
-												<i class="fa fa-star" style="color:yellow"></i>
-												<i class="fa fa-star" style="color:yellow"></i>
-												<i class="fa fa-star" style="color:yellow"></i>
+									<tbody id="review">
+									<c:forEach items="${reviewList}" var="reviewVo">
+										<tr class="review_open">
+											<td>${reviewVo.member_id}<br>
+												<c:forEach begin="1" end="${reviewVo.review_rating}" var="rating">
+													<i class="fa fa-star" style="color:orange"></i>
+												</c:forEach>
+												<c:forEach begin="${reviewVo.review_rating}" end="4" var="rating">
+													<i class="fa fa-star-o" style="color:orange"></i>
+												</c:forEach>
 											</td>
-											<td>제목</td>
+											<th>${reviewVo.review_title}</th>
 											
 										</tr>
-										<tr>
-											<td>내용111111111111111111111</td>
+										<tr class="table-active" style="display: none">
+											<td>${reviewVo.review_content}</td>
 										</tr>
-									
+									</c:forEach>
 									</tbody>
 								</table>
 							</div>
