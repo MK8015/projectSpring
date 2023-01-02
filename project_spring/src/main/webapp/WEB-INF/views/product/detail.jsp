@@ -5,8 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 <script>
 $(document).ready(function(){
-	
-	
+	$("#review").
 });
 </script>
 
