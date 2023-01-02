@@ -24,16 +24,11 @@
     <link rel="stylesheet" href="resources/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/style.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/style2.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/style3.css" type="text/css">
+    <link rel="stylesheet" href="resources/css/styleA.css" type="text/css">
+ <!--   <link rel="stylesheet" href="resources/css/style.css" type="text/css"> -->
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -113,11 +108,8 @@
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
-</li>
-
-                            <li><a href="#">이벤트</a>
-                                
-                            </li>
+							</li>
+                            <li><a href="#">이벤트</a></li>
                             <li><a href="./blog.html">공지사항</a></li>
                             <li><a href="./contact.html">고객센터</a></li>
                         </ul>
@@ -150,7 +142,6 @@
         </div>
 
 
-
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -158,30 +149,27 @@
                         <a href="./index.html"><img src="resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
-
+				<div class="humberger__menu__overlay"></div>
                 <div class="col-lg-7">
-<div class="header__logo">
-<form>
-<table border="1">
-<tr>
-                 <td><div class="input-group">
-                     <select name="searchType">
-                     	<option value="t">상품명</option>
-                     	<option value="c">내용</option>
-                     	<option value="w">작성자</option>
-                     </select></td>
-                     <td><input type="text" class="form-control bg-light border-1 small"  placeholder="검색어를 입력하세요"></td>
-                     <td><div class="input-group-append">
-                         <button id="btnSearch" class="site-btn">
-                             검색
-                         </button></td>
-</tr>
-</table>
-</form>
-</div>
+					<div class="header__logo">
+					<form>
+						<table border="1">
+							<tr>
+                 				<td><div class="input-group">
+                     				<select name="searchType">
+			                     	<option value="t">상품명</option>
+			                     	<option value="c">내용</option>
+			                     	<option value="w">작성자</option>
+			                     	</select>
+			                     </td>
+                     			<td><input type="text" class="form-control bg-light border-1 small"  placeholder="검색어를 입력하세요"></td>
+                     			<td><div class="input-group-append"> <button id="btnSearch" class="site-btn">검색</button></td>
+							</tr>
+						</table>
+					</form>
+				</div>
 
 		</div>
-
                 <div class="col-lg-2">
                     <div class="header__cart">
                         <ul>
