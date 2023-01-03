@@ -8,7 +8,7 @@
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="footer__about">
 					<div class="footer__about__logo">
-						<a href="./index.html"><img src="img/logo.png" alt=""></a>
+						<a href="./index.html"><img src="/spring/resources/img/logo.png" alt=""></a>
 					</div>
 					<p>주식회사 에프엔에스리테일<br>
 						주소. 서울특별시 압구정로 2길 청구빌딩<br>
@@ -61,7 +61,7 @@
 				<div class="col-lg-12">
 					<div class="footer__copyright">
 						<div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> <font color="#7fad39"><b>BOOKSHOP</b></font> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by Colorlib
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> <font color="#7fad39"><b>NONFICTION</b></font> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by Colorlib
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
   						</div>
   					</div>
