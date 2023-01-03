@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mappers.member">
+	
+<insert id="registerRun">
+ insert into t_member(member_id,password,member_name,phonenum,email,address,regdate)
+ values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate)
+</insert>	
+</mapper>

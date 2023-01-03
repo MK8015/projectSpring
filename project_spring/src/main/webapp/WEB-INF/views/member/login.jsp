@@ -21,18 +21,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="resources/css/styleA.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/spring/resources/css/styleA.css" type="text/css">
  <!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
 </head>
-
-
+	<meta name="viewport" content="width=device-width, initial-scale=1">														
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">														
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>														
+<script>
+$(document).ready(function(){
+	var loginresult="${login_result}"
+	console.log("loginresult:",loginresult);
+	if(loginresult=="true"){
+		alert("회원가입에 성공하였습니다");
+	}else{
+		alert("다른 아이디를 사용해주세요");
+	}
+	
+});
+</script>
 
 
 
@@ -90,7 +105,7 @@
 <div class="header__menu" align="center">
                             <ul>
                                 <li><a href="forgot-password.html">비밀번호 찾기</a></li>
-                                <li><a href="register.html">회원 가입</a></li>
+                                <li><a href="register.jsp">회원 가입</a></li>
                             </ul>
                         </div>
 
@@ -114,14 +129,14 @@
 
 
     <!-- Js Plugins -->
-    <script src="resources/js/jquery-3.3.1.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/jquery.nice-select.min.js"></script>
-    <script src="resources/js/jquery-ui.min.js"></script>
-    <script src="resources/js/jquery.slicknav.js"></script>
-    <script src="resources/js/mixitup.min.js"></script>
-    <script src="resources/js/owl.carousel.min.js"></script>
-    <script src="resources/js/main.js"></script>
+    <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="/spring/resources/js/bootstrap.min.js"></script>
+    <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
+    <script src="/spring/resources/js/jquery-ui.min.js"></script>
+    <script src="/spring/resources/js/jquery.slicknav.js"></script>
+    <script src="/spring/resources/js/mixitup.min.js"></script>
+    <script src="/spring/resources/js/owl.carousel.min.js"></script>
+    <script src="/spring/resources/js/main.js"></script>
 
 
 
