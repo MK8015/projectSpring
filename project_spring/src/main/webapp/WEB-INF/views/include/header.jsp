@@ -25,6 +25,17 @@
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
 	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
+	
+	<!-- Js Plugins -->
+   <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
+   <script src="/spring/resources/js/bootstrap.min.js"></script>
+   <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
+   <script src="/spring/resources/js/jquery-ui.min.js"></script>
+   <script src="/spring/resources/js/jquery.slicknav.js"></script>
+   <script src="/spring/resources/js/mixitup.min.js"></script>
+   <script src="/spring/resources/js/owl.carousel.min.js"></script>
+   <script src="/spring/resources/js/main.js"></script>
+	
 </head>
 
 <body>
@@ -34,7 +45,7 @@
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="#"><img src="img/logo.png" alt=""></a>
+		<a href="#"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -45,7 +56,7 @@
 	</div>
 	<div class="humberger__menu__widget">
 		<div class="header__top__right__language">
-			<img src="img/language.png" alt="">
+			<img src="/spring/resources/img/language.png" alt="">
 			<div>English</div>
 			<span class="arrow_carrot-down"></span>
 			<ul>
@@ -133,7 +144,7 @@
 		<div class="row">
 			<div class="col-lg-2">
 				<div class="header__logo">
-					<a href="./index.html"><img src="img/logo.png" alt=""></a>
+					<a href="./index.html"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>

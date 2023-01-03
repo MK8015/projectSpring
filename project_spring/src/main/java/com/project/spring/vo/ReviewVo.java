@@ -12,4 +12,5 @@ public class ReviewVo {
 	String review_content;
 	String review_image;
 	String review_date;
+	String member_pic;
 }

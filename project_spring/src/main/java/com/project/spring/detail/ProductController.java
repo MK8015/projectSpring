@@ -24,12 +24,21 @@ public class ProductController {
 	ReviewService reviewService;
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(String product_id,HttpServletRequest request) {
+	public String detail(String product_id,HttpServletRequest request,PagingDto pagingDto) {
 		ProductVo productVo = productService.detail("p_001");
-		List<ReviewVo> reviewList = reviewService.getList("p_001");
-		System.out.println(reviewList);
+		int reviewCount = reviewService.getCount("p_001");
+		double ratingAvg = reviewService.ratingAvg("p_001");
+		pagingDto.setPagingInfo(pagingDto.getPage(), pagingDto.getPerPage(), reviewCount);
+		System.out.println(pagingDto);
+		List<ReviewVo> reviewList = reviewService.getList("p_001",pagingDto);
+		int ratingDecimalPoint = (int)((ratingAvg%1)*100);
+		System.out.println(ratingAvg);
+		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewList", reviewList);
+		request.setAttribute("ratingAvg", ratingAvg);
+		request.setAttribute("reviewCount", reviewCount);
+		request.setAttribute("ratingDecimalPoint", ratingDecimalPoint);
 		return "product/detail";
 	}
 	
