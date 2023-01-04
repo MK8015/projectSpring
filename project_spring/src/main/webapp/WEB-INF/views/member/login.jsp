@@ -42,7 +42,7 @@ $(document).ready(function(){
 	console.log("loginresult:",loginresult);
 	if(loginresult=="true"){
 		alert("회원가입에 성공하였습니다");
-	}else{
+	}else if(loginresult=="false"){
 		alert("다른 아이디를 사용해주세요");
 	}
 	
@@ -75,26 +75,26 @@ $(document).ready(function(){
                                     <div class="text-center">
                                         <br><h3>환영합니다</h3><br><br>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                    <form class="user" method="post" action="/spring/member/login">
+                                        <div class="form-group" >
+                                            <input type="text" class="form-control form-control-user"
+                                                id="member_id" name="member_id" aria-describedby="emailHelp"
+                                                placeholder="아이디를 입력해주세요">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="password" name="password" placeholder="비밀번호를 입력해주세요">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck">아이디 기억</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
-                                            Login
-                                        </a>
+                                        <button
+                                         type="submit" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
+                                            로그인
+                                        </button>
 
 
                                     </form>
@@ -105,7 +105,7 @@ $(document).ready(function(){
 <div class="header__menu" align="center">
                             <ul>
                                 <li><a href="forgot-password.html">비밀번호 찾기</a></li>
-                                <li><a href="register.jsp">회원 가입</a></li>
+                                <li><a href="/spring/member/registerForm">회원 가입</a></li>
                             </ul>
                         </div>
 

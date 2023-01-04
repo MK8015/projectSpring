@@ -1,4 +1,4 @@
-package com.project.spring.login;
+package com.project.spring.vo;
 
 import java.sql.Date;
 
@@ -13,4 +13,6 @@ public class MemberVo {
 	String email;
 	String address; 
 	Date regdate;
+	String member_pic;
+	
 }
