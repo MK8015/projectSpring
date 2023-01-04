@@ -40,12 +40,13 @@
 
 <body>
 
-<!-- Humberger Begin -->
+<!-- Humberger Begin 반응형 -->
 <div class="humberger__menu__overlay">
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="#"><img src="/spring/resources/img/logo.png" alt=""></a>
+
+		<a href="/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -108,8 +109,8 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="./index.html">MAIN</a></li>
-							<li><a href="./shop-grid.html">PRODUCT</a>
+							<li class="active"><a href="/spring/main/list">MAIN</a></li>
+							<li><a href="/spring/product/list">PRODUCT</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="./shop-details.html">Shop Details</a></li>
 									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -144,7 +145,9 @@
 		<div class="row">
 			<div class="col-lg-2">
 				<div class="header__logo">
-					<a href="./index.html"><img src="/spring/resources/img/logo.png" alt=""></a>
+
+
+					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>

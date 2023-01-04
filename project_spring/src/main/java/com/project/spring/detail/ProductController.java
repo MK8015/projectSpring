@@ -23,6 +23,14 @@ public class ProductController {
 	@Autowired
 	ReviewService reviewService;
 	
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String indexList() {
+		return "product/list";
+	}
+	
+	
+	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String product_id,HttpServletRequest request,PagingDto pagingDto) {
 		ProductVo productVo = productService.detail("p_001");
