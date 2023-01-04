@@ -12,7 +12,7 @@ import com.project.spring.vo.ProductVo;
 @Repository
 public class BoardDao {
 	
-	private final String NAME_SPACE = "mappers.main.";
+	private final String NAME_SPACE = "mappers.board.";
 	
 	@Autowired
 	SqlSession sqlSession;
