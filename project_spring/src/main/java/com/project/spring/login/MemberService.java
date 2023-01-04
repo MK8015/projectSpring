@@ -1,22 +1,18 @@
-package com.project.spring.main;
-
-import java.util.List;
+package com.project.spring.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.spring.vo.ProductVo;
-
 @Service
-public class MainService {
+public class MemberService {
 	
 	@Autowired
-	MainDao mainDao;
+	MemberDao memberDao;
 	
-
-	public List<ProductVo> getList() {
-		return mainDao.getList();
+	public boolean registerRun(MemberVo memberVo) {
+	 	return memberDao.registerRun(memberVo);
+		
 	}
-	
 	
 }

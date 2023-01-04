@@ -1,6 +1,8 @@
 package com.project.spring.detail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,23 @@ public class ReviewDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<ReviewVo> getList(String product_id) {
-		return sqlSession.selectList(NAME_SPACE+"getList",product_id);
+	public List<ReviewVo> getList(String product_id,PagingDto pagingDto) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("product_id", product_id);
+		map.put("startRow", pagingDto.getStartRow());
+		map.put("endRow", pagingDto.getEndRow());
+		return sqlSession.selectList(NAME_SPACE+"getList",map);
+	}
+	
+	public int getCount(String product_id) {
+		return sqlSession.selectOne(NAME_SPACE+"getCount",product_id);
+	}
+	
+	public double ratingAvg(String product_id) {
+		return sqlSession.selectOne(NAME_SPACE+"ratingAvg",product_id);
+	}
+	
+	public int insertReview(ReviewVo reviewVo) {
+		return sqlSession.insert(NAME_SPACE+"insertReview",reviewVo);
 	}
 }

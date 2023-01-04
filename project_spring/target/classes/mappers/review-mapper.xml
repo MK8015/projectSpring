@@ -6,9 +6,27 @@
 <mapper namespace="mappers.review">
 	
 	<select id="getList" resultType="ReviewVo">
-		select * from t_review
+		select * from(
+			select rownum rnum, a.* from (
+				select * 
+				from t_review
+				where product_id = #{product_id}
+				order by review_no desc) a)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from t_review
 		where product_id = #{product_id}
 	</select>
 	
+	<select id="ratingAvg" resultType="double">
+		select avg(review_rating) from t_review
+		where product_id = #{product_id}
+	</select>
 	
+	<insert id="insertReview">
+		insert into t_review(member_id,review_content,product_id,review_no,review_rating)
+		values(#{member_id},#{review_content},#{product_id},seq_review_no.nextval,#{review_rating})
+	</insert>
 </mapper>
