@@ -6,13 +6,14 @@
 <mapper namespace="mappers.review">
 	
 	<select id="getList" resultType="ReviewVo">
-		select * from(
+		select b.*, c.member_pic from(
 			select rownum rnum, a.* from (
 				select * 
 				from t_review
 				where product_id = #{product_id}
-				order by review_no desc) a)
+				order by review_no desc) a) b, t_member c
 		where rnum between #{startRow} and #{endRow}
+		and b.member_id = c.member_id
 	</select>
 	
 	<select id="getCount" resultType="int">
