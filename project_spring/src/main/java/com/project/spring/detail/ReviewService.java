@@ -23,4 +23,13 @@ public class ReviewService {
 	public double ratingAvg(String product_id) {
 		return Double.parseDouble(String.format("%.1f",reviewDao.ratingAvg(product_id)));
 	}
+	
+	public boolean insertReview(ReviewVo reviewVo) {
+		
+		int count = reviewDao.insertReview(reviewVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
 }
