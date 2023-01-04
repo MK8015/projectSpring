@@ -68,4 +68,12 @@ public class ReviewController {
 		}
 		return jsonArray.toString();
 	}
+	
+	@RequestMapping(value = "/insertReview", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertReview(ReviewVo reviewVo) {
+		System.out.println(reviewVo);
+		boolean result = reviewService.insertReview(reviewVo);
+		return String.valueOf(result);
+	}
 }
