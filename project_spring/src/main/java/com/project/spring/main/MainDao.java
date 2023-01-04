@@ -1,5 +1,7 @@
 package com.project.spring.main;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,5 +16,11 @@ public class MainDao {
 	@Autowired
 	SqlSession sqlSession;
 
+
+	public List<ProductVo> getList() {
+		List<ProductVo> list = sqlSession.selectList(NAME_SPACE + "list");
+		System.out.println("MainDao, list" + list);
+		return list;
+	}
 	
 }
