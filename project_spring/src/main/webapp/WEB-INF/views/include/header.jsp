@@ -34,7 +34,7 @@
    <script src="/spring/resources/js/jquery.slicknav.js"></script>
    <script src="/spring/resources/js/mixitup.min.js"></script>
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
-   <script src="/spring/resources/js/main.js"></script>
+   <!-- <script src="/spring/resources/js/main.js"></script> -->
 	
 </head>
 
@@ -46,7 +46,7 @@
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
 
-		<a href="/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -110,27 +110,33 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="/spring/main/list">MAIN</a></li>
-							<li><a href="/spring/product/list">PRODUCT</a>
+							<li><a href="/spring/product/list">BOOK</a>
 								<ul class="header__menu__dropdown">
-									<li><a href="./shop-details.html">Shop Details</a></li>
-									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
-									<li><a href="./checkout.html">Check Out</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
+									<li><a href="/spring/product/list?category=humanity">인문</a></li>
+									<li><a href="/spring/product/list?category=economy">경제/경영</a></li>
+									<li><a href="/spring/product/list?category=sociology">정치/사회</a></li>
+									<li><a href="/spring/product/list?category=history">역사</a></li>
+									<li><a href="/spring/product/list?category=culture">문화/예술</a></li>
+									<li><a href="/spring/product/list?category=science">과학</a></li>
+									<li><a href="/spring/product/list?category=computer">컴퓨터/IT</a></li>
+									<li><a href="/spring/product/list?category=language">외국어</a></li>
+									<li><a href="/spring/product/list?category=religion">종교/역학</a></li>
+									<li><a href="/spring/product/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
 							<li><a href="#">EVENT</a></li>
-							<li><a href="./blog.html">NOTICE</a></li>
-							<li><a href="./contact.html">Q & A</a></li>
+							<li><a href="/spring/board/qna">Q & A</a></li>
+							<li><a href="#">ABOUT</a></li>
 						</ul>
 					</nav>
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="header__top__right">
 						<div class="header__top__right__social">
-							<a href="#">회원가입</a>
+							<a href="/spring/member/register">회원가입</a>
 						</div>
 						<div class="header__top__right__social">
-							<a href="#">로그인</a>
+							<a href="/spring/member/login">로그인</a>
 						</div>
 						<div class="header__top__right__auth">
 							<a href="#">마이 페이지</a>
@@ -143,7 +149,7 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-2">
+			<div class="col-lg-3">
 				<div class="header__logo">
 
 
@@ -151,7 +157,7 @@
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
-			<div class="col-lg-8 header__logo">
+			<div class="col-lg-7 header__logo">
 				<div class="header__search__form">
 					<form>
 						<div>
