@@ -34,4 +34,8 @@ public class ReviewDao {
 	public double ratingAvg(String product_id) {
 		return sqlSession.selectOne(NAME_SPACE+"ratingAvg",product_id);
 	}
+	
+	public int insertReview(ReviewVo reviewVo) {
+		return sqlSession.insert(NAME_SPACE+"insertReview",reviewVo);
+	}
 }
