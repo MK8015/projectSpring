@@ -80,7 +80,7 @@ $(document).ready(function() {
 									<img class="product__item__pic"
 
 										src="/spring/product/getImage?imageName=${list.product_image}"
-										alt="">
+										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
 									<ul class="product__item__pic__hover">
 										<li><a href="#"><i class="fa fa-heart"></i></a></li>
 										<li><a href="#"><i class="fa fa-retweet"></i></a></li>

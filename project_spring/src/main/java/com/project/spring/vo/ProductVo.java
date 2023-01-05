@@ -11,4 +11,6 @@ public class ProductVo {
 	String product_quantity;
 	String product_category;
 	String product_description;
+	String product_author;
+	String product_publisher;
 }

@@ -33,19 +33,19 @@ public class ProductController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String product_id,HttpServletRequest request,PagingDto pagingDto) {
-		ProductVo productVo = productService.detail("p_001");
-		int reviewCount = reviewService.getCount("p_001");
-		double ratingAvg = reviewService.ratingAvg("p_001");
+		ProductVo productVo = productService.detail(product_id);
+		int reviewCount = reviewService.getCount(product_id);
+		if(reviewCount>0) {
+			double ratingAvg = reviewService.ratingAvg(product_id);			
+			List<ReviewVo> reviewList = reviewService.getList(product_id,pagingDto);
+			request.setAttribute("reviewList", reviewList);
+			request.setAttribute("ratingAvg", ratingAvg);
+		}
 		pagingDto.setPagingInfo(pagingDto.getPage(), pagingDto.getPerPage(), reviewCount);
 		System.out.println(pagingDto);
-		List<ReviewVo> reviewList = reviewService.getList("p_001",pagingDto);
-		int ratingDecimalPoint = (int)((ratingAvg%1)*100);
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
-		request.setAttribute("reviewList", reviewList);
-		request.setAttribute("ratingAvg", ratingAvg);
 		request.setAttribute("reviewCount", reviewCount);
-		request.setAttribute("ratingDecimalPoint", ratingDecimalPoint);
 		return "product/detail";
 	}
 	
