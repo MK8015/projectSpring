@@ -17,36 +17,21 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
+	// 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
 		pagingDto.setPagingInfo(pagingDto.getPage()
 								, pagingDto.getPerPage()
-<<<<<<< HEAD
-								, listService.getCount(category));
-		System.out.println("category:" + category);
+								, listService.getCount(category, pagingDto));
 		List<ProductVo> list = listService.getProductList(pagingDto);
-		if (category == null || category.equals("")) { // 카테고리가 없는경우 : 전체조회
+		// 카테고리가 없는경우 : 전체조회 (getProductList)
+		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
-		} else {
+		} 
+		// 카테고리가 있는경우 : 각 카테고리별,검색별 목록조회 (getListByCategory)
+		else {
 			list = listService.getListByCategory(category, pagingDto);
-//			System.out.println("list:"+ list);
-			System.out.println("startPage:"+ pagingDto.getStartPage());
-			System.out.println("endPage:"+ pagingDto.getEndPage());
-			System.out.println("startRow:"+ pagingDto.getStartRow());
-			System.out.println("endRow:"+ pagingDto.getEndRow());
-			System.out.println("count:"+ pagingDto.getCount());
-			System.out.println("TotalPage:"+ pagingDto.getTotalPage());
 			model.addAttribute("category",category);
-=======
-								, listService.getCount(pagingDto));
-		System.out.println("category:" + category);
-		List<ProductVo> list = listService.getProductList(pagingDto);
-		if (category == null || category.equals("")) { // 카테고리가 없는경우 : 전체조회
-			list = listService.getProductList(pagingDto);
-		} else {
-			list = listService.getListByCategory(category, pagingDto);
-			System.out.println("list:"+ list);
->>>>>>> refs/remotes/origin/main
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);

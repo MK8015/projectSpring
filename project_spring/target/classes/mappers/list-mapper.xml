@@ -5,11 +5,12 @@
 
 <mapper namespace="mappers.list">
 	
-	<!-- 목록 조회 -->
+	<!-- 목록 조회  -->
 	<select id="getProductList" resultType="ProductVo">
 		select * from 
     		(select rownum rnum, a.* from 
-        		(select * from t_product) a)
+        		(select * from t_product
+        		<include refid="searchKeyword"></include>) a)
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	
@@ -25,8 +26,14 @@
 	<!-- 글 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) from t_product
-<<<<<<< HEAD
-		<include refid="searchCategory"></include>
+		<choose>
+			<when test="product_category neq null">
+				<include refid="searchCategory"></include>
+			</when>	
+			<when test="searchType neq null and keyword neq null">
+				<include refid="searchKeyword"></include>
+			</when>
+		</choose>
 	</select>
 	
 	<!-- 카테고리 옵션 -->
@@ -35,7 +42,21 @@
 		where product_category = #{product_category}
     </if>
     </sql>
-=======
-	</select>
->>>>>>> refs/remotes/origin/main
+    
+    <!-- 검색 옵션 -->
+	<sql id="searchKeyword">
+	<if test="searchType neq null and keyword neq null">
+		<choose>
+			<when test='searchType eq "t"'>
+				where product_name like '%' || #{keyword} || '%'
+			</when>
+			<when test='searchType == "w"'>
+				where product_author like '%' || #{keyword} || '%'
+			</when>
+			<when test='searchType == "p"'>
+				where product_publisher like '%' || #{keyword} || '%'
+			</when>
+		</choose>			
+     </if>
+     </sql>
 </mapper>

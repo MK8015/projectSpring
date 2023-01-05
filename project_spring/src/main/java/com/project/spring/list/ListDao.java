@@ -19,17 +19,18 @@ public class ListDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	// 전체 도서 조회 (페이지별)
 	public List<ProductVo> getProductList(PagingDto pagingDto) {
 		return sqlSession.selectList(NAME_SPACE + "getProductList", pagingDto);
 	}
 	
-<<<<<<< HEAD
-	public int getCount(String product_category) {
-		int count = sqlSession.selectOne(NAME_SPACE + "getCount", product_category);
-=======
-	public int getCount(PagingDto pagingDto) {
-		int count = sqlSession.selectOne(NAME_SPACE + "getCount", pagingDto);
->>>>>>> refs/remotes/origin/main
+	// 카테고리별, 검색별 카운트 얻어오기
+	public int getCount(String category, PagingDto pagingDto) {
+		Map<String, String> map = new HashMap<>();
+		map.put("product_category", category);
+		map.put("searchType", pagingDto.getSearchType());
+		map.put("keyword", pagingDto.getKeyword());
+		int count = sqlSession.selectOne(NAME_SPACE + "getCount", map);
 		return count;
 	}
 	
@@ -38,6 +39,8 @@ public class ListDao {
 		map.put("product_category", category);
 		map.put("startRow", pagingDto.getStartRow());
 		map.put("endRow", pagingDto.getEndRow());
+		map.put("searchType", pagingDto.getSearchType());
+		map.put("keyword", pagingDto.getKeyword());
 		return sqlSession.selectList(NAME_SPACE + "getListByCategory", map);
 	}
 }
