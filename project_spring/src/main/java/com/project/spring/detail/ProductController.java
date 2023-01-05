@@ -40,7 +40,6 @@ public class ProductController {
 		System.out.println(pagingDto);
 		List<ReviewVo> reviewList = reviewService.getList("p_001",pagingDto);
 		int ratingDecimalPoint = (int)((ratingAvg%1)*100);
-		System.out.println(ratingAvg);
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewList", reviewList);

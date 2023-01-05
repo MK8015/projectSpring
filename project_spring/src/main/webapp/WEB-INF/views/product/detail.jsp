@@ -69,11 +69,17 @@ $(document).ready(function() {
     });
 		
 	getReview(1);
+	var ratingAvg =("${ratingAvg}"/5)*100;
+	$("#productRating").attr("width",ratingAvg+"%");
+	
 	
 	$("#btnInsertReview").click(function(e){
 		e.preventDefault();
 		var review_content = $("#review_content").text();
 		var review_rating = parseInt($('#stars li.selected').last().data('value'), 10);
+		if(isNaN(review_rating)){
+			review_rating = 0;
+		}
 		var product_id = "${productVo.product_id}";
 		var member_id = "hong";
 		var sData = {
@@ -104,6 +110,8 @@ $(document).ready(function() {
 	
 	function getReview(page){
 		$("#review> tr:gt(0)").remove();
+		
+		$("#product_rating").attr("width",)
 		$.get("/spring/review/reviewPaging", {
 			"page" : page
 		}, function(rData) {
@@ -150,10 +158,8 @@ $(document).ready(function() {
 				<div class="product__details__text">
 					<h3>${productVo.product_name}</h3>
 					<div class="product__details__rating">
-						<c:forEach begin="1" end="${ratingAvg}" var="rating">
-							<i class="fa fa-star" style="color: orange"></i>
-						</c:forEach>
-						<i class="fa fa-star" style="color: orange"></i> <span>(${reviewCount}
+					<img id="productRating" src="/spring/resources/img/star-rating.png" width="" height="50px">
+						 <span>(${reviewCount}
 							reviews)</span>
 					</div>
 					<div class="product__details__price">${productVo.price}원</div>
