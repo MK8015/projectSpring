@@ -23,8 +23,8 @@ public class ListDao {
 		return sqlSession.selectList(NAME_SPACE + "getProductList", pagingDto);
 	}
 	
-	public int getCount(PagingDto pagingDto) {
-		int count = sqlSession.selectOne(NAME_SPACE + "getCount", pagingDto);
+	public int getCount(String product_category) {
+		int count = sqlSession.selectOne(NAME_SPACE + "getCount", product_category);
 		return count;
 	}
 	

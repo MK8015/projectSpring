@@ -25,5 +25,13 @@
 	<!-- 글 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) from t_product
+		<include refid="searchCategory"></include>
 	</select>
+	
+	<!-- 카테고리 옵션 -->
+	<sql id="searchCategory">
+	<if test="product_category neq null">
+		where product_category = #{product_category}
+    </if>
+    </sql>
 </mapper>

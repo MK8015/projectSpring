@@ -21,14 +21,21 @@ public class ListController {
 	public String list(Model model, PagingDto pagingDto, String category) {
 		pagingDto.setPagingInfo(pagingDto.getPage()
 								, pagingDto.getPerPage()
-								, listService.getCount(pagingDto));
+								, listService.getCount(category));
 		System.out.println("category:" + category);
 		List<ProductVo> list = listService.getProductList(pagingDto);
 		if (category == null || category.equals("")) { // 카테고리가 없는경우 : 전체조회
 			list = listService.getProductList(pagingDto);
 		} else {
 			list = listService.getListByCategory(category, pagingDto);
-			System.out.println("list:"+ list);
+//			System.out.println("list:"+ list);
+			System.out.println("startPage:"+ pagingDto.getStartPage());
+			System.out.println("endPage:"+ pagingDto.getEndPage());
+			System.out.println("startRow:"+ pagingDto.getStartRow());
+			System.out.println("endRow:"+ pagingDto.getEndRow());
+			System.out.println("count:"+ pagingDto.getCount());
+			System.out.println("TotalPage:"+ pagingDto.getTotalPage());
+			model.addAttribute("category",category);
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);

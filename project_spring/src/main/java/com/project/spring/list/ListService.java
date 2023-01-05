@@ -17,8 +17,8 @@ public class ListService {
 		return listDao.getProductList(pagingDto);
 	}
 	
-	public int getCount(PagingDto pagingDto) {
-		return listDao.getCount(pagingDto);
+	public int getCount(String category) {
+		return listDao.getCount(category);
 	}
 	
 	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto){
