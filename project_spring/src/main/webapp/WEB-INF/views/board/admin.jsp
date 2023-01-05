@@ -4,7 +4,5 @@
 <%@ include file="../include/header.jsp" %>
 
 
-<h1>넣기</h1>
-
 
 <%@ include file="../include/footer.jsp" %>
