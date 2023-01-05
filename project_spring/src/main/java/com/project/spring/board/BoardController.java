@@ -1,4 +1,4 @@
-package com.project.spring.main;
+package com.project.spring.board;
 
 import java.io.FileInputStream;
 import java.util.List;
@@ -15,37 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.spring.vo.BoardVo;
 import com.project.spring.vo.ProductVo;
 
 
 @Controller
-@RequestMapping("/main/*")
-public class MainController {
+@RequestMapping("/board/*")
+public class BoardController {
 	@Autowired
-	MainService mainService;
+	BoardService boardService;
 	
 
-	// 이동
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexRun(Model model) {
-
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, list" + list);
-		model.addAttribute("list", list);
-		
-		return "index/main";
-	}
-	
-
-	// 목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getList(Model model) {
-		
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, list" + list);
+	public String listArticle(Model model) {
+		List<BoardVo> list = boardService.listArticle();
 		model.addAttribute("list", list);
-		
-		return "index/main";
+		return "board/qna";
 	}
-	
 }

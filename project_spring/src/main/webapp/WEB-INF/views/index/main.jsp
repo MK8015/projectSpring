@@ -66,8 +66,8 @@
 		<c:forEach items="${list}" var="productVo">
 			<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 				<div class="featured__item">
-					<div class="featured__item__pic set-bg">
-						<img class="product__details__pic__item--large"
+					<div class="featured__item__pic">
+						<img class="featured__item__pic"
 							src="/spring/product/getImage?imageName=${productVo.product_image}"
 							alt="">
 						<ul class="featured__item__pic__hover">
