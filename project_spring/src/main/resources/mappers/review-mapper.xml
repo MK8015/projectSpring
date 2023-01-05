@@ -24,4 +24,9 @@
 		select avg(review_rating) from t_review
 		where product_id = #{product_id}
 	</select>
+	
+	<insert id="insertReview">
+		insert into t_review(member_id,review_content,product_id,review_no,review_rating)
+		values(#{member_id},#{review_content},#{product_id},seq_review_no.nextval,#{review_rating})
+	</insert>
 </mapper>

@@ -2,6 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
+<script>
+$(document).ready(function() {
+ 	// 페이지 번호
+	$(document).on("click", ".page-link", function(e) {
+	   e.preventDefault();
+	   var page = $(this).attr("href");
+// 	   location.href = "/board/list?page=" + page + "&perPage=${pagingDto.perPage}";
+	   $("#frmPaging").find("input[name=page]").val(page);
+	   $("#frmPaging").attr("action", "/spring/list/list").submit();
+	});
+});
+	
+	
+</script>
+
+<%@ include file="../include/pageParam.jsp" %>
 
 <!-- Product Section Begin -->
 <section class="product spad">
@@ -11,20 +27,20 @@
 				<div class="hero__categories">
 					<div class="hero__categories__all">
 						<i class="fa fa-bars"></i>
-						<span><a href="/spring/main/list">All departments</a></span>
+
+						<span><a href="/spring/list/list">All Categorys</a></span>
 					</div>
 					<ul>
-						<li><a href="#">Fresh Meat</a></li>
-						<li><a href="#">Vegetables</a></li>
-						<li><a href="#">Fruit & Nut Gifts</a></li>
-						<li><a href="#">Fresh Berries</a></li>
-						<li><a href="#">Ocean Foods</a></li>
-						<li><a href="#">Butter & Eggs</a></li>
-						<li><a href="#">Fastfood</a></li>
-						<li><a href="#">Fresh Onion</a></li>
-						<li><a href="#">Papayaya & Crisps</a></li>
-						<li><a href="#">Oatmeal</a></li>
-						<li><a href="#">Fresh Bananas</a></li>
+						<li><a href="/spring/list/list?category=humanity">인문</a></li>
+						<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
+						<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+						<li><a href="/spring/list/list?category=history">역사</a></li>
+						<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
+						<li><a href="/spring/list/list?category=science">과학</a></li>
+						<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+						<li><a href="/spring/list/list?category=language">외국어</a></li>
+						<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
+						<li><a href="/spring/list/list?category=self">자기계발</a></li>
 					</ul>
 				</div>
 			</div>
@@ -56,10 +72,13 @@
 					<div class="row">
 					
 					<c:forEach items="${list}" var="list">
-						<div class="col-lg-4 col-md-6 col-sm-6">
+
+
+						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
-								<div class="product__item__pic set-bg">
-									<img class="product__item__pic__"
+								<div class="product__item__pic">
+									<img class="product__item__pic"
+
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="">
 									<ul class="product__item__pic__hover">
@@ -77,41 +96,25 @@
 					</c:forEach>
 					</div>
 				<!-- 페이지 번호 -->
-				<div class="product__pagination">
-					<c:forEach var="v" begin="${pagingDto.startPage}" 
-										end="${pagingDto.endPage}">
-						<a href="${v}">${v}</a>
-					</c:forEach>
-					<a href="#"><i class="fa fa-long-arrow-right"></i></a>
-				</div>
-				
-				<!-- 시작순서가 1이 아닌경우 -->
-				<div class="product__pagination">
+
+				<div class="product__pagination pagination justify-content-center">
+					<!-- 시작순서가 1이 아닌경우 -->
+
 					<c:if test="${pagingDto.startPage ne 1}">
 						<a class="page-link" href="${pagingDto.startPage-1}">
 							<i class="fa fa-long-arrow-left"></i></a>
 					</c:if>
 					<c:forEach var="v" begin="${pagingDto.startPage}" 
 										end="${pagingDto.endPage}">
-						<div 
-							<c:choose>
-								<c:when test="${pagingDto.page eq v}">
-									class="product__pagination active"
-								</c:when>
-								<c:otherwise>
-									class="product__pagination"
-								</c:otherwise>	
-							</c:choose>
-						>
-							<a class="page-link" href="${v}">${v}</a>
-						</div>
+
+						<a class="page-link" href="${v}">${v}</a>
 					</c:forEach>
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
 						<a class="page-link" href="${pagingDto.endPage+1}">
 							<i class="fa fa-long-arrow-right"></i></a>
 					</c:if>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
