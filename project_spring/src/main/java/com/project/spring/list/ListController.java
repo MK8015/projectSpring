@@ -21,6 +21,7 @@ public class ListController {
 	public String list(Model model, PagingDto pagingDto, String category) {
 		pagingDto.setPagingInfo(pagingDto.getPage()
 								, pagingDto.getPerPage()
+<<<<<<< HEAD
 								, listService.getCount(category));
 		System.out.println("category:" + category);
 		List<ProductVo> list = listService.getProductList(pagingDto);
@@ -36,6 +37,16 @@ public class ListController {
 			System.out.println("count:"+ pagingDto.getCount());
 			System.out.println("TotalPage:"+ pagingDto.getTotalPage());
 			model.addAttribute("category",category);
+=======
+								, listService.getCount(pagingDto));
+		System.out.println("category:" + category);
+		List<ProductVo> list = listService.getProductList(pagingDto);
+		if (category == null || category.equals("")) { // 카테고리가 없는경우 : 전체조회
+			list = listService.getProductList(pagingDto);
+		} else {
+			list = listService.getListByCategory(category, pagingDto);
+			System.out.println("list:"+ list);
+>>>>>>> refs/remotes/origin/main
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);

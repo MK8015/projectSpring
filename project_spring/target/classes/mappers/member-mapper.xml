@@ -5,8 +5,16 @@
   
 <mapper namespace="mappers.member">
 	
-<insert id="registerRun">
- insert into t_member(member_id,password,member_name,phonenum,email,address,regdate)
- values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate)
-</insert>	
+	<insert id="registerRun">
+	 insert into t_member(member_id,password,member_name,phonenum,email,address,regdate)
+	 values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate)
+	</insert>
+	
+	<select id="idCheck" resultType="int">
+	select count(*) from t_member where member_id=#{member_id}
+	
+	</select>	
+	<select id="loginRun" resultType="MemberVo">
+		select * from t_member where member_id=#{member_id} and password=#{password}
+	</select>
 </mapper>

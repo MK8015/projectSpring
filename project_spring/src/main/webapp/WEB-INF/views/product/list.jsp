@@ -28,6 +28,7 @@ $(document).ready(function() {
 				<div class="hero__categories">
 					<div class="hero__categories__all">
 						<i class="fa fa-bars"></i>
+
 						<span><a href="/spring/list/list">All Categorys</a></span>
 					</div>
 					<ul>
@@ -72,10 +73,13 @@ $(document).ready(function() {
 					<div class="row">
 					
 					<c:forEach items="${list}" var="list">
+
+
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
 								<div class="product__item__pic">
 									<img class="product__item__pic"
+
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="">
 									<ul class="product__item__pic__hover">
@@ -93,21 +97,29 @@ $(document).ready(function() {
 					</c:forEach>
 					</div>
 				<!-- 페이지 번호 -->
+
 				<div class="product__pagination pagination justify-content-center">
 					<!-- 시작순서가 1이 아닌경우 -->
+
 					<c:if test="${pagingDto.startPage ne 1}">
 						<a class="pagelink" href="${pagingDto.startPage-1}">
 							<i class="fa fa-long-arrow-left"></i></a>
 					</c:if>
 					<c:forEach var="v" begin="${pagingDto.startPage}" 
 										end="${pagingDto.endPage}">
+<<<<<<< HEAD
 						<a class="pagelink" href="${v}">${v}</a>
+=======
+
+						<a class="page-link" href="${v}">${v}</a>
+>>>>>>> refs/remotes/origin/main
 					</c:forEach>
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
 						<a class="pagelink" href="${pagingDto.endPage+1}">
 							<i class="fa fa-long-arrow-right"></i></a>
 					</c:if>
 				</div>
+
 			</div>
 		</div>
 	</div>

@@ -5,7 +5,10 @@
 
 <mapper namespace="mappers.board">
 
-	
-	
+
+	<!-- 글목록 -->
+	<select id="listArticle" resultType="BoardVo">
+		select * from t_board
+	</select>
 	
 </mapper>

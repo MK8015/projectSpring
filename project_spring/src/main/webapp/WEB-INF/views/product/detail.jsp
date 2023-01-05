@@ -111,6 +111,8 @@ $(document).ready(function() {
 			for (var i = 0; i < jsonArray.length; i++) {
 				var tr = $("#review").find("tr").eq(0).clone();
 				var tds = tr.find("td");
+				console.log(jsonArray[i].member_pic);
+				tds.eq(0).find("img").attr("src","/spring/product/getImage?imageName="+jsonArray[i].member_pic);
 				tds.eq(0).find("span").text(jsonArray[i].member_id);
 				var review_rating = tds.eq(0).find(".review_rating");
 				review_rating.empty();

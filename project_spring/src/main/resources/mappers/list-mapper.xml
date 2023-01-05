@@ -25,6 +25,7 @@
 	<!-- 글 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) from t_product
+<<<<<<< HEAD
 		<include refid="searchCategory"></include>
 	</select>
 	
@@ -34,4 +35,7 @@
 		where product_category = #{product_category}
     </if>
     </sql>
+=======
+	</select>
+>>>>>>> refs/remotes/origin/main
 </mapper>
