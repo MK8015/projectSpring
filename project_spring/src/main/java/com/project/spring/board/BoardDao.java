@@ -17,9 +17,43 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 
+	// 글 목록
 	public List<BoardVo> listArticle() {
 		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle");
 		return list;
 	}
+	
+	// 글 번호 선택
+	public BoardVo selectByBno(int bno) {
+		BoardVo boardVo = sqlSession.selectOne(
+				NAME_SPACE + "selectByBno", bno);
+		return boardVo;
+	}
+	
+	// 글 수정
+	public boolean updateArticle(BoardVo boardVo) {
+		int count = sqlSession.update(NAME_SPACE + "updateArticle", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 글 삭제
+	public boolean deleteArticle(int bno) {
+		int count = sqlSession.delete(NAME_SPACE + "deleteArticle", bno);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 조회수 증가
+	public void updateViewcnt(int bno) {
+		sqlSession.update(NAME_SPACE + "updateViewcnt", bno);
+	}
+	
+	
+	
 	
 }

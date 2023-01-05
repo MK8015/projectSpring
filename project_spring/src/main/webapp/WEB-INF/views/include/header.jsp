@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+    
+    
     
 <!DOCTYPE html>
 <html lang="zxx">
@@ -14,6 +18,7 @@
 	
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 	
 	<!-- Css Styles -->
 	<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
@@ -24,7 +29,7 @@
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
-	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
+	<!-- css/style 나중에 style.css로 수정하기 + css에 불필요한 것들 날리기 -->
 	
 	<!-- Js Plugins -->
    <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
@@ -34,15 +39,20 @@
    <script src="/spring/resources/js/jquery.slicknav.js"></script>
    <script src="/spring/resources/js/mixitup.min.js"></script>
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
-
 <!--    <script src="/spring/resources/js/main.js"></script> -->
 
-	
-</head>
 
+<script>
+$(document).ready(function() {
+	
+}); //$(document).ready(function()
+</script>
+
+</head>
 <body>
 
-<!-- Humberger Begin 반응형 -->
+
+<!-- START : 반응형 부분 : 나중에 고칠게요 ㅠㅠ -->
 <div class="humberger__menu__overlay">
 </div>
 <div class="humberger__menu__wrapper">
@@ -101,9 +111,10 @@
 		</ul>
 	</div>
 </div>
-<!-- Humberger End -->
+<!-- END : START : 반응형 부분 : 나중에 고칠게요 ㅠㅠ -->
 
-<!-- Header Section Begin -->
+<!-- START : 헤더 -->
+<!-- START : 헤더의 첫 번째 줄 -->
 <header class="header">
 	<div class="header__top">
 		<div class="container">
@@ -112,22 +123,22 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="/spring/main/list">MAIN</a></li>
-							<li><a href="/spring/product/list">BOOK</a>
+							<li><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
-									<li><a href="/spring/product/list?category=humanity">인문</a></li>
-									<li><a href="/spring/product/list?category=economy">경제/경영</a></li>
-									<li><a href="/spring/product/list?category=sociology">정치/사회</a></li>
-									<li><a href="/spring/product/list?category=history">역사</a></li>
-									<li><a href="/spring/product/list?category=culture">문화/예술</a></li>
-									<li><a href="/spring/product/list?category=science">과학</a></li>
-									<li><a href="/spring/product/list?category=computer">컴퓨터/IT</a></li>
-									<li><a href="/spring/product/list?category=language">외국어</a></li>
-									<li><a href="/spring/product/list?category=religion">종교/역학</a></li>
-									<li><a href="/spring/product/list?category=self">자기계발</a></li>
+									<li><a href="/spring/list/list?category=humanity">인문</a></li>
+									<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
+									<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+									<li><a href="/spring/list/list?category=history">역사</a></li>
+									<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
+									<li><a href="/spring/list/list?category=science">과학</a></li>
+									<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+									<li><a href="/spring/list/list?category=language">외국어</a></li>
+									<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
+									<li><a href="/spring/list/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
 							<li><a href="#">EVENT</a></li>
-							<li><a href="/spring/board/qna">Q & A</a></li>
+							<li><a href="/spring/board/list">Q & A</a></li>
 							<li><a href="#">ABOUT</a></li>
 						</ul>
 					</nav>
@@ -148,29 +159,45 @@
 			</div>
 		</div>
 	</div>
-	
+<!-- END : 헤더의 첫 번째 줄 -->
+<!-- START : 헤더의 두 번째 줄 -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-
-
 					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
+			
+		<!-- 헤더 검색창 -->
 			<div class="col-lg-7 header__logo">
 				<div class="header__search__form">
-					<form>
-						<div>
-							<select name="searchType" class="header__search__categories">
-								<option value="t">상품명</option>
-								<option value="c">내용</option>
-								<option value="w">작성자</option>
-							</select>
-							<input type="text" placeholder="검색어를 입력하세요">
+					<form id= "frmSearch">
+						<div class="input-group">
+							<select class="header__search__categories" name="searchType">
+			            		<option value="t"
+			            			<c:if test="${pagingDto.searchType == 't'}">
+			            				selected
+			            			</c:if>	
+			            		>제목</option>
+			            		<option value="w"
+			            			<c:if test="${pagingDto.searchType == 'w'}">
+			            				selected
+			            			</c:if>	
+			            		>작가</option>
+			            		<option value="p"
+			            			<c:if test="${pagingDto.searchType == 'tc'}">
+			            				selected
+			            			</c:if>	
+			            		>출판사</option>
+			            	</select>
+			            	
+							<input type="text" placeholder="검색어를 입력하세요"
+								name="keyword" value="${pagingDto.keyword}">
 						</div>
-						<div class="input-group-append"> <button id="btnSearch" class="site-btn">검색</button>
+						<div class="input-group-append"> 
+						<button id="btnSearch" class="site-btn">검색</button>
 						</div>
 					</form>
 				</div>
@@ -189,4 +216,5 @@
 	</div>
 	</div>
 </header>
-<!-- Header Section End -->
+<!-- END : 헤더의 두 번째 줄 -->
+<!-- END : 헤더 끝 -->

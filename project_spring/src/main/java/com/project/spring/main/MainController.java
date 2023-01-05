@@ -25,7 +25,7 @@ public class MainController {
 	MainService mainService;
 	
 
-	// 이동
+	// 메인으로 이동(사실 필요 X, 우선 그냥 넣어둠)
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexRun(Model model) {
 
@@ -37,7 +37,7 @@ public class MainController {
 	}
 	
 
-	// 목록 보기
+	// 메인에서 목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getList(Model model) {
 		

@@ -16,7 +16,7 @@ public class MainDao {
 	@Autowired
 	SqlSession sqlSession;
 
-
+	// 메인에서 리스트 보기
 	public List<ProductVo> getList() {
 		List<ProductVo> list = sqlSession.selectList(NAME_SPACE + "list");
 		System.out.println("MainDao, list" + list);

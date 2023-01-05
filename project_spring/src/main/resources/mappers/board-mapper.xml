@@ -5,10 +5,39 @@
 
 <mapper namespace="mappers.board">
 
-
-	<!-- 글목록 -->
+	<!-- 글 목록 보기 -->
 	<select id="listArticle" resultType="BoardVo">
 		select * from t_board
 	</select>
+	
+	
+	<!-- 글 번호 선택 -->
+	<select id="selectByBno" resultType="BoardVo">
+		select * from t_board
+		where bno = #{bno}
+	</select>
+	
+	
+	<!-- 글 수정 -->
+	<update id="updateArticle">
+		update t_board set
+			title = #{title},
+			content = #{content},
+			regdate = sysdate
+		where bno = #{bno}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteArticle">
+		delete from t_board
+		where bno = #{bno}
+	</delete>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateViewcnt">
+		update t_board set
+			viewcnt = viewcnt + 1
+		where bno = #{bno}
+	</update>
 	
 </mapper>

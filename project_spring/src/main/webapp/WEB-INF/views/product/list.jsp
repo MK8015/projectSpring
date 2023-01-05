@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function() {
  	// 페이지 번호
-	$(document).on("click", ".page-link", function(e) {
+	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
 	   var page = $(this).attr("href");
 // 	   location.href = "/board/list?page=" + page + "&perPage=${pagingDto.perPage}";
@@ -101,16 +101,16 @@ $(document).ready(function() {
 					<!-- 시작순서가 1이 아닌경우 -->
 
 					<c:if test="${pagingDto.startPage ne 1}">
-						<a class="page-link" href="${pagingDto.startPage-1}">
+						<a class="pagelink" href="${pagingDto.startPage-1}">
 							<i class="fa fa-long-arrow-left"></i></a>
 					</c:if>
 					<c:forEach var="v" begin="${pagingDto.startPage}" 
 										end="${pagingDto.endPage}">
 
-						<a class="page-link" href="${v}">${v}</a>
+						<a class="pagelink" href="${v}">${v}</a>
 					</c:forEach>
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-						<a class="page-link" href="${pagingDto.endPage+1}">
+						<a class="pagelink" href="${pagingDto.endPage+1}">
 							<i class="fa fa-long-arrow-right"></i></a>
 					</c:if>
 				</div>
