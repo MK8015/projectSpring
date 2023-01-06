@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.spring.vo.BoardVo;
 import com.project.spring.vo.ProductVo;
@@ -37,5 +38,19 @@ public class BoardService {
 	}
 	
 	
+	// ±€ ¿€º∫
+	@Transactional
+	public boolean insertArticle(BoardVo boardVo) {
+		int nextVal = boardDao.getNextVal();
+		boardVo.setBno(nextVal);
+		return boardDao.insertArticle(boardVo);
+	}
+	
+
+	@Transactional
+	public boolean insertReply(BoardVo boardVo) {
+		boardDao.updateReSeq(boardVo);
+		return boardDao.insertReply(boardVo);
+	}
 	
 }

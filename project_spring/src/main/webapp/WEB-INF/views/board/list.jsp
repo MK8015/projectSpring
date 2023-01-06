@@ -45,18 +45,19 @@ $(document).ready(function() {
 <!-- START : qnA 게시판 Section -->
 <section class="contact spad">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-2">
+		<div class="row contact__list__title">
+			<div class="col-md-4">
 				<h3>상품문의</h3>
 			</div>
-			<div class="col-md-10">
-				<button type="button" class="site-btn">문의 작성하기</button>
+			<div class="col-md-8 text-right">
+				<a href="/spring/board/write" class="site-smbtn">문의 작성하기</a>
 			</div>
-			
+		</div>
+		<div class="row">
 			<div class="col-md-12">
 				<table class="table">
 					<thead>
-						<tr>
+						<tr height="50">
 							<th>번호</th>
 							<th>제목</th>
 							<th>날짜</th>
@@ -67,7 +68,7 @@ $(document).ready(function() {
 					<tbody>
 					
 					<c:forEach items="${list}" var="boardVo">
-						<tr>
+						<tr height="50">
 							<td>${boardVo.bno}</td>
 							<td>
 								<a class="a_title" data-bno="${boardVo.bno}" href="#">
@@ -82,6 +83,8 @@ $(document).ready(function() {
 					</tbody>
 				</table>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-12">
 				<div class="product__pagination blog__pagination">
 					<a href="#">1</a>

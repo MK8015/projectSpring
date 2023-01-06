@@ -6,13 +6,15 @@
 <script>
 $(document).ready(function() {
 
+	});
+	
 }); //$(document).ready(function()
 </script>
 
 <%@ include file="../include/boardPageParam.jsp" %>
 
 
-<!-- 수정 전 아직 안 했음 -->
+<!-- START : qna 이미지 Section -->
 <section>
 	<div class="container">
 		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
@@ -28,49 +30,41 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</section>
-<!-- Breadcrumb Section End -->
+<!-- END : qna 이미지 Section -->
 
-<!-- Contact Section Begin -->
-<section class="contact spad">
+<!-- START : qna 게시판 Section -->
+<section class="contact-form spad">
 	<div class="container">
-		<div class="row">
+		<div class="row contact__list__title">
 			<div class="col-md-12">
-				<h3>← 상품문의</h3> 
+				<h3>상품문의</h3>
 			</div>
 		</div>
-		<div class="col-md-12">
-		<form id="frmUpdate" role="form" action="/spring/board/modify" method="post">
-			<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
+		
+		
+		<form id="frmUpdate" role="form" action="/spring/board/write" method="post">
 			<table class="table">
 				<tr>
 					<td colspan="2">
-						<input type="text" class="form-control input" id="title" name="title" value="${boardVo.title}"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="text" class="form-control" id="writer" name="writer" value="${boardVo.writer}"/>
-					</td>
-					<td>
-						<input type="text" class="form-control" id="regdate" name="regdate" value="${boardVo.regdate}"/>
+						<input type="text" class="form-control input" id="title" name="title" 
+								placeholder="제목을 입력해 주세요"/>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-					<textarea class="form-control input" id="content" name="content" readonly>${boardVo.content}</textarea>
+					<textarea class="form-control input" id="content" name="content"></textarea>
 					</td>
 				</tr>
 				<tr>
-					<td><button type="submit" class="site-smbtn">수정</button>　　
-						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</button></td>
-					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　<button id="btnSearch" class="site-smbtn">글 작성</button></td>
+					<td><button type="submit" class="site-smbtn">작성</button>　　</td>
+					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　</td>
 				</tr>
 			</table>
 		</form>
-		</div>
+		
 	</div>
 </section>
-<!-- Contact Section End -->
+<!-- END : qna 게시판 Section -->
 
 
 <%@ include file="../include/footer.jsp" %>
