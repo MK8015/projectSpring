@@ -166,7 +166,7 @@ $(document).ready(function() {
 				<div class="col-lg-6 col-md-6">
 					<div class="header__top__right">
 						<div class="header__top__right__social">
-							<a href="/spring/member/register">회원가입</a>
+							<a href="/spring/member/registerForm">회원가입</a>
 						</div>
 						<div class="header__top__right__social">
 							<a href="/spring/member/login">로그인</a>
