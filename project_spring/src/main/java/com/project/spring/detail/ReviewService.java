@@ -13,7 +13,7 @@ public class ReviewService {
 	@Autowired
 	ReviewDao reviewDao;
 	
-	public List<ReviewVo> getList(String product_id,PagingDto pagingDto) {
+	public List<ReviewVo> getList(String product_id,ReviewPagingDto pagingDto) {
 		return reviewDao.getList(product_id,pagingDto);
 	}
 	

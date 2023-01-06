@@ -38,7 +38,7 @@
 	
 	<!-- 카테고리 옵션 -->
 	<sql id="searchCategory">
-	<if test="product_category neq null">
+	<if test='product_category neq null and product_category neq ""'>
 		where product_category = #{product_category}
     </if>
     </sql>

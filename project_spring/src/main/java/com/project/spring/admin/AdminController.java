@@ -13,6 +13,7 @@ import com.project.spring.main.MainService;
 import com.project.spring.vo.ProductVo;
 
 @Controller
+@RequestMapping("/admin/*")
 public class AdminController {
 	
 
@@ -20,13 +21,20 @@ public class AdminController {
 	MainService mainService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String home(Model model) {
-
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, list" + list);
-		model.addAttribute("list", list);
-		
-		return "board/admin";
+	public String index(Model model) {
+		return "admin/index";
 	}
 	
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	public String order(Model model) {
+		return "admin/order";
+	}
+	@RequestMapping(value = "/member", method = RequestMethod.GET)
+	public String member(Model model) {
+		return "admin/member";
+	}
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
+	public String product(Model model) {
+		return "admin/product";
+	}
 }

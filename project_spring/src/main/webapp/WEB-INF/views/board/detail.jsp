@@ -62,7 +62,7 @@ $(document).ready(function() {
 				</tr>
 				<tr>
 					<td><button type="submit" class="site-smbtn">수정</button>　　
-						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</button></td>
+						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</a></td>
 					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　<button id="btnSearch" class="site-smbtn">글 작성</button></td>
 				</tr>
 			</table>

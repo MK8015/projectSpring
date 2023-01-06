@@ -17,24 +17,27 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
-	// ¸ñ·Ï Á¶È¸
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
+		System.out.println(category);
+		
+		List<ProductVo> list = null;
 		pagingDto.setPagingInfo(pagingDto.getPage()
-								, pagingDto.getPerPage()
-								, listService.getCount(category, pagingDto));
-		List<ProductVo> list = listService.getProductList(pagingDto);
-		// Ä«Å×°í¸®°¡ ¾ø´Â°æ¿ì : ÀüÃ¼Á¶È¸ (getProductList)
+				, pagingDto.getPerPage()
+				, listService.getCount(category, pagingDto));
+		// Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ : ï¿½ï¿½Ã¼ï¿½ï¿½È¸ (getProductList)
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
 		} 
-		// Ä«Å×°í¸®°¡ ÀÖ´Â°æ¿ì : °¢ Ä«Å×°í¸®º°,°Ë»öº° ¸ñ·ÏÁ¶È¸ (getListByCategory)
+		// Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ : ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½,ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¸ (getListByCategory)
 		else {
 			list = listService.getListByCategory(category, pagingDto);
 			model.addAttribute("category",category);
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);
+		System.out.println(pagingDto);
 		return "product/list";
 	}
 	

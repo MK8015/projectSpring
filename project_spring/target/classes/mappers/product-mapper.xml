@@ -10,5 +10,39 @@
 		where product_id = #{product_id}
 	</select>
 	
+	<select id="getList">
+		select * from t_product
+	</select>
 	
+	<insert id="insert">
+		insert into t_product(
+			product_id,product_name,product_image,
+			price,product_quantity,product_category,
+			product_description,product_author,
+			product_publisher
+		)
+		values(
+			#{product_id},#{product_name},#{product_image},
+			#{price},#{product_quantity},#{product_category},
+			#{product_description},#{product_author},#{product_publisher}
+		)
+	</insert>
+	
+	<update id="update">
+		update t_product set
+			product_name = #{product_name},
+			product_image = #{product_image},
+			price = #{price},
+			product_quantity = #{product_quantity},
+			product_category = #{product_category},
+			product_description = #{product_description},
+			product_author = #{product_author},
+			product_publisher = #{product_publisher}
+		where product_id = #{product_id}
+	</update>
+	
+	<delete id="delete">
+		delete from t_product
+		where product_id = #{product_id}
+	</delete>
 </mapper>
