@@ -36,7 +36,6 @@
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
 
 <!--    <script src="/spring/resources/js/main.js"></script> -->
-
 	
 </head>
 

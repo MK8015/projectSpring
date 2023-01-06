@@ -2,22 +2,26 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
+
 <script>
 $(document).ready(function() {
+	
  	// 페이지 번호
-	$(document).on("click", ".page-link", function(e) {
+	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
 	   var page = $(this).attr("href");
-// 	   location.href = "/board/list?page=" + page + "&perPage=${pagingDto.perPage}";
 	   $("#frmPaging").find("input[name=page]").val(page);
 	   $("#frmPaging").attr("action", "/spring/list/list").submit();
 	});
+ 	
+ 	// 장바구니 클릭
+ 	$(".fa-shopping-cart").click(function(e) {
+ 		e.preventDefault();
+//  		console.log("장바구니 클릭");
+		
+ 	});
 });
-	
-	
 </script>
-
-<%@ include file="../include/pageParam.jsp" %>
 
 <!-- Product Section Begin -->
 <section class="product spad">
@@ -28,7 +32,7 @@ $(document).ready(function() {
 					<div class="hero__categories__all">
 						<i class="fa fa-bars"></i>
 
-						<span><a href="/spring/list/list">All Categorys</a></span>
+						<span><a href="/spring/list/list">All Categories</a></span>
 					</div>
 					<ul>
 						<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -49,6 +53,7 @@ $(document).ready(function() {
 					<div class="row">
 						<div class="col-lg-4 col-md-5">
 							<div class="filter__sort">
+<!-- 분류부분 .. 건드리지않음 / 혹시 나중에 사용할까봐 / 상용안한다면 삭제 -->
 								<span>Sort By</span>
 									<select>
 										<option value="0">Default</option>
@@ -57,8 +62,9 @@ $(document).ready(function() {
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-4">
+<!-- 검색된 도서의 갯수 표시 -->
 								<div class="filter__found">
-									<h6><span>16</span> Products found</h6>
+									<h6>검색결과 ( 총 <span>${pagingDto.count}</span> 건)</h6>
 								</div>
 							</div>
 							<div class="col-lg-4 col-md-3">
@@ -70,47 +76,46 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="row">
-					
+<!-- 도서(상품)list -->
 					<c:forEach items="${list}" var="list">
-
-
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
 								<div class="product__item__pic">
 									<img class="product__item__pic"
-
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
+
 									<ul class="product__item__pic__hover">
 										<li><a href="#"><i class="fa fa-heart"></i></a></li>
-										<li><a href="#"><i class="fa fa-retweet"></i></a></li>
 										<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
 									</ul>
 								</div>
 								<div class="product__item__text">
-									<h6><a href="#">${list.product_name}</a></h6>
+									<h6><a href="/spring/product/detail?product_id=${list.product_id}">
+									${list.product_name}</a></h6>
+<!-- 폰트사이즈 줄여야합니다...지은지,출판사 -->
+									<p>${list.product_author}|${list.product_publisher}</p>
 									<h5>￦${list.price}</h5>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
 					</div>
-				<!-- 페이지 번호 -->
-
+<!-- 페이지 번호 -->
 				<div class="product__pagination pagination justify-content-center">
-					<!-- 시작순서가 1이 아닌경우 -->
-
+<!-- 시작순서가 1이 아닌경우 "<-" -->
 					<c:if test="${pagingDto.startPage ne 1}">
-						<a class="page-link" href="${pagingDto.startPage-1}">
+						<a class="pagelink" href="${pagingDto.startPage-1}">
 							<i class="fa fa-long-arrow-left"></i></a>
 					</c:if>
 					<c:forEach var="v" begin="${pagingDto.startPage}" 
 										end="${pagingDto.endPage}">
 
-						<a class="page-link" href="${v}">${v}</a>
+						<a class="pagelink" href="${v}">${v}</a>
 					</c:forEach>
+<!-- 페이지 마지막일때 "->" -->
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-						<a class="page-link" href="${pagingDto.endPage+1}">
+						<a class="pagelink" href="${pagingDto.endPage+1}">
 							<i class="fa fa-long-arrow-right"></i></a>
 					</c:if>
 				</div>

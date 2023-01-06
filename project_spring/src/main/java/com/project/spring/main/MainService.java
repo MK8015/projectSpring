@@ -13,7 +13,7 @@ public class MainService {
 	@Autowired
 	MainDao mainDao;
 	
-
+	// 메인에서 리스트 보기
 	public List<ProductVo> getList() {
 		return mainDao.getList();
 	}

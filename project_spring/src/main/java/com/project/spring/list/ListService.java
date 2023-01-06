@@ -13,14 +13,17 @@ public class ListService {
 	@Autowired
 	ListDao listDao;
 	
+	// 전체 도서 조회 (페이지별)
 	public List<ProductVo> getProductList(PagingDto pagingDto) {
 		return listDao.getProductList(pagingDto);
 	}
 	
-	public int getCount(PagingDto pagingDto) {
-		return listDao.getCount(pagingDto);
+	// 카테고리별, 검색별 카운트 얻어오기
+	public int getCount(String category, PagingDto pagingDto) {
+		return listDao.getCount(category, pagingDto);
 	}
 	
+	// 카테고리별 도서 조회 (페이지별)
 	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto){
 		return listDao.getListByCategory(category, pagingDto);
 	}
