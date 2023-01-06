@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 
@@ -38,15 +38,22 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>														
 <script>
 $(document).ready(function(){
-	var loginresult="${login_result}"
-	console.log("loginresult:",loginresult);
-	if(loginresult=="true"){
+	var registerresult="${register_result}"
+	if(registerresult=="true"){
 		alert("회원가입에 성공하였습니다");
-	}else if(loginresult=="false"){
-		alert("다른 아이디를 사용해주세요");
-	}
+	};
 	
+	var isLogin="${isLogin}"
+	console.log("isLogin:",isLogin)
+	if(isLogin=="fail"){
+		alert("로그인에 실패하였습니다");
+	};
+	
+	
+	$("#customCheck").change(function(){
+	});
 });
+
 </script>
 
 
@@ -79,7 +86,7 @@ $(document).ready(function(){
                                         <div class="form-group" >
                                             <input type="text" class="form-control form-control-user"
                                                 id="member_id" name="member_id" aria-describedby="emailHelp"
-                                                placeholder="아이디를 입력해주세요">
+                                                placeholder="아이디를 입력해주세요" value="${cookie.member_id.value}">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -87,27 +94,29 @@ $(document).ready(function(){
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">아이디 기억</label>
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" name="saveId"
+                                                 <c:if test="${not empty cookie.member_id}">
+                                                 	checked
+                                                 </c:if>
+                                                 >
+                                                <label class="custom-control-label" for="customCheck" >아이디 기억</label>
                                             </div>
                                         </div>
                                         <button
                                          type="submit" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
                                             로그인
                                         </button>
-
-
                                     </form>
                                     <hr>
 
-
-                                    
-<div class="header__menu" align="center">
-                            <ul>
-                                <li><a href="forgot-password.html">비밀번호 찾기</a></li>
-                                <li><a href="/spring/member/registerForm">회원 가입</a></li>
-                            </ul>
-                        </div>
+		
+		                                    
+								<div class="header__menu" align="center">
+		                            <ul>
+		                                <li><a href="/spring/member/forgot-passwordForm">비밀번호 찾기</a></li>
+		                                <li><a href="/spring/member/registerForm">회원 가입</a></li>
+		                            </ul>
+		                        </div>
 
                                 </div>
                             </div>

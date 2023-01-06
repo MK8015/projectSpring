@@ -36,12 +36,22 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>		
+<script>
+$(document).ready(function(){
+	var isEmpty="${isEmpty}";
+	console.log("isEmpty:",isEmpty);
+	if(isEmpty=="true"){
+		alert("아이디와 이메일을 적어주세요");
+	}
+	var isExist="${isExist}"
+	console.log("isExist:",isExist);
+	if(isExist=="false"){
+		alert("아이디나 이메일이 존재하지 않습니다 다시 확인해주세요")
+	}
+	
+});
 
-
-
-
-
-
+</script>
 
 
 
@@ -63,27 +73,31 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                                                                 <br><h3>비밀번호 찾기</h3><br>
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
+                                        <p class="mb-4">가입하신 아이디와 이메일주소를 입력해주시면 임시 비밀번호를 발송해 드립니다</p>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="/spring/member/forgot-password" method="post">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="member_id" name="member_id" 
+                                                placeholder="아이디를 입력해주세요">
                                         </div>
-                                        <a href="index.html" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
-                                            Reset Password
-                                        </a>
+                                         <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="to" name="to" 
+                                                placeholder="임시 비밀번호를 받으실 이메일을 입력해주세요">
+                                        </div>
+                                        <button type="submit" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
+                                            이메일로 임시 비밀번호 발송
+                                        </button>
                                     </form>
                                     <hr>
 
-<div class="header__menu" align="center">
-                            <ul>
-                                <li><a href="register.html">회원 가입</a></li>
-                                <li><a href="login.html">로그인</a></li>
-                            </ul>
-                        </div>
+									<div class="header__menu" align="center">
+	                            <ul>
+	                                <li><a href="/spring/member/registerForm">회원 가입</a></li>
+	                                <li><a href="/spring/member/login">로그인</a></li>
+	                            </ul>
+	                        		</div>
                                 </div>
                             </div>
                         </div>

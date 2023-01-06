@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
 
@@ -36,13 +37,32 @@ public class MemberDao {
 	
 	public MemberVo loginRun(String memeber_id,String password) {
 		Map<String, String>map=new HashMap<>();
-		System.out.println("dao member_id:"+memeber_id);
-		System.out.println("dao password:"+password);
 		map.put("member_id", memeber_id);
 		map.put("password", password);
-		System.out.println("map:"+map);
 		MemberVo memberVo= sqlSession.selectOne(NAMESPACE+"loginRun",map);
-		System.out.println("dao memberVo"+memberVo);
 		return memberVo;
 	}
+	
+	public boolean isExist(String member_id,String email) {
+		Map<String,String>map=new HashMap<>();
+		map.put("member_id",member_id);
+		map.put("email", email);
+		int count=sqlSession.selectOne(NAMESPACE+"isExist",map);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updatePassword(String email,String newPassword) {
+		Map<String, String>map=new HashMap<>();
+		map.put("email", email);
+		map.put("password", newPassword);
+		int count= sqlSession.update(NAMESPACE+"updatePassword",map);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
 }
