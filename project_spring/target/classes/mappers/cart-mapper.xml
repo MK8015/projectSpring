@@ -10,4 +10,12 @@
 		select * from t_cart
 	</select>
 	
+	<!-- 카트에 상품 등록 -->
+	<insert id="insertProductInCart">
+		insert into t_cart
+			(cart_no, member_id, product_id, cart_amount)
+		values
+			(seq_cart_no.nextval, #{member_id}, #{product_id}, '1')
+	</insert>
+	
 </mapper>

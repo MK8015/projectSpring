@@ -24,6 +24,7 @@ public class ListController {
 								, pagingDto.getPerPage()
 								, listService.getCount(category, pagingDto));
 		List<ProductVo> list = listService.getProductList(pagingDto);
+		System.out.println("list페이지pagingDto:"+pagingDto);
 		// 카테고리가 없는경우 : 전체조회 (getProductList)
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
