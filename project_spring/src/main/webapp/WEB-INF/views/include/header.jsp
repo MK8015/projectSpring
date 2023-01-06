@@ -29,7 +29,10 @@
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
-	<!-- css/style 나중에 style.css로 수정하기 + css에 불필요한 것들 날리기 -->
+
+	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
+	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
+
 	
 	<!-- Js Plugins -->
    <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
@@ -41,18 +44,35 @@
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
 <!--    <script src="/spring/resources/js/main.js"></script> -->
 
-
 <script>
 $(document).ready(function() {
-	
-}); //$(document).ready(function()
+	// 검색 버튼
+	   $("#btnSearch").click(function(e) {
+		  e.preventDefault();
+		  console.log("검색버튼")
+		  var searchType = $("#frmSearch").find("[name=searchType]").val(); 
+		  var keyword = $("#frmSearch").find("[name=keyword]").val();
+// 		  if (keyword == null || keyword.trim() == "") {
+// 			  alert("검색어를 입력해주세요")
+// 			  return;
+// 		  } 
+		  $("#frmPaging").find("[name=searchType]").val(searchType);
+		  $("#frmPaging").find("[name=keyword]").val(keyword);
+		  $("#frmPaging").find("[name=page]").val("1");
+		  $("#frmPaging").find("[name=perPage]").val("8");
+		  $("#frmPaging").attr("action", "/spring/list/list");
+		  $("#frmPaging").submit();
+		  
+	   });
+});
 </script>
-
 </head>
 <body>
 
+<%@ include file="../include/pageParam.jsp" %>
 
-<!-- START : 반응형 부분 : 나중에 고칠게요 ㅠㅠ -->
+<!-- Humberger Begin 반응형 -->
+
 <div class="humberger__menu__overlay">
 </div>
 <div class="humberger__menu__wrapper">
