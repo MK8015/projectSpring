@@ -6,15 +6,24 @@
 <mapper namespace="mappers.member">
 	
 	<insert id="registerRun">
-	 insert into t_member(member_id,password,member_name,phonenum,email,address,regdate)
-	 values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate)
+	 insert into t_member(member_id,password,member_name,phonenum,email,address,regdate,member_pic)
+	 values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate,#{member_pic})
 	</insert>
 	
 	<select id="idCheck" resultType="int">
 	select count(*) from t_member where member_id=#{member_id}
-	
 	</select>	
+	
 	<select id="loginRun" resultType="MemberVo">
 		select * from t_member where member_id=#{member_id} and password=#{password}
 	</select>
+	
+	<select id="isExist" resultType="int">
+		select count(*) from t_member where member_id=#{member_id} and email=#{email}
+	</select>
+	
+	<update id="updatePassword">
+	  update t_member set password=#{password} where email=#{email}
+	</update>
+	
 </mapper>

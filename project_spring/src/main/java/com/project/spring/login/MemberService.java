@@ -3,6 +3,7 @@ package com.project.spring.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
 @Service
@@ -13,15 +14,24 @@ public class MemberService {
 	
 	public boolean registerRun(MemberVo memberVo) {
 	 	return memberDao.registerRun(memberVo);
-		
 	}
+	
 	public boolean idCheck(String member_id) {
 		return memberDao.idCheck(member_id);
 	}
+	
 	public MemberVo loginRun(String memeber_id,String password) {
-		System.out.println("service member_id"+memeber_id);
-		System.out.println("service password"+password);
-		MemberVo memberVo= memberDao.loginRun(memeber_id,memeber_id);
+		MemberVo memberVo= memberDao.loginRun(memeber_id,password);
 		return memberVo;
+	}
+	
+	public boolean isExist(String member_id, String email) {
+		boolean result=memberDao.isExist(member_id,email);
+		return result;
+	}
+	
+	public boolean updatePassword(String email,String newPassword) {
+		boolean result= memberDao.updatePassword(email, newPassword);
+		return result;
 	}
 }
