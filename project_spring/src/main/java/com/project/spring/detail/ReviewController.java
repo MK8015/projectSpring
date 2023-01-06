@@ -63,7 +63,6 @@ public class ReviewController {
 		JSONArray jsonArray = new JSONArray();
 		for(ReviewVo vo:reviewList) {
 			JSONObject jsonObject = new JSONObject(vo);
-			System.out.println(jsonObject);
 			jsonArray.put(jsonObject);
 		}
 		return jsonArray.toString();

@@ -131,10 +131,10 @@ $(document).ready(function() {
 		if (isNaN(review_rating)) {
 			review_rating = 0;
 		}
-		var member_id = "17";
+		var member_id = "${loginMember}";
 		var sData = {
 			"member_id" : member_id,
-			"product_id" : product_id,
+			"product_id" : "${productVo.product_id}",
 			"review_rating" : review_rating,
 			"review_content" : review_content
 		};
@@ -166,7 +166,6 @@ $(document).ready(function() {
 	function setRating(product_id){
 		$.get("/spring/review/setRating",{"product_id":product_id},function(rData){
 			var jsonObject = JSON.parse(rData);
-			console.log(jsonObject.ratingAvg);
 			$("#reviewCount").text("(리뷰 "+jsonObject.reviewCount+"개)");
 			$(".productRating").css("width", (jsonObject.ratingAvg/5)*100 + "%");
 		});

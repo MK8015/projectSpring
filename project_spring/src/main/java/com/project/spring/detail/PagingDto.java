@@ -13,6 +13,8 @@ public class PagingDto {
 	private int count;
 	private int perPage = 5;
 	private final int BLOCK_COUNT = 10;
+	private String searchType;
+	private String keyword;
 
 	public void setPagingInfo(int page, int perPage, int count) {
 		if(page > 0) {
