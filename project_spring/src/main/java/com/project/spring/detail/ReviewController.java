@@ -57,9 +57,9 @@ public class ReviewController {
 	@RequestMapping(value = "/reviewPaging", method = RequestMethod.GET, produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public String reviewPaging(String product_id,PagingDto pagingDto,int page) {
-		int reviewCount = reviewService.getCount("p_001");
+		int reviewCount = reviewService.getCount(product_id);
 		pagingDto.setPagingInfo(page, pagingDto.getPerPage(), reviewCount);
-		List<ReviewVo> reviewList = reviewService.getList("p_001",pagingDto);
+		List<ReviewVo> reviewList = reviewService.getList(product_id,pagingDto);
 		JSONArray jsonArray = new JSONArray();
 		for(ReviewVo vo:reviewList) {
 			JSONObject jsonObject = new JSONObject(vo);
@@ -72,8 +72,35 @@ public class ReviewController {
 	@RequestMapping(value = "/insertReview", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertReview(ReviewVo reviewVo) {
-		System.out.println(reviewVo);
 		boolean result = reviewService.insertReview(reviewVo);
 		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateReview(ReviewVo reviewVo) {
+		boolean result = reviewService.updateReview(reviewVo);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/deleteReview", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteReview(String review_no) {
+		boolean result = reviewService.deleteReview(review_no);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/setRating", method = RequestMethod.GET)
+	@ResponseBody
+	public String setRating(String product_id) {
+		
+		JSONObject jsonObject = new JSONObject();
+		int reviewCount = reviewService.getCount(product_id);
+		if(reviewCount>0) {
+			double ratingAvg = reviewService.ratingAvg(product_id);		
+			jsonObject.put("ratingAvg", ratingAvg);
+		}
+		jsonObject.put("reviewCount", reviewCount);
+		return jsonObject.toString();
 	}
 }

@@ -16,6 +16,18 @@
 		and b.member_id = c.member_id
 	</select>
 	
+	<update id="updateReview">
+		update t_review set
+			review_content=#{review_content},
+			review_date=sysdate
+		where review_no = #{review_no}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from t_review
+		where review_no = #{review_no} 
+	</delete>
+	
 	<select id="getCount" resultType="int">
 		select count(*) from t_review
 		where product_id = #{product_id}

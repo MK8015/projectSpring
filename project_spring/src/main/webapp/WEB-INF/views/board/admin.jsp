@@ -1,9 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<!DOCTYPE html>
+<html lang="zxx">
 
-<%@ include file="../include/header.jsp" %>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Ogani Template">
+	<meta name="keywords" content="Ogani, unica, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>NONFICTION</title>
+	
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+	
+	<!-- Css Styles -->
+	<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/nice-select.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
+	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
+	
+	<!-- Js Plugins -->
+   <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
+   <script src="/spring/resources/js/bootstrap.min.js"></script>
+   <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
+   <script src="/spring/resources/js/jquery-ui.min.js"></script>
+   <script src="/spring/resources/js/jquery.slicknav.js"></script>
+   <script src="/spring/resources/js/mixitup.min.js"></script>
+   <script src="/spring/resources/js/owl.carousel.min.js"></script>
 
+<!--    <script src="/spring/resources/js/main.js"></script> -->
+	
+</head>
 
+<body>
 <!-- Blog Details Section Begin -->
 <section class="blog-details spad">
 	<div class="container">
@@ -11,13 +47,12 @@
 			<div class="col-lg-2 col-md-5 order-md-1 order-2">
 				<div class="blog__sidebar">
 					<div class="blog__sidebar__item">
-						<h4>Categories</h4>
+						<h4>메뉴</h4>
 						<ul>
-							<li><a href="#">All</a></li>
-							<li><a href="#">Beauty (20)</a></li>
-							<li><a href="#">Food (5)</a></li>
-							<li><a href="#">Life Style (9)</a></li>
-							<li><a href="#">Travel (10)</a></li>
+							<li><a href="#">상품 관리</a></li>
+							<li><a href="#">주문 관리</a></li>
+							<li><a href="#">회원 관리</a></li>
+							<li><a href="#">통계</a></li>
 						</ul>
 					</div>
 				</div>
@@ -26,10 +61,6 @@
 				
 				
 				
-				
-				
-
-<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -144,7 +175,7 @@
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -169,48 +200,6 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -392,10 +381,6 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -417,18 +402,6 @@
         </div>
     </div>
 				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			</div>
 		</div>
 	</div>
@@ -436,4 +409,17 @@
 <!-- Blog Details Section End -->
 
 
-<%@ include file="../include/footer.jsp" %>
+ <!-- Js Plugins -->
+   <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
+   <script src="/spring/resources/js/bootstrap.min.js"></script>
+   <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
+   <script src="/spring/resources/js/jquery-ui.min.js"></script>
+   <script src="/spring/resources/js/jquery.slicknav.js"></script>
+   <script src="/spring/resources/js/mixitup.min.js"></script>
+   <script src="/spring/resources/js/owl.carousel.min.js"></script>
+   <script src="/spring/resources/js/main.js"></script> 
+
+
+</body>
+
+</html>

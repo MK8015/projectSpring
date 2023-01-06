@@ -38,4 +38,10 @@ public class ReviewDao {
 	public int insertReview(ReviewVo reviewVo) {
 		return sqlSession.insert(NAME_SPACE+"insertReview",reviewVo);
 	}
+	public int updateReview(ReviewVo reviewVo) {
+		return sqlSession.update(NAME_SPACE+"updateReview",reviewVo);
+	}
+	public int deleteReview(String review_no) {
+		return sqlSession.delete(NAME_SPACE+"deleteReview",review_no);
+	}
 }
