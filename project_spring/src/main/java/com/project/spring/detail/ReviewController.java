@@ -72,8 +72,21 @@ public class ReviewController {
 	@RequestMapping(value = "/insertReview", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertReview(ReviewVo reviewVo) {
-		System.out.println(reviewVo);
 		boolean result = reviewService.insertReview(reviewVo);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/updateReview", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateReview(ReviewVo reviewVo) {
+		boolean result = reviewService.updateReview(reviewVo);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/deleteReview", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteReview(String review_no) {
+		boolean result = reviewService.deleteReview(review_no);
 		return String.valueOf(result);
 	}
 	

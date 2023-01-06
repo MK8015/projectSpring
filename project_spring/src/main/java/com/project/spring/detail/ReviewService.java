@@ -32,4 +32,18 @@ public class ReviewService {
 		}
 		return false;
 	}
+	public boolean updateReview(ReviewVo reviewVo) {
+		int count =  reviewDao.updateReview(reviewVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean deleteReview(String review_no) {
+		int count =  reviewDao.deleteReview(review_no);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
 }

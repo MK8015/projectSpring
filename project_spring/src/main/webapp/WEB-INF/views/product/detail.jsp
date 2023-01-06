@@ -56,44 +56,82 @@ $(document).ready(function() {
 	getReview(1);
 	setRating("${productVo.product_id}");
 	
+	$(document).on("click", ".btnUpdateReview", function(e) {
+		e.preventDefault();
+		var td = $(".reviewForm").find("td").eq(1).clone();
+		var review_no = $(this).attr("data-review_no");
+		td.attr("colspan",2);
+		$(this).parent().parent().after("<tr id='reviewUpdateForm'></tr>");
+		$("#reviewUpdateForm").append(td);
+		$("#reviewUpdateForm").append("<td><a href='#' class='primary-btn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
+	});
 	
-	//리뷰 별점
-	$('#stars li').on('mouseover',function() {
-		var onStar = parseInt($(this).data('value'), 10);
-		$(this).parent().children('li.star').each(function(e) {
-			if (e < onStar) {
-				$(this).addClass('hover');
-			} else {
-				$(this).removeClass('hover');
+	$(document).on("click", ".btnUpdateRun", function(e) {
+		e.preventDefault();
+		var review_no = $(this).attr("data-review_no");
+		var review_content = $(this).parent().prev().find("div").text();
+		var reviewForm = $(this).parent().parent();
+		var sData = {
+				"review_no":review_no,
+				"review_content":review_content
+		};
+		$.post("/spring/review/updateReview",sData, function(rData) {
+			if(rData=="true"){
+				getReview(1);
+				setRating("${productVo.product_id}");
+				reviewForm.remove();
 			}
 		});
-	}).on('mouseout',function() {
-		$(this).parent().children('li.star').each(function(e) {
-			$(this).removeClass('hover');
+	});
+	
+	$(document).on("click", ".btnDeleteReview", function(e) {
+		e.preventDefault();
+		var review_no = $(this).attr("data-review_no");
+		$.post("/spring/review/deleteReview",{"review_no":review_no}, function(rData) {
+			if(rData=="true"){
+				getReview(1);
+				setRating("${productVo.product_id}");				
+			}
 		});
 	});
-	$('#stars li').on('click', function() {
-		var onStar = parseInt($(this).data('value'), 10);
-		var stars = $(this).parent().children('li.star');
+	
+	
+	//리뷰 별점
+	$("#stars li").on("mouseover",function() {
+		var onStar = parseInt($(this).data("value"), 10);
+		$(this).parent().children("li.star").each(function(e) {
+			if (e < onStar) {
+				$(this).addClass("hover");
+			} else {
+				$(this).removeClass("hover");
+			}
+		});
+	}).on("mouseout",function() {
+		$(this).parent().children("li.star").each(function(e) {
+			$(this).removeClass("hover");
+		});
+	});
+	$("#stars li").on("click", function() {
+		var onStar = parseInt($(this).data("value"), 10);
+		var stars = $(this).parent().children("li.star");
 		for (i = 0; i < stars.length; i++) {
-			$(stars[i]).removeClass('selected');
+			$(stars[i]).removeClass("selected");
 		}
 		for (i = 0; i < onStar; i++) {
-			$(stars[i]).addClass('selected');
+			$(stars[i]).addClass("selected");
 		}
 	});
 	//리뷰별점 끝
 
 	//리뷰 입력	
-	$("#btnInsertReview").click(function(e) {
+	$(".btnInsertReview").click(function(e) {
 		e.preventDefault();
 		var review_content = $("#review_content").text();
 		var review_rating = parseInt($('#stars li.selected').last().data('value'), 10);
 		if (isNaN(review_rating)) {
 			review_rating = 0;
 		}
-		var product_id = "${productVo.product_id}";
-		var member_id = "";
+		var member_id = "17";
 		var sData = {
 			"member_id" : member_id,
 			"product_id" : product_id,
@@ -103,7 +141,7 @@ $(document).ready(function() {
 		$.post("/spring/review/insertReview",sData, function(rData) {
 			if(rData=="true"){
 				getReview(1);
-				setRating(product_id);				
+				setRating("${productVo.product_id}");				
 			}
 		});
 	});
@@ -158,6 +196,7 @@ $(document).ready(function() {
 					review_rating.append("<i class='fa fa-star-o' style='color: orange'></i>");
 				}
 				tds.eq(1).text(jsonArray[i].review_content);
+				tds.eq(2).find("a").attr("data-review_no",jsonArray[i].review_no);
 				tr.show();
 				$("#review").append(tr);
 			}
@@ -247,7 +286,7 @@ $(document).ready(function() {
 													<th>리뷰</th>
 													<th></th>
 												</tr>
-												<tr>
+												<tr class="reviewForm">
 													<td style="width: 25%"><img
 														src="/spring/resources/img/defaultprofile.png"
 														width="50px" class="rounded-circle" /><br> 로그인한 아이디<br>
@@ -266,11 +305,12 @@ $(document).ready(function() {
 															</ul>
 														</div> 
 														<br></td>
-													<td style="width: 75%">
+													<td style="width: 60%">
 														<div contenteditable="true" id="review_content"
 															style="resize: none; height: 100px; width: 90%; border: 1px solid #d3d3d3; padding: 10px; outline: none;"></div>
-														<a href="#" class="primary-btn" id="btnInsertReview">등록</a>
+														
 													</td>
+													<td style="width: 15%"><a href="#" class="primary-btn btnInsertReview">등록</a></td>
 												</tr>
 
 											</thead>
@@ -283,7 +323,11 @@ $(document).ready(function() {
 															style="color: orange"></i> <i class="fa fa-star-o"
 															style="color: orange"></i></span> 
 														<span class="review_rating"> </span></td>
-													<td style="width: 75%"></td>
+													<td style="width: 60%">
+
+													</td><td style="width: 15%">
+													<a href="#" class="primary-btn btnUpdateReview" style="margin-bottom: 10px">수정</a>
+													<a href="#" class="primary-btn btnDeleteReview">삭제</a></td>
 												</tr>
 											</tbody>
 										</table>
