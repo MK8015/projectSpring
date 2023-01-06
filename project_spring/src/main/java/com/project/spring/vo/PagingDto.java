@@ -12,6 +12,8 @@ public class PagingDto {
 	private int totalPage;
 	private int perPage=8;
 	private int count; 
+	private String searchType;
+	private String keyword;
 	
 	private final int BLOCK_COUNT = 3;
 	

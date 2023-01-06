@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
+	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
 	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
 	
 	<!-- Js Plugins -->
@@ -36,11 +37,32 @@
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
 
 <!--    <script src="/spring/resources/js/main.js"></script> -->
-
-	
+<script>
+$(document).ready(function() {
+	// 검색 버튼
+	   $("#btnSearch").click(function(e) {
+		  e.preventDefault();
+		  console.log("검색버튼")
+		  var searchType = $("#frmSearch").find("[name=searchType]").val(); 
+		  var keyword = $("#frmSearch").find("[name=keyword]").val();
+// 		  if (keyword == null || keyword.trim() == "") {
+// 			  alert("검색어를 입력해주세요")
+// 			  return;
+// 		  } 
+		  $("#frmPaging").find("[name=searchType]").val(searchType);
+		  $("#frmPaging").find("[name=keyword]").val(keyword);
+		  $("#frmPaging").find("[name=page]").val("1");
+		  $("#frmPaging").find("[name=perPage]").val("8");
+		  $("#frmPaging").attr("action", "/spring/list/list");
+		  $("#frmPaging").submit();
+		  
+	   });
+});
+</script>
 </head>
-
 <body>
+
+<%@ include file="../include/pageParam.jsp" %>
 
 <!-- Humberger Begin 반응형 -->
 <div class="humberger__menu__overlay">
@@ -112,18 +134,18 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="/spring/main/list">MAIN</a></li>
-							<li><a href="/spring/product/list">BOOK</a>
+							<li><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
-									<li><a href="/spring/product/list?category=humanity">인문</a></li>
-									<li><a href="/spring/product/list?category=economy">경제/경영</a></li>
-									<li><a href="/spring/product/list?category=sociology">정치/사회</a></li>
-									<li><a href="/spring/product/list?category=history">역사</a></li>
-									<li><a href="/spring/product/list?category=culture">문화/예술</a></li>
-									<li><a href="/spring/product/list?category=science">과학</a></li>
-									<li><a href="/spring/product/list?category=computer">컴퓨터/IT</a></li>
-									<li><a href="/spring/product/list?category=language">외국어</a></li>
-									<li><a href="/spring/product/list?category=religion">종교/역학</a></li>
-									<li><a href="/spring/product/list?category=self">자기계발</a></li>
+									<li><a href="/spring/list/list?category=humanity">인문</a></li>
+									<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
+									<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+									<li><a href="/spring/list/list?category=history">역사</a></li>
+									<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
+									<li><a href="/spring/list/list?category=science">과학</a></li>
+									<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+									<li><a href="/spring/list/list?category=language">외국어</a></li>
+									<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
+									<li><a href="/spring/list/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
 							<li><a href="#">EVENT</a></li>
@@ -161,16 +183,31 @@
 			<div class="humberger__menu__overlay"></div>
 			<div class="col-lg-7 header__logo">
 				<div class="header__search__form">
-					<form>
-						<div>
-							<select name="searchType" class="header__search__categories">
-								<option value="t">상품명</option>
-								<option value="c">내용</option>
-								<option value="w">작성자</option>
-							</select>
-							<input type="text" placeholder="검색어를 입력하세요">
+					<form id= "frmSearch">
+						<div class="input-group">
+							<select class="header__search__categories" name="searchType">
+			            		<option value="t"
+			            			<c:if test="${pagingDto.searchType == 't'}">
+			            				selected
+			            			</c:if>	
+			            		>제목</option>
+			            		<option value="w"
+			            			<c:if test="${pagingDto.searchType == 'w'}">
+			            				selected
+			            			</c:if>	
+			            		>작가</option>
+			            		<option value="p"
+			            			<c:if test="${pagingDto.searchType == 'tc'}">
+			            				selected
+			            			</c:if>	
+			            		>출판사</option>
+			            	</select>
+			            	
+							<input type="text" placeholder="검색어를 입력하세요"
+								name="keyword" value="${pagingDto.keyword}">
 						</div>
-						<div class="input-group-append"> <button id="btnSearch" class="site-btn">검색</button>
+						<div class="input-group-append"> 
+						<button id="btnSearch" class="site-btn">검색</button>
 						</div>
 					</form>
 				</div>

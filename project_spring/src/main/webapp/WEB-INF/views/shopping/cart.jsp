@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
 
 
@@ -27,80 +27,60 @@
 					<table>
 						<thead>
 							<tr>
-								<th class="shoping__product">Products</th>
-								<th>Price</th>
-								<th>Quantity</th>
+								<th>전체선택<br>
+									<input id="chkTop" type="checkbox"/></th>
+								<th class="shoping__product">상품정보</th>
+								<th>수량</th>
+								<th>상품금액</th>
 								<th>Total</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
+						<c:forEach items="cartList" var="cartList">
 							<tr>
+								<td>
+									<input class="chkCart" type="checkbox" 
+										data-productId=""/></td>
 								<td class="shoping__cart__item">
 									<img src="/spring/resources/img/cart/cart-1.jpg" alt="">
 										<h5>Vegetable’s Package</h5>
 								</td>
+								<td class="shoping__cart__quantity">
+									<div class="quantity">
+										<div class="pro-qty">
+											<input type="text" value="1">
+										</div>
+									</div>
+								</td>
 								<td class="shoping__cart__price">
 									$55.00
 								</td>
-								<td class="shoping__cart__quantity">
-									<div class="quantity">
-										<div class="pro-qty">
-											<input type="text" value="1">
-										</div>
-									</div>
-								</td>
-								<td class="shoping__cart__total">
-									$110.00
-								</td>
-								<td class="shoping__cart__item__close">
-									<span class="icon_close"></span>
-								</td>
-							</tr>
-							<tr>
-								<td class="shoping__cart__item">
-									<img src="img/cart/cart-2.jpg" alt="">
-									<h5>Fresh Garden Vegetable</h5>
-								</td>
-								<td class="shoping__cart__price">
-									$39.00
-								</td>
-								<td class="shoping__cart__quantity">
-									<div class="quantity">
-										<div class="pro-qty">
-											<input type="text" value="1">
-										</div>
-									</div>
-								</td>
-								<td class="shoping__cart__total">
-									$39.99
-								</td>
-								<td class="shoping__cart__item__close">
-									<span class="icon_close"></span>
-								</td>
-							</tr>
-							<tr>
-								<td class="shoping__cart__item">
-									<img src="img/cart/cart-3.jpg" alt="">
-									<h5>Organic Bananas</h5>
-								</td>
-								<td class="shoping__cart__price">
-									$69.00
-								</td>
-								<td class="shoping__cart__quantity">
-									<div class="quantity">
-										<div class="pro-qty">
-											<input type="text" value="1">
-										</div>
-									</div>
-								</td>
-								<td class="shoping__cart__total">
-									$69.99
-								</td>
-								<td class="shoping__cart__item__close">
-									<span class="icon_close"></span>
-								</td>
-							</tr>
+						</c:forEach>
+								
+								
+<!-- 							<tr> -->
+<!-- 								<td class="shoping__cart__item"> -->
+<!-- 									<img src="img/cart/cart-3.jpg" alt=""> -->
+<!-- 									<h5>Organic Bananas</h5> -->
+<!-- 								</td> -->
+<!-- 								<td class="shoping__cart__price"> -->
+<!-- 									$69.00 -->
+<!-- 								</td> -->
+<!-- 								<td class="shoping__cart__quantity"> -->
+<!-- 									<div class="quantity"> -->
+<!-- 										<div class="pro-qty"> -->
+<!-- 											<input type="text" value="1"> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 								<td class="shoping__cart__total"> -->
+<!-- 									$69.99 -->
+<!-- 								</td> -->
+<!-- 								<td class="shoping__cart__item__close"> -->
+<!-- 									<span class="icon_close"></span> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
 						</tbody>
 					</table>
 				</div>
