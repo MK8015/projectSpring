@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+    
+    
     
 <!DOCTYPE html>
 <html lang="zxx">
@@ -14,6 +18,7 @@
 	
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 	
 	<!-- Css Styles -->
 	<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
@@ -24,8 +29,10 @@
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
+
 	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
 	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
+
 	
 	<!-- Js Plugins -->
    <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
@@ -35,8 +42,8 @@
    <script src="/spring/resources/js/jquery.slicknav.js"></script>
    <script src="/spring/resources/js/mixitup.min.js"></script>
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
-
 <!--    <script src="/spring/resources/js/main.js"></script> -->
+
 <script>
 $(document).ready(function() {
 	// 검색 버튼
@@ -65,6 +72,7 @@ $(document).ready(function() {
 <%@ include file="../include/pageParam.jsp" %>
 
 <!-- Humberger Begin 반응형 -->
+
 <div class="humberger__menu__overlay">
 </div>
 <div class="humberger__menu__wrapper">
@@ -123,9 +131,10 @@ $(document).ready(function() {
 		</ul>
 	</div>
 </div>
-<!-- Humberger End -->
+<!-- END : START : 반응형 부분 : 나중에 고칠게요 ㅠㅠ -->
 
-<!-- Header Section Begin -->
+<!-- START : 헤더 -->
+<!-- START : 헤더의 첫 번째 줄 -->
 <header class="header">
 	<div class="header__top">
 		<div class="container">
@@ -149,7 +158,7 @@ $(document).ready(function() {
 								</ul>
 							</li>
 							<li><a href="#">EVENT</a></li>
-							<li><a href="/spring/board/qna">Q & A</a></li>
+							<li><a href="/spring/board/list">Q & A</a></li>
 							<li><a href="#">ABOUT</a></li>
 						</ul>
 					</nav>
@@ -170,17 +179,18 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	
+<!-- END : 헤더의 첫 번째 줄 -->
+<!-- START : 헤더의 두 번째 줄 -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-
-
 					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
+			
+		<!-- 헤더 검색창 -->
 			<div class="col-lg-7 header__logo">
 				<div class="header__search__form">
 					<form id= "frmSearch">
@@ -226,4 +236,5 @@ $(document).ready(function() {
 	</div>
 	</div>
 </header>
-<!-- Header Section End -->
+<!-- END : 헤더의 두 번째 줄 -->
+<!-- END : 헤더 끝 -->
