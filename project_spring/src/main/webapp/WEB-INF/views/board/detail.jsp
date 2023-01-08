@@ -3,6 +3,24 @@
 
 <%@ include file="../include/header.jsp" %>
 
+
+<style>
+/* 상품 문의 부분 */
+.qna-form {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+
+.qna__title {
+	margin-bottom: 35px;
+}
+
+.qna__title h3 {
+	color: #1c1c1c;
+	font-weight: 700;
+}
+</style>
+
 <script>
 $(document).ready(function() {
 
@@ -39,9 +57,9 @@ $(document).ready(function() {
 <!-- END : qna 이미지 Section -->
 
 <!-- START : qna 게시판 Section -->
-<section class="contact-form spad">
+<section class="qna-form spad">
 	<div class="container">
-		<div class="row contact__list__title">
+		<div class="row qna__title">
 			<div class="col-md-12">
 				<h3>상품문의</h3>
 			</div>
@@ -52,15 +70,14 @@ $(document).ready(function() {
 			<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 			<table class="table">
 				<tr>
-					<td colspan="2">
-						<input type="text" class="form-control input" id="title" name="title" 
-								value="${boardVo.title}"/>
+					<td colspan="2"  bgcolor="#f5f5f5">
+						${boardVo.title}<br>
 						${boardVo.writer} | ${boardVo.regdate}	
 					</td>
 				</tr>
-				<tr>
+				<tr height="150">
 					<td colspan="2">
-					<textarea class="form-control input" id="content" name="content">${boardVo.content}</textarea>
+					${boardVo.content}
 					</td>
 				</tr>
 				<tr>

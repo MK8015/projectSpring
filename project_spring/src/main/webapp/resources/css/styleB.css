@@ -861,6 +861,7 @@ ol {
 	letter-spacing: 2px;
 	padding: 12px 0 10px;
 	background: #ffffff;
+	opacity: 0.85;
 	display: block;
 }
 

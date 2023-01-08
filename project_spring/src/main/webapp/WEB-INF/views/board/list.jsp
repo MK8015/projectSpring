@@ -57,7 +57,7 @@ $(document).ready(function() {
 			<div class="col-md-12">
 				<table class="table">
 					<thead>
-						<tr height="50">
+						<tr height="50" bgcolor="#f5f5f5">
 							<th>번호</th>
 							<th>제목</th>
 							<th>날짜</th>
