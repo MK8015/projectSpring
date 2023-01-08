@@ -167,7 +167,7 @@ ol {
 	padding: 10px 28px 10px;
 	color: #ffffff;
 	text-transform: uppercase;
-	font-weight: 700;
+	font-weight: 500;
 	background: #7fad39;
 	letter-spacing: 2px;
 }
@@ -175,7 +175,7 @@ ol {
 .site-btn {
 	font-size: 14px;
 	color: #ffffff;
-	font-weight: 800;
+	font-weight: 500;
 	text-transform: uppercase;
 	display: inline-block;
 	padding: 13px 30px 12px;
@@ -530,7 +530,7 @@ ol {
 .header__menu ul li .header__menu__dropdown li a {
 	text-transform: capitalize;
 	color: #ffffff;
-	font-weight: 400;
+	font-weight: 300;
 	padding: 5px 15px;
 }
 
@@ -556,7 +556,7 @@ ol {
 	font-size: 16px;
 	color: #252525;
 	text-transform: uppercase;
-	font-weight: 700;
+	font-weight: 900;
 	letter-spacing: 2px;
 	-webkit-transition: all, 0.3s;
 	-moz-transition: all, 0.3s;
@@ -861,6 +861,7 @@ ol {
 	letter-spacing: 2px;
 	padding: 12px 0 10px;
 	background: #ffffff;
+	opacity: 0.85;
 	display: block;
 }
 
@@ -2442,14 +2443,14 @@ ol {
 }
 
 .blog__pagination {
-	padding-top: 5px;
+	padding-top: 20px;
 	position: relative;
 }
 
 .blog__pagination:before {
 	position: absolute;
 	left: 0;
-	top: -29px;
+	top: -20px;
 	height: 1px;
 	width: 100%;
 	background: #000000;
@@ -2792,7 +2793,7 @@ ol {
 
 .footer__widget h6 {
 	color: #1c1c1c;
-	font-weight: 700;
+	font-weight: 900;
 	margin-bottom: 10px;
 }
 
@@ -2977,15 +2978,26 @@ ol {
   Contact Form
 -----------------------*/
 
-.contact__form__title {
-	margin-bottom: 50px;
-	text-align: center;
+
+.contact__list__title {
+	margin-bottom: 35px;
 }
 
-.contact__form__title h2 {
+.contact__list__title h3 {
 	color: #1c1c1c;
 	font-weight: 700;
 }
+
+.contact table a {
+	display: inline-block;
+	color: #1c1c1c;
+}
+
+
+.contact table a:hover {
+	color: #7fad39;
+}
+
 
 .contact-form {
 	padding-top: 80px;
@@ -2998,8 +3010,8 @@ ol {
 	font-size: 16px;
 	color: #6f6f6f;
 	padding-left: 20px;
-	margin-bottom: 30px;
-	border: 1px solid #ebebeb;
+	margin-bottom: 0px;
+	border: 0px solid #ebebeb;
 	border-radius: 4px;
 }
 
@@ -3014,7 +3026,7 @@ ol {
 	color: #6f6f6f;
 	padding-left: 20px;
 	margin-bottom: 24px;
-	border: 1px solid #ebebeb;
+	border: 0px solid #ebebeb;
 	border-radius: 4px;
 	padding-top: 12px;
 	resize: none;
@@ -3025,7 +3037,6 @@ ol {
 }
 
 .contact-form form button {
-	font-size: 18px;
 	letter-spacing: 2px;
 }
 

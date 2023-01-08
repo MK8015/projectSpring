@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.vo.BoardVo;
+import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
 
 
@@ -58,4 +60,44 @@ public class BoardController {
 		boardService.deleteArticle(bno);
 		return "redirect:/board/list";
 	}
+	
+	
+	// ±Û µî·Ï
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public String registerForm() {
+		return "board/write";
+	}
+	
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String addArticle(BoardVo boardVo, RedirectAttributes rttr, 
+								HttpSession session) {
+		
+		String loginMember = (String)session.getAttribute("loginMember");
+		boardVo.setWriter(loginMember);
+		boolean result = boardService.insertArticle(boardVo);
+		rttr.addFlashAttribute("register_result", result);
+
+		return "redirect:/board/list";
+	}
+	
+
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	public String reply(BoardVo boardVo, RedirectAttributes rttr, HttpSession session) {
+		String loginMember = (String)session.getAttribute("loginMember");
+		boardVo.setWriter(loginMember);
+		boolean result = boardService.insertReply(boardVo);
+		rttr.addFlashAttribute("reply_result", result);
+		return "redirect:/board/list";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
