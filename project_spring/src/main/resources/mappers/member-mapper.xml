@@ -6,8 +6,8 @@
 <mapper namespace="mappers.member">
 	
 	<insert id="registerRun">
-	 insert into t_member(member_id,password,member_name,phonenum,email,address,regdate,member_pic)
-	 values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate,#{member_pic})
+	 insert into t_member(member_id,password,member_name,phonenum,email,address,regdate,member_pic,address_detail)
+	 values(#{member_id},#{password},#{member_name},#{phonenum},#{email},#{address},sysdate,#{member_pic},#{address_detail})
 	</insert>
 	
 	<select id="idCheck" resultType="int">
@@ -23,7 +23,7 @@
 	</select>
 	
 	<update id="updatePassword">
-	  update t_member set password=#{password} where email=#{email}
+	  update t_member set password=#{password} where email=#{email}s
 	</update>
 	
 </mapper>
