@@ -2006,7 +2006,7 @@ ol {
 
 .shoping__cart__table table thead th {
 	font-size: 20px;
-	font-weight: 700;
+	font-weight: 650;
 	color: #1c1c1c;
 	padding-bottom: 20px;
 }
@@ -2021,8 +2021,13 @@ ol {
 	border-bottom: 1px solid #ebebeb;
 }
 
+.shoping__cart__table table tbody tr td.shoping__cart__check {
+	width: 80px;
+	text-align: left;
+}
+
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-	width: 630px;
+	width: 570px;
 	text-align: left;
 }
 
@@ -2051,6 +2056,7 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item__close {
+	width: 80px;
 	text-align: right;
 }
 
