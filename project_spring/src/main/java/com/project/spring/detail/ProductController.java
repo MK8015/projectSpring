@@ -55,7 +55,7 @@ public class ProductController {
 		if (imageName != null && !imageName.equals("")) {
 			FileInputStream fis = null;
 			try {
-				String filePath = "C:/userpics/"+imageName; 
+				String filePath = "//192.168.0.233/userpics/"+imageName; 
 				fis = new FileInputStream(filePath);
 				byte[] bytes = IOUtils.toByteArray(fis);
 				return bytes;
