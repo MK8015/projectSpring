@@ -64,6 +64,10 @@ $(document).ready(function() {
 		  $("#frmPaging").submit();
 		  
 	   });
+	
+// 	var logininfo="{logininfo.member_id}"
+	var logininfo="${logininfo}"
+	console.log("member_id",logininfo)
 });
 </script>
 </head>
@@ -165,15 +169,37 @@ $(document).ready(function() {
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="header__top__right">
-						<div class="header__top__right__social">
-							<a href="/spring/member/registerForm">회원가입</a>
+						<div>
+						
+							<c:choose>
+								<c:when test="${empty loginmember}">
+								<div class="header__top__right__social">
+								<a href="/spring/member/registerForm">회원가입</a>
+								</div>
+								<div class="header__top__right__auth">
+											<a href="/spring/member/login">로그인</a>
+									</div>
+							
+					
+								</c:when>
+								<c:otherwise>
+								<div class="header__top__right__social">
+								
+								${loginmember.member_id}님 환영합니다
+								</div>
+								<div class="header__top__right__social">
+								 <a href="#">마이 페이지</a>
+								</div>
+								<div class="header__top__right__social">
+								 <a href="/spring/member/logout">로그아웃</a>
+								</div>
+								
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
-						<div class="header__top__right__social">
-							<a href="/spring/member/login">로그인</a>
-						</div>
-						<div class="header__top__right__auth">
-							<a href="#">마이 페이지</a>
-						</div>
+						
+					
 					</div>
 				</div>
 			</div>

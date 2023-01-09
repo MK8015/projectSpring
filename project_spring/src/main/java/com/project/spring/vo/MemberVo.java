@@ -14,5 +14,6 @@ public class MemberVo {
 	String address; 
 	Date regdate;
 	String member_pic;
+	String address_detail;
 	
 }
