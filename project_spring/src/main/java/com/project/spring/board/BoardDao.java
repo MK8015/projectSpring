@@ -81,7 +81,13 @@ public class BoardDao {
 		sqlSession.update(NAME_SPACE + "updateReSeq", boardVo);
 	}
 	
-	
+
+	// 글 번호 선택
+	public BoardVo selectByRegroup(int re_group) {
+		BoardVo boardVo = sqlSession.selectOne(
+				NAME_SPACE + "selectByRegroup", re_group);
+		return boardVo;
+	}
 	
 	
 	

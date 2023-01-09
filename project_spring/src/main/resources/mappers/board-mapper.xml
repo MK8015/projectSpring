@@ -7,7 +7,9 @@
 
 	<!-- 글 목록 보기 -->
 	<select id="listArticle" resultType="BoardVo">
-		select * from t_board
+		select rownum rnum, a.* from 
+          		(select * from t_board
+          		 order by re_group desc, re_seq asc) a
 	</select>
 	
 	<!-- 글 번호 선택 -->
@@ -47,10 +49,10 @@
 	<!-- 글등록 -->
 	<insert id="insertArticle">
 		insert into t_board
-			(bno, title, content, writer, re_group)
+			(bno, title, content, pic, writer, re_group, secret, password)
 		values
-			(#{bno}, #{title}, 
-			 #{content}, #{writer}, #{bno})
+			(#{bno}, #{title}, #{content}, #{pic, jdbcType=VARCHAR}, 
+				#{writer}, #{bno}, #{secret}, #{password})
 	</insert>
 	
 	<!-- 답글 등록 -->
@@ -61,6 +63,14 @@
 			(seq_board_bno.nextval, #{title}, #{content}, #{writer},
 			 #{re_group}, #{re_seq} + 1, #{re_level} + 1)
 	</insert>
+	
+	
+	
+	<!-- 글 번호 선택 -->
+	<select id="selectByRegroup" resultType="BoardVo">
+		select * from t_board
+		where re_group = #{re_group}
+	</select>
 	
 	
 	<!-- 출력 순서 업데이트 -->

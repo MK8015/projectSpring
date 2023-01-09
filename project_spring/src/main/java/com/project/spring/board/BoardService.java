@@ -53,4 +53,12 @@ public class BoardService {
 		return boardDao.insertReply(boardVo);
 	}
 	
+
+
+	// 글 번호 선택
+	public BoardVo selectByRegroup(int re_group) {
+		BoardVo boardVo = boardDao.selectByRegroup(re_group);
+		return boardVo;
+	}
+	
 }
