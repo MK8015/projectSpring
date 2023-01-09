@@ -10,7 +10,7 @@
 		where product_id = #{product_id}
 	</select>
 	
-	<select id="getList">
+	<select id="getList" resultType="ProductVo">
 		select * from t_product
 	</select>
 	

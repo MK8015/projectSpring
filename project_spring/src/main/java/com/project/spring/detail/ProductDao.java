@@ -21,15 +21,27 @@ public class ProductDao {
 	}
 	
 	public List<ProductVo> getList(){
-		return sqlSession.selectList(NAME_SPACE+"select");
+		return sqlSession.selectList(NAME_SPACE+"getList");
 	}
-	public int insert(ProductVo productVo) {
-		return sqlSession.insert(NAME_SPACE+productVo);
+	public boolean insert(ProductVo productVo) {
+		int count = sqlSession.insert(NAME_SPACE+"insert",productVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
 	}
-	public int delete(String product_id) {
-		return sqlSession.delete(NAME_SPACE+product_id);
+	public boolean delete(String product_id) {
+		int count = sqlSession.delete(NAME_SPACE+"delete",product_id);
+		if(count>0) {
+			return true;
+		}
+		return false;
 	}
-	public int update(ProductVo productVo) {
-		return sqlSession.update(NAME_SPACE+productVo);
+	public boolean update(ProductVo productVo) {
+		int count = sqlSession.update(NAME_SPACE+"update",productVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
 	}
 }
