@@ -32,7 +32,7 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(String product_id,HttpServletRequest request,PagingDto pagingDto) {
+	public String detail(String product_id,HttpServletRequest request,ReviewPagingDto pagingDto) {
 		ProductVo productVo = productService.detail(product_id);
 		int reviewCount = reviewService.getCount(product_id);
 		if(reviewCount>0) {

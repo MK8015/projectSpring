@@ -3,7 +3,7 @@ package com.project.spring.detail;
 import lombok.Data;
 
 @Data
-public class PagingDto {
+public class ReviewPagingDto {
 	private int page = 1;
 	private int startRow = 1;
 	private int endRow = 10;

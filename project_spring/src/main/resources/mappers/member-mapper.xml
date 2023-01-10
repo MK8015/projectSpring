@@ -26,4 +26,8 @@
 	  update t_member set password=#{password} where email=#{email}s
 	</update>
 	
+	<select id="getMemberList" resultType="MemberVo">
+		select * from t_member
+	</select>
+	
 </mapper>

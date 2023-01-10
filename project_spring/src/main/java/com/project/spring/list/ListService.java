@@ -13,17 +13,17 @@ public class ListService {
 	@Autowired
 	ListDao listDao;
 	
-	// ÀüÃ¼ µµ¼­ Á¶È¸ (ÆäÀÌÁöº°)
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	public List<ProductVo> getProductList(PagingDto pagingDto) {
 		return listDao.getProductList(pagingDto);
 	}
 	
-	// Ä«Å×°í¸®º°, °Ë»öº° Ä«¿îÆ® ¾ò¾î¿À±â
+	// Ä«ï¿½×°ï¿½ï¿½ï¿½, ï¿½Ë»ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int getCount(String category, PagingDto pagingDto) {
 		return listDao.getCount(category, pagingDto);
 	}
 	
-	// Ä«Å×°í¸®º° µµ¼­ Á¶È¸ (ÆäÀÌÁöº°)
+	// Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto){
 		return listDao.getListByCategory(category, pagingDto);
 	}

@@ -1,6 +1,7 @@
 package com.project.spring.login;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -63,6 +64,9 @@ public class MemberDao {
 			return true;
 		}
 		return false;
+	}
+	public List<MemberVo> getMemberList(){
+		return sqlSession.selectList(NAMESPACE+"getMemberList");
 	}
 	
 }

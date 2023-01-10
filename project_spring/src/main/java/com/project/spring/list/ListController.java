@@ -17,25 +17,28 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
-	// ¸ñ·Ï Á¶È¸
+	// å ì™ì˜™å  å ì™ì˜™íšŒ
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
+		System.out.println(category);
+		
+		List<ProductVo> list = null;
 		pagingDto.setPagingInfo(pagingDto.getPage()
 								, pagingDto.getPerPage()
 								, listService.getCount(category, pagingDto));
-		List<ProductVo> list = listService.getProductList(pagingDto);
-		System.out.println("listÆäÀÌÁöpagingDto:"+pagingDto);
-		// Ä«Å×°í¸®°¡ ¾ø´Â°æ¿ì : ÀüÃ¼Á¶È¸ (getProductList)
+		System.out.println("listí˜ì´ì§€pagingDto:"+pagingDto);
+		// ì¹´í…Œê³ ë¦¬ê°€ ì—†ëŠ”ê²½ìš° : ì „ì²´ì¡°íšŒ (getProductList)
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
 		} 
-		// Ä«Å×°í¸®°¡ ÀÖ´Â°æ¿ì : °¢ Ä«Å×°í¸®º°,°Ë»öº° ¸ñ·ÏÁ¶È¸ (getListByCategory)
+		// ì¹´å ìŒ“ê³¤ì˜™å ì™ì˜™ å ìŒëŠ”ê³¤ì˜™å  : å ì™ì˜™ ì¹´å ìŒ“ê³¤ì˜™å ì™ì˜™,å ì‹¯ì‚¼ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì‹« (getListByCategory)
 		else {
 			list = listService.getListByCategory(category, pagingDto);
 			model.addAttribute("category",category);
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);
+		System.out.println(pagingDto);
 		return "product/list";
 	}
 	

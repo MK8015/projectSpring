@@ -63,7 +63,7 @@ $(document).ready(function() {
 		td.attr("colspan",2);
 		$(this).parent().parent().after("<tr id='reviewUpdateForm'></tr>");
 		$("#reviewUpdateForm").append(td);
-		$("#reviewUpdateForm").append("<td><a href='#' class='primary-btn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
+		$("#reviewUpdateForm").append("<td><a href='#' class='site-smbtn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
 	});
 	
 	$(document).on("click", ".btnUpdateRun", function(e) {
@@ -147,11 +147,9 @@ $(document).ready(function() {
 	});
 
 	//페이징
-	$(document).on("click", ".page-link", function(e) {
+	$(document).on("click", ".pagelink", function(e) {
 		e.preventDefault();
 		var page = $(this).attr("data-page");
-		$(".page-item").removeClass("active");
-		$(this).parent().addClass("active");
 		getReview(page);
 	});
 
@@ -166,7 +164,7 @@ $(document).ready(function() {
 	function setRating(product_id){
 		$.get("/spring/review/setRating",{"product_id":product_id},function(rData){
 			var jsonObject = JSON.parse(rData);
-			$("#reviewCount").text("(리뷰 "+jsonObject.reviewCount+"개)");
++			$("#reviewCount").text("(리뷰 "+jsonObject.reviewCount+"개)");
 			$(".productRating").css("width", (jsonObject.ratingAvg/5)*100 + "%");
 		});
 	}
@@ -180,7 +178,8 @@ $(document).ready(function() {
 				"product_id":product_id
 		};
 		$.get("/spring/review/reviewPaging",sData,function(rData) {
-			var jsonArray = JSON.parse(rData);		
+			var jsonArray = JSON.parse(rData);	
+			console.log(jsonArray);
 			for (var i = 0; i < jsonArray.length; i++) {
 				var tr = $("#review").find("tr").eq(0).clone();
 				var tds = tr.find("td");
@@ -196,8 +195,11 @@ $(document).ready(function() {
 				}
 				tds.eq(1).text(jsonArray[i].review_content);
 				tds.eq(2).find("a").attr("data-review_no",jsonArray[i].review_no);
+				if("${loginMember}" != jsonArray[i].member_id){
+					tds.eq(2).find("a").css("display","none");
+				}
 				tr.show();
-				$("#review").append(tr);
+				$("#review").prepend(tr);
 			}
 		});
 	}
@@ -288,7 +290,7 @@ $(document).ready(function() {
 												<tr class="reviewForm">
 													<td style="width: 25%"><img
 														src="/spring/resources/img/defaultprofile.png"
-														width="50px" class="rounded-circle" /><br> 로그인한 아이디<br>
+														width="50px" class="rounded-circle" /><br> ${loginMember}<br>
 														<div class='rating-stars'>
 															<ul id='stars'>
 																<li class='star' data-value='1'><i
@@ -325,8 +327,8 @@ $(document).ready(function() {
 													<td style="width: 60%">
 
 													</td><td style="width: 15%">
-													<a href="#" class="primary-btn btnUpdateReview" style="margin-bottom: 10px">수정</a>
-													<a href="#" class="primary-btn btnDeleteReview">삭제</a></td>
+													<a href="#" class="site-smbtn btnUpdateReview" style="margin-bottom: 10px">수정</a>
+													<a href="#" class="site-smbtn btnDeleteReview">삭제</a></td>
 												</tr>
 											</tbody>
 										</table>
@@ -334,31 +336,23 @@ $(document).ready(function() {
 									<div class="row">
 										<div class="col-md-12">
 											<nav>
-												<ul class="pagination justify-content-center">
+												<div class="product__pagination pagination justify-content-center">
 													<c:if test="${pagingDto.startPage ne 1}">
-														<li class="page-item"><a class="page-link"
-															href="${pagingDto.startPage-1}">이전</a></li>
+														<a class="pagelink"
+															href="${pagingDto.startPage-1}">이전</a>
 													</c:if>
 													<c:forEach var="v" begin="${pagingDto.startPage}"
 														end="${pagingDto.endPage}">
-														<li
-															<c:choose>
-																<c:when test="${pagingDto.page eq v}">
-																	class="page-item active"
-																</c:when>
-																<c:otherwise>
-																	class="page-item"
-																</c:otherwise>
-															</c:choose>>
-															<a class="page-link" href="#" data-page="${v}">${v}</a>
-														</li>
+														
+															<a class="pagelink" href="#" data-page="${v}">${v}</a>
+														
 
 													</c:forEach>
 													<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-														<li class="page-item"><a class="page-link"
-															href="${pagingDto.endPage+1}">다음</a></li>
+														<a class="pagelink"
+															href="${pagingDto.endPage+1}">다음</a>
 													</c:if>
-												</ul>
+												</div>
 											</nav>
 										</div>
 									</div>

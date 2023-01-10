@@ -25,12 +25,7 @@ public class ReviewController {
 	@Autowired
 	ReviewService reviewService;
 	
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(String product_id,HttpServletRequest request) {
-		ProductVo productVo = productService.detail("p_001");
-		request.setAttribute("productVo", productVo);
-		return "product/detail";
-	}
+
 	
 	@RequestMapping(value = "/getImage", method = RequestMethod.GET)
 	@ResponseBody
@@ -56,7 +51,7 @@ public class ReviewController {
 	}
 	@RequestMapping(value = "/reviewPaging", method = RequestMethod.GET, produces = "application/text;charset=utf-8")
 	@ResponseBody
-	public String reviewPaging(String product_id,PagingDto pagingDto,int page) {
+	public String reviewPaging(String product_id,ReviewPagingDto pagingDto,int page) {
 		int reviewCount = reviewService.getCount(product_id);
 		pagingDto.setPagingInfo(page, pagingDto.getPerPage(), reviewCount);
 		List<ReviewVo> reviewList = reviewService.getList(product_id,pagingDto);
