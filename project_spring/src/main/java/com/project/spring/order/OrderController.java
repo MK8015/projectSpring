@@ -22,12 +22,16 @@ public class OrderController {
 	public String orderList(Model model) {
 		List<OrderVo>list=orderService.orderList();
 //		List<String>orderProductId= list.stream().map(OrderVo::getPRODUCT_ID).collect(Collectors.toList());
-
+		
+		
+		
 		
 		model.addAttribute("list", list);
 		System.out.println("list:"+list);
 		return "order/orderList";
 		
 	}
+	
+	
 
 }

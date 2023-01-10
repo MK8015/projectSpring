@@ -8,6 +8,7 @@
  		select a.*,b.* from t_order a, t_product b where a.product_id =b.product_id
  	</select>
  	
+
  	<select id="detailOrder" resultType="OrderVo">
 		select * from t_order
 		where order_no = #{order_no}

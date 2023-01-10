@@ -5,86 +5,29 @@
 <%@ include file="../include/header.jsp" %>
 
 
+
+
+<head>
+    <meta charset="utf-8">
+  
+    <style>
+      #product_info {
+        text-align: center;
+      }
+      
+    </style>
+  </head>
 <script>
 
-$(document).ready(function(){
-	
-	$("#btnDetail").click(function(){
-		
-		console.log("동작함")
-		
-		$("#modal-972112").trigger("click");
-		$("#modal-container-972112").attr("style","display: block;");
-	})
+
 	
 
 	
-	var url="/spring/order/orderList"
-});
-
 </script>
 
-<div class="row">
-		<div class="col-md-12">
-			 <a id="modal-972112" href="#modal-container-972112" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-			
-			<div class="modal fade" id="modal-container-972112" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">
-								Modal title
-							</h5> 
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">
-						<div class="shoping__cart__table">
-						<table>
-						<thead>
-							<tr>
-								<th>주문일</th>
-								<th class="shoping__product">상품정보</th>
-								<th>수량</th>
-								<th>상품금액</th>
-								<th>수령인 아이디</th>
-								
-							</tr>
-						</thead>
-<!-- 						<tbody> -->
-<%-- 						<c:forEach items="${list}" var="orderList"> --%>
-<!-- 							<tr> -->
-<%-- 								<td>${orderList.ORDER_DATE}</td> --%>
-<!-- 								<td class="order__item"> -->
 
-<%-- 										<h4 id="productName">${orderList.PRODUCT_NAME}</h4></td> --%>
-								
-<%-- 								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td> --%>
-<%-- 								<td class="order__price">${orderList.PRICE}</td> --%>
-<%-- 								<td class="order__id">${orderList.MEMBER_ID}</td> --%>
-<!-- 								<td class="order__id"><button class="btn btn-success" type="button" id="btnDetail">상세보기</button></td> -->
-<!-- 							</tr> -->
-<%-- 						</c:forEach>	 --%>
-<!-- 						</tbody> -->
-						</table>
-						</div>				
-						</div>
-						
-						<div class="modal-footer">
-							 
-							
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
-								확인
-							</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
-			
-		</div>
+<div class="row">
+		
 	</div>
 
 <!-- Breadcrumb Section Begin -->
@@ -110,8 +53,8 @@ $(document).ready(function(){
 					<table>
 						<thead>
 							<tr>
-								<th>주문일</th>
-								<th class="shoping__product">상품정보</th>
+								<th style="padding:0px 20px 0px 0px;">주문일</th>
+								<th id="product_info" align="center" class="shoping__product" colspan="2" >상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
 								<th>수령인 아이디</th>
@@ -123,13 +66,12 @@ $(document).ready(function(){
 							<tr>
 								<td>${orderList.ORDER_DATE}</td>
 								<td class="order__item">
-<%-- 									<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}"> --%>
-										<h4 id="productName">${orderList.product_name}</h4></td>
-								
-								<td class="order__quantity">${orderList.order_amount}</td>
-								<td class="order__price">${orderList.price}</td>
-								<td class="order__id">${orderList.member_id}</td>
-								<td class="order__id"><button class="btn btn-success" type="button" id="btnDetail">상세보기</button></td>
+								<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}" height="150" width="100" alt=""></td>			
+								<td><a href="/spring/product/detail?product_id=${orderList.PRODUCT_ID}" style="color: black; font-size: 14pt;"><strong>${orderList.PRODUCT_NAME}</strong></a></td>
+								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td>
+								<td class="order__price">${orderList.PRICE}</td>
+								<td class="order__id">${orderList.MEMBER_ID}</td>
+
 						</c:forEach>
 								
 								
@@ -160,37 +102,26 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="shoping__cart__btns">
-					<a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-					<a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="shoping__continue">
-					<div class="shoping__discount">
-						<h5>Discount Codes</h5>
-						<form action="#">
-							<input type="text" placeholder="Enter your coupon code">
-							<button type="submit" class="site-btn">APPLY COUPON</button>
-						</form>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="shoping__checkout">
-					<h5>Cart Total</h5>
-					<ul>
-						<li>Subtotal <span>$454.98</span></li>
-						<li>Total <span>$454.98</span></li>
-					</ul>
-					<a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
-				</div>
-			</div>
+		
+							<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
+				
 		</div>
-	</div>
+		<div class="product__pagination pagination justify-content-center">
+					<c:if test="${pagingDto.startPage ne 1}">
+						<a class="pagelink" href="${pagingDto.startPage-1}">
+							<i class="fa fa-long-arrow-left"></i></a>
+					</c:if>
+					<c:forEach var="v" begin="${pagingDto.startPage}" 
+										end="${pagingDto.endPage}">
+
+						<a class="pagelink" href="${v}">${v}</a>
+					</c:forEach>
+					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
+						<a class="pagelink" href="${pagingDto.endPage+1}">
+							<i class="fa fa-long-arrow-right"></i></a>
+					</c:if>
+				</div>
+	
 </section>
 <!-- Shoping Cart Section End -->
 

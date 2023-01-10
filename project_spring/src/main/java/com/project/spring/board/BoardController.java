@@ -21,8 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.login.MyFileUploader;
+
+
 import com.project.spring.vo.BoardVo;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.PagingDto;
 import com.project.spring.vo.ProductVo;
 
 
@@ -32,15 +35,23 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	// ±Û ¸ñ·Ï º¸±â
+//	BoardPagingDto boardPagingDto=new BoardPagingDto();
+	
+	
+	
+	// å ì™ì˜™ å ì™ì˜™å  å ì™ì˜™å ì™ì˜™
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listArticle(Model model) {
-		List<BoardVo> list = boardService.listArticle();
+	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
+		List<BoardVo> list = boardService.listArticle(boardPagingDto);
+		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
+//		BoardPagingDto.setPagingInform(BoardPagingDto. , boardPagingDto.getPerPage(), boardService.getCount());
+		System.out.println("boardPagingDto:"+boardPagingDto);
 		model.addAttribute("list", list);
+		model.addAttribute("BoardPagingDto", boardPagingDto);
 		return "board/list";
 	}
 	
-	// µğÅ×ÀÏ °¡±â
+	// å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String getArticle(int bno, Model model, HttpSession session) {
 		BoardVo boardVo = boardService.selectByBno(bno);
@@ -48,8 +59,24 @@ public class BoardController {
 		return "board/detail";
 	}
 	
+
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyArticle(BoardVo boardVo) {
+		boardService.updateArticle(boardVo);
+		return "redirect:/board/detail" +
+				"?bno=" + boardVo.getBno();
+	}
 	
-	// ±Û µî·Ï
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String remove(int bno) {
+		boardService.deleteArticle(bno);
+		return "redirect:/board/list";
+	}
+	
+
+	// å ì™ì˜™ å ì™ì˜™å 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String registerForm() {
 		return "board/write";
@@ -58,7 +85,8 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String addArticle(BoardVo boardVo, RedirectAttributes rttr, 
 								HttpSession session, MultipartFile file) {
-		// »çÁø ³Ö±â
+
+		// ì‚¬ì§„ ë„£ê¸°
 		System.out.println("file:" + file);
 		String originalFilename = file.getOriginalFilename();
 		System.out.println("originalFilename:" + originalFilename);
@@ -84,7 +112,9 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	 //´ä±Û µî·Ï
+
+	 //ë‹µê¸€ ë“±ë¡
+
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
 	public String reply(int re_group, HttpServletRequest request) {
 		request.setAttribute("re_group", re_group);
@@ -101,7 +131,9 @@ public class BoardController {
 	}
 	
 
-	// »çÁø º¸±â
+
+	// ì‚¬ì§„ ë³´ê¸°
+
 	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
 	@ResponseBody 
 	public byte[] displayImage(String pic) {
@@ -121,7 +153,7 @@ public class BoardController {
 		return null;
 	}
 	
-	// ºñ¹Ğ¹øÈ£ Ã¼Å©
+	// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 	@RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkPassword(BoardVo boardVo) {
@@ -130,7 +162,7 @@ public class BoardController {
 	}
 	
 
-	// ±Û ¼öÁ¤
+	// ê¸€ ìˆ˜ì •
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String modifyArticle(int bno, Model model) {
 		BoardVo boardVo = boardService.selectByBno(bno);
@@ -140,7 +172,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String updateArticle(BoardVo boardVo, MultipartFile file) {
-		// »çÁø ³Ö±â
+		// ì‚¬ì§„ ë„£ê¸°
 		System.out.println("file:" + file);
 		String originalFilename = file.getOriginalFilename();
 		System.out.println("originalFilename:" + originalFilename);
@@ -164,7 +196,7 @@ public class BoardController {
 				"?bno=" + boardVo.getBno();
 	}
 	
-	// ±Û »èÁ¦
+	// ê¸€ ì‚­ì œ
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String remove(int bno) {
 		boardService.deleteArticle(bno);

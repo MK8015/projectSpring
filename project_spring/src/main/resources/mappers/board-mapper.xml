@@ -7,9 +7,11 @@
 
 	<!-- 글 목록 보기 -->
 	<select id="listArticle" resultType="BoardVo">
-		select rownum rnum, a.* from 
-          		(select * from t_board
-          		 order by re_group desc, re_seq asc) a
+		select * from 
+    		(select rownum rnum, a.* from 
+        		(select * from t_board
+        		) a)
+		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 글 번호 선택 -->
@@ -66,6 +68,11 @@
 		and re_seq > #{re_seq}
 		]]>
 	</update>
+	
+	<!-- 카운트 얻어오기 -->
+	<select id="getCount" resultType="int">
+ 		select count(*) from t_board
+ 	</select>
 	
 	
 	

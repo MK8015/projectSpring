@@ -172,20 +172,20 @@ $(document).ready(function() {
 						<div>
 						
 							<c:choose>
-								<c:when test="${empty loginmember}">
+								<c:when test="${empty loginMemberVo}">
 								<div class="header__top__right__social">
 								<a href="/spring/member/registerForm">회원가입</a>
 								</div>
 								<div class="header__top__right__auth">
-											<a href="/spring/member/login">로그인</a>
-									</div>
+								<a href="/spring/member/login">로그인</a>
+								</div>
 							
 					
 								</c:when>
-								<c:otherwise>
+							<c:otherwise>
 								<div class="header__top__right__social">
 								
-								${loginmember.member_id}님 환영합니다
+								${loginMemberVo.member_id}님 환영합니다
 								</div>
 								<div class="header__top__right__social">
 								 <a href="#">마이 페이지</a>

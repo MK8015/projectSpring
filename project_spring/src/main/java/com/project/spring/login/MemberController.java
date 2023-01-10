@@ -27,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.ProductVo;
+import com.project.spring.vo.ReviewVo;
 
 @Controller
 @RequestMapping("/member/*")
@@ -59,9 +61,10 @@ public class MemberController {
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
 		}else {
-			//濡쒓렇�씤 �꽦怨듭떆
-			//濡쒓렇�씤 �꽭�뀡�뿉 �꽔�뼱�몺    
-			session.setAttribute("loginmember", memberVo);
+
+			//로그인 성공시
+			//로그인 세션에 넣어둠    
+			session.setAttribute("loginMemberVo", memberVo);
 			session.setAttribute("loginMember", memberVo.getMember_id());
 			
 			
@@ -170,8 +173,9 @@ public class MemberController {
 					"utf-8");
 					helper.setFrom(emailDto.getFrom());
 					helper.setTo(emailDto.getTo());
-					helper.setSubject("占쎌뿫占쎈뻻�뜮袁⑨옙甕곕뜇�깈 獄쏆뮇�꽊占쎈툧占쎄땀");
-					helper.setText("占쎄퉱嚥≪뮇�뒲 占쎌뿫占쎈뻻 �뜮袁⑨옙甕곕뜇�깈占쎈뮉 "+uuidsub+"占쎌뿯占쎈빍占쎈뼄");
+					helper.setSubject("임시비밀번호 발송안내");
+					helper.setText("새로운 임시비밀번호는 "+uuidsub+"입니다");
+
 				}
 			};
 			mailSender.send(preparator);
