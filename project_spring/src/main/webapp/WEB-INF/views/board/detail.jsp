@@ -29,6 +29,23 @@ $(document).ready(function() {
 		$("#frmUpdate").attr("action", "/spring/board/reply").submit();
 	});
 
+
+	// 사진 이름
+	$("#customFile").change(function(e) {
+		console.log("e" + e);
+		var file = this.files[0];
+		console.log(file);
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			console.log("파일 읽음");
+			console.log(e.target.result);
+			var val = $("#customFile").val();
+			var arrVal = val.split("\\"); 
+			var filename = arrVal.pop();
+			$("#customFile").next().text(filename); 
+		}; // reader.onload
+		reader.readAsDataURL(file);
+	}); //
 		
 	
 }); //$(document).ready(function()
@@ -78,13 +95,20 @@ $(document).ready(function() {
 				<tr height="150">
 					<td colspan="2">
 					${boardVo.content}
+					<br>
+					
+					<c:if test="${not empty boardVo.pic}">
+					<img src="/spring/board/displayImage?pic=${boardVo.pic}" 
+                    		width="95%" height="95%">
+					</c:if>
+					
 					</td>
 				</tr>
 				<tr>
 					<td><button type="submit" class="site-smbtn">수정</button>　　
 
 						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</a>
-						<a href="" id="a_reply_ok" class="site-smbtn">답글</a></td>
+						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="site-smbtn">답글</a></td>
 					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　
 						<a href="/spring/board/write" class="site-smbtn">글 작성</a></td>
 				</tr>
