@@ -23,7 +23,7 @@
 	</select>
 	
 	<update id="updatePassword">
-	  update t_member set password=#{password} where email=#{email}s
+	  update t_member set password=#{password} where email=#{email}
 	</update>
 	
 	<select id="getMemberList" resultType="MemberVo">
