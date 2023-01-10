@@ -122,7 +122,10 @@ $(document).ready(function() {
 						</ul>
 					</div>
 					<div class="featured__item__text">
-						<h6><a href="/spring/product/detail?product_id=${productVo.product_id}">${productVo.product_name}</a></h6>
+						<h6><a href="/spring/product/detail?product_id=${productVo.product_id}">
+								${productVo.product_name}<br>
+									<span style="font-size:11px; color:gray;">
+									${productVo.product_author} | ${productVo.product_publisher}</span></a></h6>
 						<h5>${productVo.price}</h5>
 					</div>
 				</div>

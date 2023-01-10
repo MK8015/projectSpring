@@ -29,7 +29,6 @@ $(document).ready(function() {
 		$("#frmUpdate").attr("action", "/spring/board/reply").submit();
 	});
 
-
 	// 사진 이름
 	$("#customFile").change(function(e) {
 		console.log("e" + e);
@@ -83,13 +82,12 @@ $(document).ready(function() {
 		</div>
 		
 		
-		<form id="frmUpdate" role="form" action="/spring/board/modify" method="post">
 			<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 			<table class="table">
 				<tr>
 					<td colspan="2"  bgcolor="#f5f5f5">
-						${boardVo.title}<br>
-						${boardVo.writer} | ${boardVo.regdate}	
+						<span style="font-size:20px;"><b>${boardVo.title}</b></span><br>
+						${boardVo.writer} | ${boardVo.regdate}	| 비번 ${boardVo.password}
 					</td>
 				</tr>
 				<tr height="150">
@@ -99,21 +97,20 @@ $(document).ready(function() {
 					
 					<c:if test="${not empty boardVo.pic}">
 					<img src="/spring/board/displayImage?pic=${boardVo.pic}" 
-                    		width="95%" height="95%">
+                    		width="30%">
 					</c:if>
 					
 					</td>
 				</tr>
 				<tr>
-					<td><button type="submit" class="site-smbtn">수정</button>　　
-
+					<td><a href="/spring/board/modify?bno=${boardVo.bno}" class="site-smbtn">수정</a>　
 						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</a>
 						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="site-smbtn">답글</a></td>
 					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　
 						<a href="/spring/board/write" class="site-smbtn">글 작성</a></td>
 				</tr>
 			</table>
-		</form>
+		
 		
 	</div>
 </section>
@@ -121,3 +118,6 @@ $(document).ready(function() {
 
 
 <%@ include file="../include/footer.jsp" %>
+
+
+

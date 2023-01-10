@@ -68,7 +68,7 @@ public class BoardDao {
 		return false;
 	}
 	
-
+	// 답글 작성
 	public boolean insertReply(BoardVo boardVo) {
 		int count = sqlSession.insert(NAME_SPACE + "insertReply", boardVo);
 		if (count > 0) {
@@ -77,18 +77,22 @@ public class BoardDao {
 		return false;
 	}
 	
+	// 출력 순서 업데이트
 	public void updateReSeq(BoardVo boardVo) {
 		sqlSession.update(NAME_SPACE + "updateReSeq", boardVo);
 	}
 	
-
-	// 글 번호 선택
-	public BoardVo selectByRegroup(int re_group) {
-		BoardVo boardVo = sqlSession.selectOne(
-				NAME_SPACE + "selectByRegroup", re_group);
-		return boardVo;
+	// 비밀번호 체크
+	public boolean checkPassword(BoardVo boardVo) {
+		int count = sqlSession.selectOne(NAME_SPACE + "checkPassword", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
 	}
 	
+	
+
 	
 	
 	
