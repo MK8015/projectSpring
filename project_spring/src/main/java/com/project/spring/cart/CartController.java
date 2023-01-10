@@ -25,7 +25,7 @@ public class CartController {
 	@Autowired
 	ProductService productService;
 	
-	// Àå¹Ù±¸´Ï ¸ñ·Ï Á¶È¸ (¾ÆÀÌµğº°)
+	// å ì™ì˜™è¢‚å ì™ì˜™å  å ì™ì˜™å  å ì™ì˜™íšŒ (å ì™ì˜™å ì‹±ë“¸ì˜™)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
@@ -38,21 +38,21 @@ public class CartController {
 		return "shopping/cart";
 	}
 	
-	// Àå¹Ù±¸´Ï¿¡ »óÇ° µî·Ï
+	// å ì™ì˜™è¢‚å ì™ì˜™è‡¼å  å ì™ì˜™í’ˆ å ì™ì˜™å 
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("insertProductContoller ½ÇÇàµÊ");
+		System.out.println("insertProductContoller å ì™ì˜™å ì™ì˜™å ");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
 		System.out.println("member_id: " + member_id);
-		boolean result = cartService.insertProductInCart(product_id, member_id);	// »óÇ°Á¤º¸ t_cart¿¡ ³Ö±â
+		boolean result = cartService.insertProductInCart(product_id, member_id);	// å ì™ì˜™í’ˆå ì™ì˜™å ì™ì˜™ t_cartå ì™ì˜™ å ìŒê¹ì˜™
 		return String.valueOf(result);
 	}
 	
-	// Ä«Æ® »èÁ¦
+	// ì¹´íŠ¸ å ì™ì˜™å ì™ì˜™
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCart(
@@ -66,15 +66,17 @@ public class CartController {
 		return String.valueOf(result);
 	}
 	
-	// Ä«Æ® ¼öÁ¤
+
+	// ì¹´íŠ¸ ìˆ˜ì •
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateCart(int cart_amount, String product_id, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
-		System.out.println("cartupdate½ÇÇà" + cart_amount + "º¯°æÇÏ°íÀÚÇÏ´Â ¼ö·® "
-				+ "/ »óÇ°:" + product_id + "/ ¾ÆÀÌµğ: " + member_id);
+		System.out.println("cartupdateì‹¤í–‰" + cart_amount + "ë³€ê²½í•˜ê³ ìí•˜ëŠ” ìˆ˜ëŸ‰ "
+				+ "/ ìƒí’ˆ:" + product_id + "/ ì•„ì´ë””: " + member_id);
 		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
 		return String.valueOf(result);
+
 	}
 	
 	

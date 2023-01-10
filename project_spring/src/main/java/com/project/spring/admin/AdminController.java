@@ -16,8 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.spring.detail.ProductService;
 import com.project.spring.login.MemberService;
 import com.project.spring.main.MainService;
+import com.project.spring.order.OrderService;
 import com.project.spring.util.ImageUploader;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 
 @Controller
@@ -34,6 +36,8 @@ public class AdminController {
 	@Autowired
 	ProductService productService;
 	
+	@Autowired
+	OrderService orderService;
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -42,14 +46,85 @@ public class AdminController {
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String order(Model model) {
+		List<OrderVo> list = orderService.orderList();
+		System.out.println(list);
+		model.addAttribute("list",list);
 		return "admin/order";
 	}
+	
+	//
+	@RequestMapping(value = "/detailOrder", method = RequestMethod.POST, produces = "application/text;charset=utf-8")
+	@ResponseBody
+	public String detailOrder(String order_no) {
+		OrderVo orderVo=orderService.detailOrder(order_no);
+		JSONObject jsonObject = new JSONObject(orderVo);
+		return jsonObject.toString();
+	}
+	
+	@RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
+	public String insertOrder(OrderVo orderVo, RedirectAttributes rttr) {
+		boolean result = orderService.insertOrder(orderVo);
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/admin/order";
+	}
+	
+	@RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)
+	public String deleteOrder(String order_no, RedirectAttributes rttr) {
+		boolean result = orderService.deleteOrder(order_no);
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/admin/order";
+	}
+	
+	
+	@RequestMapping(value = "/updateOrder", method = RequestMethod.POST)
+	public String updateOrder(OrderVo orderVo, RedirectAttributes rttr) {
+		boolean result = orderService.updateOrder(orderVo);
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/admin/order";
+	}
+	//
+	
+	
+	
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
 	public String member(Model model) {
 		List<MemberVo> list = memberService.getMemberList();
 		model.addAttribute("list",list);
 		return "admin/member";
 	}
+	
+	@RequestMapping(value = "/memberDetail", method = RequestMethod.POST, produces = "application/text;charset=utf-8")
+	@ResponseBody
+	public String memberDetail(String member_id) {
+		MemberVo memberVo=memberService.memberDetail(member_id);
+		JSONObject jsonObject = new JSONObject(memberVo);
+		return jsonObject.toString();
+	}
+	
+	@RequestMapping(value = "/deleteMember", method = RequestMethod.GET)
+	public String deleteMember(String member_id, RedirectAttributes rttr) {
+		boolean result = memberService.deleteMember(member_id);
+		rttr.addFlashAttribute("result",result);
+		return "redirect:/admin/member";
+	}
+	
+	
+	@RequestMapping(value = "/updateMember", method = RequestMethod.POST)
+	public String updateMember(MemberVo memberVo, RedirectAttributes rttr,MultipartFile file) {
+		String originalFilename = file.getOriginalFilename();
+		System.out.println(originalFilename);
+		try {
+			String member_pic = ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
+			memberVo.setMember_pic(member_pic);
+			boolean result = memberService.updateMember(memberVo);
+			rttr.addFlashAttribute("result",result);
+		}catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		return "redirect:/admin/member";
+	}
+	
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String product(Model model) {
 		List<ProductVo> list = productService.getList();
