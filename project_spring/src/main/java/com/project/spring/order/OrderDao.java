@@ -18,15 +18,34 @@ public class OrderDao {
 	SqlSession sqlSession;
 	
 	public List<OrderVo> orderList() {
-		System.out.println("실행됨");
 	List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "orderList");	
-		System.out.println("dao list:"+list);
 		return list;
 	}
 	
-//	public List<String>getProductInfo(){
-//		List<ProductVo>list=sqlSession.selectList(NAME_SPACE+"getProductInfo");
-//		return list;
-//	}
+	public OrderVo detailOrder(String order_no) {
+		return sqlSession.selectOne(NAME_SPACE+"detailOrder",order_no);
+	}
+	
+	public boolean insertOrder(OrderVo orderVo) {
+		int count = sqlSession.insert(NAME_SPACE+"insertOrder",orderVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean deleteOrder(String order_no) {
+		int count = sqlSession.delete(NAME_SPACE+"deleteOrder",order_no);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean updateOrder(OrderVo orderVo) {
+		int count = sqlSession.update(NAME_SPACE+"updateOrder",orderVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
 
 }

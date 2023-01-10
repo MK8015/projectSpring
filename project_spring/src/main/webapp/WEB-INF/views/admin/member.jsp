@@ -1,50 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="kr">
+    pageEncoding="UTF-8"%>
 
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>NONFICTION</title>
-
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
-
-<!-- Css Styles -->
-<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/styleB.css"
-	type="text/css">
-<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
-
-<!-- Js Plugins -->
-<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/spring/resources/js/bootstrap.min.js"></script>
-<script src="/spring/resources/js/jquery.nice-select.min.js"></script>
-<script src="/spring/resources/js/jquery-ui.min.js"></script>
-<script src="/spring/resources/js/jquery.slicknav.js"></script>
-<script src="/spring/resources/js/mixitup.min.js"></script>
-<script src="/spring/resources/js/owl.carousel.min.js"></script>
-<script src="/spring/resources/js/main.js"></script>
+<%@ include file="../include/adminHeader.jsp" %>
 <script>
 $(document).ready(function(){
 	
@@ -64,92 +21,89 @@ $(document).ready(function(){
 		};
 	});
 	
-	$("#productInsert").click(function(e){
-		e.preventDefault();
-		$(".productForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
-		form.attr("class","productInsertForm");
-		form.css("display","");
-		$(this).parent().append(form);
-	});
 	
-	$(".productInfo").on("click","td",function(e){
+	$(".memberInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".productInsertForm").remove();
-		$(".productForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
+		$(".memberForm:gt(0)").parent().parent().remove();
+		var form = $(".memberForm").eq(0).clone();
 		var tds = $(this).parent().find("td");
-		var product_id = tds.eq(0).text();
-		console.log(product_id);
+		var member_id = tds.eq(0).text();
+		console.log(member_id);
 		var tr = $(this).parent();
-		$.post("/spring/admin/productDetail",{"product_id":product_id},function(rData){
+		$.post("/spring/admin/memberDetail",{"member_id":member_id},function(rData){
 			var jsonObject = JSON.parse(rData);
 			var inputs = form.find("input");
-			var textarea = form.find("textarea");
 			var img = form.find("img");
-			inputs.eq(0).attr("readonly","true").val(jsonObject.product_id);
-			inputs.eq(1).val(jsonObject.product_name);
-			inputs.eq(2).val(jsonObject.price);
-			inputs.eq(3).val(jsonObject.product_quantity);
-			inputs.eq(4).val(jsonObject.product_category);
-			textarea.text(jsonObject.product_description);
-			inputs.eq(5).val(jsonObject.product_author);
-			inputs.eq(6).val(jsonObject.product_publisher);
+			inputs.eq(0).attr("readonly","true").val(jsonObject.member_id);
+			inputs.eq(1).val(jsonObject.member_name);
+			inputs.eq(2).val(jsonObject.password);
+			inputs.eq(3).val(jsonObject.phonenum);
+			inputs.eq(4).val(jsonObject.email);
+			inputs.eq(5).val(jsonObject.address);
+			inputs.eq(6).val(jsonObject.address_detail);
 			form.css("display","");
 			tr.after("<tr><td colspan='4'></td></tr>");
-			img.attr("src","/spring/product/getImage?imageName="+ jsonObject.product_image);
+			img.attr("src","/spring/product/getImage?imageName="+ jsonObject.member_pic);
 			var td = tr.next().find("td");
-			form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id);
-			form.find("form").attr("action","/spring/admin/productUpdate");
+			form.find("a").attr("href","/spring/admin/deleteMember?member_id="+jsonObject.member_id);
 			td.append(form);
 			
 		});
 	});
 	
+	
+	$(document).on("click",".address",function(){
+		var address = $(this);
+		 new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	            	address.val(data.address); // 주소 넣기
+	            	address.parent().next().find("input").focus(); //상세입력 포커싱
+	            }
+	        }).open();
+	});
+
+	
 });
 </script>
-</head>
 
-<body>
 	<!--  입력,수정 양식 -->
-	<div style="margin: 10px; display: none" class="productForm">
-		<form role="form" class="productInsert" action="/spring/admin/productInsert" method="post" enctype="multipart/form-data">
+	<div style="margin:10px; display:none" class="memberForm">
+		<form role="form" action="/spring/admin/updateMember" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				아이디
-				<input type="text" class="form-control" placeholder="아이디" name="product_id"/>
+				<input type="text" class="form-control" placeholder="아이디" name="member_id"/>
 			</div>
 			<div class="form-group">
 				이름
-				<input type="text" class="form-control" placeholder="이름" name="product_name"/>
+				<input type="text" class="form-control" placeholder="이름" name="member_name"/>
 			</div>
 			<div class="form-group">
 				비밀번호
-				<input type="number" class="form-control" placeholder="비밀번호" name="price"/>
+				<input type="text" class="form-control" placeholder="비밀번호" name="password"/>
 			</div>
 			<div class="form-group">
 				폰번호
-				<input type="number" class="form-control" placeholder="폰번호" name="product_quantity"/>
+				<input type="text" class="form-control" placeholder="폰번호" name="phonenum"/>
 			</div>
 			<div class="form-group">
 				이메일
-				<input type="text" class="form-control" placeholder="이메일" name="product_category"/>
+				<input type="text" class="form-control" placeholder="이메일" name="email"/>
 			</div>
 			<div class="form-group">
-				
-				<input type="text" class="form-control" placeholder="작가" name="product_author"/>
+				주소
+				<input type="text" class="form-control address" placeholder="주소" name="address"/>
 			</div>
 			<div class="form-group">
-				출판사
-				<input type="text" class="form-control" placeholder="출판사" name="product_publisher"/>
+				상세 주소
+				<input type="text" class="form-control address_detail" placeholder="상세 주소" name="address_detail"/>
 			</div>
-			<div class="col-lg-5 d-none d-lg-block bg-register-image"
-				id="productImagePreview">
+			<div class="col-lg-5 d-none d-lg-block bg-register-image">
 				<img src="/spring/resources/img/defaultprofile.png">
 			</div>
 			<div class="form-group">
 				<div class="custom-file" style="margin: 20px">
-					<input type="file" class="custom-file-input productImage" id="productImage" name="file"> 
-					<label class="custom-file-label" id="productImageLabel" for="productImage">사진 선택</label>
+					<input type="file" class="custom-file-input productImage" id="member_pic" name="file"> 
+					<label class="custom-file-label" id="productImageLabel" for="member_pic">사진 선택</label>
 
 				</div>
 			</div>
@@ -159,24 +113,6 @@ $(document).ready(function(){
 		</form>
 	</div>
 
-
-	<!-- Blog Details Section Begin -->
-	<section class="blog-details spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2 col-md-5 order-md-1 order-2">
-					<div class="blog__sidebar">
-						<div class="blog__sidebar__item">
-							<h4>메뉴</h4>
-							<ul>
-								<li><a href="#">상품 관리</a></li>
-								<li><a href="#">주문 관리</a></li>
-								<li><a href="#">회원 관리</a></li>
-								<li><a href="#">통계</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
 				<div class="col-lg-10 col-md-7 order-md-1 order-1">
 
 					<!-- Page Wrapper -->
@@ -224,7 +160,7 @@ $(document).ready(function(){
 														</thead>
 														<tbody>
 															<c:forEach items="${list}" var="memberVo">
-																<tr class="productInfo">
+																<tr class="memberInfo">
 																	<td>${memberVo.member_id}</td>
 																	<td>${memberVo.member_name}</td>
 																	<td>${memberVo.regdate}</td>

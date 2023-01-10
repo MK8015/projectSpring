@@ -40,4 +40,16 @@ public class MemberService {
 	public List<MemberVo> getMemberList(){
 		return memberDao.getMemberList();
 	}
+	
+	public MemberVo memberDetail(String member_id) {
+		return memberDao.memberDetail(member_id);
+	}
+	
+	public boolean updateMember(MemberVo memberVo) {
+		return memberDao.updateMember(memberVo);
+	}
+	
+	public boolean deleteMember(String member_id) {
+		return memberDao.deleteMember(member_id);
+	}
 }

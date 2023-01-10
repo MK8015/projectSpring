@@ -25,12 +25,12 @@ public class CartController {
 	@Autowired
 	ProductService productService;
 	
-	// Àå¹Ù±¸´Ï ¸ñ·Ï Á¶È¸ (¾ÆÀÌµðº°)
+	// ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (ï¿½ï¿½ï¿½Ìµï¿½)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
-			return "board/login";
+			return "member/login";
 		}
 		System.out.println("member_id: " + member_id);
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
@@ -38,21 +38,21 @@ public class CartController {
 		return "shopping/cart";
 	}
 	
-	// Àå¹Ù±¸´Ï¿¡ »óÇ° µî·Ï
+	// ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("insertProductContoller ½ÇÇàµÊ");
+		System.out.println("insertProductContoller ï¿½ï¿½ï¿½ï¿½ï¿½");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
 		System.out.println("member_id: " + member_id);
-		boolean result = cartService.insertProductInCart(product_id, member_id);	// »óÇ°Á¤º¸ t_cart¿¡ ³Ö±â
+		boolean result = cartService.insertProductInCart(product_id, member_id);	// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ t_cartï¿½ï¿½ ï¿½Ö±ï¿½
 		return String.valueOf(result);
 	}
 	
-	// Ä«Æ® »èÁ¦
+	// Ä«Æ® ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCart(
@@ -66,7 +66,7 @@ public class CartController {
 		return String.valueOf(result);
 	}
 	
-	// Ä«Æ® ¼öÁ¤
+	// Ä«Æ® ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateCart(int cart_amount, String product_id) {
 		cartService.updateCart(cart_amount, product_id);

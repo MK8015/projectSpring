@@ -16,9 +16,21 @@ public class OrderService {
 	
 	public List<OrderVo> orderList() {
 	
-		List<OrderVo>list=orderDao.orderList();
-		
-		return list;
+		return orderDao.orderList();
+	}
+	
+	public OrderVo detailOrder(String order_no) {
+		return orderDao.detailOrder(order_no);
+	}
+	
+	public boolean insertOrder(OrderVo orderVo) {
+		return orderDao.insertOrder(orderVo);
+	}
+	public boolean deleteOrder(String order_no) {
+		return orderDao.deleteOrder(order_no);
+	}
+	public boolean updateOrder(OrderVo orderVo) {
+		return orderDao.updateOrder(orderVo);
 	}
 	
 //	public List<String> getProductInfo(){

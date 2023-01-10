@@ -8,18 +8,18 @@ import lombok.Data;
 @Data
 public class OrderVo {
 	
-	private int ORDER_NO;
-	private String MEMBER_ID;
-	private String PRODUCT_ID;  
-	private int ORDER_AMOUNT; 
-	private String ORDER_ADDRESS; 
-	private int ORDER_PHONENUM; 
-	private Date ORDER_DATE; 
-	private String PRODUCT_NAME;
-	private String PRODUCT_IMAGE;
-	private int PRICE;
-	private int QUANTITY;
-	private String PRODUCT_AUTHOR;
-	private String PRODUCT_PUBLISHER;
+	private int order_no;
+	private String member_id;
+	private String product_id;  
+	private int order_amount; 
+	private String order_address; 
+	private int order_phonenum; 
+	private Date order_date; 
+	private String product_name;
+	private String product_image;
+	private int price;
+	private int quantity;
+	private String product_author;
+	private String product_publisher;
 
 }

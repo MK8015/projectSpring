@@ -69,4 +69,25 @@ public class MemberDao {
 		return sqlSession.selectList(NAMESPACE+"getMemberList");
 	}
 	
+	public MemberVo memberDetail(String member_id) {
+		return sqlSession.selectOne(NAMESPACE+"memberDetail",member_id);
+	}
+	
+	public boolean updateMember(MemberVo memberVo) {
+		int count = sqlSession.update(NAMESPACE+"updateMember",memberVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteMember(String member_id) {
+		int count = sqlSession.delete(NAMESPACE+"deleteMember",member_id);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

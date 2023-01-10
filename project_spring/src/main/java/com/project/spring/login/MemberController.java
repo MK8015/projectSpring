@@ -72,7 +72,7 @@ public class MemberController {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);
-			page="index/main";
+			page="redirect:/main/index";
 		}
 		return page; 
 	}

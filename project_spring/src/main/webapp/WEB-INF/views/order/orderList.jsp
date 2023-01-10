@@ -124,11 +124,11 @@ $(document).ready(function(){
 								<td>${orderList.ORDER_DATE}</td>
 								<td class="order__item">
 <%-- 									<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}"> --%>
-										<h4 id="productName">${orderList.PRODUCT_NAME}</h4></td>
+										<h4 id="productName">${orderList.product_name}</h4></td>
 								
-								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td>
-								<td class="order__price">${orderList.PRICE}</td>
-								<td class="order__id">${orderList.MEMBER_ID}</td>
+								<td class="order__quantity">${orderList.order_amount}</td>
+								<td class="order__price">${orderList.price}</td>
+								<td class="order__id">${orderList.member_id}</td>
 								<td class="order__id"><button class="btn btn-success" type="button" id="btnDetail">상세보기</button></td>
 						</c:forEach>
 								

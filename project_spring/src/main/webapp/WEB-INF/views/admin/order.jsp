@@ -1,335 +1,208 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="description" content="Ogani Template">
-	<meta name="keywords" content="Ogani, unica, creative, html">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>NONFICTION</title>
+<%@ include file="../include/adminHeader.jsp" %>
+<script>
+$(document).ready(function(){
 	
-	<!-- Google Font -->
-	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-	
-	<!-- Css Styles -->
-	<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/nice-select.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
-	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
-	
-	<!-- Js Plugins -->
-   <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
-   <script src="/spring/resources/js/bootstrap.min.js"></script>
-   <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/spring/resources/js/jquery-ui.min.js"></script>
-   <script src="/spring/resources/js/jquery.slicknav.js"></script>
-   <script src="/spring/resources/js/mixitup.min.js"></script>
-   <script src="/spring/resources/js/owl.carousel.min.js"></script>
 
-<!--    <script src="/spring/resources/js/main.js"></script> -->
+	$("#productInsert").click(function(e){
+		e.preventDefault();
+		$(".orderForm:gt(0)").parent().parent().remove();
+		var form = $(".productForm").eq(0).clone();
+		form.attr("class","productInsertForm");
+		form.css("display","");
+		$(this).parent().append(form);
+	});
 	
-</head>
+	$(".orderInfo").on("click","td",function(e){
+		e.preventDefault();
+		$(".productInsertForm").remove();
+		$(".orderForm:gt(0)").parent().parent().remove();
+		var form = $(".productForm").eq(0).clone();
+		var tds = $(this).parent().find("td");
+		var order_no = tds.eq(0).text();
+		console.log(order_no);
+		var tr = $(this).parent();
+		$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
+			var jsonObject = JSON.parse(rData);
+			var inputs = form.find("input");
+			inputs.eq(0).attr("readonly","true").val(jsonObject.order_no);
+			inputs.eq(1).val(jsonObject.member_id);
+			inputs.eq(2).val(jsonObject.product_id);
+			inputs.eq(3).val(jsonObject.order_amount);
+			inputs.eq(4).val(jsonObject.order_address);
+			inputs.eq(5).val(jsonObject.address_detail);
+			inputs.eq(6).val(jsonObject.order_phonenum);
+			inputs.eq(7).val(jsonObject.order_date);
+			form.css("display","");
+			tr.after("<tr><td colspan='4'></td></tr>");
+			var td = tr.next().find("td");
+			form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
+			form.find("form").attr("action","/spring/admin/updateOrder");
+			td.append(form);
+			
+		});
+	});
+	
+});
+</script>
 
-<body>
-<!-- Blog Details Section Begin -->
-<section class="blog-details spad">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2 col-md-5 order-md-1 order-2">
-				<div class="blog__sidebar">
-					<div class="blog__sidebar__item">
-						<h4>메뉴</h4>
-						<ul>
-							<li><a href="#">상품 관리</a></li>
-							<li><a href="#">주문 관리</a></li>
-							<li><a href="#">회원 관리</a></li>
-							<li><a href="#">통계</a></li>
-						</ul>
+	<!--  입력,수정 양식 -->
+	<div style="margin: 10px; display: none" class="orderForm">
+		<form role="form" class="productInsert" action="/spring/admin/insertOrder" method="post">
+			<div class="form-group">
+				주문 번호
+				<input type="text" class="form-control" placeholder="주문 번호" name="order_no"/>
+			</div>
+			<div class="form-group">
+				주문한 회원
+				<input type="text" class="form-control" placeholder="주문한 회원" name="member_id"/>
+			</div>
+			<div class="form-group">
+				주문한 상품
+				<input type="text" class="form-control" placeholder="주문한 상품" name="product_id"/>
+			</div>
+			<div class="form-group">
+				수량
+				<input type="number" class="form-control" placeholder="수량" name="order_amount"/>
+			</div>
+			<div class="form-group">
+				배송지
+				<input type="text" class="form-control" placeholder="배송지" name="order_address"/>
+			</div>
+			<div class="form-group">
+				상세 주소
+				<input type="text" class="form-control" placeholder="상세 주소" name="address_detail"/>
+			</div>		
+			<div class="form-group">
+				전화번호
+				<input type="text" class="form-control" placeholder="전화번호" name="order_phonenum"/>
+			</div>
+			<div class="form-group">
+				주문 날짜
+				<input type="text" class="form-control" placeholder="주문 날짜" name="order_date"/>
+			</div>
+			<button type="submit" class="site-smbtn">작성 완료</button>
+			<a href="#" class="site-smbtn">삭제</a>
+		</form>
+	</div>
+				<div class="col-lg-10 col-md-7 order-md-1 order-1">
+
+					<!-- Page Wrapper -->
+					<div id="wrapper">
+
+
+						<!-- Content Wrapper -->
+						<div id="content-wrapper" class="d-flex flex-column">
+
+							<!-- Main Content -->
+							<div id="content">
+
+
+								<!-- Begin Page Content -->
+								<div class="container-fluid">
+
+									<!-- Page Heading -->
+									<div
+										class="d-sm-flex align-items-center justify-content-between mb-4">
+										<h1 class="h3 mb-0 text-gray-800">관리자 페이지</h1>
+									</div>
+
+									<!-- Content Row -->
+
+									<div class="row">
+
+										<!-- Area Chart -->
+										<div class="col-xl-12 col-lg-7">
+											<div class="card shadow mb-4">
+												<!-- Card Header - Dropdown -->
+												<div
+													class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+													<h6 class="m-0 font-weight-bold text-primary">상품목록</h6>항목을 누르면 수정,삭제 가능
+												</div>
+												<!-- Card Body -->
+												<div class="card-body">
+													<table class="table table-hover" style="table-layout: fixed">
+														<thead>
+															<tr>
+																<th>주문 번호</th>
+																<th>주문한 아이디</th>
+																<th>책 이름</th>
+																<th>수량</th>
+																<th>가격</th>
+															</tr>
+														</thead>
+														<tbody>
+												<c:forEach items="${list}" var="orderVo">
+													<tr class="orderInfo">
+														<td>${orderVo.order_no}</td>
+														<td>${orderVo.member_id}</td>
+														<td>${orderVo.product_name}</td>
+														<td>${orderVo.order_amount}</td>
+														<td>${orderVo.price}</td>
+													</tr>
+												</c:forEach>
+														</tbody>
+													</table>
+													<a href="#" class="site-smbtn" id="productInsert">입력</a>				
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.container-fluid -->
+
+							</div>
+							<!-- End of Main Content -->
+
+							<!-- Footer -->
+							<footer class="sticky-footer bg-white">
+								<div class="container my-auto">
+									<div class="copyright text-center my-auto">
+										<span>Copyright &copy; Your Website 2021</span>
+									</div>
+								</div>
+							</footer>
+							<!-- End of Footer -->
+
+						</div>
+						<!-- End of Content Wrapper -->
+
 					</div>
+					<!-- End of Page Wrapper -->
+
+
+					<!-- Logout Modal-->
+					<div class="modal fade" id="logoutModal" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Ready to
+										Leave?</h5>
+									<button class="close" type="button" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>
+								<div class="modal-body">Select "Logout" below if you are
+									ready to end your current session.</div>
+								<div class="modal-footer">
+									<button class="btn btn-secondary" type="button"
+										data-dismiss="modal">Cancel</button>
+									<a class="btn btn-primary" href="login.html">Logout</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
-			<div class="col-lg-10 col-md-7 order-md-1 order-1">
-				
-				
-				
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">관리자 페이지</h1>
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Color System -->
-                            <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
-                                </div>
-                            </div>
-
-                            <!-- Approach -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-				
-			</div>
 		</div>
-	</div>
-</section>
-<!-- Blog Details Section End -->
-
-
- <!-- Js Plugins -->
-   <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
-   <script src="/spring/resources/js/bootstrap.min.js"></script>
-   <script src="/spring/resources/js/jquery.nice-select.min.js"></script>
-   <script src="/spring/resources/js/jquery-ui.min.js"></script>
-   <script src="/spring/resources/js/jquery.slicknav.js"></script>
-   <script src="/spring/resources/js/mixitup.min.js"></script>
-   <script src="/spring/resources/js/owl.carousel.min.js"></script>
-   <script src="/spring/resources/js/main.js"></script> 
-
+	</section>
+	<!-- Blog Details Section End -->
 
 </body>
 
