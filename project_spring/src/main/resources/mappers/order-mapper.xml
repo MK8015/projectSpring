@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="mappers.order">
+ 
+ 	<select id="orderList" resultType="OrderVo">
+ 		select a.*,b.* from t_order a, t_product b where a.product_id =b.product_id
+ 	</select>
+
+ </mapper>
