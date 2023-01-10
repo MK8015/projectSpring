@@ -38,14 +38,14 @@ public class MemberController {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	
-	//로그인 화면 띄우기
+	//濡쒓렇�씤 �솕硫� �쓣�슦湲�
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
 		
 		return "member/login";
 	}
 	
-	//로그인 시
+	//濡쒓렇�씤 �떆
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginRun(String member_id, String password,HttpSession session
 							,RedirectAttributes rttr,String saveId,HttpServletResponse response) {
@@ -55,16 +55,17 @@ public class MemberController {
 		
 		
 		if(memberVo ==null){
-			//로그인 실패시
+			//濡쒓렇�씤 �떎�뙣�떆
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
 		}else {
-			//로그인 성공시
-			//로그인 세션에 넣어둠    
+			//濡쒓렇�씤 �꽦怨듭떆
+			//濡쒓렇�씤 �꽭�뀡�뿉 �꽔�뼱�몺    
 			session.setAttribute("loginmember", memberVo);
+			session.setAttribute("loginMember", memberVo.getMember_id());
 			
 			
-			//쿠키넣기
+			//荑좏궎�꽔湲�
 			Cookie cookie=new Cookie("member_id",member_id);
 			if(saveId!=null) {
 				cookie.setMaxAge(60*60*24*7);
@@ -76,14 +77,14 @@ public class MemberController {
 		}
 		return page; 
 	}
-	//로그아웃
+	//濡쒓렇�븘�썐
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		session.invalidate(); // 현재 세션 무효화
+		session.invalidate(); // �쁽�옱 �꽭�뀡 臾댄슚�솕
 		return "redirect:/member/login";
 	}
 	
-	//회원가입 화면 띄우기
+	//�쉶�썝媛��엯 �솕硫� �쓣�슦湲�
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
 	public String showRegister() {
 		
@@ -92,14 +93,14 @@ public class MemberController {
 	
 	
 	
-	//등록 실행
+	//�벑濡� �떎�뻾
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerRun(MemberVo memberVo, MultipartFile file, RedirectAttributes rttr) {
 		
 		String page="";
 		String originalFilename=file.getOriginalFilename();
 		
-		//이미지 파일업로드
+		//�씠誘몄� �뙆�씪�뾽濡쒕뱶
 		
 //		"//192.168.0.233/userpics/"
 		try {
@@ -111,7 +112,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		//등록실행
+		//�벑濡앹떎�뻾
 		boolean result=memberService.registerRun(memberVo);
 		System.out.println("controller memberVo:"+memberVo);
 		if(result) {
@@ -126,18 +127,18 @@ public class MemberController {
 			return page;
 	}
 	
-	//비밀번호 찾기 띄우기
+	//鍮꾨�踰덊샇 李얘린 �쓣�슦湲�
 	@RequestMapping(value = "/forgot-passwordForm", method = RequestMethod.GET)
 	public String showforgotpassword() {
 		
 		return "member/forgot-password";
 	}
 	
-	//비밀번호 찾기 실행
+	//鍮꾨�踰덊샇 李얘린 �떎�뻾
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
 	public String snedPassword(EmailDto emailDto, RedirectAttributes rttr) {
 		
-		//찾기하는데 제대로 넣지 않은 경우
+		//李얘린�븯�뒗�뜲 �젣��濡� �꽔吏� �븡�� 寃쎌슦
 		if(emailDto.getMember_id()==null ||
 		   emailDto.getMember_id().equals("") ||
 		   emailDto.getTo()==null ||
@@ -146,14 +147,14 @@ public class MemberController {
 			return "redirect:/member/forgot-passwordForm";
 		}
 		
-		//아이디하고 이메일이 제대로 있는지
+		//�븘�씠�뵒�븯怨� �씠硫붿씪�씠 �젣��濡� �엳�뒗吏�
 		if(!memberService.isExist(emailDto.getMember_id(),emailDto.getTo())) {
 			rttr.addFlashAttribute("isExist","false");
 			return "redirect:/member/forgot-passwordForm";
 			
 		}
 		
-		//임시비밀번호 생성 및 발송
+		//�엫�떆鍮꾨�踰덊샇 �깮�꽦 諛� 諛쒖넚
 		String uuid=UUID.randomUUID().toString();
 		String uuidsub = uuid.substring(0, uuid.indexOf("-"));
 		
@@ -169,8 +170,8 @@ public class MemberController {
 					"utf-8");
 					helper.setFrom(emailDto.getFrom());
 					helper.setTo(emailDto.getTo());
-					helper.setSubject("�엫�떆鍮꾨�踰덊샇 諛쒖넚�븞�궡");
-					helper.setText("�깉濡쒖슫 �엫�떆 鍮꾨�踰덊샇�뒗 "+uuidsub+"�엯�땲�떎");
+					helper.setSubject("占쎌뿫占쎈뻻�뜮袁⑨옙甕곕뜇�깈 獄쏆뮇�꽊占쎈툧占쎄땀");
+					helper.setText("占쎄퉱嚥≪뮇�뒲 占쎌뿫占쎈뻻 �뜮袁⑨옙甕곕뜇�깈占쎈뮉 "+uuidsub+"占쎌뿯占쎈빍占쎈뼄");
 				}
 			};
 			mailSender.send(preparator);
@@ -179,7 +180,7 @@ public class MemberController {
 		
 	}
 	
-	//아이디 체크
+	//�븘�씠�뵒 泥댄겕
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean idCheck(String member_id) {
