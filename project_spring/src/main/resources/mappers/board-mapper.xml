@@ -20,20 +20,13 @@
 		where bno = #{bno}
 	</select>
 	
-	<!-- 글 수정 -->
-	<update id="updateArticle">
-		update t_board set
-			title = #{title},
-			content = #{content},
-			regdate = sysdate
-		where bno = #{bno}
-	</update>
 	
-	<!-- 글 삭제 -->
-	<delete id="deleteArticle">
-		delete from t_board
+	<!-- 비밀번호 찾기 -->
+	<select id="checkPassword" resultType="int">
+		select count(*) from t_board
 		where bno = #{bno}
-	</delete>
+		and password = #{password}
+	</select>
 	
 	<!-- 조회수 증가 -->
 	<update id="updateViewcnt">
@@ -47,8 +40,7 @@
 		select seq_board_bno.nextval from dual
 	</select>
 	
-	
-	<!-- 글등록 -->
+	<!-- 글 등록 -->
 	<insert id="insertArticle">
 		insert into t_board
 			(bno, title, content, pic, writer, re_group, secret, password)
@@ -66,15 +58,7 @@
 			 #{re_group}, #{re_seq} + 1, #{re_level} + 1)
 	</insert>
 	
-	
-	
-	<!-- 글 번호 선택 -->
-	<select id="selectByRegroup" resultType="BoardVo">
-		select * from t_board
-		where re_group = #{re_group}
-	</select>
-	
-	
+
 	<!-- 출력 순서 업데이트 -->
 	<update id="updateReSeq">
 		<![CDATA[ 
@@ -94,7 +78,23 @@
 	
 	
 	
+	<!-- 글 수정 -->
+	<update id="updateArticle">
+		update t_board set
+			title = #{title},
+			content = #{content},
+			pic = #{pic, jdbcType=VARCHAR},
+			regdate = sysdate,
+			secret = #{secret}, 
+			password = #{password}
+		where bno = #{bno}
+	</update>
 	
+	<!-- 글 삭제 -->
+	<delete id="deleteArticle">
+		delete from t_board
+		where bno = #{bno}
+	</delete>
 	
 	
 	

@@ -77,12 +77,16 @@ table {
 	text-align: right;
 }
 
-
-
 </style>
 
 <script>
 $(document).ready(function() {
+	if ('${boardVo.secret}' == 'Y') {
+		$("#secretChk").prop("checked", true);
+		$("input[name=password]").show(100);
+	}
+	
+	
 	
 	// 사진 선택
 	$("#customFile").change(function(e) {
@@ -101,6 +105,8 @@ $(document).ready(function() {
 		reader.readAsDataURL(file);
 	}); // $("#customFile").change(f
 	
+
+	
 			
 }); //$(document).ready(function()
 		
@@ -111,7 +117,6 @@ function isSecret(){
 	$("#secret").val(secret);
 	
 	if (secret == "Y") {
-		console.log("나타남");
 		$("input[name=password]").show(100);
 	}
 }
@@ -148,25 +153,31 @@ function isSecret(){
 		</div>
 		<hr>
 		<div class="qna__form">
-		<form id="frmUpdate" role="form" action="/spring/board/write" method="post" enctype="multipart/form-data">
+		<form id="frmUpdate" role="form" action="/spring/board/modify" method="post" enctype="multipart/form-data">
 				
+		<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 				<table>
 					<tr style ='vertical-align : middle'>
 						<td>제목</td>
-						<td><input type="text" class="qna__input" id="title" name="title" placeholder="제목을 입력해 주세요"/></td>
+						<td><input type="text" class="qna__input" id="title" 
+							name="title" placeholder="제목을 입력해 주세요" value="${boardVo.title}"/></td>
 					</tr>
 					<tr style ='vertical-align : top'>
 						<td><br>내용</td>
-						<td><textarea class="qna__textarea" id="content" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
+						<td><textarea class="qna__textarea" id="content" name="content" 
+							placeholder="내용을 입력해 주세요">${boardVo.content}</textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td>사진</td>
-						<td><input type="file" class="form-control" id="customFile" name="file" /></td>
+						<td><input type="file" class="form-control" 
+							id="customFile" name="file" /></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
-						<td>비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()"></td>
-						<td><input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요" style="display:none"/>
-							<input type="hidden" id="secret" name="secret"></td>
+						<td>비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()">
+						</td>
+						<td><input type="password" id="password" name="password" 
+								placeholder="비밀번호를 입력해 주세요" style="display:none" value="${boardVo.password}"/>
+							<input type="hidden" id="secret" name="secret" value="${boardVo.secret}"></td>
 					</tr>
 				</table>
 				<hr>

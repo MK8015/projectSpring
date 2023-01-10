@@ -30,4 +30,27 @@
 		select * from t_member
 	</select>
 	
+	<select id="memberDetail" resultType="MemberVo">
+		select * from t_member
+		where member_id = #{member_id}
+	</select>
+	
+	
+	<update id="updateMember">
+		update t_member set
+			member_name = #{member_name},
+			password = #{password},
+			phonenum = #{phonenum},
+			email = #{email},
+			address = #{address},
+			address_detail = #{address_detail},
+			member_pic = #{member_pic}
+		where member_id = #{member_id}
+	</update>
+	
+	<delete id="deleteMember">
+		delete from t_member
+		where member_id = #{member_id}
+	</delete>
+	
 </mapper>

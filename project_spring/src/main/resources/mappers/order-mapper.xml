@@ -8,6 +8,39 @@
  		select a.*,b.* from t_order a, t_product b where a.product_id =b.product_id
  	</select>
  	
+
+ 	<select id="detailOrder" resultType="OrderVo">
+		select * from t_order
+		where order_no = #{order_no}
+	</select>
  	
+ 	<insert id="insertOrder">
+		insert into t_order(
+			order_no,member_id,product_id,
+			order_amount,order_address,order_phonenum,
+			order_date,address_detail
+		)
+		values(
+			#{order_no},#{member_id},#{product_id},#{order_amount},
+			#{order_address},#{order_phonenum},sysdate,#{address_detail}
+		)
+	</insert>
+	
+	<update id="updateOrder">
+		update t_order set
+			member_id = #{member_id},
+			product_id = #{product_id},
+			order_amount = #{order_amount},
+			order_address = #{order_address},
+			order_phonenum = #{order_phonenum},
+			order_date = #{order_date},
+			address_detail = #{address_detail}
+		where order_no = #{order_no}
+	</update>
+	
+	<delete id="deleteOrder">
+		delete from t_order
+		where order_no = #{order_no}
+	</delete>
 
  </mapper>

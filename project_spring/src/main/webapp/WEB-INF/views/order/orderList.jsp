@@ -66,13 +66,12 @@
 							<tr>
 								<td>${orderList.ORDER_DATE}</td>
 								<td class="order__item">
-									<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}" height="150" width="100" alt=""></td>
-										
+								<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}" height="150" width="100" alt=""></td>			
 								<td><a href="/spring/product/detail?product_id=${orderList.PRODUCT_ID}" style="color: black; font-size: 14pt;"><strong>${orderList.PRODUCT_NAME}</strong></a></td>
 								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td>
 								<td class="order__price">${orderList.PRICE}</td>
 								<td class="order__id">${orderList.MEMBER_ID}</td>
-								
+
 						</c:forEach>
 								
 								

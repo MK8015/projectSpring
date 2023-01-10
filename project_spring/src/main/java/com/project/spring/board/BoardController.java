@@ -39,7 +39,7 @@ public class BoardController {
 	
 	
 	
-	// �� ��� ����
+	// 占쏙옙 占쏙옙占 占쏙옙占쏙옙
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
 		List<BoardVo> list = boardService.listArticle(boardPagingDto);
@@ -51,7 +51,7 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	// ������ ����
+	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String getArticle(int bno, Model model, HttpSession session) {
 		BoardVo boardVo = boardService.selectByBno(bno);
@@ -59,7 +59,8 @@ public class BoardController {
 		return "board/detail";
 	}
 	
-	// �� ����
+
+	// 占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyArticle(BoardVo boardVo) {
 		boardService.updateArticle(boardVo);
@@ -67,15 +68,15 @@ public class BoardController {
 				"?bno=" + boardVo.getBno();
 	}
 	
-	// �� ����
+	// 占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String remove(int bno) {
 		boardService.deleteArticle(bno);
 		return "redirect:/board/list";
 	}
 	
-	
-	// �� ���
+
+	// 占쏙옙 占쏙옙占
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String registerForm() {
 		return "board/write";
@@ -84,7 +85,8 @@ public class BoardController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String addArticle(BoardVo boardVo, RedirectAttributes rttr, 
 								HttpSession session, MultipartFile file) {
-		// ����
+
+		// 사진 넣기
 		System.out.println("file:" + file);
 		String originalFilename = file.getOriginalFilename();
 		System.out.println("originalFilename:" + originalFilename);
@@ -103,8 +105,6 @@ public class BoardController {
 			}
 		}
 		
-		
-		
 		String loginMember = (String)session.getAttribute("loginMember");
 		boardVo.setWriter(loginMember);
 		boolean result = boardService.insertArticle(boardVo);
@@ -113,15 +113,14 @@ public class BoardController {
 	}
 	
 
-	 //��� ���
+	 //답글 등록
+
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
 	public String reply(int re_group, HttpServletRequest request) {
 		request.setAttribute("re_group", re_group);
-		//boardService.selectByRegroup(re_group);
 		return "board/reply";
 	}
 	
-
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
 	public String reply(BoardVo boardVo, RedirectAttributes rttr, HttpSession session) {
 		String loginMember = (String)session.getAttribute("loginMember");
@@ -132,7 +131,9 @@ public class BoardController {
 	}
 	
 
-	// �л� ���� ����
+
+	// 사진 보기
+
 	@RequestMapping(value = "/displayImage", method = RequestMethod.GET)
 	@ResponseBody 
 	public byte[] displayImage(String pic) {
@@ -152,9 +153,55 @@ public class BoardController {
 		return null;
 	}
 	
+	// 비밀번호 체크
+	@RequestMapping(value = "/checkPassword", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkPassword(BoardVo boardVo) {
+		boolean result = boardService.checkPassword(boardVo);
+		return String.valueOf(result);
+	}
 	
+
+	// 글 수정
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String modifyArticle(int bno, Model model) {
+		BoardVo boardVo = boardService.selectByBno(bno);
+		model.addAttribute("boardVo", boardVo);
+		return "board/modify";
+	}
 	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String updateArticle(BoardVo boardVo, MultipartFile file) {
+		// 사진 넣기
+		System.out.println("file:" + file);
+		String originalFilename = file.getOriginalFilename();
+		System.out.println("originalFilename:" + originalFilename);
 	
+		if (originalFilename != null & !originalFilename.equals("")) {
+			long size = file.getSize();
+			System.out.println("size:" + size);
+			String name = file.getName();
+			System.out.println("name:" + name);
+			try {
+				String pic = MyFileUploader.uploadfile(
+						"//192.168.0.233/userpics/", originalFilename, file.getBytes());
+				boardVo.setPic(pic);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		boardService.updateArticle(boardVo);
+		return "redirect:/board/detail" +
+				"?bno=" + boardVo.getBno();
+	}
+	
+	// 글 삭제
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String remove(int bno) {
+		boardService.deleteArticle(bno);
+		return "redirect:/board/list";
+	}
 	
 	
 	
