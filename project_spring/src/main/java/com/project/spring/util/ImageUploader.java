@@ -10,8 +10,8 @@ public class ImageUploader {
 	public static String uploadFile(
 			String uploadPath, String originalFilename, byte[] fileData) {
 		UUID uuid = UUID.randomUUID();
-		String saveFilename = uploadPath + "/" + uuid + "_" + originalFilename;
-		File target = new File(saveFilename);
+		String saveFilename = uuid + "_" + originalFilename;
+		File target = new File(uploadPath + "/" + saveFilename);
 		try {
 			FileCopyUtils.copy(fileData, target);
 		} catch (IOException e) {

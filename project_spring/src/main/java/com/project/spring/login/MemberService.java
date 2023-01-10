@@ -1,5 +1,7 @@
 package com.project.spring.login;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,9 @@ public class MemberService {
 	public boolean updatePassword(String email,String newPassword) {
 		boolean result= memberDao.updatePassword(email, newPassword);
 		return result;
+	}
+	
+	public List<MemberVo> getMemberList(){
+		return memberDao.getMemberList();
 	}
 }

@@ -19,7 +19,7 @@ public class ReviewDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<ReviewVo> getList(String product_id,PagingDto pagingDto) {
+	public List<ReviewVo> getList(String product_id,ReviewPagingDto pagingDto) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("product_id", product_id);
 		map.put("startRow", pagingDto.getStartRow());
