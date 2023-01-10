@@ -41,7 +41,7 @@ public class PagingDto {
 		
 		// Math.ceil 소숫자 숫자 올림!
 		
-		this.totalPage = (int)Math.ceil((float)count/perPage);
+		this.totalPage = (int)Math.ceil((float)count/this.perPage);
 		if (this.endPage > this.totalPage) {
 			this.endPage = this.totalPage;
 		}

@@ -60,8 +60,8 @@ public class MemberController {
 			page="redirect:/member/login";
 		}else {
 			//로그인 성공시
-			//로그인 세션에 넣어둠  
-			session.setAttribute("loginMember", memberVo.getMember_id());
+			//로그인 세션에 넣어둠    
+			session.setAttribute("loginmember", memberVo);
 			
 			
 			//쿠키넣기
@@ -75,6 +75,12 @@ public class MemberController {
 			page="index/main";
 		}
 		return page; 
+	}
+	//로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate(); // 현재 세션 무효화
+		return "redirect:/member/login";
 	}
 	
 	//회원가입 화면 띄우기
@@ -93,10 +99,11 @@ public class MemberController {
 		String page="";
 		String originalFilename=file.getOriginalFilename();
 		
-		
 		//이미지 파일업로드
+		
+//		"//192.168.0.233/userpics/"
 		try {
-		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
+		 String member_pic=MyFileUploader.uploadfile("C:/userpics/", originalFilename, file.getBytes());
 		 System.out.println("member_pic:"+member_pic);
 		 memberVo.setMember_pic(member_pic);
 		
@@ -162,8 +169,8 @@ public class MemberController {
 					"utf-8");
 					helper.setFrom(emailDto.getFrom());
 					helper.setTo(emailDto.getTo());
-					helper.setSubject("임시비밀번호 발송안내");
-					helper.setText("새로운 임시 비밀번호는 "+uuidsub+"입니다");
+					helper.setSubject("�엫�떆鍮꾨�踰덊샇 諛쒖넚�븞�궡");
+					helper.setText("�깉濡쒖슫 �엫�떆 鍮꾨�踰덊샇�뒗 "+uuidsub+"�엯�땲�떎");
 				}
 			};
 			mailSender.send(preparator);

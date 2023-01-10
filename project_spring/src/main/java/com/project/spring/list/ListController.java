@@ -17,20 +17,21 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
-	// ��� ��ȸ
+	// 占쏙옙占 占쏙옙회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
 		System.out.println(category);
 		
 		List<ProductVo> list = null;
 		pagingDto.setPagingInfo(pagingDto.getPage()
-				, pagingDto.getPerPage()
-				, listService.getCount(category, pagingDto));
-		// ī�װ��� ���°�� : ��ü��ȸ (getProductList)
+								, pagingDto.getPerPage()
+								, listService.getCount(category, pagingDto));
+		System.out.println("list페이지pagingDto:"+pagingDto);
+		// 카테고리가 없는경우 : 전체조회 (getProductList)
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
 		} 
-		// ī�װ��� �ִ°�� : �� ī�װ���,�˻��� �����ȸ (getListByCategory)
+		// 카占쌓곤옙占쏙옙 占쌍는곤옙占 : 占쏙옙 카占쌓곤옙占쏙옙,占싯삼옙占쏙옙 占쏙옙占쏙옙占싫 (getListByCategory)
 		else {
 			list = listService.getListByCategory(category, pagingDto);
 			model.addAttribute("category",category);

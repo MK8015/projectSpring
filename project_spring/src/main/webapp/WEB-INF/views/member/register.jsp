@@ -195,6 +195,26 @@ $(document).ready(
 
 		});//document
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+		window.onload = function(){
+		    document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+		        //카카오 지도 발생
+		        new daum.Postcode({
+		        
+		            oncomplete: function(data) { //선택시 입력값 세팅
+		                document.getElementById("address").value = data.address; // 주소 넣기
+		                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+		            	
+		            }
+		        }).open();
+		    });
+		    
+		    
+		}
+		</script>	
+		
+
 
 
 
@@ -272,7 +292,16 @@ $(document).ready(
 													<p style="margin-top: 15px">
 														주소<span>*</span>
 													</p>
+													
 													<input type="text" id="address" name="address"
+														style="margin-bottom: 20px" readonly>
+												</div>
+												<div class="checkout__input">
+													<p style="margin-top: 15px">
+														상세<span>*</span>
+													</p>
+													
+													<input type="text" id="address_detail" name="address_detail"
 														style="margin-bottom: 20px">
 												</div>
 
