@@ -30,7 +30,7 @@ public class CartController {
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
-			return "board/login";
+			return "member/login";
 		}
 		System.out.println("member_id: " + member_id);
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
@@ -67,10 +67,14 @@ public class CartController {
 	}
 	
 	// 카트 수정
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateCart(int cart_amount, String product_id) {
-		cartService.updateCart(cart_amount, product_id);
-		return "redirect:/shopping/cart";
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateCart(int cart_amount, String product_id, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
+				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
+		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
+		return String.valueOf(result);
 	}
 	
 	

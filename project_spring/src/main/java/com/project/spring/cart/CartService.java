@@ -27,7 +27,7 @@ public class CartService {
 		return cartDao.deleteCart(arr_product_id, member_id);
 	}
 	
-	public boolean updateCart(int cart_amount, String product_id) {
-		return cartDao.updateCart(cart_amount, product_id);
+	public boolean updateCart(int cart_amount, String product_id, String member_id) {
+		return cartDao.updateCart(cart_amount, product_id, member_id);
 	}
 }

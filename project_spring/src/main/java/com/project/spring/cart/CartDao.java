@@ -48,10 +48,11 @@ public class CartDao {
 	}
 	
 	// 카트 수정
-	public boolean updateCart(int cart_amount, String product_id) {
+	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("cart_amount", cart_amount);
 		map.put("product_id", product_id);
+		map.put("member_id", member_id);
 		int count = sqlSession.update(NAME_SPACE + "updateCart", map);
 		if (count > 0) {
 			return true;
