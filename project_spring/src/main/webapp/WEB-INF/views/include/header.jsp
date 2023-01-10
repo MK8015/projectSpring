@@ -143,7 +143,7 @@ $(document).ready(function() {
 	<div class="header__top">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="/spring/main/list">MAIN</a></li>
@@ -167,7 +167,7 @@ $(document).ready(function() {
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-6 col-md-6">
+				<div class="col-lg-4 col-md-6">
 					<div class="header__top__right">
 						<div>
 						

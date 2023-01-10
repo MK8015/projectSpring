@@ -59,6 +59,7 @@ $(document).ready(function() {
 					<thead>
 						<tr height="50" bgcolor="#f5f5f5">
 							<th>번호</th>
+							<th>비밀글</th>
 							<th>제목</th>
 							<th>날짜</th>
 							<th>작성자</th>
@@ -70,9 +71,12 @@ $(document).ready(function() {
 					<c:forEach items="${list}" var="boardVo">
 						<tr height="50">
 							<td>${boardVo.bno}</td>
+							<td>${boardVo.secret}</td>
 							<td>
 								<a class="a_title" data-bno="${boardVo.bno}" href="#">
-								${boardVo.title}</a>
+								<c:if test="${boardVo.re_level gt 0}">	
+								ㄴ 
+								</c:if>${boardVo.title}</a>
 							</td>
 							<td>${boardVo.regdate}</td>
 							<td>${boardVo.writer}</td>
