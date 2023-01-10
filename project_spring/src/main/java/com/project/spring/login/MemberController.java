@@ -27,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.ProductVo;
+import com.project.spring.vo.ReviewVo;
 
 @Controller
 @RequestMapping("/member/*")
@@ -61,7 +63,8 @@ public class MemberController {
 		}else {
 			//로그인 성공시
 			//로그인 세션에 넣어둠    
-			session.setAttribute("loginmember", memberVo);
+			session.setAttribute("loginMemberVo", memberVo);
+			session.setAttribute("loginMember", memberVo.getMember_id());
 			
 			
 			//쿠키넣기
@@ -169,8 +172,8 @@ public class MemberController {
 					"utf-8");
 					helper.setFrom(emailDto.getFrom());
 					helper.setTo(emailDto.getTo());
-					helper.setSubject("�엫�떆鍮꾨�踰덊샇 諛쒖넚�븞�궡");
-					helper.setText("�깉濡쒖슫 �엫�떆 鍮꾨�踰덊샇�뒗 "+uuidsub+"�엯�땲�떎");
+					helper.setSubject("임시비밀번호 발송안내");
+					helper.setText("새로운 임시비밀번호는 "+uuidsub+"입니다");
 				}
 			};
 			mailSender.send(preparator);

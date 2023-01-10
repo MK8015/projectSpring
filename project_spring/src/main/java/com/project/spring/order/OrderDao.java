@@ -24,6 +24,8 @@ public class OrderDao {
 		return list;
 	}
 	
+	
+	
 //	public List<String>getProductInfo(){
 //		List<ProductVo>list=sqlSession.selectList(NAME_SPACE+"getProductInfo");
 //		return list;

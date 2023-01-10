@@ -1,6 +1,8 @@
 package com.project.spring.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +19,26 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	// ±Û ¸ñ·Ï
-	public List<BoardVo> listArticle() {
-		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle");
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½
+	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
+		
+		Map<String, String>map=new HashMap<>();
+		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
+		map.put("endRow", String.valueOf(boardPagingDto.getEndRow()));
+		System.out.println("map:"+map);
+		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle",map);
+		
 		return list;
 	}
 	
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public BoardVo selectByBno(int bno) {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByBno", bno);
 		return boardVo;
 	}
 	
-	// ±Û ¼öÁ¤
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public boolean updateArticle(BoardVo boardVo) {
 		int count = sqlSession.update(NAME_SPACE + "updateArticle", boardVo);
 		if (count > 0) {
@@ -39,7 +47,7 @@ public class BoardDao {
 		return false;
 	}
 	
-	// ±Û »èÁ¦
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public boolean deleteArticle(int bno) {
 		int count = sqlSession.delete(NAME_SPACE + "deleteArticle", bno);
 		if (count > 0) {
@@ -48,7 +56,7 @@ public class BoardDao {
 		return false;
 	}
 	
-	// Á¶È¸¼ö Áõ°¡
+	// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void updateViewcnt(int bno) {
 		sqlSession.update(NAME_SPACE + "updateViewcnt", bno);
 	}
@@ -59,7 +67,7 @@ public class BoardDao {
 		return nextVal;
 	}
 
-	// °Ô½Ã±Û ÀÛ¼º
+	// ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½
 	public boolean insertArticle(BoardVo boardVo) {
 		int count = sqlSession.insert(NAME_SPACE + "insertArticle", boardVo);
 		if (count > 0) {
@@ -82,11 +90,16 @@ public class BoardDao {
 	}
 	
 
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public BoardVo selectByRegroup(int re_group) {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByRegroup", re_group);
 		return boardVo;
+	}
+	public int getCount() {
+		
+		int count=sqlSession.selectOne(NAME_SPACE+"getCount");
+		return count;
 	}
 	
 	

@@ -15,30 +15,30 @@ public class BoardService {
 	@Autowired
 	BoardDao boardDao;
 	
-	// ±Û ¸ñ·Ï º¸±â
-	public List<BoardVo> listArticle() {
-		return boardDao.listArticle();
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
+		return boardDao.listArticle(boardPagingDto);
 	}
 
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public BoardVo selectByBno(int bno) {
-		boardDao.updateViewcnt(bno); //Á¶È¸¼ö
+		boardDao.updateViewcnt(bno); //ï¿½ï¿½È¸ï¿½ï¿½
 		BoardVo boardVo = boardDao.selectByBno(bno);
 		return boardVo;
 	}
 	
-	// ±Û ¼öÁ¤
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public boolean updateArticle(BoardVo boardVo) {
 		return boardDao.updateArticle(boardVo);
 	}
 	
-	// ±Û »èÁ¦
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public boolean deleteArticle(int bno) {
 		return boardDao.deleteArticle(bno);
 	}
 	
 	
-	// ±Û ÀÛ¼º
+	// ï¿½ï¿½ ï¿½Û¼ï¿½
 	@Transactional
 	public boolean insertArticle(BoardVo boardVo) {
 		int nextVal = boardDao.getNextVal();
@@ -55,10 +55,15 @@ public class BoardService {
 	
 
 
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	public BoardVo selectByRegroup(int re_group) {
 		BoardVo boardVo = boardDao.selectByRegroup(re_group);
 		return boardVo;
 	}
+	public int getCount() {
+		int count=boardDao.getCount();
+		return count;
+	}
+	
 	
 }
