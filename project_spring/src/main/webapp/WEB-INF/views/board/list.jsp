@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../include/header.jsp" %>
+<%@ include file="../include/boardPageParam.jsp" %>
 
 <script>
 $(document).ready(function() {
@@ -61,7 +62,12 @@ $(document).ready(function() {
 		
 	}); // END : $("#btnModal").cl
 	
-	
+	$(document).on("click",".pagelink",function(e){
+		e.preventDefault();
+		var page=$(this).attr("href");
+		$("#frmPaging").find("input[name=page]").val(page);
+		$("#frmPaging").attr("action","/spring/board/list").submit();
+	});
 }); //$(document).ready(function()
 		
 		
@@ -199,6 +205,23 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	
+	<div class="product__pagination pagination justify-content-center">
+					<c:if test="${BoardPagingDto.startPage ne 1}">
+						<a class="pagelink" href="${BoardPagingDto.startPage-1}">
+							<i class="fa fa-long-arrow-left"></i></a>
+					</c:if>
+					<c:forEach var="v" begin="${BoardPagingDto.startPage}" 
+										end="${BoardPagingDto.endPage}">
+
+						<a class="pagelink" href="${v}">${v}</a>
+					</c:forEach>
+					<c:if test="${BoardPagingDto.endPage lt BoardPagingDto.totalPage}">
+						<a class="pagelink" href="${BoardPagingDto.endPage+1}">
+							<i class="fa fa-long-arrow-right"></i></a>
+					</c:if>
+				</div>
+	
 </section>
 <!-- End : qnA 게시판 Section -->
     

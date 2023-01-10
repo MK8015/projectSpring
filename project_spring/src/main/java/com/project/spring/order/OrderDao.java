@@ -22,6 +22,7 @@ public class OrderDao {
 		return list;
 	}
 	
+
 	public OrderVo detailOrder(String order_no) {
 		return sqlSession.selectOne(NAME_SPACE+"detailOrder",order_no);
 	}
@@ -47,5 +48,6 @@ public class OrderDao {
 		}
 		return false;
 	}
+
 
 }

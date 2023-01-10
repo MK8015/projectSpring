@@ -15,30 +15,30 @@ public class BoardService {
 	@Autowired
 	BoardDao boardDao;
 	
-	// ±Û ¸ñ·Ï º¸±â
-	public List<BoardVo> listArticle() {
-		return boardDao.listArticle();
+	// å ì™ì˜™ å ì™ì˜™å  å ì™ì˜™å ì™ì˜™
+	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
+		return boardDao.listArticle(boardPagingDto);
 	}
 
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// å ì™ì˜™ å ì™ì˜™í˜¸ å ì™ì˜™å ì™ì˜™
 	public BoardVo selectByBno(int bno) {
-		boardDao.updateViewcnt(bno); //Á¶È¸¼ö
+		boardDao.updateViewcnt(bno); //å ì™ì˜™íšŒå ì™ì˜™
 		BoardVo boardVo = boardDao.selectByBno(bno);
 		return boardVo;
 	}
 	
-	// ±Û ¼öÁ¤
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	public boolean updateArticle(BoardVo boardVo) {
 		return boardDao.updateArticle(boardVo);
 	}
 	
-	// ±Û »èÁ¦
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	public boolean deleteArticle(int bno) {
 		return boardDao.deleteArticle(bno);
 	}
 	
 	
-	// ±Û ÀÛ¼º
+	// å ì™ì˜™ å ìŒœì‡½ì˜™
 	@Transactional
 	public boolean insertArticle(BoardVo boardVo) {
 		int nextVal = boardDao.getNextVal();
@@ -46,17 +46,31 @@ public class BoardService {
 		return boardDao.insertArticle(boardVo);
 	}
 	
-	// ´ä±Û ÀÛ¼º
+	// ë‹µê¸€ ì‘ì„±
 	@Transactional
 	public boolean insertReply(BoardVo boardVo) {
 		boardDao.updateReSeq(boardVo);
 		return boardDao.insertReply(boardVo);
 	}
 	
-	// ºñ¹Ğ¹øÈ£ Ã¼Å©
+
+
+
+	// å ì™ì˜™ å ì™ì˜™í˜¸ å ì™ì˜™å ì™ì˜™
+	public BoardVo selectByRegroup(int re_group) {
+		BoardVo boardVo = boardDao.selectByRegroup(re_group);
+		return boardVo;
+
+	// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 	public boolean checkPassword(BoardVo boardVo) {
 		return boardDao.checkPassword(boardVo);
+
 	}
+	public int getCount() {
+		int count=boardDao.getCount();
+		return count;
+	}
+	
 	
 	
 	

@@ -1,6 +1,8 @@
 package com.project.spring.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +19,26 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	// ±Û ¸ñ·Ï
-	public List<BoardVo> listArticle() {
-		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle");
+	// å ì™ì˜™ å ì™ì˜™å 
+	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
+		
+		Map<String, String>map=new HashMap<>();
+		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
+		map.put("endRow", String.valueOf(boardPagingDto.getEndRow()));
+		System.out.println("map:"+map);
+		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle",map);
+		
 		return list;
 	}
 	
-	// ±Û ¹øÈ£ ¼±ÅÃ
+	// å ì™ì˜™ å ì™ì˜™í˜¸ å ì™ì˜™å ì™ì˜™
 	public BoardVo selectByBno(int bno) {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByBno", bno);
 		return boardVo;
 	}
 	
-	// ±Û ¼öÁ¤
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	public boolean updateArticle(BoardVo boardVo) {
 		int count = sqlSession.update(NAME_SPACE + "updateArticle", boardVo);
 		if (count > 0) {
@@ -39,7 +47,7 @@ public class BoardDao {
 		return false;
 	}
 	
-	// ±Û »èÁ¦
+	// å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	public boolean deleteArticle(int bno) {
 		int count = sqlSession.delete(NAME_SPACE + "deleteArticle", bno);
 		if (count > 0) {
@@ -48,7 +56,7 @@ public class BoardDao {
 		return false;
 	}
 	
-	// Á¶È¸¼ö Áõ°¡
+	// å ì™ì˜™íšŒå ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	public void updateViewcnt(int bno) {
 		sqlSession.update(NAME_SPACE + "updateViewcnt", bno);
 	}
@@ -59,7 +67,7 @@ public class BoardDao {
 		return nextVal;
 	}
 
-	// °Ô½Ã±Û ÀÛ¼º
+	// å ìŒ‰ì‹œê¹ì˜™ å ìŒœì‡½ì˜™
 	public boolean insertArticle(BoardVo boardVo) {
 		int count = sqlSession.insert(NAME_SPACE + "insertArticle", boardVo);
 		if (count > 0) {
@@ -68,7 +76,7 @@ public class BoardDao {
 		return false;
 	}
 	
-	// ´ä±Û ÀÛ¼º
+	// ë‹µê¸€ ì‘ì„±
 	public boolean insertReply(BoardVo boardVo) {
 		int count = sqlSession.insert(NAME_SPACE + "insertReply", boardVo);
 		if (count > 0) {
@@ -77,18 +85,31 @@ public class BoardDao {
 		return false;
 	}
 	
-	// Ãâ·Â ¼ø¼­ ¾÷µ¥ÀÌÆ®
+	// ì¶œë ¥ ìˆœì„œ ì—…ë°ì´íŠ¸
 	public void updateReSeq(BoardVo boardVo) {
 		sqlSession.update(NAME_SPACE + "updateReSeq", boardVo);
 	}
-	
-	// ºñ¹Ğ¹øÈ£ Ã¼Å©
+
+
+	// å ì™ì˜™ å ì™ì˜™í˜¸ å ì™ì˜™å ì™ì˜™
+	public BoardVo selectByRegroup(int re_group) {
+		BoardVo boardVo = sqlSession.selectOne(
+				NAME_SPACE + "selectByRegroup", re_group);
+		return boardVo;
+
+	// ë¹„ë°€ë²ˆí˜¸ ì²´í¬
 	public boolean checkPassword(BoardVo boardVo) {
 		int count = sqlSession.selectOne(NAME_SPACE + "checkPassword", boardVo);
 		if (count > 0) {
 			return true;
 		}
 		return false;
+
+	}
+	public int getCount() {
+		
+		int count=sqlSession.selectOne(NAME_SPACE+"getCount");
+		return count;
 	}
 	
 	
