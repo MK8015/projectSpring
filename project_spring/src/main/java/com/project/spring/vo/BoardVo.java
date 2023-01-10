@@ -10,11 +10,13 @@ public class BoardVo {
 	int bno;
 	String title;
 	String content;
+	String pic;
 	String writer;
 	Date regdate;
 	int viewcnt;
-	int re_group;
+	String re_group;
 	int re_seq;
 	int re_level;
-	int commentcnt;
+	String secret;
+	String password;
 }

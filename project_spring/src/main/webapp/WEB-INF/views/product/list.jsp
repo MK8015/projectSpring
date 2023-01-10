@@ -2,7 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
+<style>
+.abs {
+  position: absolute;
+  bottom: 25px;
+  right: 10px;
+  font-size: 10px;
+}
 
+.child {
+  color: lightgray;
+  background: white;
+  padding: 0.5rem;
+}
+</style>
 <script>
 $(document).ready(function() {
 	
@@ -14,11 +27,32 @@ $(document).ready(function() {
 	   $("#frmPaging").attr("action", "/spring/list/list").submit();
 	});
  	
- 	// 장바구니 클릭
- 	$(".fa-shopping-cart").click(function(e) {
+ 	// 장바구니 클릭 : 비동기식 정보 넘기기
+ 	$(document).on("click", ".shopping-cart", function(e) {
  		e.preventDefault();
-//  		console.log("장바구니 클릭");
+ 		console.log("장바구니 클릭!!!");
+		var product_id = $(this).attr("data-product_id");
+		var sData = {"product_id" : product_id};
+		var url = "/spring/cart/insertProduct"
+		$.post(url, sData, function(rData) {
+// 			console.log("rData: "+rData); 
+			if (rData == "false"){
+				alert("장바구니 등록 실패!");
+				return;
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.")
+				location.href="/spring/member/login";
+			}
+		});
+		var p = $(this).next();
+// 		console.log(p);
+		p.css("display","");
 		
+ 	});
+ 	
+ 	// 카트 닫기 버튼
+ 	$(".closeBtn").click(function() {
+ 		$(this).parent().attr("style","display:none");
  	});
 });
 </script>
@@ -84,17 +118,28 @@ $(document).ready(function() {
 									<img class="product__item__pic"
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-
-									<ul class="product__item__pic__hover">
-										<li><a href="#"><i class="fa fa-heart"></i></a></li>
-										<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-									</ul>
+										
+										<ul class="product__item__pic__hover">
+											<li><a href="#"><i class="fa fa-heart"></i></a></li>
+											<li><a href="#" class="shopping-cart"
+												data-product_id="${list.product_id}">
+													<i class="fa fa-shopping-cart parent"></i>
+												</a>
+												<p class="child abs" style="display:none">
+													카트에 담겼습니다.<br>
+													<input onclick="location.href='/spring/cart/list'" 
+													type="button" value="카트 보기>"/>
+													<input type="button" class="closeBtn" value="닫기"/>
+												</p>
+											</li>
+											
+										</ul>
 								</div>
 								<div class="product__item__text">
 									<h6><a href="/spring/product/detail?product_id=${list.product_id}">
-									${list.product_name}</a></h6>
-<!-- 폰트사이즈 줄여야합니다...지은지,출판사 -->
-									<p>${list.product_author}|${list.product_publisher}</p>
+									${list.product_name}<br>
+									<span style="font-size:11px; color:gray;">
+									${list.product_author} | ${list.product_publisher}</span></a></h6>
 									<h5>￦${list.price}</h5>
 								</div>
 							</div>
@@ -103,7 +148,6 @@ $(document).ready(function() {
 					</div>
 <!-- 페이지 번호 -->
 				<div class="product__pagination pagination justify-content-center">
-<!-- 시작순서가 1이 아닌경우 "<-" -->
 					<c:if test="${pagingDto.startPage ne 1}">
 						<a class="pagelink" href="${pagingDto.startPage-1}">
 							<i class="fa fa-long-arrow-left"></i></a>
@@ -113,7 +157,6 @@ $(document).ready(function() {
 
 						<a class="pagelink" href="${v}">${v}</a>
 					</c:forEach>
-<!-- 페이지 마지막일때 "->" -->
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
 						<a class="pagelink" href="${pagingDto.endPage+1}">
 							<i class="fa fa-long-arrow-right"></i></a>

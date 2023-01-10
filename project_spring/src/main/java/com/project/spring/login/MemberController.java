@@ -27,8 +27,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
-import com.project.spring.vo.ProductVo;
-import com.project.spring.vo.ReviewVo;
 
 @Controller
 @RequestMapping("/member/*")

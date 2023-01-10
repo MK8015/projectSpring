@@ -1,5 +1,7 @@
 package com.project.spring.detail;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,30 @@ public class ProductDao {
 	
 	public ProductVo detail(String product_id) {
 		return sqlSession.selectOne(NAME_SPACE+"detail",product_id);
+	}
+	
+	public List<ProductVo> getList(){
+		return sqlSession.selectList(NAME_SPACE+"getList");
+	}
+	public boolean insert(ProductVo productVo) {
+		int count = sqlSession.insert(NAME_SPACE+"insert",productVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean delete(String product_id) {
+		int count = sqlSession.delete(NAME_SPACE+"delete",product_id);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean update(ProductVo productVo) {
+		int count = sqlSession.update(NAME_SPACE+"update",productVo);
+		if(count>0) {
+			return true;
+		}
+		return false;
 	}
 }

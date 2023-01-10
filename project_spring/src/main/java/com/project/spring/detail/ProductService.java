@@ -1,5 +1,7 @@
 package com.project.spring.detail;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,19 @@ public class ProductService {
 	
 	public ProductVo detail(String product_id) {
 		return productDao.detail(product_id);
+	}
+	
+	public List<ProductVo> getList(){
+		return productDao.getList();
+	}
+	public boolean insert(ProductVo productVo) {
+		return productDao.insert(productVo);
+	}
+	public boolean delete(String product_id) {
+		return productDao.delete(product_id);
+	}
+	public boolean update(ProductVo productVo) {
+		return productDao.update(productVo);
 	}
 	
 }

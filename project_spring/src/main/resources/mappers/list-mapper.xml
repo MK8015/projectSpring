@@ -27,10 +27,11 @@
 	<select id="getCount" resultType="int">
 		select count(*) from t_product
 		<choose>
-			<when test="product_category neq null">
+			<when test='product_category neq null and product_category neq ""'>
 				<include refid="searchCategory"></include>
 			</when>	
-			<when test="searchType neq null and keyword neq null">
+			<when test='searchType neq null and keyword neq null and
+			searchType neq "" and keyword neq ""'>
 				<include refid="searchKeyword"></include>
 			</when>
 		</choose>
@@ -38,14 +39,15 @@
 	
 	<!-- 카테고리 옵션 -->
 	<sql id="searchCategory">
-	<if test="product_category neq null">
+	<if test='product_category neq null and product_category neq ""'>
 		where product_category = #{product_category}
     </if>
     </sql>
     
     <!-- 검색 옵션 -->
 	<sql id="searchKeyword">
-	<if test="searchType neq null and keyword neq null">
+	<if test='searchType neq null and keyword neq null and
+			searchType neq "" and keyword neq ""'>
 		<choose>
 			<when test='searchType eq "t"'>
 				where product_name like '%' || #{keyword} || '%'

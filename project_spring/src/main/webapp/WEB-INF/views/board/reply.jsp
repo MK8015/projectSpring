@@ -84,32 +84,8 @@ table {
 <script>
 $(document).ready(function() {
 
-	// 사진 선택
-	$("#customFile").change(function(e) {
-		console.log("e" + e);
-		var file = this.files[0];
-		console.log(file);
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			console.log("파일 읽음");
-			console.log(e.target.result);
-			var val = $("#customFile").val();
-			var arrVal = val.split("\\"); 
-			var filename = arrVal.pop();
-			$("#customFile").next().text(filename); 
-		}; // 
-		reader.readAsDataURL(file);
-	}); // $("#customFile").change(f
 	
-			
 }); //$(document).ready(function()
-		
-		
-
-function isSecret(){
-	var secret = $("#secretChk").is(":checked") ? "Y" : "N";
-	$("#secret").val(secret);
-}
 </script>
 
 <%@ include file="../include/boardPageParam.jsp" %>
@@ -143,8 +119,10 @@ function isSecret(){
 		</div>
 		<hr>
 		<div class="qna__form">
-		<form id="frmUpdate" role="form" action="/spring/board/write" method="post" enctype="multipart/form-data">
-				
+		
+		<form id="frmReply" role="form" action="/spring/board/reply" method="post">
+		
+		<input type="text" name="re_group" id="re_group" value="${re_group}">
 				<table>
 					<tr style ='vertical-align : middle'>
 						<td>제목</td>
@@ -153,16 +131,6 @@ function isSecret(){
 					<tr style ='vertical-align : top'>
 						<td><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
-					</tr>
-					<tr style ='vertical-align : middle'>
-						<td>사진</td>
-						<td><input type="file" class="form-control" id="customFile" name="file" /></td>
-					</tr>
-					<tr style ='vertical-align : middle'>
-						<td>비밀번호</td>
-						<td><input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요"/>
-							<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()">비밀글
-							<input type="text" id="secret" name="secret"></td>
 					</tr>
 				</table>
 				<hr>

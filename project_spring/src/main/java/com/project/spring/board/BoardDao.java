@@ -53,6 +53,42 @@ public class BoardDao {
 		sqlSession.update(NAME_SPACE + "updateViewcnt", bno);
 	}
 	
+	// bno.nextval
+	public int getNextVal() {
+		int nextVal = sqlSession.selectOne(NAME_SPACE + "getNextVal");
+		return nextVal;
+	}
+
+	// 게시글 작성
+	public boolean insertArticle(BoardVo boardVo) {
+		int count = sqlSession.insert(NAME_SPACE + "insertArticle", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	public boolean insertReply(BoardVo boardVo) {
+		int count = sqlSession.insert(NAME_SPACE + "insertReply", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public void updateReSeq(BoardVo boardVo) {
+		sqlSession.update(NAME_SPACE + "updateReSeq", boardVo);
+	}
+	
+
+	// 글 번호 선택
+	public BoardVo selectByRegroup(int re_group) {
+		BoardVo boardVo = sqlSession.selectOne(
+				NAME_SPACE + "selectByRegroup", re_group);
+		return boardVo;
+	}
+	
 	
 	
 	
