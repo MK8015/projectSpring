@@ -46,19 +46,18 @@ public class BoardService {
 		return boardDao.insertArticle(boardVo);
 	}
 	
-
+	// 답글 작성
 	@Transactional
 	public boolean insertReply(BoardVo boardVo) {
 		boardDao.updateReSeq(boardVo);
 		return boardDao.insertReply(boardVo);
 	}
 	
-
-
-	// 글 번호 선택
-	public BoardVo selectByRegroup(int re_group) {
-		BoardVo boardVo = boardDao.selectByRegroup(re_group);
-		return boardVo;
+	// 비밀번호 체크
+	public boolean checkPassword(BoardVo boardVo) {
+		return boardDao.checkPassword(boardVo);
 	}
+	
+	
 	
 }

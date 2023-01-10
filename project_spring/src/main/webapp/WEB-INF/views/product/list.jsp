@@ -18,7 +18,6 @@
 </style>
 <script>
 $(document).ready(function() {
-	
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
@@ -47,13 +46,49 @@ $(document).ready(function() {
 		var p = $(this).next();
 // 		console.log(p);
 		p.css("display","");
-		
  	});
  	
  	// 카트 닫기 버튼
  	$(".closeBtn").click(function() {
  		$(this).parent().attr("style","display:none");
  	});
+ 	
+ 	
+ 	
+  	// 좋아요 클릭 : 비동기식 정보 넘기기
+ 	$(document).on("click", ".like-cart", function(e) {
+ 		e.preventDefault();
+ 		console.log("좋아요 클릭");
+		var product_id = $(this).attr("data-product_id");
+		var sData = {"product_id" : product_id};
+ 		
+		var url = "/spring/like/insertLike";
+		var sData = {
+				"product_id" : product_id
+		};
+		console.log("sData", sData);
+		
+ 		
+		
+		$.post(url, sData, function(rData) {
+ 			console.log("rData: " + rData); 
+ 			
+			if (rData == "false"){
+				alert("좋아요 등록 실패!");
+				return;
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.")
+				location.href="/spring/member/login";
+			}
+		});
+		//var p = $(this).next();
+// 		console.log(p);
+		//p.css("display","");
+ 	});
+ 	
+ 	
+ 	
+ 	
 });
 </script>
 
@@ -120,7 +155,12 @@ $(document).ready(function() {
 										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
 										
 										<ul class="product__item__pic__hover">
-											<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<!-- 좋아요 -->
+											<li><a href="#" class="like-cart" 
+												data-product_id="${list.product_id}">
+												<i class="fa fa-heart"></i></a></li>
+											
+									<!-- 장바구니 -->
 											<li><a href="#" class="shopping-cart"
 												data-product_id="${list.product_id}">
 													<i class="fa fa-shopping-cart parent"></i>
@@ -140,7 +180,7 @@ $(document).ready(function() {
 									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;">
 									${list.product_author} | ${list.product_publisher}</span></a></h6>
-									<h5>￦${list.price}</h5>
+									<h5>${list.price}원</h5>
 								</div>
 							</div>
 						</div>

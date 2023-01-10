@@ -218,7 +218,7 @@
                 newVal = 0;
             }
         }
-        $button.parent().find('input').attr('value',newVal);
+        $button.parent().find('input').attr('value', newVal);
     });
 
 })(jQuery);

@@ -25,7 +25,7 @@ public class CartController {
 	@Autowired
 	ProductService productService;
 	
-	// ��ٱ��� ��� ��ȸ (���̵�)
+	// 占쏙옙袂占쏙옙占 占쏙옙占 占쏙옙회 (占쏙옙占싱듸옙)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
@@ -38,21 +38,21 @@ public class CartController {
 		return "shopping/cart";
 	}
 	
-	// ��ٱ��Ͽ� ��ǰ ���
+	// 占쏙옙袂占쏙옙臼占 占쏙옙품 占쏙옙占
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("insertProductContoller �����");
+		System.out.println("insertProductContoller 占쏙옙占쏙옙占");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
 		System.out.println("member_id: " + member_id);
-		boolean result = cartService.insertProductInCart(product_id, member_id);	// ��ǰ���� t_cart�� �ֱ�
+		boolean result = cartService.insertProductInCart(product_id, member_id);	// 占쏙옙품占쏙옙占쏙옙 t_cart占쏙옙 占쌍깍옙
 		return String.valueOf(result);
 	}
 	
-	// īƮ ����
+	// 카트 占쏙옙占쏙옙
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCart(
@@ -66,11 +66,17 @@ public class CartController {
 		return String.valueOf(result);
 	}
 	
-	// īƮ ����
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateCart(int cart_amount, String product_id) {
-		cartService.updateCart(cart_amount, product_id);
-		return "redirect:/shopping/cart";
+
+	// 카트 수정
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateCart(int cart_amount, String product_id, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
+				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
+		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
+		return String.valueOf(result);
+
 	}
 	
 	
