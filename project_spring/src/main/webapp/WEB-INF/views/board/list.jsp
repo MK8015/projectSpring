@@ -30,10 +30,11 @@ $(document).ready(function() {
 	// 해당 글(디테일)로 이동하는 function	
 	function runDetail(bno) {
 		console.log("data-bno" + bno);
-		var frm = $("#frmBoardPaging");
-		frm.find("input[name=bno]").val(bno);
-		frm.attr("action", "/spring/board/detail");
-		frm.submit();
+// 		var frm = $("#frmBoardPaging");
+// 		frm.find("input[name=bno]").val(bno);
+// 		frm.attr("action", "/spring/board/detail");
+// 		frm.submit();
+		location.href = "/spring/board/detail?bno="+bno;
 	} // END : runDetail
 	
 	// 비밀번호 확인 창 눌렀을 때 비밀번호 체크 후 이동

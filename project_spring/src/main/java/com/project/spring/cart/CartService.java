@@ -1,7 +1,9 @@
 package com.project.spring.cart;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class CartService {
 	}
 	
 	public boolean insertProductInCart(String product_id, String member_id) {
-//		System.out.println("insertProductService ½ÇÇàµÊ");
+//		System.out.println("insertProductService ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return cartDao.insertProductInCart(product_id, member_id);
 	}
 	
@@ -29,5 +31,9 @@ public class CartService {
 	
 	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		return cartDao.updateCart(cart_amount, product_id, member_id);
+	}
+	
+	public boolean insertCart(String product_id, String member_id, String cart_amount) {
+		return cartDao.insertCart(product_id,member_id,cart_amount);
 	}
 }

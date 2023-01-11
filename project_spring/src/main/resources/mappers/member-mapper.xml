@@ -28,6 +28,7 @@
 	
 	<select id="getMemberList" resultType="MemberVo">
 		select * from t_member
+		order by regdate
 	</select>
 	
 	<select id="memberDetail" resultType="MemberVo">

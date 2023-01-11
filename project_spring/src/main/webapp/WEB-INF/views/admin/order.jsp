@@ -6,20 +6,20 @@
 $(document).ready(function(){
 	
 
-	$("#productInsert").click(function(e){
+	$("#insertOrder").click(function(e){
 		e.preventDefault();
 		$(".orderForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
-		form.attr("class","productInsertForm");
+		var form = $(".orderForm").eq(0).clone();
+		form.attr("class","insertOrderForm");
 		form.css("display","");
 		$(this).parent().append(form);
 	});
 	
 	$(".orderInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".productInsertForm").remove();
+		$(".insertOrderForm").remove();
 		$(".orderForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
+		var form = $(".orderForm").eq(0).clone();
 		var tds = $(this).parent().find("td");
 		var order_no = tds.eq(0).text();
 		console.log(order_no);
@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 	<!--  입력,수정 양식 -->
 	<div style="margin: 10px; display: none" class="orderForm">
-		<form role="form" class="productInsert" action="/spring/admin/insertOrder" method="post">
+		<form role="form" action="/spring/admin/insertOrder" method="post">
 			<div class="form-group">
 				주문 번호
 				<input type="text" class="form-control" placeholder="주문 번호" name="order_no"/>
@@ -145,7 +145,7 @@ $(document).ready(function(){
 												</c:forEach>
 														</tbody>
 													</table>
-													<a href="#" class="site-smbtn" id="productInsert">입력</a>				
+													<a href="#" class="site-smbtn" id="insertOrder">입력</a>				
 												</div>
 											</div>
 										</div>

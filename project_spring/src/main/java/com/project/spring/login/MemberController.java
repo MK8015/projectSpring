@@ -1,8 +1,6 @@
 package com.project.spring.login;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
@@ -63,12 +61,15 @@ public class MemberController {
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
 		}else {
+			
 
 			//로그인 성공시
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
 			session.setAttribute("loginMember", memberVo.getMember_id());
-			
+			if(memberVo.getMember_id().equals("admin")) {
+				return "redirect:/admin/index";
+			}
 			
 			//荑좏궎�꽔湲�
 			Cookie cookie=new Cookie("member_id",member_id);

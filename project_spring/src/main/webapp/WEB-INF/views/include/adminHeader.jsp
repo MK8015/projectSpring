@@ -46,6 +46,9 @@
 <script src="/spring/resources/js/owl.carousel.min.js"></script>
 <script src="/spring/resources/js/main.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+</script>
 </head>
 
 <body>
@@ -61,7 +64,7 @@
 								<li><a href="/spring/admin/product">상품 관리</a></li>
 								<li><a href="/spring/admin/order">주문 관리</a></li>
 								<li><a href="/spring/admin/member">회원 관리</a></li>
-								<li><a href="/spring/admin/index">통계</a></li>
+								<li><a href="/spring/list/list">메인</a></li>
 							</ul>
 						</div>
 					</div>

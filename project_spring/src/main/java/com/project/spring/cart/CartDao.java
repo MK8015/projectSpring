@@ -23,7 +23,7 @@ public class CartDao {
 		return sqlSession.selectList(NAME_SPACE + "getCartList", member_id);
 	}
 	
-	// Ä«Æ® »óÇ° µî·Ï
+	// Ä«Æ® ï¿½ï¿½Ç° ï¿½ï¿½ï¿½
 	public boolean insertProductInCart(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);
@@ -35,7 +35,7 @@ public class CartDao {
 		return false;
 	}
 	
-	// Ä«Æ® »èÁ¦
+	// Ä«Æ® ï¿½ï¿½ï¿½ï¿½
 	public boolean deleteCart(String[] arr_product_id, String member_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("arr_product_id", arr_product_id);
@@ -47,13 +47,25 @@ public class CartDao {
 		return false;
 	}
 	
-	// Ä«Æ® ¼öÁ¤
+	// Ä«Æ® ï¿½ï¿½ï¿½ï¿½
 	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("cart_amount", cart_amount);
 		map.put("product_id", product_id);
 		map.put("member_id", member_id);
 		int count = sqlSession.update(NAME_SPACE + "updateCart", map);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean insertCart(String product_id, String member_id, String cart_amount) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("product_id", product_id);
+		map.put("member_id", member_id);
+		map.put("cart_amount", cart_amount);
+		int count = sqlSession.insert(NAME_SPACE + "insertCart", map);
 		if (count > 0) {
 			return true;
 		}
