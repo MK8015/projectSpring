@@ -55,4 +55,9 @@
 		and member_id = #{member_id}
 	</update>
 	
+	<insert id="insertCart">
+		insert into t_cart
+		values(seq_cart_no.nextval, #{member_id}, #{product_id}, #{cart_amount})
+	</insert>
+	
 </mapper>

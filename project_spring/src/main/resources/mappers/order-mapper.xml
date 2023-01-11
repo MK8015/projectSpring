@@ -5,7 +5,10 @@
  <mapper namespace="mappers.order">
  
  	<select id="orderList" resultType="OrderVo">
- 		select a.*,b.* from t_order a, t_product b where a.product_id =b.product_id
+ 		select a.*,b.* 
+ 		from t_order a, t_product b 
+ 		where a.product_id =b.product_id
+ 		order by a.order_no
  	</select>
  	
 

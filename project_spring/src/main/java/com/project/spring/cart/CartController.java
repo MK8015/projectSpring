@@ -41,7 +41,7 @@ public class CartController {
 	// 占쏙옙袂占쏙옙臼占 占쏙옙품 占쏙옙占
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertCart(Model model, String product_id, HttpSession session) {
+	public String insertProduct(Model model, String product_id, HttpSession session) {
 		System.out.println("insertProductContoller 占쏙옙占쏙옙占");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
@@ -79,5 +79,18 @@ public class CartController {
 
 	}
 	
+	
+	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
+	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		if (member_id == null || member_id.equals("")) {
+			return "member/login";
+		}
+		boolean result = cartService.insertCart(product_id, member_id, cart_amount);
+		model.addAttribute("result", result);
+		List<CartVo> cartProductList = cartService.getCartList(member_id);
+		model.addAttribute("cartProductList", cartProductList);
+		return "shopping/cart";
+	}
 	
 }

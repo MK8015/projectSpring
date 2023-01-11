@@ -56,6 +56,29 @@ $(document).ready(function() {
 	getReview(1);
 	setRating("${productVo.product_id}");
 	
+	$("#btnInsertCart").click(function(e){
+		e.preventDefault();
+		var cart_amount = $(".pro-qty").find("input").val();
+		var product_id = "${productVo.product_id}";
+		var sData = {
+				"cart_amount": cart_amount,
+				"product_id": product_id,
+		};
+		var form = $("<form></form>");
+		form.attr("method","post");
+		form.attr("action","/spring/cart/insertCart");
+		for(var data in sData){
+			var input = $("<input></input>");
+			input.attr("type","hidden");
+			input.attr("name",data);
+			input.attr("value",sData[data]);
+			form.append(input);
+		}
+		$(document.body).append(form);
+		form.submit();
+		
+	});
+	
 	$(document).on("click", ".btnUpdateReview", function(e) {
 		e.preventDefault();
 		var td = $(".reviewForm").find("td").eq(1).clone();
@@ -245,7 +268,7 @@ $(document).ready(function() {
 									</div>
 								</div>
 							</div>
-							<a href="#" class="primary-btn">ADD TO CART</a> <a href="#"
+							<a href="#" class="primary-btn" id="btnInsertCart">ADD TO CART</a> <a href="#"
 								class="heart-icon"><span class="icon_heart_alt"></span></a>
 							<ul>
 								<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
