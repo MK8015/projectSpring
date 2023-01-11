@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.spring.cart.CartService;
+import com.project.spring.like.LikeService;
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
@@ -36,6 +38,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private LikeService likeService;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
@@ -62,10 +70,20 @@ public class MemberController {
 			page="redirect:/member/login";
 		}else {
 
+			// 멤버당 좋아요 개수
+			int memberLikeCount = likeService.memberLikeCount(member_id);
+			memberVo.setMemberLikeCount(memberLikeCount);
+			
+			// 멤버당 장바구니 개수
+			int memberCartCount = cartService.memberCartCount(member_id);
+			memberVo.setMemberCartCount(memberCartCount);
+			
 			//로그인 성공시
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
 			session.setAttribute("loginMember", memberVo.getMember_id());
+			
+
 			
 			
 			//荑좏궎�꽔湲�

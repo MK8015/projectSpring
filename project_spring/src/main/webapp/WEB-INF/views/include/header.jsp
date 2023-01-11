@@ -161,7 +161,7 @@ $(document).ready(function() {
 									<li><a href="/spring/list/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
-							<li><a href="#">EVENT</a></li>
+							<li><a href="/spring/main/event">EVENT</a></li>
 							<li><a href="/spring/board/list">Q & A</a></li>
 							<li><a href="#">ABOUT</a></li>
 						</ul>
@@ -251,8 +251,8 @@ $(document).ready(function() {
 			<div class="col-lg-2">
 				<div class="header__cart">
 					<ul>
-						<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> <span>${loginMemberVo.memberLikeCount}</span></a></li>
+						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> <span>${loginMemberVo.memberCartCount}</span></a></li>
 					</ul>
 				</div>
 			</div>

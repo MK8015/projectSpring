@@ -19,7 +19,7 @@ public class CartService {
 	}
 	
 	public boolean insertProductInCart(String product_id, String member_id) {
-//		System.out.println("insertProductService ½ÇÇàµÊ");
+//		System.out.println("insertProductService ï¿½ï¿½ï¿½ï¿½ï¿½");
 		return cartDao.insertProductInCart(product_id, member_id);
 	}
 	
@@ -29,5 +29,10 @@ public class CartService {
 	
 	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		return cartDao.updateCart(cart_amount, product_id, member_id);
+	}
+	
+
+	public int memberCartCount(String member_id) {
+		return cartDao.memberCartCount(member_id);
 	}
 }

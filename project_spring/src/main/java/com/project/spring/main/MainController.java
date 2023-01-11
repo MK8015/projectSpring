@@ -48,4 +48,11 @@ public class MainController {
 		return "index/main";
 	}
 	
+
+	// 메인에서 목록 보기
+	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	public String runEvent(Model model) {
+		return "index/event";
+	}
+	
 }

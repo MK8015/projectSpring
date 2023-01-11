@@ -55,4 +55,12 @@
 		and member_id = #{member_id}
 	</update>
 	
+	
+	<!-- 멤버별 카트 개수 세기 -->
+	<select id="memberCartCount" resultType="int">
+		select count(*) from t_cart
+		where member_id = #{member_id}
+	</select>
+	
+	
 </mapper>

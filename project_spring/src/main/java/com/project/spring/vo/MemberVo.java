@@ -15,5 +15,7 @@ public class MemberVo {
 	Date regdate;
 	String member_pic;
 	String address_detail;
+	int memberLikeCount;
+	int memberCartCount;
 	
 }

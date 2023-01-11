@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.login.MyFileUploader;
 import com.project.spring.vo.BoardVo;
+import com.project.spring.vo.CartVo;
 import com.project.spring.vo.LikeVo;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
@@ -34,7 +35,35 @@ public class LikeController {
 	LikeService likeService;
 	
 	
-	// ���ƿ� ���
+	// 좋아요 리스트
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		if (member_id == null || member_id.equals("")) {
+			return "member/login";
+		}
+		System.out.println("member_id: " + member_id);
+		List<LikeVo> likeProductList = likeService.getLikeList(member_id);
+		model.addAttribute("likeProductList", likeProductList);
+		return "shopping/like";
+	}
+	
+
+	// 좋아요 등록 GET
+	@RequestMapping(value = "/insertLike", method = RequestMethod.GET)
+	@ResponseBody
+	public String insertLike(String product_id, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		if (member_id == null || member_id.equals("")) {
+			return "notLogin";
+		}
+		boolean result = likeService.insertLike(product_id, member_id);
+		return String.valueOf(result);
+	}
+	
+	
+	
+	// 좋아요 등록 POST
 	@RequestMapping(value = "/insertLike", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertLike(Model model, String product_id, HttpSession session) {
@@ -47,17 +76,20 @@ public class LikeController {
 	}
 	
 	
-	/*
-	@RequestMapping(value = "/sendLike", method = RequestMethod.POST)
+	
+	// 좋아요 삭제 GET
+	@RequestMapping(value = "/cancelLike", method = RequestMethod.GET)
 	@ResponseBody
-	public String sendLike(String product_id, HttpSession session) {
+	public String cancelLike(String product_id, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
-		LikeVo likeVo = new LikeVo();
-		likeVo.setMember_id(member_id);
-		likeVo.setProduct_id(product_id);
-		boolean result = likeService.sendLike(likeVo);
+		if (member_id == null || member_id.equals("")) {
+			return "notLogin";
+		}
+		boolean result = likeService.cancelLike(product_id, member_id);
 		return String.valueOf(result);
 	}
-	*/
+	
+	
+	
 	
 }
