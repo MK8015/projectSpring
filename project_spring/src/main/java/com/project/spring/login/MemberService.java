@@ -52,4 +52,13 @@ public class MemberService {
 	public boolean deleteMember(String member_id) {
 		return memberDao.deleteMember(member_id);
 	}
+	
+	public MemberVo getMyInfo(String member_id) {
+		return memberDao.getMyInfo(member_id);
+	}
+	
+	public boolean modifyInfo(MemberVo memberVo) {
+		return memberDao.modifyInfo(memberVo);
+	}
+	 
 }

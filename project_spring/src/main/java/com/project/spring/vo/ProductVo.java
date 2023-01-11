@@ -15,4 +15,5 @@ public class ProductVo {
 	String product_publisher;
 	int reviewCount;
 	int likeCount;
+
 }

@@ -28,6 +28,7 @@
 	
 	<select id="getMemberList" resultType="MemberVo">
 		select * from t_member
+		order by regdate
 	</select>
 	
 	<select id="memberDetail" resultType="MemberVo">
@@ -52,5 +53,19 @@
 		delete from t_member
 		where member_id = #{member_id}
 	</delete>
+	<select id="getMyInfo" resultType="MemberVo">
+		select * from t_member where member_id=#{member_id}
+	
+	</select>
+	<update id="modifyInfo">
+		update t_member set password=#{password},
+                member_name=#{member_name},
+                phonenum=#{phonenum},
+                email=#{email},
+                address=#{address},
+                member_pic=#{member_pic,jdbcType=VARCHAR},
+                address_detail=#{address_detail,jdbcType=VARCHAR}
+           where member_id=#{member_id}
+	</update>
 	
 </mapper>

@@ -18,6 +18,9 @@
 </style>
 <script>
 $(document).ready(function() {
+	
+	
+	
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
@@ -182,6 +185,7 @@ $(document).ready(function() {
 									<span style="font-size:11px; color:red;">
 									리뷰 ${reviewCount} | 좋아요 ${likeMap.likeCount}</span>
 									</a></h6>
+
 									<h5>${list.price}원</h5>
 								</div>
 							</div>
