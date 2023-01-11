@@ -88,6 +88,18 @@ public class MemberDao {
 		}
 		return false;
 	}
+	public MemberVo getMyInfo(String member_id) {
+		MemberVo memberVo=sqlSession.selectOne(NAMESPACE+"getMyInfo",member_id);
+		return memberVo;
+	}
+	public boolean modifyInfo(MemberVo memberVo) {
+		
+		int result=sqlSession.update(NAMESPACE+"modifyInfo",memberVo);
+		if(result>0) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 }

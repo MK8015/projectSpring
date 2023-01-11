@@ -58,12 +58,11 @@ $(document).ready(function() {
  	
  	
  	
-  	// 좋아요 클릭 : 비동기식 정보 넘기기
+  	// 좋아요 클릭
  	$(document).on("click", ".like-cart", function(e) {
  		e.preventDefault();
  		console.log("좋아요 클릭");
 		var product_id = $(this).attr("data-product_id");
-		var sData = {"product_id" : product_id};
  		
 		var url = "/spring/like/insertLike";
 		var sData = {
@@ -182,10 +181,11 @@ $(document).ready(function() {
 									<h6><a href="/spring/product/detail?product_id=${list.product_id}">
 									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;">
-									${list.product_author} | ${list.product_publisher}</span></a></h6>
+									${list.product_author} | ${list.product_publisher}</span><br>
 									<span style="font-size:11px; color:red;">
-									리뷰 ${list.reviewCount} | 좋아요 ${list.likeCount}</span>
-									
+									리뷰 ${reviewCount} | 좋아요 ${likeMap.likeCount}</span>
+									</a></h6>
+
 									<h5>${list.price}원</h5>
 								</div>
 							</div>

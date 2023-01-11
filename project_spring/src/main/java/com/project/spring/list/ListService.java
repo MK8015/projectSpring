@@ -13,17 +13,17 @@ public class ListService {
 	@Autowired
 	ListDao listDao;
 	
-	// ��ü ���� ��ȸ (��������)
+	// 목록조회
 	public List<ProductVo> getProductList(PagingDto pagingDto) {
 		return listDao.getProductList(pagingDto);
 	}
 	
-	// ī�װ���, �˻��� ī��Ʈ ������
+	// 카운트 조회
 	public int getCount(String category, PagingDto pagingDto) {
 		return listDao.getCount(category, pagingDto);
 	}
 	
-	// ī�װ��� ���� ��ȸ (��������)
+	// 카테고리별 리스트 조회
 	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto){
 		return listDao.getListByCategory(category, pagingDto);
 	}

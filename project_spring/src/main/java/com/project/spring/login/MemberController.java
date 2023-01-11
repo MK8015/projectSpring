@@ -16,6 +16,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.spring.cart.CartService;
+import com.project.spring.like.LikeService;
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
@@ -34,6 +38,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private LikeService likeService;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
@@ -61,10 +71,19 @@ public class MemberController {
 		}else {
 			
 
+			// 멤버당 좋아요 개수
+			int memberLikeCount = likeService.memberLikeCount(member_id);
+			memberVo.setMemberLikeCount(memberLikeCount);
+			
+			// 멤버당 장바구니 개수
+			int memberCartCount = cartService.memberCartCount(member_id);
+			memberVo.setMemberCartCount(memberCartCount);
+			
 			//로그인 성공시
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
 			session.setAttribute("loginMember", memberVo.getMember_id());
+
 			if(memberVo.getMember_id().equals("admin")) {
 				return "redirect:/admin/index";
 			}
@@ -194,6 +213,44 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping(value="/mypage",method = RequestMethod.GET)
+	public String MyPage(HttpSession session,Model model) {
+		 String member_id=(String)session.getAttribute("loginMember");
+		if(member_id==null || member_id.equals("")) {
+			return "member/login";
+		}
+		
+		MemberVo memberVo=memberService.getMyInfo(member_id);
+		model.addAttribute("memberVo",memberVo);
+		return "member/mypage";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String modifyInfo(MemberVo memberVo,RedirectAttributes rttr,MultipartFile file) {
+		
+		String originalFilename=file.getOriginalFilename();
+		
+		try {
+			 String member_pic=MyFileUploader.uploadfile("C:/userpics/", originalFilename, file.getBytes());
+			 System.out.println("member_pic:"+member_pic);
+			 memberVo.setMember_pic(member_pic);
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
+		
+		
+		Boolean result= memberService.modifyInfo(memberVo);
+		
+		if(result) {
+			rttr.addFlashAttribute("isModify","true");
+		}else{
+			rttr.addFlashAttribute("isModify","false");
+		}
+		
+		return "redirect:/member/mypage";
+	}
 
 	
 }

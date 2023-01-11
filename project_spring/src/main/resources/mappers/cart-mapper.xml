@@ -54,10 +54,27 @@
 		where product_id = #{product_id}
 		and member_id = #{member_id}
 	</update>
+
+	<!-- cartno별 카트 목록수정 -->
+	<select id="getCartListByNo" resultType="CartVo">
+		select a.*, b.* from
+			(select * from t_cart
+			where cart_no = #{cart_no}) a, t_product b
+		where a.product_id = b.product_id
+	</select>
 	
+	
+	<!-- 멤버별 카트 개수 세기 -->
+	<select id="memberCartCount" resultType="int">
+		select count(*) from t_cart
+		where member_id = #{member_id}
+	</select>
+	
+  <!-- detail 에서 카트 추가 -->
 	<insert id="insertCart">
 		insert into t_cart
 		values(seq_cart_no.nextval, #{member_id}, #{product_id}, #{cart_amount})
 	</insert>
 	
+
 </mapper>

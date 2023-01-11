@@ -25,7 +25,7 @@ public class MainController {
 	MainService mainService;
 	
 
-	// ¸ÞÀÎÀ¸·Î ÀÌµ¿(»ç½Ç ÇÊ¿ä X, ¿ì¼± ±×³É ³Ö¾îµÒ)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½(ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ X, ï¿½ì¼± ï¿½×³ï¿½ ï¿½Ö¾ï¿½ï¿½)
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexRun(Model model) {
 
@@ -37,7 +37,7 @@ public class MainController {
 	}
 	
 
-	// ¸ÞÀÎ¿¡¼­ ¸ñ·Ï º¸±â
+	// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getList(Model model) {
 		
@@ -46,6 +46,13 @@ public class MainController {
 		model.addAttribute("list", list);
 		
 		return "index/main";
+	}
+	
+
+	// ¸ÞÀÎ¿¡¼­ ¸ñ·Ï º¸±â
+	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	public String runEvent(Model model) {
+		return "index/event";
 	}
 	
 }

@@ -23,7 +23,8 @@ public class CartDao {
 		return sqlSession.selectList(NAME_SPACE + "getCartList", member_id);
 	}
 	
-	// īƮ ��ǰ ���
+
+	// 카트 상품 등록
 	public boolean insertProductInCart(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);
@@ -35,7 +36,7 @@ public class CartDao {
 		return false;
 	}
 	
-	// īƮ ����
+	// 카트 삭제
 	public boolean deleteCart(String[] arr_product_id, String member_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("arr_product_id", arr_product_id);
@@ -47,7 +48,7 @@ public class CartDao {
 		return false;
 	}
 	
-	// īƮ ����
+	// 카트 수정
 	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("cart_amount", cart_amount);
@@ -60,6 +61,17 @@ public class CartDao {
 		return false;
 	}
 	
+
+	// 카트넘버별 cartVo 조회
+	public CartVo getCartListByNo(int cart_no) {
+		return sqlSession.selectOne(NAME_SPACE + "getCartListByNo", cart_no);
+	}
+	
+	public int memberCartCount(String member_id) {
+		return sqlSession.selectOne(NAME_SPACE + "memberCartCount", member_id);
+	}
+  
+  // detail 에서 카트 추가
 	public boolean insertCart(String product_id, String member_id, String cart_amount) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);

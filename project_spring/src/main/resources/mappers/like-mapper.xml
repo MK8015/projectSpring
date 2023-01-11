@@ -5,11 +5,47 @@
 
 <mapper namespace="mappers.like">
 
+	<!-- 좋아요 목록 -->
+	<select id="getLikeList" resultType="LikeVo">
+		select a.*, b.* from
+			(select * from t_like
+			where member_id = #{member_id}) a, t_product b
+		where a.product_id = b.product_id
+	</select>
+
 	<!-- 좋아요 등록 -->
 	<insert id="insertLike">
 		insert into t_like (member_id, product_id)
 		values (#{member_id}, #{product_id})
 	</insert>
+	
+	<!-- 좋아요 취소 -->
+	<delete id="cancelLike">
+		delete from t_like
+		where product_id = #{product_id}
+		and member_id = #{member_id}
+	</delete>
+	
+	
+	
+	<!-- 디테일 별 라이크 수 세기 -->
+	<select id="getLikeCount" resultType="int">
+		select count(*) from t_like
+		where product_id = #{product_id}
+	</select>
+	
+	<!-- 디테일당 멤버별 라이크 수 -->
+	<select id="checkLike" resultType="int">
+		select count(*) from t_like
+		where product_id = #{product_id}
+		and member_id = #{member_id}
+	</select>
+	
+	<!-- 멤버별 좋아요 개수 세기 -->
+	<select id="memberLikeCount" resultType="int">
+		select count(*) from t_like
+		where member_id = #{member_id}
+	</select>
 		
 	
 </mapper>

@@ -1,9 +1,12 @@
 package com.project.spring.cart;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +28,7 @@ public class CartController {
 	@Autowired
 	ProductService productService;
 	
-	// 占쏙옙袂占쏙옙占 占쏙옙占 占쏙옙회 (占쏙옙占싱듸옙)
+	// 카드 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
@@ -38,11 +41,13 @@ public class CartController {
 		return "shopping/cart";
 	}
 	
-	// 占쏙옙袂占쏙옙臼占 占쏙옙품 占쏙옙占
+	// 카트 등록
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertProduct(Model model, String product_id, HttpSession session) {
-		System.out.println("insertProductContoller 占쏙옙占쏙옙占");
+
+	public String insertCart(Model model, String product_id, HttpSession session) {
+		System.out.println("insertProductContoller 실행됨");
+
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
@@ -52,7 +57,7 @@ public class CartController {
 		return String.valueOf(result);
 	}
 	
-	// 카트 占쏙옙占쏙옙
+	// 카트 삭제
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteCart(
@@ -79,7 +84,26 @@ public class CartController {
 
 	}
 	
+
+	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) 
+	@RequestMapping(value = "/paymentList",method = RequestMethod.POST)
+	public String paymentList(Model model, String arr_cart_no) { // cart_no 배열로 받아서 list로 변환
+//		System.out.println("arr_cart_no"+ arr_cart_no);
+		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
+		List<CartVo> cartnoList = new ArrayList<CartVo>();
+		for (Object cartno : cartnoListjson) {
+			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
+			CartVo cartVo = cartService.getCartListByNo(cart_no);
+			cartnoList.add(cartVo);
+		}
+//		System.out.println("cartnoList:"+cartnoList);
+		model.addAttribute("cartnoList",cartnoList);
+		return "shopping/payment";
+	}
 	
+	
+
+  // detail 에서 카트 추가
 	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
@@ -92,5 +116,6 @@ public class CartController {
 		model.addAttribute("cartProductList", cartProductList);
 		return "shopping/cart";
 	}
+
 	
 }
