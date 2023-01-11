@@ -7,6 +7,8 @@
 
 <script>
 $(document).ready(function() {
+	var endpage="${BoardPagingDto.endPage}";
+	console.log("endpage:",endpage);
  	
 	// 디테일로 이동(제목 클릭)
 	$(".a_title").click(function(e) {
@@ -144,7 +146,16 @@ $(document).ready(function() {
 				<h3>상품문의</h3>
 			</div>
 			<div class="col-md-8 text-right">
-				<a href="/spring/board/write" class="site-smbtn">문의 작성하기</a>
+				<a href=
+				<c:choose>
+				<c:when test="${empty loginMember}">		
+				"/spring/member/login" class="site-smbtn"
+				</c:when>	
+				<c:otherwise>
+				"/spring/board/write" class="site-smbtn"
+				</c:otherwise>
+				</c:choose>	
+				>문의 작성하기</a>
 			</div>
 		</div>
 		<div class="row">
@@ -194,16 +205,7 @@ $(document).ready(function() {
 				</table>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="product__pagination blog__pagination">
-					<a href="#">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#"><i class="fa fa-long-arrow-right"></i></a>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	
 	<div class="product__pagination pagination justify-content-center">
