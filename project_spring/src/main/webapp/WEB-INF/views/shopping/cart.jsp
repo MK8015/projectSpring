@@ -5,7 +5,35 @@
 
 <script>
 $(document).ready(function() {
-	
+	// 주문하기 버튼 -> 체크된 카트상품의 정보 넘기기
+	$(document).on("click", ".orderBtn", function(e) {
+		var arr_cart_no = [];
+		e.preventDefault();
+		console.log("주문하기 버튼");
+	   $(".chkbox").each(function() { // 체크된 상품만 읽어오기
+			var checked = $(this).is(":checked");
+			if (checked == true){
+				var cart_no = $(this).attr("data-cartNo");
+				arr_cart_no.push(cart_no);
+			}
+		});
+	   console.log(arr_cart_no);
+	   
+	   var json_cart_no = JSON.stringify(arr_cart_no); // 배열을 스트링으로 변환
+	   var form = $("<form></form>");
+	   form.attr("method","post");
+	   form.attr("action","/spring/cart/paymentList");
+	   var input = $("<input></input>");
+	   input.attr("type","hidden");
+	   input.attr("name","arr_cart_no");
+	   input.attr("value",json_cart_no);
+	   
+	   form.append(input);
+	   $(document.body).append(form);
+	   form.submit();
+	   
+	});
+	 
 	// 체크박스
 	$("#chkAll").click(function(){
 		var isChecked = $(this).prop("checked");
@@ -16,12 +44,12 @@ $(document).ready(function() {
 	$(document).on("click",".cartUpdate",function(e){
 		e.preventDefault();
 		var that = $(this);
-// 		console.log("변경클릭");
+		console.log("변경클릭");
 		var product_id = $(this).parent().parent().parent().find("td").eq(0).find("input").attr("data-productId");
 		var update_cart_amount = parseInt($(this).parent().find(".cart_amount").val());
 		var price = $(this).parent().parent().prev().find(".price").text();
 		var unitprice = parseInt(price.substring(0,price.length-1));
-		
+		console.log(unitprice);
 		var url = "/spring/cart/update";
 		var sData = {
 			  "product_id" : product_id,
@@ -61,7 +89,9 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
 				$.each(deleteEl, function() {
-					$(this).remove();
+					$(this).fadeOut(1000, function() {
+			            $(this).remove();
+			        });
 					showTotalPrice();
 				});
 				
@@ -86,7 +116,9 @@ $(document).ready(function() {
 			if (rData == "true"){
 				console.log("rData:",rData);
 				$.each(deleteEl, function() {
-					$(this).remove();
+					$(this).fadeOut(1000, function() {
+			            $(this).remove();
+			        });
 					showTotalPrice();
 				});
 			}
@@ -107,14 +139,14 @@ $(document).ready(function() {
 		var sumPrice = 0;
 		$(".chkbox").each(function() {
 			var checked = $(this).is(":checked");
-			console.log(checked);
+// 			console.log(checked);
 			if (checked == true){
 				var totalPrice = parseInt($(this).attr("data-price"));
-				console.log(totalPrice);
+// 				console.log(totalPrice);
 				sumPrice += totalPrice;
 			}
 		});
-		console.log(sumPrice);
+// 		console.log(sumPrice);
 		$(".totalPrice").text(sumPrice + "원");
 	}
 });
@@ -157,12 +189,14 @@ $(document).ready(function() {
 								<td class="shoping__cart__check">
 									<input class="chkbox" type="checkbox" checked
 										data-productId="${list.product_id}"
-										data-price="${list.price*list.cart_amount}"/>
+										data-price="${list.price*list.cart_amount}"
+										data-cartNo="${list.cart_no}"/>
 								</td>
 								<td class="shoping__cart__item">
-									<img src="/spring/product/getImage?imageName=${list.product_image}"
-									 width="100px">
-									<h5>${list.product_name}<br>
+									<img src="/spring/product/getImage?imageName=${list.product_image}" width="100px"
+									onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
+									<h5 onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
+									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;"
 									>${list.product_author}|${list.product_publisher}<br>
 									<span class="price">${list.price}원</span></span></h5>
@@ -216,7 +250,7 @@ $(document).ready(function() {
 					<ul>
 						<li>총 상품금액 <span class="totalPrice">0원</span></li>
 					</ul>
-					<a href="#" class="primary-btn">주문하기</a>
+					<a href="/spring/order/orderList" class="primary-btn orderBtn">주문하기</a>
 				</div>
 			</div>
 		</div>

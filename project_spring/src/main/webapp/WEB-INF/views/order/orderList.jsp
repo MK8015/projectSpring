@@ -64,13 +64,13 @@
 						<tbody>
 						<c:forEach items="${list}" var="orderList">
 							<tr>
-								<td>${orderList.ORDER_DATE}</td>
+								<td>${orderList.order_date}</td>
 								<td class="order__item">
-								<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}" height="150" width="100" alt=""></td>			
-								<td><a href="/spring/product/detail?product_id=${orderList.PRODUCT_ID}" style="color: black; font-size: 14pt;"><strong>${orderList.PRODUCT_NAME}</strong></a></td>
-								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td>
-								<td class="order__price">${orderList.PRICE}</td>
-								<td class="order__id">${orderList.MEMBER_ID}</td>
+								<img src="/spring/product/getImage?imageName=${orderList.product_image}" height="150" width="100" alt=""></td>			
+								<td><a href="/spring/product/detail?product_id=${orderList.product_id}" style="color: black; font-size: 14pt;"><strong>${orderList.product_name}</strong></a></td>
+								<td class="order__quantity">${orderList.order_amount}</td>
+								<td class="order__price">${orderList.price}</td>
+								<td class="order__id">${orderList.member_id}</td>
 
 						</c:forEach>
 								

@@ -17,7 +17,7 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
-	// 占쏙옙占 占쏙옙회
+	// 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
 		System.out.println(category);
@@ -31,7 +31,7 @@ public class ListController {
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
 		} 
-		// 카占쌓곤옙占쏙옙 占쌍는곤옙占 : 占쏙옙 카占쌓곤옙占쏙옙,占싯삼옙占쏙옙 占쏙옙占쏙옙占싫 (getListByCategory)
+		// 카테고리가 있는경우 : 카테고리별 조회 (getListByCategory)
 		else {
 			list = listService.getListByCategory(category, pagingDto);
 			model.addAttribute("category",category);

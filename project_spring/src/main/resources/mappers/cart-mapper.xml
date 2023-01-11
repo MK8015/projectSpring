@@ -55,4 +55,12 @@
 		and member_id = #{member_id}
 	</update>
 	
+	<!-- cartno별 카트 목록수정 -->
+	<select id="getCartListByNo" resultType="CartVo">
+		select a.*, b.* from
+			(select * from t_cart
+			where cart_no = #{cart_no}) a, t_product b
+		where a.product_id = b.product_id
+	</select>
+	
 </mapper>
