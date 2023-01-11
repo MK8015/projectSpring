@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.project.spring.detail.ReviewService;
+import com.project.spring.like.LikeService;
 import com.project.spring.vo.PagingDto;
 import com.project.spring.vo.ProductVo;
 
@@ -16,6 +18,12 @@ import com.project.spring.vo.ProductVo;
 public class ListController {
 	@Autowired
 	ListService listService;
+	@Autowired
+	ReviewService reviewService;
+	@Autowired
+	LikeService likeService;
+	
+	
 	
 	// 占쏙옙占 占쏙옙회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -36,6 +44,7 @@ public class ListController {
 			list = listService.getListByCategory(category, pagingDto);
 			model.addAttribute("category",category);
 		}
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);
 		System.out.println(pagingDto);

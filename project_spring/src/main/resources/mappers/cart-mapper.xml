@@ -55,6 +55,14 @@
 		and member_id = #{member_id}
 	</update>
 	
+
+	
+	<!-- 멤버별 카트 개수 세기 -->
+	<select id="memberCartCount" resultType="int">
+		select count(*) from t_cart
+		where member_id = #{member_id}
+	</select>
+	
 	<insert id="insertCart">
 		insert into t_cart
 		values(seq_cart_no.nextval, #{member_id}, #{product_id}, #{cart_amount})

@@ -29,12 +29,9 @@ $(document).ready(function() {
 	
 	// 해당 글(디테일)로 이동하는 function	
 	function runDetail(bno) {
-		console.log("data-bno" + bno);
-// 		var frm = $("#frmBoardPaging");
-// 		frm.find("input[name=bno]").val(bno);
-// 		frm.attr("action", "/spring/board/detail");
-// 		frm.submit();
-		location.href = "/spring/board/detail?bno="+bno;
+
+		location.href = "/spring/board/detail?bno=" + bno;
+
 	} // END : runDetail
 	
 	// 비밀번호 확인 창 눌렀을 때 비밀번호 체크 후 이동
@@ -191,7 +188,7 @@ $(document).ready(function() {
 					<!-- 제목 부분, 답글일 때 > 나타내기 -->
 							<td>
 								<a class="a_title" data-bno="${boardVo.bno}" 
-									data-password="${boardVo.password}" data-secret="${boardVo.secret}" href="#">
+									data-secret="${boardVo.secret}" href="#">
 								<c:if test="${boardVo.re_level gt 0}">	
 									<i class="fa fa-chevron-right" aria-hidden="true"></i>
 								</c:if>${boardVo.title}</a>

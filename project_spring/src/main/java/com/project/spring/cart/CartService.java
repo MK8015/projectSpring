@@ -33,7 +33,13 @@ public class CartService {
 		return cartDao.updateCart(cart_amount, product_id, member_id);
 	}
 	
+
+
+	public int memberCartCount(String member_id) {
+		return cartDao.memberCartCount(member_id);
+
 	public boolean insertCart(String product_id, String member_id, String cart_amount) {
 		return cartDao.insertCart(product_id,member_id,cart_amount);
+
 	}
 }

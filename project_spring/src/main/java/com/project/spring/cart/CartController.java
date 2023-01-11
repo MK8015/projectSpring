@@ -79,7 +79,7 @@ public class CartController {
 
 	}
 	
-	
+
 	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
