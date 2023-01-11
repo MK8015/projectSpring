@@ -3,10 +3,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
 
+<style>
+.abs {
+  position: absolute;
+  bottom: 25px;
+  right: 10px;
+  font-size: 10px;
+}
 
+.child {
+  color: lightgray;
+  background: white;
+  padding: 0.5rem;
+}
+</style>
 <script>
 $(document).ready(function() {
-
+	
+	// 장바구니 클릭 : 비동기식 정보 넘기기
+ 	$(document).on("click", ".shopping-cart", function(e) {
+ 		e.preventDefault();
+ 		console.log("장바구니 클릭!!!");
+		var product_id = $(this).attr("data-product_id");
+		var sData = {"product_id" : product_id};
+		var url = "/spring/cart/insertProduct"
+		$.post(url, sData, function(rData) {
+			if (rData == "false"){
+				alert("장바구니 등록 실패!");
+				return;
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.")
+				location.href="/spring/member/login";
+			}
+		});
+		var p = $(this).next();
+		p.css("display","");
+ 	});
+ 	
+ 	// 카트 닫기 버튼
+ 	$(".closeBtn").click(function() {
+ 		$(this).parent().attr("style","display:none");
+ 	});
 	
 }); //$(document).ready(function()
 </script>
@@ -103,7 +140,6 @@ $(document).ready(function() {
 			</div>
 		</div>
 		
-		
 		<!-- 여기 div 반복 -->
 		<div class="row featured__filter">
 		<c:forEach items="${list}" var="productVo">
@@ -118,7 +154,18 @@ $(document).ready(function() {
 
 						<ul class="featured__item__pic__hover">
 							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+							<!-- 장바구니 -->
+							<li><a href="#" class="shopping-cart"
+								data-product_id="${productVo.product_id}">
+									<i class="fa fa-shopping-cart parent"></i>
+								</a>
+								<p class="child abs" style="display:none">
+									카트에 담겼습니다.<br>
+									<input onclick="location.href='/spring/cart/list'" 
+									type="button" value="카트 보기>"/>
+									<input type="button" class="closeBtn" value="닫기"/>
+								</p>
+							</li>
 						</ul>
 					</div>
 					<div class="featured__item__text">

@@ -8,7 +8,7 @@ public class CartVo {
 	private String member_id;
 	private String product_id;
 	private int cart_amount;
-	// Àå¹Ù±¸´Ï¿¡¼­ »óÇ°Á¤º¸ »©³»¿Ã·Á°í vo¿¡ Ç×¸ñÃß°¡ÇÔ
+	// ì¥ë°”êµ¬ë‹ˆì—ì„œ ìƒí’ˆì •ë³´ ë¹¼ë‚´ì˜¬ë ¤ê³  voì— í•­ëª©ì¶”ê°€í•¨
 	private String product_name;
 	private String product_image;
 	private int price;

@@ -19,12 +19,12 @@ public class ListDao {
 	@Autowired
 	SqlSession sqlSession;
 	
-	// ÀüÃ¼ µµ¼­ Á¶È¸ (ÆäÀÌÁöº°)
+	// ì „ì²´ ë„ì„œ ì¡°íšŒ (í˜ì´ì§€ë³„)
 	public List<ProductVo> getProductList(PagingDto pagingDto) {
 		return sqlSession.selectList(NAME_SPACE + "getProductList", pagingDto);
 	}
 	
-	// Ä«Å×°í¸®º°, °Ë»öº° Ä«¿îÆ® ¾ò¾î¿À±â
+	// ì¹´í…Œê³ ë¦¬ë³„, ê²€ìƒ‰ë³„ ì¹´ìš´íŠ¸ ì–»ì–´ì˜¤ê¸°
 	public int getCount(String category, PagingDto pagingDto) {
 		Map<String, String> map = new HashMap<>();
 		map.put("product_category", category);
