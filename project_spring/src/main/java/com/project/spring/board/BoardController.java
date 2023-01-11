@@ -42,9 +42,11 @@ public class BoardController {
 	// 占쏙옙 占쏙옙占 占쏙옙占쏙옙
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
-		List<BoardVo> list = boardService.listArticle(boardPagingDto);
+	
+		System.out.println("boardPagingDto1111:"+boardPagingDto);
 		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
-//		BoardPagingDto.setPagingInform(BoardPagingDto. , boardPagingDto.getPerPage(), boardService.getCount());
+		List<BoardVo> list = boardService.listArticle(boardPagingDto);
+		//		BoardPagingDto.setPagingInform(BoardPagingDto. , boardPagingDto.getPerPage(), boardService.getCount());
 		System.out.println("boardPagingDto:"+boardPagingDto);
 		model.addAttribute("list", list);
 		model.addAttribute("BoardPagingDto", boardPagingDto);

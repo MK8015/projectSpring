@@ -13,7 +13,7 @@ public class BoardPagingDto {
 	private int endPage=10;
 	private int totalPage;
 	private int count;
-	private int perPage=5;
+	private int perPage=8;
 	private final int BLOCK_COUNT=10;
 
 	

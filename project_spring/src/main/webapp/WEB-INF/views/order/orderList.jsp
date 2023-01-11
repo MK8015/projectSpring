@@ -64,39 +64,18 @@
 						<tbody>
 						<c:forEach items="${list}" var="orderList">
 							<tr>
-								<td>${orderList.ORDER_DATE}</td>
+								<td>${orderList.order_date}</td>
 								<td class="order__item">
-								<img src="/spring/product/getImage?imageName=${orderList.PRODUCT_IMAGE}" height="150" width="100" alt=""></td>			
-								<td><a href="/spring/product/detail?product_id=${orderList.PRODUCT_ID}" style="color: black; font-size: 14pt;"><strong>${orderList.PRODUCT_NAME}</strong></a></td>
-								<td class="order__quantity">${orderList.ORDER_AMOUNT}</td>
-								<td class="order__price">${orderList.PRICE}</td>
-								<td class="order__id">${orderList.MEMBER_ID}</td>
+								<img src="/spring/product/getImage?imageName=${orderList.product_image}" height="150" width="100" alt=""></td>			
+								<td><a href="/spring/product/detail?product_id=${orderList.product_id}" style="color: black; font-size: 14pt;"><strong>${orderList.product_name}</strong></a></td>
+								<td class="order__quantity">${orderList.order_amount}</td>
+								<td class="order__price">${orderList.price}</td>
+								<td class="order__id">${orderList.member_id}</td>
 
 						</c:forEach>
 								
 								
-							<tr>
-<!-- 								<td class="shoping__cart__item"> -->
-<!-- 									<img src="img/cart/cart-3.jpg" alt=""> -->
-<!-- 									<h5>Organic Bananas</h5> -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__price"> -->
-<!-- 									$69.00 -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__quantity"> -->
-<!-- 									<div class="quantity"> -->
-<!-- 										<div class="pro-qty"> -->
-<!-- 											<input type="text" value="1"> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__total"> -->
-<!-- 									$69.99 -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__item__close"> -->
-<!-- 									<span class="icon_close"></span> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
+
 						</tbody>
 					</table>
 				</div>
@@ -106,21 +85,7 @@
 							<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
 				
 		</div>
-		<div class="product__pagination pagination justify-content-center">
-					<c:if test="${pagingDto.startPage ne 1}">
-						<a class="pagelink" href="${pagingDto.startPage-1}">
-							<i class="fa fa-long-arrow-left"></i></a>
-					</c:if>
-					<c:forEach var="v" begin="${pagingDto.startPage}" 
-										end="${pagingDto.endPage}">
-
-						<a class="pagelink" href="${v}">${v}</a>
-					</c:forEach>
-					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-						<a class="pagelink" href="${pagingDto.endPage+1}">
-							<i class="fa fa-long-arrow-right"></i></a>
-					</c:if>
-				</div>
+	
 	
 </section>
 <!-- Shoping Cart Section End -->
