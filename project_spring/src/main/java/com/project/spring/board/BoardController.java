@@ -59,14 +59,6 @@ public class BoardController {
 		return "board/detail";
 	}
 	
-
-	// 占쏙옙 占쏙옙占쏙옙
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyArticle(BoardVo boardVo) {
-		boardService.updateArticle(boardVo);
-		return "redirect:/board/detail" +
-				"?bno=" + boardVo.getBno();
-	}
 	
 		// 글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
