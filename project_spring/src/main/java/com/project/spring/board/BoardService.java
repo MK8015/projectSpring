@@ -60,6 +60,7 @@ public class BoardService {
 	public BoardVo selectByRegroup(int re_group) {
 		BoardVo boardVo = boardDao.selectByRegroup(re_group);
 		return boardVo;
+	}
 
 	// 비밀번호 체크
 	public boolean checkPassword(BoardVo boardVo) {

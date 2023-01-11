@@ -96,6 +96,7 @@ public class BoardDao {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByRegroup", re_group);
 		return boardVo;
+	}
 
 	// 비밀번호 체크
 	public boolean checkPassword(BoardVo boardVo) {
