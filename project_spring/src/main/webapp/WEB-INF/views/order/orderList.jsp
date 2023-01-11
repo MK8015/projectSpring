@@ -75,28 +75,7 @@
 						</c:forEach>
 								
 								
-							<tr>
-<!-- 								<td class="shoping__cart__item"> -->
-<!-- 									<img src="img/cart/cart-3.jpg" alt=""> -->
-<!-- 									<h5>Organic Bananas</h5> -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__price"> -->
-<!-- 									$69.00 -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__quantity"> -->
-<!-- 									<div class="quantity"> -->
-<!-- 										<div class="pro-qty"> -->
-<!-- 											<input type="text" value="1"> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__total"> -->
-<!-- 									$69.99 -->
-<!-- 								</td> -->
-<!-- 								<td class="shoping__cart__item__close"> -->
-<!-- 									<span class="icon_close"></span> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
+
 						</tbody>
 					</table>
 				</div>
@@ -106,21 +85,7 @@
 							<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
 				
 		</div>
-		<div class="product__pagination pagination justify-content-center">
-					<c:if test="${pagingDto.startPage ne 1}">
-						<a class="pagelink" href="${pagingDto.startPage-1}">
-							<i class="fa fa-long-arrow-left"></i></a>
-					</c:if>
-					<c:forEach var="v" begin="${pagingDto.startPage}" 
-										end="${pagingDto.endPage}">
-
-						<a class="pagelink" href="${v}">${v}</a>
-					</c:forEach>
-					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-						<a class="pagelink" href="${pagingDto.endPage+1}">
-							<i class="fa fa-long-arrow-right"></i></a>
-					</c:if>
-				</div>
+	
 	
 </section>
 <!-- Shoping Cart Section End -->

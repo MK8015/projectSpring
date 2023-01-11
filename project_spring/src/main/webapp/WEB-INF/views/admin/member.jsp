@@ -112,7 +112,6 @@ $(document).ready(function(){
 			<a href="#" class="site-smbtn">삭제</a>
 		</form>
 	</div>
-
 				<div class="col-lg-10 col-md-7 order-md-1 order-1">
 
 					<!-- Page Wrapper -->

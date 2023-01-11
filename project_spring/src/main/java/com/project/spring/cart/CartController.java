@@ -44,8 +44,10 @@ public class CartController {
 	// 카트 등록
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
+
 	public String insertCart(Model model, String product_id, HttpSession session) {
 		System.out.println("insertProductContoller 실행됨");
+
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
@@ -82,6 +84,7 @@ public class CartController {
 
 	}
 	
+
 	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) 
 	@RequestMapping(value = "/paymentList",method = RequestMethod.POST)
 	public String paymentList(Model model, String arr_cart_no) { // cart_no 배열로 받아서 list로 변환
@@ -99,5 +102,20 @@ public class CartController {
 	}
 	
 	
+
+  // detail 에서 카트 추가
+	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
+	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		if (member_id == null || member_id.equals("")) {
+			return "member/login";
+		}
+		boolean result = cartService.insertCart(product_id, member_id, cart_amount);
+		model.addAttribute("result", result);
+		List<CartVo> cartProductList = cartService.getCartList(member_id);
+		model.addAttribute("cartProductList", cartProductList);
+		return "shopping/cart";
+	}
+
 	
 }

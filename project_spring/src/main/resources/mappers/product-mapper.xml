@@ -12,6 +12,7 @@
 	
 	<select id="getList" resultType="ProductVo">
 		select * from t_product
+		order by product_id
 	</select>
 	
 	<insert id="insert">

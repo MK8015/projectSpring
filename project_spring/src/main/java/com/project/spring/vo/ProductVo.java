@@ -13,4 +13,7 @@ public class ProductVo {
 	String product_description;
 	String product_author;
 	String product_publisher;
+	int reviewCount;
+	int likeCount;
+
 }

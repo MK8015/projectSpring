@@ -1,17 +1,28 @@
 package com.project.spring.detail;
 
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.spring.like.LikeService;
+import com.project.spring.vo.LikeVo;
 import com.project.spring.vo.ProductVo;
 import com.project.spring.vo.ReviewVo;
 
@@ -22,8 +33,9 @@ public class ProductController {
 	ProductService productService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	LikeService likeService;
 	
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String indexList() {
 		return "product/list";
@@ -32,7 +44,8 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(String product_id,HttpServletRequest request,ReviewPagingDto pagingDto) {
+	public String detail(String product_id, HttpServletRequest request,
+							ReviewPagingDto pagingDto, HttpSession session, Model model) {
 		ProductVo productVo = productService.detail(product_id);
 		int reviewCount = reviewService.getCount(product_id);
 		if(reviewCount>0) {
@@ -43,9 +56,26 @@ public class ProductController {
 		}
 		pagingDto.setPagingInfo(pagingDto.getPage(), pagingDto.getPerPage(), reviewCount);
 		System.out.println(pagingDto);
+		
+		// ���ƿ� üũ, ����
+		int likeCount = likeService.getLikeCount(product_id);
+		String member_id = (String)session.getAttribute("loginMember");
+		
+		if (member_id != null && !member_id.equals("")) {
+			LikeVo likeVo = new LikeVo();
+			likeVo.setProduct_id(product_id);
+			likeVo.setMember_id(member_id);
+			boolean isLike = likeService.checkLike(likeVo);
+			// isLike 안에서
+			request.setAttribute("isLike", isLike);
+		}
+		request.setAttribute("likeCount", likeCount);
+		
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewCount", reviewCount);
+		
+		
 		return "product/detail";
 	}
 	

@@ -7,12 +7,28 @@
 	
 	<!-- 목록 조회  -->
 	<select id="getProductList" resultType="ProductVo">
-		select * from 
-    		(select rownum rnum, a.* from 
-        		(select * from t_product
-        		<include refid="searchKeyword"></include>) a)
-		where rnum between #{startRow} and #{endRow}
+	select * from (
+		select rownum rnum, d.* from 
+			(select nvl(a.count,0) reviewCount, nvl(b.count,0) likeCount, c.*
+			from(
+				select product_id,count(product_id) count
+				from t_review
+				group by product_id) a,
+				(select product_id,count(product_id) count
+				from t_like
+				group by product_id) b,
+				t_product c 
+			where c.product_id = b.product_id(+)
+			and c.product_id = a.product_id(+)
+			<include refid="searchKeyword"></include>
+			order by c.product_id)d)
+	where rnum between #{startRow} and #{endRow}
 	</select>
+	
+	
+	
+	
+	
 	
 	<!-- 카테고리별 목록 조회 -->
 	<select id="getListByCategory" resultType="ProductVo">
@@ -40,7 +56,7 @@
 	<!-- 카테고리 옵션 -->
 	<sql id="searchCategory">
 	<if test='product_category neq null and product_category neq ""'>
-		where product_category = #{product_category}
+		and product_category = #{product_category}
     </if>
     </sql>
     
@@ -50,13 +66,13 @@
 			searchType neq "" and keyword neq ""'>
 		<choose>
 			<when test='searchType eq "t"'>
-				where product_name like '%' || #{keyword} || '%'
+				and product_name like '%' || #{keyword} || '%'
 			</when>
 			<when test='searchType == "w"'>
-				where product_author like '%' || #{keyword} || '%'
+				and product_author like '%' || #{keyword} || '%'
 			</when>
 			<when test='searchType == "p"'>
-				where product_publisher like '%' || #{keyword} || '%'
+				and product_publisher like '%' || #{keyword} || '%'
 			</when>
 		</choose>			
      </if>

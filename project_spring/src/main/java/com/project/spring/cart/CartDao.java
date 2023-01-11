@@ -23,6 +23,7 @@ public class CartDao {
 		return sqlSession.selectList(NAME_SPACE + "getCartList", member_id);
 	}
 	
+
 	// 카트 상품 등록
 	public boolean insertProductInCart(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -60,10 +61,27 @@ public class CartDao {
 		return false;
 	}
 	
+
 	// 카트넘버별 cartVo 조회
 	public CartVo getCartListByNo(int cart_no) {
 		return sqlSession.selectOne(NAME_SPACE + "getCartListByNo", cart_no);
 	}
 	
+	public int memberCartCount(String member_id) {
+		return sqlSession.selectOne(NAME_SPACE + "memberCartCount", member_id);
+	}
+  
+  // detail 에서 카트 추가
+	public boolean insertCart(String product_id, String member_id, String cart_amount) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("product_id", product_id);
+		map.put("member_id", member_id);
+		map.put("cart_amount", cart_amount);
+		int count = sqlSession.insert(NAME_SPACE + "insertCart", map);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
 	
 }

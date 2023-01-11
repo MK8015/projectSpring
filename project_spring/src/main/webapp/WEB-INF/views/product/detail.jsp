@@ -55,6 +55,31 @@ $(document).ready(function() {
 	
 	getReview(1);
 	setRating("${productVo.product_id}");
+	// 좋아요 눌렀는지 안 눌렀는지
+	var isLike = "${likeMap.isLike}";
+	
+	$("#btnInsertCart").click(function(e){
+		e.preventDefault();
+		var cart_amount = $(".pro-qty").find("input").val();
+		var product_id = "${productVo.product_id}";
+		var sData = {
+				"cart_amount": cart_amount,
+				"product_id": product_id,
+		};
+		var form = $("<form></form>");
+		form.attr("method","post");
+		form.attr("action","/spring/cart/insertCart");
+		for(var data in sData){
+			var input = $("<input></input>");
+			input.attr("type","hidden");
+			input.attr("name",data);
+			input.attr("value",sData[data]);
+			form.append(input);
+		}
+		$(document.body).append(form);
+		form.submit();
+		
+	});
 	
 	$(document).on("click", ".btnUpdateReview", function(e) {
 		e.preventDefault();
@@ -64,7 +89,7 @@ $(document).ready(function() {
 		$(this).parent().parent().after("<tr id='reviewUpdateForm'></tr>");
 		$("#reviewUpdateForm").append(td);
 		$("#reviewUpdateForm").append("<td><a href='#' class='site-smbtn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
-	});
+	}); // END : $(document).on("click", ".btnUpdateReview"
 	
 	$(document).on("click", ".btnUpdateRun", function(e) {
 		e.preventDefault();
@@ -82,7 +107,7 @@ $(document).ready(function() {
 				reviewForm.remove();
 			}
 		});
-	});
+	}); // END : $(document).on("click", ".btnUpdateRun",
 	
 	$(document).on("click", ".btnDeleteReview", function(e) {
 		e.preventDefault();
@@ -93,7 +118,7 @@ $(document).ready(function() {
 				setRating("${productVo.product_id}");				
 			}
 		});
-	});
+	}); // END : $(document).on("click", ".btnDeleteReview",
 	
 	
 	//리뷰 별점
@@ -203,6 +228,50 @@ $(document).ready(function() {
 			}
 		});
 	}
+	
+	
+	// 좋아요 하트
+	$("#likeHeart").click(function(e) {
+		e.preventDefault();
+		
+		var url;
+		if (isLike == "true") {
+			console.log("좋아요 url: cancelLike");
+			url = "/spring/like/cancelLike";
+		} else {
+			console.log("좋아요 url: inserLike");
+			url = "/spring/like/insertLike";
+		}
+		var sData = {"product_id" : "${productVo.product_id}"};
+		console.log("sData:", sData)
+		
+		$.get(url, sData, function(rData) {
+			console.log("rData:", rData)
+			var count = parseInt($("#likeCount").text());
+			
+			if (rData == "true") {
+				//이미 좋아요 한 경우 = true, 아닌 경우 = else
+				if (isLike == "true") {
+					isLike = "false";
+					$("#likeHeart").css("color", "#6f6f6f");
+					$("#heartIcon").attr("class", "fa fa-heart-o");
+					count--;
+				} else {
+					// 안 한 거
+					isLike = "true";
+					$("#likeHeart").css("color", "#dd2222");
+					$("#heartIcon").attr("class", "fa fa-heart");
+					count++;
+				}
+				$("#likeCount").text(count);
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.")
+				location.href="/spring/member/login";
+			}
+		}); // $.get(url
+	}); // EMD " $("#likeHeart").click(fu
+	
+	
 });
 </script>
 
@@ -245,8 +314,26 @@ $(document).ready(function() {
 									</div>
 								</div>
 							</div>
-							<a href="#" class="primary-btn">ADD TO CART</a> <a href="#"
-								class="heart-icon"><span class="icon_heart_alt"></span></a>
+              
+							<a href="#" class="primary-btn" id="btnInsertCart">ADD TO CART</a>
+						<!-- START : 좋아요 -->	
+							<a href="#" class="heart-icon" id="likeHeart" 
+									<c:if test="${isLike == 'true'}">
+										style="color:#dd2222" 
+									</c:if>>
+								　
+								<c:if test="${isLike == 'true'}">
+										<i class="fa fa-heart" aria-hidden="true" id="heartIcon"></i>
+								</c:if>
+								
+								<c:if test="${isLike != 'true'}">
+										<i class="fa fa-heart-o" aria-hidden="true" id="heartIcon"></i>
+								</c:if>
+								
+								
+								<span style="font-size:16px; color:gray" id="likeCount"> ${likeCount}</span>　</a>
+						<!-- END : 좋아요 -->	
+
 							<ul>
 								<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
 								<li><b>공유하기</b>

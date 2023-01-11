@@ -46,6 +46,8 @@
 
 <script>
 $(document).ready(function() {
+	
+	console.log("session:","${loginMember}")
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
@@ -161,7 +163,7 @@ $(document).ready(function() {
 									<li><a href="/spring/list/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
-							<li><a href="#">EVENT</a></li>
+							<li><a href="/spring/main/event">EVENT</a></li>
 							<li><a href="/spring/board/list">Q & A</a></li>
 							<li><a href="#">ABOUT</a></li>
 						</ul>
@@ -172,7 +174,7 @@ $(document).ready(function() {
 						<div>
 						
 							<c:choose>
-								<c:when test="${empty loginMemberVo}">
+								<c:when test="${empty loginMember}">
 								<div class="header__top__right__social">
 								<a href="/spring/member/registerForm">회원가입</a>
 								</div>
@@ -185,10 +187,10 @@ $(document).ready(function() {
 							<c:otherwise>
 								<div class="header__top__right__social">
 								
-								${loginMemberVo.member_id}님 환영합니다
+								${loginMember}님 환영합니다
 								</div>
 								<div class="header__top__right__social">
-								 <a href="#">마이 페이지</a>
+								 <a href="/spring/member/mypage">마이 페이지</a>
 								</div>
 								<div class="header__top__right__social">
 								 <a href="/spring/member/logout">로그아웃</a>
@@ -251,8 +253,8 @@ $(document).ready(function() {
 			<div class="col-lg-2">
 				<div class="header__cart">
 					<ul>
-						<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> <span>${loginMemberVo.memberLikeCount}</span></a></li>
+						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> <span>${loginMemberVo.memberCartCount}</span></a></li>
 					</ul>
 				</div>
 			</div>

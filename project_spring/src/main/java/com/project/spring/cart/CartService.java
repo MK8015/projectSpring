@@ -1,7 +1,9 @@
 package com.project.spring.cart;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,9 @@ public class CartService {
 	}
 	
 	public boolean insertProductInCart(String product_id, String member_id) {
+
 //		System.out.println("insertProductService 실행됨");
+
 		return cartDao.insertProductInCart(product_id, member_id);
 	}
 	
@@ -31,8 +35,17 @@ public class CartService {
 		return cartDao.updateCart(cart_amount, product_id, member_id);
 	}
 	
+
 	// cartno별 cartVo구하기
 	public CartVo getCartListByNo(int cart_no) {
 		return cartDao.getCartListByNo(cart_no);
+
+	public int memberCartCount(String member_id) {
+		return cartDao.memberCartCount(member_id);
+  
+  // detail 에서 카트 추가
+	public boolean insertCart(String product_id, String member_id, String cart_amount) {
+		return cartDao.insertCart(product_id,member_id,cart_amount);
+
 	}
 }
