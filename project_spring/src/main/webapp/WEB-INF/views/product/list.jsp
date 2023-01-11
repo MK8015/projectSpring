@@ -183,7 +183,7 @@ $(document).ready(function() {
 									<span style="font-size:11px; color:gray;">
 									${list.product_author} | ${list.product_publisher}</span><br>
 									<span style="font-size:11px; color:red;">
-									리뷰 ${reviewCount} | 좋아요 ${likeMap.likeCount}</span>
+									리뷰 ${list.reviewCount} | 좋아요 ${list.likeCount}</span>
 									</a></h6>
 
 									<h5>${list.price}원</h5>
