@@ -280,7 +280,7 @@ $(document).ready(
 													<p style="margin-top: 15px">
 														휴대폰번호<span>*</span>
 													</p>
-													<input type="number" id="phonenum" name="phonenum">
+													<input type="text" id="phonenum" name="phonenum">
 												</div>
 												<div class="checkout__input">
 													<p style="margin-top: 15px">
