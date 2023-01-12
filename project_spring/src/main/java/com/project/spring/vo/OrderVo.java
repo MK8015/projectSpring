@@ -13,8 +13,8 @@ public class OrderVo {
 	private String product_id;  
 	private int order_amount; 
 	private String order_address; 
-	private String address_detail;
-	private int order_phonenum; 
+	private String order_address_detail;
+	private String order_phonenum; 
 	private Date order_date; 
 	private String product_name;
 	private String product_image;
@@ -22,5 +22,6 @@ public class OrderVo {
 	private int quantity;
 	private String product_author;
 	private String product_publisher;
+	private String member_name;
 
 }

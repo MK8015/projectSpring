@@ -45,5 +45,13 @@
 		delete from t_order
 		where order_no = #{order_no}
 	</delete>
+	
+	<select id="orderListBymemId" resultType="OrderVo">
+ 		select a.*,b.* from
+ 		(select * from t_member
+			where member_id = #{member_id}) a, t_order b 
+ 		where a.member_id = b.member_id
+ 		order by b.order_no desc
+ 	</select>
 
  </mapper>

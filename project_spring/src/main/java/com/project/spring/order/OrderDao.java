@@ -49,5 +49,8 @@ public class OrderDao {
 		return false;
 	}
 
+	public List<OrderVo> orderListBymemId(String member_id) {
+		return sqlSession.selectList(NAME_SPACE + "orderListBymemId", member_id);
+	}
 
 }
