@@ -127,7 +127,7 @@ public class MemberController {
 		
 //		"//192.168.0.233/userpics/"
 		try {
-		 String member_pic=MyFileUploader.uploadfile("C:/userpics/", originalFilename, file.getBytes());
+		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
 		 System.out.println("member_pic:"+member_pic);
 		 memberVo.setMember_pic(member_pic);
 		

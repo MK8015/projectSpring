@@ -41,7 +41,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		return "admin/index";
+		return "shopping/paymentRun";
 	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
