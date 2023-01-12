@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 
 @Repository
@@ -100,6 +101,10 @@ public class MemberDao {
 		}
 		return false;
 	}
+	public List<OrderVo> orderList(String member_id) {
+		List<OrderVo>list= sqlSession.selectList(NAMESPACE + "orderList",member_id);	
+			return list;
+		}
 	
 	
 }

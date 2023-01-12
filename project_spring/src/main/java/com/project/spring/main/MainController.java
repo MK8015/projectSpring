@@ -49,10 +49,22 @@ public class MainController {
 	}
 	
 
-	// ¸ŞÀÎ¿¡¼­ ¸ñ·Ï º¸±â
+	// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String runEvent(Model model) {
 		return "index/event";
+	}
+	
+	
+	//ë„¤ì´ë²„ ë¡œê·¸ì¸ api ë¡œê·¸ì¸ìš© 
+	@RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
+	public String indexRunNaver(Model model) {
+
+		List<ProductVo> list = mainService.getList();
+		System.out.println("MainController, list" + list);
+		model.addAttribute("list", list);
+		
+		return "index/main";
 	}
 	
 }
