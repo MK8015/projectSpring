@@ -22,10 +22,11 @@ public class OrderController {
 	public String orderList(Model model, String arr_cart_no) { 
 
 		List<OrderVo>list=orderService.orderList();
+
 		model.addAttribute("list", list);
 		
 		return "order/orderList";
 		
-		
+
 	}
 }

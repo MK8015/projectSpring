@@ -75,7 +75,7 @@ public class MemberController {
 			//濡쒓렇�씤 �떎�뙣�떆
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
-		}else {
+		} else {
 			
 
 			// 멤버당 좋아요 개수
@@ -134,7 +134,7 @@ public class MemberController {
 		
 //		"//192.168.0.233/userpics/"
 		try {
-		 String member_pic=MyFileUploader.uploadfile("C:/userpics/", originalFilename, file.getBytes());
+		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
 		 System.out.println("member_pic:"+member_pic);
 		 memberVo.setMember_pic(member_pic);
 		

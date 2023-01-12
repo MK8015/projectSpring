@@ -32,7 +32,7 @@ $(document).ready(function(){
 			inputs.eq(2).val(jsonObject.product_id);
 			inputs.eq(3).val(jsonObject.order_amount);
 			inputs.eq(4).val(jsonObject.order_address);
-			inputs.eq(5).val(jsonObject.address_detail);
+			inputs.eq(5).val(jsonObject.order_address_detail);
 			inputs.eq(6).val(jsonObject.order_phonenum);
 			inputs.eq(7).val(jsonObject.order_date);
 			form.css("display","");

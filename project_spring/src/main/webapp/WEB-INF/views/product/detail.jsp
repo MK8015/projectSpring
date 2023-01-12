@@ -376,7 +376,14 @@ $(document).ready(function() {
 												</tr>
 												<tr class="reviewForm">
 													<td style="width: 25%"><img
-														src="/spring/resources/img/defaultprofile.png"
+														<c:choose>
+															<c:when test="${not empty loginMemberVo.member_pic}">
+																src="/spring/product/getImage?imageName=${loginMemberVo.member_pic}"
+															</c:when>
+															<c:otherwise>
+																src="/spring/resources/img/defaultprofile.png"
+															</c:otherwise>
+														</c:choose>
 														width="50px" class="rounded-circle" /><br> ${loginMember}<br>
 														<div class='rating-stars'>
 															<ul id='stars'>

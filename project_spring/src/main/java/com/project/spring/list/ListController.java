@@ -28,13 +28,13 @@ public class ListController {
 	// 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category) {
-		System.out.println(category);
+		//System.out.println(category);
 		
 		List<ProductVo> list = null;
 		pagingDto.setPagingInfo(pagingDto.getPage()
 								, pagingDto.getPerPage()
 								, listService.getCount(category, pagingDto));
-		System.out.println("list페이지pagingDto:"+pagingDto);
+		//System.out.println("list페이지pagingDto:"+pagingDto);
 		// 카테고리가 없는경우 : 전체조회 (getProductList)
 		if (category == null || category.equals("")) { 
 			list = listService.getProductList(pagingDto);
@@ -47,7 +47,7 @@ public class ListController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);
-		System.out.println(pagingDto);
+		//System.out.println(pagingDto);
 		return "product/list";
 	}
 	
