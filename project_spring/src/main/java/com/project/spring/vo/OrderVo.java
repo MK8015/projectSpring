@@ -14,7 +14,7 @@ public class OrderVo {
 	private int order_amount; 
 	private String order_address; 
 	private String address_detail;
-	private int order_phonenum; 
+	private String order_phonenum; 
 	private Date order_date; 
 	private String product_name;
 	private String product_image;

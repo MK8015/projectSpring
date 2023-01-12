@@ -9,7 +9,7 @@ public class MemberVo {
 	String member_id; 
 	String password;
 	String member_name; 
-	int phonenum;
+	String phonenum;
 	String email;
 	String address; 
 	Date regdate;

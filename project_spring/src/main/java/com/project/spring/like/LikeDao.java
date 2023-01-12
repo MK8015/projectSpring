@@ -20,11 +20,37 @@ public class LikeDao {
 	@Autowired
 	SqlSession sqlSession;
 
-
+	// 좋아요 리스트 불러오기
 	public List<LikeVo> getLikeList(String member_id) {
 		return sqlSession.selectList(NAME_SPACE + "getLikeList", member_id);
 	}
 	
+
+	// 좋아요 삭제(여러 개)
+	public boolean deleteLike(String[] arr_product_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("arr_product_id", arr_product_id);
+		map.put("member_id", member_id);
+		int count = sqlSession.delete(NAME_SPACE + "deleteLike", map);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 좋아요 삭제(하나)
+	public boolean deleteLike(String product_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("product_id", product_id);
+		map.put("member_id", member_id);
+		int count = sqlSession.delete(NAME_SPACE + "deleteLike", map);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 좋아요 등록
 	public boolean insertLike(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);
@@ -36,7 +62,7 @@ public class LikeDao {
 		return false;
 	}
 	
-
+	// 좋아요 취소
 	public boolean cancelLike(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);
@@ -49,11 +75,11 @@ public class LikeDao {
 	}
 	
 
-	
+	// 좋아요 개수 세기
 	public int getLikeCount(String product_id) {
 		return sqlSession.selectOne(NAME_SPACE + "getLikeCount", product_id);
 	}
-	
+	// 좋아요 되어 있나 안 되어 있나 확인
 	public int checkLike(LikeVo likeVo) {
 		return sqlSession.selectOne(NAME_SPACE + "checkLike", likeVo);
 	}

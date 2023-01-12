@@ -12,6 +12,14 @@
 			where member_id = #{member_id}) a, t_product b
 		where a.product_id = b.product_id
 	</select>
+	
+
+	<!-- 좋아요 삭제(하나) -->
+	<delete id="deleteLike">
+		delete from t_like
+		where product_id = #{product_id} 
+		and member_id = #{member_id}
+	</delete>
 
 	<!-- 좋아요 등록 -->
 	<insert id="insertLike">

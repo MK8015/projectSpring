@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.detail.ProductService;
 import com.project.spring.vo.CartVo;
+import com.project.spring.vo.MemberVo;
 
 
 @Controller
@@ -46,14 +47,18 @@ public class CartController {
 	@ResponseBody
 
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("insertProductContoller 실행됨");
-
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
-		System.out.println("member_id: " + member_id);
 		boolean result = cartService.insertProductInCart(product_id, member_id);	// 占쏙옙품占쏙옙占쏙옙 t_cart占쏙옙 占쌍깍옙
+		// 세션 다시 넣기
+		if (result == true) {
+			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+			int count = loginMemberVo.getMemberCartCount();
+			loginMemberVo.setMemberCartCount(count+1);
+			session.setAttribute("loginMemberVo", loginMemberVo);
+		}
 		return String.valueOf(result);
 	}
 	
@@ -68,6 +73,13 @@ public class CartController {
 		}
 		String member_id = (String)session.getAttribute("loginMember");
 		boolean result = cartService.deleteCart(arr_product_id, member_id);
+		// 세션 다시 넣기
+		if (result == true) {
+			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+			int count = loginMemberVo.getMemberCartCount();
+			loginMemberVo.setMemberCartCount(count-1);
+			session.setAttribute("loginMemberVo", loginMemberVo);
+		}
 		return String.valueOf(result);
 	}
 	
