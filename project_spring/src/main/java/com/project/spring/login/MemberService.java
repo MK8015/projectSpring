@@ -1,12 +1,16 @@
 package com.project.spring.login;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 @Service
 public class MemberService {
@@ -52,13 +56,19 @@ public class MemberService {
 	public boolean deleteMember(String member_id) {
 		return memberDao.deleteMember(member_id);
 	}
-	
-	public MemberVo getMyInfo(String member_id) {
-		return memberDao.getMyInfo(member_id);
+	@Transactional 
+	public Map<String, Object> getMyInfo(String member_id) {
+		Map<String, Object>map=new HashMap<>(); 
+		MemberVo memberVo= memberDao.getMyInfo(member_id);
+		List<OrderVo>list=memberDao.orderList(member_id);
+		map.put("memberVo", memberVo);
+		map.put("list", list);
+		return map;
 	}
 	
 	public boolean modifyInfo(MemberVo memberVo) {
 		return memberDao.modifyInfo(memberVo);
 	}
+	
 	 
 }

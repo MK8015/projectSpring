@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 
-
+<%@ include file="../include/header.jsp" %>
 
 
 
@@ -88,6 +88,10 @@
 	overflow: hidden;
 	border: 0;
 }
+
+#product_info {
+        text-align: center;
+      }
 </style>
 
 </head>
@@ -95,12 +99,26 @@
 $(document).ready(
 		function() {
 			
-			$("#btnmodify").click(function(){
-				$("#modifydiv").hide();
-				$("#orderlist").show();
-				var sData=""
-				var url=""
+			$(document).on("click","#btnmemberInfo",function(){
+				$("#modifydiv").attr("style","display: block;");
+				$("#orderlistdiv").attr("style","display: none;");
 			});
+			
+
+			$(document).on("click","#btnorderList",function(){
+				$("#orderlistdiv").attr("style","display: block;");
+				$("#modifydiv").attr("style","display: none;");
+			});
+			
+// 			$("#btnmemberInfo").click(function(){
+// 				$("#orderlistdiv").attr("style","display: block;");
+// 				$("#modifydiv").attr("style","display: none;");
+// 			});
+// 			$("btnorderList").click(function(){
+// 				$("#modifydiv").attr("style","display: block;");
+// 				$("#orderlistdiv").attr("style","display: none;");
+			
+// 			});
 
 			//회원가입 실패(flase시 안내창)
 			var modifyresult = "${isModify}";
@@ -168,9 +186,30 @@ $(document).ready(
 
 
 <body class="header__top">
-<div><button type="button" class="btn btn-info" id="btnmodify">회원정보</button>
-		<button type="button" class="btn btn-primary" id="btnorderlist">주문내역</button></div>
-<div id="modifydiv">
+   <!-- Blog Details Section Begin -->
+    <section class="blog-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-5 order-md-1 order-2">
+                    <div class="blog__sidebar">
+			<img src="/spring/member/getProfile?profileImage=${memberVo.member_pic}" alt="/spring/resources/img/defaultprofile.png">
+			<p>${memberVo.member_id}님 환영합니다</p>
+                        <div class="blog__sidebar__item">
+                            <h4>마이페이지</h4>
+                            <ul>
+                                <li><a href="#" id="btnmemberInfo">회원정보</a></li>
+                                <li><a href="#" id="btnorderList">주문내역</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-9 order-md-1 order-1"> <!-- 컨탠츠 들어갈 곳-->
+                
+                
+                
+                
+                
+          <div id="modifydiv" style="display: block;" >
 	<div class="container">	
 	
 
@@ -179,7 +218,7 @@ $(document).ready(
 		<div class="row justify-content-center">
 		
 
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
@@ -228,7 +267,7 @@ $(document).ready(
 													<p style="margin-top: 15px">
 														휴대폰번호<span></span>
 													</p>
-													<input type="number" id="phonenum" name="phonenum" value="${memberVo.phonenum}">
+													<input type="text" id="phonenum" name="phonenum" value="${memberVo.phonenum}">
 												</div>
 												<div class="checkout__input">
 													<p style="margin-top: 15px">
@@ -295,12 +334,10 @@ $(document).ready(
 
 		</div>
 	</div> <!-- div끝 -->
-</div>
+</div><!-- modifydiv끝 -->
 
 
-
-
-<div id="orderlist">
+<div id="orderlistdiv" style="display: none;">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
@@ -317,7 +354,7 @@ $(document).ready(
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${list}" var="orderList">
+						<c:forEach items="${list}" var="orderList" >
 							<tr>
 								<td>${orderList.order_date}</td>
 								<td class="order__item">
@@ -337,10 +374,24 @@ $(document).ready(
 			</div>
 		</div>
 		
-							<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
+							
 				
 		</div>
-</div>
+</div><!-- orderlistdiv 끝 -->
+                    <div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
+                </div><!--컨탠츠 들어갈 곳-->
+            </div>
+        </div>
+    </section>
+    <!-- Blog Details Section End -->
+
+
+
+
+
+
+
+			
 	<!-- Js Plugins -->
 	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
 	<script src="/spring/resources/js/bootstrap.min.js"></script>
@@ -350,7 +401,7 @@ $(document).ready(
 	<script src="/spring/resources/js/mixitup.min.js"></script>
 	<script src="/spring/resources/js/owl.carousel.min.js"></script>
 	<script src="/spring/resources/js/main.js"></script>
-
+<%@ include file="../include/footer.jsp" %>
 </body>
 
 </html>

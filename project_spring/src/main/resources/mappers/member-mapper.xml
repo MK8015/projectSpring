@@ -67,5 +67,12 @@
                 address_detail=#{address_detail,jdbcType=VARCHAR}
            where member_id=#{member_id}
 	</update>
+	<select id="orderList" resultType="OrderVo">
+ 		select a.*,b.* 
+ 		from t_order a, t_product b 
+ 		where a.product_id =b.product_id
+        and member_id=#{member_id}
+ 		order by a.order_no
+ 	</select>
 	
 </mapper>
