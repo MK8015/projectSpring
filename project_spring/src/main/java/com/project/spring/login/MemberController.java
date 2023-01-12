@@ -1,6 +1,11 @@
 package com.project.spring.login;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
@@ -10,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -29,6 +35,7 @@ import com.project.spring.cart.CartService;
 import com.project.spring.like.LikeService;
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 import com.project.spring.vo.ReviewVo;
 
@@ -68,7 +75,7 @@ public class MemberController {
 			//濡쒓렇�씤 �떎�뙣�떆
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
-		}else {
+		} else {
 			
 
 			// 멤버당 좋아요 개수
@@ -220,8 +227,13 @@ public class MemberController {
 			return "member/login";
 		}
 		
-		MemberVo memberVo=memberService.getMyInfo(member_id);
+		Map<String, Object>map=memberService.getMyInfo(member_id);
+		MemberVo memberVo=(MemberVo)map.get("memberVo");
+		List<OrderVo>list=(List<OrderVo>)map.get("list");
+		System.out.println("controller memberVo:"+memberVo);
+		System.out.println("controller list:"+list);
 		model.addAttribute("memberVo",memberVo);
+		model.addAttribute("list", list);
 		return "member/mypage";
 	}
 	
@@ -231,7 +243,7 @@ public class MemberController {
 		String originalFilename=file.getOriginalFilename();
 		
 		try {
-			 String member_pic=MyFileUploader.uploadfile("C:/userpics/", originalFilename, file.getBytes());
+			 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
 			 System.out.println("member_pic:"+member_pic);
 			 memberVo.setMember_pic(member_pic);
 			
@@ -251,6 +263,35 @@ public class MemberController {
 		
 		return "redirect:/member/mypage";
 	}
+	@RequestMapping(value = "/getProfile",method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] getImage(String profileImage) { 
+		System.out.println("실행됨");
+		if(profileImage !=null && !profileImage.equals("")) {
+		   
+		   String filePath="//192.168.0.233/userpics/"+profileImage;
+		   
+		try {
+			FileInputStream fis = new FileInputStream(filePath);
+			byte[] bytes=IOUtils.toByteArray(fis);
+			   return bytes;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   
+		}
+		
+		return null;
+		
+		
+	}
+	
+	@RequestMapping(value="/naverLogin", method=RequestMethod.GET)
+    public String loginPOSTNaver(HttpSession session) {
+        return "callback";
+    }
+	
 
 	
 }

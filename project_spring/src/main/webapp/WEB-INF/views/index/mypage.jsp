@@ -3,8 +3,6 @@
 
 <%@ include file="../include/header.jsp" %>
 
-
-
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
         <div class="container">

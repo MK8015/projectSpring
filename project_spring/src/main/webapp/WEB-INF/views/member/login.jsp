@@ -35,7 +35,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">														
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>														
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>		
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>												
 <script>
 $(document).ready(function(){
 	var registerresult="${register_result}"
@@ -55,7 +56,7 @@ $(document).ready(function(){
 });
 
 </script>
-
+ 
 
 
 
@@ -108,7 +109,17 @@ $(document).ready(function(){
                                         </button>
                                     </form>
                                     <hr>
-
+									<div id="naver_id_login"><img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
+									<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+									<script type="text/javascript">
+									    var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/main/naverlogin");
+									    var state = naver_id_login.getUniqState();
+									    naver_id_login.setButton("white", 2,40);
+									    naver_id_login.setDomain("http://localhost/spring/member/login");
+									    naver_id_login.setState(state);
+									    naver_id_login.setPopup();
+									    naver_id_login.init_naver_id_login();
+									</script>
 		
 		                                    
 								<div class="header__menu" align="center">
