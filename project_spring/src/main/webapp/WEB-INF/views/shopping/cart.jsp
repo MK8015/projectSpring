@@ -104,6 +104,8 @@ $(document).ready(function() {
 		var deleteEl = [];
 		var arr_product_id = [];
 		
+		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
+		
 		var product_id = $(this).parent().parent().find("td").eq(0).find("input").attr("data-productId");
 		arr_product_id.push(product_id);
 		console.log($(this));
@@ -114,7 +116,11 @@ $(document).ready(function() {
 		console.log("sData:",sData);
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
-				console.log("rData:",rData);
+				var headerCount = parseInt(headerCartCount.text());
+				headerCount--;
+				headerCartCount.text(headerCount);
+				headerCartCount.css("display", ""); //0일 때 배지 사라지게 하기
+
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
@@ -199,7 +205,7 @@ $(document).ready(function() {
 									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;"
 									>${list.product_author}|${list.product_publisher}<br>
-									<span class="price">${list.price}원</span></span></h5>
+									<span style="font-size:11px; color:white;" class="price">${list.price}원</span></span></h5>
 								</td>
 								<td class="shoping__cart__quantity">
 									<div class="quantity">

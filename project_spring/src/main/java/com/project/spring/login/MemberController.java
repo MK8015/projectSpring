@@ -68,7 +68,7 @@ public class MemberController {
 			//濡쒓렇�씤 �떎�뙣�떆
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
-		}else {
+		} else {
 			
 
 			// 멤버당 좋아요 개수

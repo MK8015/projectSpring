@@ -183,6 +183,18 @@ ol {
 	border: none;
 }
 
+
+.primary-smbtn {
+	display: inline-block;
+	font-size: 14px;
+	padding: 10px 10px 10px;
+	color: #ffffff;
+	text-transform: uppercase;
+	font-weight: 500;
+	background: #7fad39;
+	letter-spacing: 2px;
+}
+
 .site-smbtn {
 	font-size: 14px;
 	color: #ffffff;
@@ -343,7 +355,7 @@ ol {
 .header__top__right__language {
 	position: relative;
 	display: inline-block;
-	margin-right: 40px;
+	margin-top: 20px;
 	cursor: pointer;
 }
 
@@ -358,7 +370,7 @@ ol {
 	right: -21px;
 	top: 1px;
 	height: 20px;
-	width: 1px;
+	width: 0px;
 	background: #000000;
 	opacity: 0.1;
 	content: "";

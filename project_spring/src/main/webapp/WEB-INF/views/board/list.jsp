@@ -86,28 +86,22 @@ $(document).ready(function() {
 			 	 role="button" class="btn" data-toggle="modal" style="display:none">Launch demo modal</a>
 			 <div class="modal fade" id="modal-container-secret" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
+				
 					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">
-								Modal title
-							</h5> 
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">
+					<div>
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					
+						<div class="contact spad">
+						
 							이 글은 비밀글입니다. 비밀번호를 입력해 주세요.<br>
 							<input type="password" name="password" id="password" placeholder="비밀번호 입력"><br>
-							<button type="button" id="btnModal" data-bno="" class="btn btn-primary">
+							<button type="button" id="btnModal"
+								 data-bno="" class="site-smbtn">
 								확인
 							</button> 
-						</div>
-						<div class="modal-footer">
-							 
-							
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
-								Close
-							</button>
 						</div>
 					</div>
 				</div>

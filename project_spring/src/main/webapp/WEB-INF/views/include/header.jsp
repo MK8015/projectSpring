@@ -185,15 +185,16 @@ $(document).ready(function() {
 					
 								</c:when>
 							<c:otherwise>
-								<div class="header__top__right__social">
-								
-								${loginMember}님 환영합니다
-								</div>
-								<div class="header__top__right__social">
-								 <a href="/spring/member/mypage">마이 페이지</a>
-								</div>
-								<div class="header__top__right__social">
-								 <a href="/spring/member/logout">로그아웃</a>
+								<!-- 마이페이지 수정할라고 하는 중 -->
+								<div class="header__top__right__language">
+									<div>${loginMember}님 환영합니다</div>
+									<span class="arrow_carrot-down"></span>
+									<ul>
+										<li><a href="/spring/member/mypage">마이 페이지</a></li>
+										<li><a href="/spring/like/list">위시 리스트</a></li>
+										<li><a href="/spring/cart/list">장바구니</a></li>
+										<li><a href="/spring/member/logout">로그아웃</a></li>
+									</ul>
 								</div>
 								
 								</c:otherwise>
@@ -253,8 +254,24 @@ $(document).ready(function() {
 			<div class="col-lg-2">
 				<div class="header__cart">
 					<ul>
-						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> <span>${loginMemberVo.memberLikeCount}</span></a></li>
-						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> <span>${loginMemberVo.memberCartCount}</span></a></li>
+						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
+							<span id="headerLikeCount" 
+							<c:if test="${empty loginMemberVo.memberLikeCount || 
+											loginMemberVo.memberLikeCount eq 0}">
+								style="display:none"</c:if>
+								>
+								${loginMemberVo.memberLikeCount}
+							</span>
+							</a></li>
+						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
+							<span id="headerCartCount" 
+							<c:if test="${empty loginMemberVo.memberCartCount || 
+											loginMemberVo.memberCartCount eq 0}">
+								style="display:none"</c:if>
+								>
+								${loginMemberVo.memberCartCount}
+							</span>
+						</a></li>
 					</ul>
 				</div>
 			</div>
