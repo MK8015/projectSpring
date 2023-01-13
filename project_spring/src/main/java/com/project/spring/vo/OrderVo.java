@@ -21,5 +21,6 @@ public class OrderVo {
 	private int quantity;
 	private String product_author;
 	private String product_publisher;
+	private String member_name;
 
 }

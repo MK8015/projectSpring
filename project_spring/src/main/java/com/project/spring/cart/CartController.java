@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.detail.ProductService;
+import com.project.spring.order.OrderService;
 import com.project.spring.vo.CartVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
+
 
 
 @Controller
@@ -28,6 +31,9 @@ public class CartController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	OrderService orderService;
 	
 	// 카드 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -97,9 +103,9 @@ public class CartController {
 	}
 	
 
-	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) 
+	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) & 아이디별 주문 목록
 	@RequestMapping(value = "/paymentList",method = RequestMethod.POST)
-	public String paymentList(Model model, String arr_cart_no) { // cart_no 배열로 받아서 list로 변환
+	public String paymentList(Model model, String arr_cart_no, HttpSession session) { // cart_no 배열로 받아서 list로 변환
 //		System.out.println("arr_cart_no"+ arr_cart_no);
 		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
 		List<CartVo> cartnoList = new ArrayList<CartVo>();
@@ -108,8 +114,14 @@ public class CartController {
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
 			cartnoList.add(cartVo);
 		}
-//		System.out.println("cartnoList:"+cartnoList);
+		String member_id = (String)session.getAttribute("loginMember");
+		
+		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
+		
+		model.addAttribute("orderList",orderList);
 		model.addAttribute("cartnoList",cartnoList);
+		
+//		System.out.println("orderListBymemIdList:"+orderList);
 		return "shopping/payment";
 	}
 	

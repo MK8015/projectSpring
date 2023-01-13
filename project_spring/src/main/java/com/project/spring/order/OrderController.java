@@ -2,6 +2,8 @@ package com.project.spring.order;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,16 +19,13 @@ public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
-	
-	@RequestMapping(value = "/orderList",method = RequestMethod.GET)
-	public String orderList(Model model, String arr_cart_no) { 
 
-		List<OrderVo>list=orderService.orderList();
 
-		model.addAttribute("list", list);
-		
-		return "order/orderList";
-		
-
+@RequestMapping(value = "/orderList",method = RequestMethod.GET)
+public String orderList(Model model, String arr_cart_no) { 
+  List<OrderVo>list=orderService.orderList();
+	model.addAttribute("list", list);
+	return "order/orderList";
 	}
+  
 }
