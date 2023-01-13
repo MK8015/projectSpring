@@ -6,7 +6,16 @@
 
 <script>
 $(document).ready(function() {
+	 radioCheck();
+	 
+	$("input[type=radio]").click(function(){
+		 radioCheck();
+	});
 	
+	
+});
+
+function radioCheck(){
 	var checked = $("#rdo_recent_address").is(":checked"); // 최근배송지 list.get(0)처음꺼 불러오기
 	var checked2 = $("#rdo_member_address").is(":checked"); // 회원정보 주소 불러오기
 	var checked3 = $("#rdo_new_address").is(":checked");
@@ -36,10 +45,14 @@ $(document).ready(function() {
 	else if (checked2) {
 		$("#member_name").val("${loginMemberVo.member_name}"); // 이름 불러오기
 		$("#road_address").val("${loginMemberVo.address}"); // 이름 불러오기
+		$("#detail_address").val("${loginMemberVo.address_detail}"); // 이름 불러오기
+	}else if(checked3){
+		$("#member_name").val(1); // 이름 불러오기
+		$("#road_address").val(2); // 이름 불러오기
+		$("#detail_address").val(3); // 이름 불러오기
 	}
 
-	
-});
+}
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

@@ -26,6 +26,7 @@ public class HomeController {
 		System.out.println("MainController, list" + list);
 		model.addAttribute("list", list);
 		
+		
 		return "list/list";
 	}
 	
