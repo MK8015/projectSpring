@@ -80,19 +80,25 @@ $(document).ready(function() {
 				<h3>상품문의</h3>
 			</div>
 		</div>
-		
-		
+		<!-- 만약 배경색 넣는다면   bgcolor="#f5f5f5" -->
 			<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 			<table class="table">
 				<tr>
-					<td colspan="2"  bgcolor="#f5f5f5">
-						<span style="font-size:20px;"><b>${boardVo.title}</b></span><br>
-						${boardVo.writer} | ${boardVo.regdate}	| 비번 ${boardVo.password}
+					<td colspan="2" height="130" style ='vertical-align : middle' style='line-height:200%'>
+						<p style="text-align: left; line-height: 200%; margin-top: 10pt;">
+						<span style="font-size:20px; color:#212529;"><b>${boardVo.title}</b></span><br>
+							<span style="font-size:14px; color:#b2b2b2;">${boardVo.writer}　</span>
+							<span style="font-size:16px; color:#dddddd;">|</span>
+							<span style="font-size:14px; color:#b2b2b2;">　${boardVo.regdate}</span></p>
+						
 					</td>
 				</tr>
 				<tr height="150">
 					<td colspan="2">
+					<p style="text-align: justify; line-height: 230%; 
+						margin-top: 20pt;"><span style="font-size:16px; color:#212529;">
 					${boardVo.content}
+					</span></p>
 					<br>
 					
 					<c:if test="${not empty boardVo.pic}">
@@ -103,8 +109,8 @@ $(document).ready(function() {
 					</td>
 				</tr>
 				<tr>
-					<td><a href="/spring/board/modify?bno=${boardVo.bno}" class="site-smbtn">수정</a>　
-						<a href="/spring/board/delete?bno=${boardVo.bno}" class="site-smbtn">삭제</a>
+					<td><a href="/spring/board/modify?bno=${boardVo.bno}" class="primary-smbtn">수정</a>　
+						<a href="/spring/board/delete?bno=${boardVo.bno}" class="primary-btn site-smbtn">삭제</a>
 						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="site-smbtn">답글</a></td>
 					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　
 						<a href="/spring/board/write" class="site-smbtn">글 작성</a></td>
@@ -118,6 +124,3 @@ $(document).ready(function() {
 
 
 <%@ include file="../include/footer.jsp" %>
-
-
-

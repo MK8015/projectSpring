@@ -19,24 +19,13 @@ public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
-	
-	@RequestMapping(value = "/orderList",method = RequestMethod.POST)
-	public String orderList(Model model, String arr_cart_no) { 
-	
-		
-		List<OrderVo>list=orderService.orderList();
-//		List<String>orderProductId= list.stream().map(OrderVo::getPRODUCT_ID).collect(Collectors.toList());
-		
-		model.addAttribute("list", list);
-		System.out.println("list:"+list);
-//		return "order/orderList";
-		return null;
-		
-	}
-	
-	
-	
-	
-	
 
+
+@RequestMapping(value = "/orderList",method = RequestMethod.GET)
+public String orderList(Model model, String arr_cart_no) { 
+  List<OrderVo>list=orderService.orderList();
+	model.addAttribute("list", list);
+	return "order/orderList";
+	}
+  
 }

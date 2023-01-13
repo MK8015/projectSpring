@@ -49,16 +49,49 @@ public class LikeController {
 	}
 	
 
+	// 좋아요 취소 GET
+	@RequestMapping(value = "/cancelLike", method = RequestMethod.GET)
+	@ResponseBody
+	public String cancelLike(String product_id, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		if (member_id == null || member_id.equals("")) {
+			return "notLogin";
+		}
+		boolean result = likeService.cancelLike(product_id, member_id);
+		return String.valueOf(result);
+	}
+
+	// 위시 리스트에서 좋아요 삭제
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteLike(String product_id, HttpSession session) {
+		String member_id = (String)session.getAttribute("loginMember");
+		boolean result = likeService.deleteLike(product_id, member_id);
+		
+		// 세션 다시 넣기
+				if (result == true) {
+					MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+					int count = loginMemberVo.getMemberLikeCount();
+					loginMemberVo.setMemberLikeCount(count-1);
+					session.setAttribute("loginMemberVo", loginMemberVo);
+				}
+		
+		return String.valueOf(result);
+	}
+	
+
 	// 좋아요 등록 GET
 	@RequestMapping(value = "/insertLike", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertLike(String product_id, HttpSession session) {
+		System.out.println("insertLike");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
 		boolean result = likeService.insertLike(product_id, member_id);
 		return String.valueOf(result);
+		
 	}
 	
 	
@@ -72,22 +105,18 @@ public class LikeController {
 			return "notLogin";
 		}
 		boolean result = likeService.insertLike(product_id, member_id);
-		return String.valueOf(result);
-	}
-	
-	
-	
-	// 좋아요 삭제 GET
-	@RequestMapping(value = "/cancelLike", method = RequestMethod.GET)
-	@ResponseBody
-	public String cancelLike(String product_id, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
-		if (member_id == null || member_id.equals("")) {
-			return "notLogin";
+		// 세션 다시 넣기
+		if (result == true) {
+			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+			int count = loginMemberVo.getMemberLikeCount();
+			loginMemberVo.setMemberLikeCount(count+1);
+			session.setAttribute("loginMemberVo", loginMemberVo);
 		}
-		boolean result = likeService.cancelLike(product_id, member_id);
 		return String.valueOf(result);
 	}
+	
+	
+	
 	
 	
 	

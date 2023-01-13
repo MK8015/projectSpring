@@ -21,11 +21,11 @@
 		insert into t_order(
 			order_no,member_id,product_id,
 			order_amount,order_address,order_phonenum,
-			order_date,address_detail
+			order_date,order_address_detail
 		)
 		values(
 			#{order_no},#{member_id},#{product_id},#{order_amount},
-			#{order_address},#{order_phonenum},sysdate,#{address_detail}
+			#{order_address},#{order_phonenum},sysdate,#{order_address_detail}
 		)
 	</insert>
 	
@@ -37,7 +37,7 @@
 			order_address = #{order_address},
 			order_phonenum = #{order_phonenum},
 			order_date = #{order_date},
-			address_detail = #{address_detail}
+			order_address_detail = #{order_address_detail}
 		where order_no = #{order_no}
 	</update>
 	
