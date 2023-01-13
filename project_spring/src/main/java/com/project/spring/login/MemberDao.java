@@ -106,5 +106,9 @@ public class MemberDao {
 			return list;
 		}
 	
+	public MemberVo naverLoginRun(String naverMember_id) {
+		MemberVo memberVo=sqlSession.selectOne(NAMESPACE+"naverLoginRun",naverMember_id);
+		return memberVo;
+	}
 	
 }
