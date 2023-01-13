@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 
 <script>
@@ -153,6 +154,7 @@ $(document).ready(function() {
 			}
 		});
 // 		console.log(sumPrice);
+		sumPrice = sumPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 숫자에 콤마 붙이기
 		$(".totalPrice").text(sumPrice + "원");
 	}
 });
@@ -217,8 +219,8 @@ $(document).ready(function() {
 									</div>
 								</td>
 								<td class="shoping__cart__total">
-									${list.price*list.cart_amount}원
-								</td>
+								<fmt:formatNumber value="${list.price*list.cart_amount}" pattern="#,###"/>
+								원</td>
 								<td class="shoping__cart__item__close">
 									<span class="icon_close cartItemDelete" 
 									></span>
@@ -254,7 +256,7 @@ $(document).ready(function() {
 				<div class="shoping__checkout">
 					<h5>카트 정보</h5>
 					<ul>
-						<li>총 상품금액 <span class="totalPrice">0원</span></li>
+						<li>총 상품금액 <span class="totalPrice"></span></li>
 					</ul>
 					<a href="/spring/order/orderList" class="primary-btn orderBtn">주문하기</a>
 				</div>

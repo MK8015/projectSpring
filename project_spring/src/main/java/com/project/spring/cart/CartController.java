@@ -51,7 +51,6 @@ public class CartController {
 	// 카트 등록
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
-
 	public String insertCart(Model model, String product_id, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
@@ -108,20 +107,22 @@ public class CartController {
 	public String paymentList(Model model, String arr_cart_no, HttpSession session) { // cart_no 배열로 받아서 list로 변환
 //		System.out.println("arr_cart_no"+ arr_cart_no);
 		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
-		List<CartVo> cartnoList = new ArrayList<CartVo>();
+		List<CartVo> cartList = new ArrayList<CartVo>();
 		for (Object cartno : cartnoListjson) {
 			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
-			cartnoList.add(cartVo);
+			cartList.add(cartVo);
 		}
-		String member_id = (String)session.getAttribute("loginMember");
 		
+		String member_id = (String)session.getAttribute("loginMember");
 		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
 		
 		model.addAttribute("orderList",orderList);
-		model.addAttribute("cartnoList",cartnoList);
+		model.addAttribute("cartList",cartList);
 		
-//		System.out.println("orderListBymemIdList:"+orderList);
+		JSONArray arr_cartList = new JSONArray(cartList); 
+		model.addAttribute("arr_cartList", arr_cartList);
+		
 		return "shopping/payment";
 	}
 	
