@@ -58,11 +58,10 @@ table {
 .qna__textarea {
 	width: 98%;
 	height: 150px;
-	margin: 10px;
+	margin: 28px 10px 10px;
 	font-size: 16px;
 	color: #6f6f6f;
 	padding-left: 20px;
-	margin-bottom: 24px;
 	border: 1px solid #ebebeb;
 	border-radius: 4px;
 	padding-top: 12px;
@@ -152,20 +151,21 @@ function isSecret(){
 				
 				<table>
 					<tr style ='vertical-align : middle'>
-						<td>제목</td>
+						<td style="padding-top: 13px;">제목</td>
 						<td><input type="text" class="qna__input" id="title" name="title" placeholder="제목을 입력해 주세요"/></td>
 					</tr>
 					<tr style ='vertical-align : top'>
-						<td><br>내용</td>
+						<td style="padding-top: 13px;"><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td>사진</td>
-						<td><input type="file" class="form-control" id="customFile" name="file" /></td>
+						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
+								style="padding-top: 7px;"/></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td>비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()"></td>
-						<td><input type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요" style="display:none"/>
+						<td><input class="qna__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요" style="display:none"/>
 							<input type="hidden" id="secret" name="secret"></td>
 					</tr>
 				</table>
