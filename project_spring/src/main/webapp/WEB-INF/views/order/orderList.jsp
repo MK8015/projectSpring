@@ -71,7 +71,7 @@
 								<td class="order__quantity">${orderList.order_amount}</td>
 								<td class="order__price">${orderList.price}</td>
 								<td class="order__id">${orderList.member_id}</td>
-
+							</tr>
 						</c:forEach>
 								
 								

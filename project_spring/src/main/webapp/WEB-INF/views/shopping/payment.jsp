@@ -5,7 +5,13 @@
 
 <script>
 $(document).ready(function() {
-	
+	var cartnoList = ${list};
+		
+	$("#frmUpdate").submit(function(){
+		var json = JSON.stringify(cartnoList);
+		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
+		return true;
+	});
 });
 </script>
 <!-- Breadcrumb Section Begin -->
@@ -99,7 +105,7 @@ $(document).ready(function() {
 	<div class="col-lg-12">
 		<div class="row">
 			<div class="col-md-8">
-				<form id="frmUpdate" role="form" action="" method="post">
+				<form id="frmUpdate" role="form" action="/spring/cart/order" method="post">
 				<table>
 					<tr style ='vertical-align : middle'>
 						<td>배송지</td>
