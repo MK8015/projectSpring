@@ -1,5 +1,7 @@
 package com.project.spring.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -17,5 +19,7 @@ public class CartVo {
 	private String product_description;
 	private String product_author;
 	private String product_publisher;
+	
+	private List<CartVo> cartList;
 }
  

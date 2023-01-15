@@ -52,7 +52,7 @@ $(document).ready(function() {
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
 
-<!-- 
+
 <script type="text/javascript">
   var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/main/naverlogin");
   // 접근 토큰 값 출력
@@ -65,7 +65,7 @@ $(document).ready(function() {
      alert(naver_id_login.getProfileData('nickname'));
      alert(naver_id_login.getProfileData('age'));
   }
-</script> -->
+</script>
 <!-- 네이버 api 넣었습니다 여기가 끝입니다-->
 <!-- START : 카테고리 -->
 <section class="categories"> 
