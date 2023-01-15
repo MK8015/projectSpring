@@ -70,5 +70,10 @@ public class MemberService {
 		return memberDao.modifyInfo(memberVo);
 	}
 	
+	public MemberVo naverLoginRun(String naverMember_id) {
+		MemberVo memberVo=memberDao.naverLoginRun(naverMember_id);
+		return memberVo;
+	}
+	
 	 
 }

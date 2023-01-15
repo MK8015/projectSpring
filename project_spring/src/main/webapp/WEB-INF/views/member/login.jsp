@@ -112,7 +112,7 @@ $(document).ready(function(){
 									<div id="naver_id_login"><img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
 									<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 									<script type="text/javascript">
-									    var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/main/naverlogin");
+									    var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginForm");
 									    var state = naver_id_login.getUniqState();
 									    naver_id_login.setButton("white", 2,40);
 									    naver_id_login.setDomain("http://localhost/spring/member/login");

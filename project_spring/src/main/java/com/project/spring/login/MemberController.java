@@ -127,6 +127,8 @@ public class MemberController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerRun(MemberVo memberVo, MultipartFile file, RedirectAttributes rttr) {
 		
+		
+		System.out.println("register memberVo:"+memberVo);
 		String page="";
 		String originalFilename=file.getOriginalFilename();
 		
@@ -287,10 +289,56 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value="/naverLogin", method=RequestMethod.GET)
+	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
     public String loginPOSTNaver(HttpSession session) {
-        return "callback";
+		
+		
+        return "member/naverLoginForm";
     }
+	
+	
+	@RequestMapping(value="/naverLoginRun", method=RequestMethod.POST)
+    public String naverLoginRun(HttpSession session,String loginToken,MemberVo getmemberVo,RedirectAttributes attr,Model model) {
+		System.out.println("getmemberVo:"+getmemberVo);
+		String page="";
+		String naverMember_id= loginToken.substring(loginToken.length()-10,loginToken.length());
+		
+		MemberVo memberVo= memberService.naverLoginRun(naverMember_id);
+		
+		
+		if(memberVo==null||memberVo.equals("")) {
+			getmemberVo.setMember_id(naverMember_id);
+			getmemberVo.setPassword(naverMember_id);
+			System.out.println("로그인 안됨");
+			model.addAttribute("MemberVo",getmemberVo);
+			page="member/naverRegister";
+			
+		}else {
+			
+						// 멤버당 좋아요 개수
+						int memberLikeCount = likeService.memberLikeCount(naverMember_id);
+						memberVo.setMemberLikeCount(memberLikeCount);
+						
+						// 멤버당 장바구니 개수
+						int memberCartCount = cartService.memberCartCount(naverMember_id);
+						memberVo.setMemberCartCount(memberCartCount);
+						
+						//로그인 성공시
+						//로그인 세션에 넣어둠    
+						session.setAttribute("loginMemberVo", memberVo);
+						session.setAttribute("loginMember", memberVo.getMember_id());
+						System.out.println("로그인 됨");
+			page= "index/main";
+		}
+		return page;
+    }
+	
+	
+//	@RequestMapping(value = "/naverRegisterForm", method = RequestMethod.GET)
+//	public String shownaverRegister() {
+//		
+//		return "member/naverRegister";
+//	}
 	
 
 	
