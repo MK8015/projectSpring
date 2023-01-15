@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 
 <style>
+.categories {
+	padding-top: 30px;
+	padding-bottom: 0px;
+}
+
+
 .abs {
   position: absolute;
   bottom: 25px;
@@ -67,7 +74,7 @@ $(document).ready(function() {
 </script>
 <!-- 네이버 api 넣었습니다 여기가 끝입니다-->
 <!-- START : 카테고리 -->
-<section class="categories"> 
+<section class="categories spad"> 
 	<div class="container">
 		<div class="row">
 			<div class="categories__slider owl-carousel">
@@ -143,16 +150,7 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="section-title">
-					<h2>Featured Product</h2>
-				</div>
-				<div class="featured__controls">
-					<ul>
-						<li class="active" data-filter="*">All</li>
-						<li data-filter=".oranges">Oranges</li>
-						<li data-filter=".fresh-meat">Fresh Meat</li>
-						<li data-filter=".vegetables">Vegetables</li>
-						<li data-filter=".fastfood">Fastfood</li>
-					</ul>
+					<h2>BEST SELLER</h2>
 				</div>
 			</div>
 		</div>
@@ -190,7 +188,8 @@ $(document).ready(function() {
 								${productVo.product_name}<br>
 									<span style="font-size:11px; color:gray;">
 									${productVo.product_author} | ${productVo.product_publisher}</span></a></h6>
-						<h5>${productVo.price}</h5>
+						<h5><fmt:formatNumber value="${productVo.price}" pattern="#,###"/>
+						원</h5>
 					</div>
 				</div>
 			</div>
