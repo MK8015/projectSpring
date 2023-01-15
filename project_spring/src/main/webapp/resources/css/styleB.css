@@ -2993,6 +2993,17 @@ ol {
 }
 
 /*---------------------
+  Payment Form
+-----------------------*/
+.payment__list__title {
+	margin-bottom: 10px;
+}
+
+.payment__list__title h3 {
+	color: #1c1c1c;
+	font-weight: 700;
+}
+/*---------------------
   Contact Form
 -----------------------*/
 

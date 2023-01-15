@@ -33,9 +33,7 @@ public class OrderService {
 		return orderDao.updateOrder(orderVo);
 	}
 	
-	
-	
-//	public List<String> getProductInfo(){
-//		return ProductInfo; 
-//	}
+	public List<OrderVo> orderListBymemId(String member_id){
+		return orderDao.orderListBymemId(member_id);
+	}
 }

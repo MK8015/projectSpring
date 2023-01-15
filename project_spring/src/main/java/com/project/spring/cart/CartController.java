@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.spring.detail.ProductService;
 import com.project.spring.order.OrderService;
 import com.project.spring.vo.CartVo;
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
+
 
 
 @Controller
@@ -105,7 +107,7 @@ public class CartController {
 	}
 	
 
-	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) 
+	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) & 아이디별 주문 목록
 	@RequestMapping(value = "/paymentList",method = RequestMethod.POST)
 	public String paymentList(Model model, String arr_cart_no) { // cart_no 배열로 받아서 list로 변환
 		JSONArray jsonArray = new JSONArray(arr_cart_no);
@@ -116,6 +118,7 @@ public class CartController {
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
 			cartnoList.add(cartVo);
 		}
+
 		model.addAttribute("cartnoList",cartnoList);
 		
 		JSONArray array = new JSONArray(cartnoList);
