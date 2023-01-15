@@ -224,7 +224,7 @@ $(document).ready(function() {
 					tds.eq(2).find("a").css("display","none");
 				}
 				tr.show();
-				$("#review").prepend(tr);
+				$("#review").find("tr").eq(0).after(tr);
 			}
 		});
 	}

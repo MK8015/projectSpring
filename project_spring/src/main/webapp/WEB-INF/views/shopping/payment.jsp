@@ -6,13 +6,13 @@
 
 <script>
 $(document).ready(function() {
-	 radioCheck();
-	 
-	$("input[type=radio]").click(function(){
-		 radioCheck();
+	var cartnoList = ${list};
+		
+	$("#frmUpdate").submit(function(){
+		var json = JSON.stringify(cartnoList);
+		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
+		return true;
 	});
-	
-	
 });
 
 function radioCheck(){
@@ -168,7 +168,7 @@ window.onload = function(){
 	<hr>
 		<div class="row">
 			<div class="col-md-8">
-				<form id="frmUpdate" role="form" action="" method="post">
+				<form id="frmUpdate" role="form" action="/spring/cart/order" method="post">
 				<table>
 					<tr style ='vertical-align : top'>
 						<td>배송지</td>
