@@ -42,7 +42,7 @@ public class MainController {
 	public String getList(Model model) {
 		
 		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, list" + list);
+//		System.out.println("MainController, list" + list);
 		model.addAttribute("list", list);
 		
 		return "index/main";
@@ -56,15 +56,6 @@ public class MainController {
 	}
 	
 	
-	//네이버 로그인 api 로그인용 
-	@RequestMapping(value = "/naverlogin", method = RequestMethod.GET)
-	public String indexRunNaver(Model model) {
 
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, list" + list);
-		model.addAttribute("list", list);
-		
-		return "index/main";
-	}
 	
 }

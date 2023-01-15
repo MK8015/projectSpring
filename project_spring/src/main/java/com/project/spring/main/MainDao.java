@@ -16,10 +16,10 @@ public class MainDao {
 	@Autowired
 	SqlSession sqlSession;
 
-	// ¸ÞÀÎ¿¡¼­ ¸®½ºÆ® º¸±â
+	// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	public List<ProductVo> getList() {
 		List<ProductVo> list = sqlSession.selectList(NAME_SPACE + "list");
-		System.out.println("MainDao, list" + list);
+//		System.out.println("MainDao, list" + list);
 		return list;
 	}
 	
