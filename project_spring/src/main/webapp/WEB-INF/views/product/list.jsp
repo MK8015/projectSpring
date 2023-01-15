@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 <style>
 .abs {
@@ -147,26 +148,10 @@ $(document).ready(function() {
 			<div class="col-lg-9 col-md-7">
 				<div class="filter__item">
 					<div class="row">
-						<div class="col-lg-4 col-md-5">
-							<div class="filter__sort">
-<!-- 분류부분 .. 건드리지않음 / 혹시 나중에 사용할까봐 / 상용안한다면 삭제 -->
-								<span>Sort By</span>
-									<select>
-										<option value="0">Default</option>
-										<option value="0">Default</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4">
+							<div class="col-lg-12 col-md-12">
 <!-- 검색된 도서의 갯수 표시 -->
 								<div class="filter__found">
 									<h6>검색결과 ( 총 <span>${pagingDto.count}</span> 건)</h6>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-3">
-								<div class="filter__option">
-									<span class="icon_grid-2x2"></span>
-									<span class="icon_ul"></span>
 								</div>
 							</div>
 						</div>
@@ -214,12 +199,12 @@ $(document).ready(function() {
 									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;">
 									${list.product_author} | ${list.product_publisher}</span><br>
-									<span style="font-size:11px; color:black;">
+									<span style="font-size:11px; color:#dd2222;">
 									리뷰 ${list.reviewCount} | 좋아요 </span>
 									<span style="font-size:11px; color:#dd2222;" class="likeCount">${list.likeCount}</span>
 									</a></h6>
 
-									<h5>${list.price}원</h5>
+									<h5><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</h5>
 								</div>
 							</div>
 						</div>

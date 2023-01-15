@@ -5,6 +5,67 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/boardPageParam.jsp" %>
 
+<style>
+
+.modalhead {
+	padding-top: 30px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.modalbody {
+	padding-top: 10px;
+	padding-bottom: 60px;
+	padding-left: 20px;
+	padding-right: 20px;
+	align: center;
+}
+
+
+.modal__input {
+	width: 70%;
+	height: 46px;
+	margin: 20px 0px 10px;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	background-color: #f8f8fa;
+	color: #6f6f6f;
+	border-radius: 4px;
+}
+
+.modal__input::placeholder {
+	color: #b2b2b2;
+}
+
+
+.modal__input p {
+	color: #1c1c1c;
+	margin-bottom: 20px;
+}
+
+.modal-btn {
+	width: 70%;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 500;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 30px 10px;
+	background: #7fad39;
+	border: none;
+}
+
+
+.qna {
+	padding-top: 30px;
+	padding-bottom: 0px;
+}
+
+</style>
+
+
 <script>
 $(document).ready(function() {
 	var endpage="${BoardPagingDto.endPage}";
@@ -88,20 +149,19 @@ $(document).ready(function() {
 				<div class="modal-dialog" role="document">
 				
 					<div class="modal-content">
-					<div>
+					<div class="modalhead spad">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
 					
-						<div class="contact spad">
-						
-							이 글은 비밀글입니다. 비밀번호를 입력해 주세요.<br>
-							<input type="password" name="password" id="password" placeholder="비밀번호 입력"><br>
+						<div class="modalbody spad">
+							<p style="text-align: center;">이 글은 비밀글입니다. 비밀번호를 입력해 주세요.
+							<input class="modal__input" type="password" name="password" id="password" placeholder="비밀번호 입력"><br>
 							<button type="button" id="btnModal"
-								 data-bno="" class="site-smbtn">
+								 data-bno="" class="modal-btn">
 								확인
-							</button> 
+							</button></p>
 						</div>
 					</div>
 				</div>
@@ -113,7 +173,7 @@ $(document).ready(function() {
 
 
 <!-- START : qnA 이미지 Section -->
-<section>
+<section class="qna spad">
 	<div class="container">
 		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
@@ -141,10 +201,10 @@ $(document).ready(function() {
 				<a href=
 				<c:choose>
 				<c:when test="${empty loginMember}">		
-				"/spring/member/login" class="site-smbtn"
+				"/spring/member/login" class="site-btn"
 				</c:when>	
 				<c:otherwise>
-				"/spring/board/write" class="site-smbtn"
+				"/spring/board/write" class="site-btn"
 				</c:otherwise>
 				</c:choose>	
 				>문의 작성하기</a>
@@ -156,7 +216,7 @@ $(document).ready(function() {
 					<thead>
 						<tr height="50" bgcolor="#f5f5f5">
 							<th>번호</th>
-							<th></th>
+							<th>비밀글</th>
 							<th width="40%">제목</th>
 							<th>날짜</th>
 							<th>작성자</th>
@@ -172,12 +232,7 @@ $(document).ready(function() {
 							<td>
 								<c:if test="${boardVo.secret eq 'Y'}">	
 									<font color="#f0bd5a"><i class="fa fa-lock" aria-hidden="true"></i></font>
-								</c:if>  
-								<c:if test="${not empty boardVo.pic}">
-									<font color="#2da9e6"><i class="fa fa-picture-o" aria-hidden="true"></i></font>
 								</c:if>
-								
-								
 							</td>
 					<!-- 제목 부분, 답글일 때 > 나타내기 -->
 							<td>
@@ -186,6 +241,9 @@ $(document).ready(function() {
 								<c:if test="${boardVo.re_level gt 0}">	
 									<i class="fa fa-chevron-right" aria-hidden="true"></i>
 								</c:if>${boardVo.title}</a>
+								<c:if test="${not empty boardVo.pic}">
+									<font color="#2da9e6">  <i class="fa fa-picture-o" aria-hidden="true"></i></font>
+								</c:if>
 							</td>
 							<td>${boardVo.regdate}</td>
 							<td>${boardVo.writer}</td>
@@ -198,23 +256,23 @@ $(document).ready(function() {
 			</div>
 		</div>
 		
+		<div class="product__pagination blog__pagination justify-content-center">
+			<c:if test="${BoardPagingDto.startPage ne 1}">
+				<a class="pagelink" href="${BoardPagingDto.startPage-1}">
+					<i class="fa fa-long-arrow-left"></i></a>
+			</c:if>
+			<c:forEach var="v" begin="${BoardPagingDto.startPage}" 
+				end="${BoardPagingDto.endPage}">
+				<a class="pagelink" href="${v}">${v}</a>
+			</c:forEach>
+			<c:if test="${BoardPagingDto.endPage lt BoardPagingDto.totalPage}">
+				<a class="pagelink" href="${BoardPagingDto.endPage+1}">
+					<i class="fa fa-long-arrow-right"></i></a>
+			</c:if>
+		</div>
 	</div>
 	
-	<div class="product__pagination pagination justify-content-center">
-					<c:if test="${BoardPagingDto.startPage ne 1}">
-						<a class="pagelink" href="${BoardPagingDto.startPage-1}">
-							<i class="fa fa-long-arrow-left"></i></a>
-					</c:if>
-					<c:forEach var="v" begin="${BoardPagingDto.startPage}" 
-										end="${BoardPagingDto.endPage}">
-
-						<a class="pagelink" href="${v}">${v}</a>
-					</c:forEach>
-					<c:if test="${BoardPagingDto.endPage lt BoardPagingDto.totalPage}">
-						<a class="pagelink" href="${BoardPagingDto.endPage+1}">
-							<i class="fa fa-long-arrow-right"></i></a>
-					</c:if>
-				</div>
+	
 	
 </section>
 <!-- End : qnA 게시판 Section -->

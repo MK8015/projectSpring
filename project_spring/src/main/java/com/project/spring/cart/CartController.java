@@ -3,13 +3,16 @@ package com.project.spring.cart;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,7 @@ import com.project.spring.order.OrderService;
 import com.project.spring.vo.CartVo;
 import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
+import com.project.spring.vo.OrderVo;
 
 
 
@@ -51,7 +55,6 @@ public class CartController {
 	// 카트 등록
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
-
 	public String insertCart(Model model, String product_id, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
@@ -108,20 +111,23 @@ public class CartController {
 	public String paymentList(Model model, String arr_cart_no, HttpSession session) { // cart_no 배열로 받아서 list로 변환
 //		System.out.println("arr_cart_no"+ arr_cart_no);
 		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
-		List<CartVo> cartnoList = new ArrayList<CartVo>();
+		List<CartVo> cartList = new ArrayList<CartVo>();
+
 		for (Object cartno : cartnoListjson) {
 			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
-			cartnoList.add(cartVo);
+			cartList.add(cartVo);
 		}
+
 		String member_id = (String)session.getAttribute("loginMember");
-		
 		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
 		
 		model.addAttribute("orderList",orderList);
-		model.addAttribute("cartnoList",cartnoList);
+		model.addAttribute("cartList",cartList);
 		
-//		System.out.println("orderListBymemIdList:"+orderList);
+		JSONArray arr_cartList = new JSONArray(cartList); 
+		model.addAttribute("arr_cartList", arr_cartList);
+		
 		return "shopping/payment";
 	}
 	
@@ -140,6 +146,33 @@ public class CartController {
 		model.addAttribute("cartProductList", cartProductList);
 		return "shopping/cart";
 	}
+	
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public String order(String list, Model model, HttpSession session) {
+		JSONArray array = new JSONArray(list);
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		List<OrderVo> orderList = new ArrayList<>(); 
+		for(Object obj: array) {
+			JSONObject jsonObject = (JSONObject)obj;
+			System.out.println(jsonObject.get("product_id"));
+			System.out.println(jsonObject.get("cart_amount"));
+			OrderVo orderVo = new OrderVo();
+			orderVo.setMember_id(memberVo.getMember_id());
+			orderVo.setProduct_id(String.valueOf(jsonObject.get("product_id")));
+			orderVo.setOrder_amount((int)(jsonObject.get("cart_amount")));
+			orderVo.setOrder_address(memberVo.getAddress());
+			orderVo.setOrder_address_detail(memberVo.getAddress_detail());
+			orderVo.setOrder_phonenum(memberVo.getPhonenum());
+			orderList.add(orderVo);	
+			orderService.insertOrder(orderVo);
+			
+		}
+		model.addAttribute("orderList",orderList);
+		
+		return "order/orderList";
+	}
+	
+	
 
 	
 }
