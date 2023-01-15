@@ -113,7 +113,7 @@ ol {
 -----------------------*/
 
 .section-title {
-	margin-bottom: 50px;
+	margin-bottom: 70px;
 	text-align: center;
 }
 
@@ -850,6 +850,8 @@ ol {
 /*---------------------
   Categories
 -----------------------*/
+
+
 
 .categories__item {
 	height: 270px;
@@ -2462,6 +2464,7 @@ ol {
 
 .blog__pagination {
 	padding-top: 20px;
+	text-align: center;
 	position: relative;
 }
 

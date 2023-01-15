@@ -10,7 +10,7 @@
 		select * from 
     		(select rownum rnum, a.* from 
         		(select * from t_board
-        		) a)
+          		 order by re_group desc, re_seq asc) a)
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	

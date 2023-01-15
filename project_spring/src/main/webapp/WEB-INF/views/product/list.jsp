@@ -199,7 +199,7 @@ $(document).ready(function() {
 									${list.product_name}<br>
 									<span style="font-size:11px; color:gray;">
 									${list.product_author} | ${list.product_publisher}</span><br>
-									<span style="font-size:11px; color:black;">
+									<span style="font-size:11px; color:#dd2222;">
 									리뷰 ${list.reviewCount} | 좋아요 </span>
 									<span style="font-size:11px; color:#dd2222;" class="likeCount">${list.likeCount}</span>
 									</a></h6>

@@ -19,6 +19,35 @@
 	color: #1c1c1c;
 	font-weight: 700;
 }
+
+pre p {
+	margin-top: 20px;
+	text-align: justify;
+}
+
+
+.white-btn {
+	display: inline-block;
+	font-size: 14px;
+	color: #6f6f6f;
+	font-weight: 500;
+	text-transform: uppercase;
+	padding: 10px 30px 13px;
+	display: inline-block;
+	background: #f5f5f5;
+}
+
+.green-btn {
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 400;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 30px 10px;
+	background: #7fad39;
+	border: none;
+}
+
 </style>
 
 <script>
@@ -95,25 +124,27 @@ $(document).ready(function() {
 				</tr>
 				<tr height="150">
 					<td colspan="2">
-					<p style="text-align: justify; line-height: 230%; 
-						margin-top: 20pt;"><span style="font-size:16px; color:#212529;">
-					${boardVo.content}
-					</span></p>
-					<br>
-					
+					<pre><p><span>${boardVo.content}</span></p></pre>
 					<c:if test="${not empty boardVo.pic}">
+					<p style="text-align: justify; margin-bottom: 20pt;">
 					<img src="/spring/board/displayImage?pic=${boardVo.pic}" 
-                    		width="30%">
+                    		width="30%"></p>
 					</c:if>
 					
 					</td>
 				</tr>
-				<tr>
-					<td><a href="/spring/board/modify?bno=${boardVo.bno}" class="primary-smbtn">수정</a>　
-						<a href="/spring/board/delete?bno=${boardVo.bno}" class="primary-btn site-smbtn">삭제</a>
-						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="site-smbtn">답글</a></td>
-					<td><a href="/spring/board/list" class="site-smbtn">목록</a>　　
-						<a href="/spring/board/write" class="site-smbtn">글 작성</a></td>
+				<tr height="110">
+					<td style ='vertical-align : middle'>
+					<c:if test="${boardVo.writer eq loginMemberVo.member_id}">
+						<a href="/spring/board/modify?bno=${boardVo.bno}" class="white-btn">수정</a>　
+						<a href="/spring/board/delete?bno=${boardVo.bno}" class="white-btn">삭제</a>　
+					</c:if>
+						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="green-btn">답글</a></td>
+					
+					<td style ='text-align: right; vertical-align : middle'>
+						<a href="/spring/board/list" class="white-btn">목록</a>　
+						<a href="/spring/board/write" class="green-btn">글 작성</a>
+					</td>
 				</tr>
 			</table>
 		

@@ -8,8 +8,14 @@
 	<!-- 메인 상품 리스트 보기(카테고리 X) -->	
 	<select id="list" resultType="ProductVo">
 	<![CDATA[
-		select * from t_product
-		where rownum <= 8
+	select * from (
+		select a.likeCount, b.*
+		from (select product_id, count(*) likeCount
+			from t_like
+			group by product_id) a, t_product b
+		where a.product_id = b.product_id
+		order by a.likeCount desc)
+	where rownum <= 8
 	]]>
 	</select>
 	
