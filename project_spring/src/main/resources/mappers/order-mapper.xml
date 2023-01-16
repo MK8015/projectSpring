@@ -12,6 +12,14 @@
  		order by a.order_no
  	</select>
  	
+ 	<select id="myOrder" resultType="OrderVo">
+ 		select a.*,b.* 
+ 		from t_order a, t_product b 
+ 		where a.product_id =b.product_id
+ 		and a.member_id = #{member_id}
+ 		order by a.order_no
+ 	</select>
+ 	
 
  	<select id="detailOrder" resultType="OrderVo">
 		select * from t_order

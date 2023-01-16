@@ -88,8 +88,9 @@ $(document).ready(function() {
 
 
 	
-	//카카오결제
+	//결제버튼
 	$("#btn_payment").click(function(){
+
 		if("paymentresult:",parseInt("${loginMemberVo.member_point}")-parseInt($(".totalPrice").text().trim().replace("원",""))<0){
 			alert("잔액이 부족합니다 잔액을 채워주세요")
 			return 
@@ -98,6 +99,7 @@ $(document).ready(function() {
 		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
 			
 		}
+
 		
 		if($("#iamportPaymentToss").is(":checked")){
 			Tosspayment();

@@ -4,7 +4,7 @@
 <%@ include file="../include/adminHeader.jsp" %>
 <script>
 $(document).ready(function(){
-	
+	var openDetail = false;
 
 	$("#insertOrder").click(function(e){
 		e.preventDefault();
@@ -17,32 +17,38 @@ $(document).ready(function(){
 	
 	$(".orderInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".insertOrderForm").remove();
-		$(".orderForm:gt(0)").parent().parent().remove();
-		var form = $(".orderForm").eq(0).clone();
-		var tds = $(this).parent().find("td");
-		var order_no = tds.eq(0).text();
-		console.log(order_no);
-		var tr = $(this).parent();
-		$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
-			var jsonObject = JSON.parse(rData);
-			var inputs = form.find("input");
-			inputs.eq(0).attr("readonly","true").val(jsonObject.order_no);
-			inputs.eq(1).val(jsonObject.member_id);
-			inputs.eq(2).val(jsonObject.product_id);
-			inputs.eq(3).val(jsonObject.order_amount);
-			inputs.eq(4).val(jsonObject.order_address);
-			inputs.eq(5).val(jsonObject.order_address_detail);
-			inputs.eq(6).val(jsonObject.order_phonenum);
-			inputs.eq(7).val(jsonObject.order_date);
-			form.css("display","");
-			tr.after("<tr><td colspan='4'></td></tr>");
-			var td = tr.next().find("td");
-			form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
-			form.find("form").attr("action","/spring/admin/updateOrder");
-			td.append(form);
-			
-		});
+		openDetail = !openDetail;
+		if(openDetail){
+			$(".insertOrderForm").remove();
+			$(".orderForm:gt(0)").parent().parent().remove();
+			var form = $(".orderForm").eq(0).clone();
+			var tds = $(this).parent().find("td");
+			var order_no = tds.eq(0).text();
+			console.log(order_no);
+			var tr = $(this).parent();
+			$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
+				var jsonObject = JSON.parse(rData);
+				var inputs = form.find("input");
+				inputs.eq(0).attr("readonly","true").val(jsonObject.order_no);
+				inputs.eq(1).val(jsonObject.member_id);
+				inputs.eq(2).val(jsonObject.product_id);
+				inputs.eq(3).val(jsonObject.order_amount);
+				inputs.eq(4).val(jsonObject.order_address);
+				inputs.eq(5).val(jsonObject.order_address_detail);
+				inputs.eq(6).val(jsonObject.order_phonenum);
+				inputs.eq(7).val(jsonObject.order_date);
+				form.css("display","");
+				tr.after("<tr><td colspan='4'></td></tr>");
+				var td = tr.next().find("td");
+				form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
+				form.find("form").attr("action","/spring/admin/updateOrder");
+				td.append(form);
+				
+			});
+		}else{
+			$(".insertOrderForm").remove();
+			$(".orderForm:gt(0)").parent().parent().remove();
+		}
 	});
 	
 });

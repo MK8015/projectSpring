@@ -24,6 +24,10 @@ public class OrderDao {
 		return list;
 	}
 	
+	public List<OrderVo> myOrder(String member_id) {
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "myOrder",member_id);	
+			return list;
+	}
 
 	public OrderVo detailOrder(String order_no) {
 		return sqlSession.selectOne(NAME_SPACE+"detailOrder",order_no);

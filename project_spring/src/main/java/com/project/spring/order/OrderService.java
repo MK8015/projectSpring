@@ -20,6 +20,10 @@ public class OrderService {
 		return orderDao.orderList();
 	}
 	
+	public List<OrderVo> myOrder(String member_id) {
+		return orderDao.myOrder(member_id);
+	}
+	
 	public OrderVo detailOrder(String order_no) {
 		return orderDao.detailOrder(order_no);
 	}

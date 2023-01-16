@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -55,7 +51,7 @@
 <!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
 
 
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--첨부파일 style 조정한 것 -->
 <style>
 .form-group .custom-file {
@@ -90,12 +86,10 @@
 }
 </style>
 
-</head>
+
 <script>
 $(document).ready(
 		function() {
-			
-		 	
 			
 
 			//회원가입 실패(flase시 안내창)
@@ -149,10 +143,6 @@ $(document).ready(
 
 		});//document
 		
-		
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script>
 		window.onload = function(){
 		    document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
 		        //카카오 지도 발생
@@ -168,13 +158,11 @@ $(document).ready(
 		    
 		    
 		}
-		</script>	
+		
+</script>
 		
 
-
-
-
-
+</head>
 <body class="header__top">
 	<div class="container">
 

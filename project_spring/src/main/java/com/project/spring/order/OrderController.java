@@ -25,13 +25,17 @@ public class OrderController {
 	OrderService orderService;
 
 
-	@RequestMapping(value = "/orderList",method = RequestMethod.GET)
-	public String orderList(Model model, String arr_cart_no) { 
-		List<OrderVo>list = orderService.orderList();
+	//개인 주문리스트
+	@RequestMapping(value = "/myOrder",method = RequestMethod.GET)
+	public String myOrder(Model model, String arr_cart_no,HttpSession session) { 
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		List<OrderVo>list=orderService.myOrder(memberVo.getMember_id());
+
 		model.addAttribute("list", list);
 		return "order/orderList";
 	}
-
+	
 
 	@RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
 	public String order(String list, Model model, HttpSession session, OrderVo vo,String totalPrice) {
@@ -57,16 +61,14 @@ public class OrderController {
 		boolean result= orderService.updatePoint(memberVo.getMember_id(),Integer.parseInt(totalPrice));
 		if(result) {
 			
-			page="redirect:/order/orderList";
+			page="redirect:/order/myOrder";
 			
 		}else {
 			
 			page="redirect:/shopping/payment";
 		} 
-		
-		
-	
 		return page;
+
 	}
   
 }
