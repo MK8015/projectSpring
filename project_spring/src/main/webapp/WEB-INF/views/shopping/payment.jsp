@@ -49,28 +49,111 @@
 
 
 </style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script src="https://js.tosspayments.com/v1/payment"></script>
 <script>
 $(document).ready(function() {
-	var arr_cartList = ${arr_cartList};
 	
-	$("#frmOrder").submit(function(){
-		// 폰번호 name:order_phonenum에 저장
-		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
-		$("#order_phonenum").val(order_phonenum);
+	
+// 	$("#frmOrder").submit(function(){
+// 		// 폰번호 name:order_phonenum에 저장
+// 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+// 		$("#order_phonenum").val(order_phonenum);
 		
-		var json = JSON.stringify(arr_cartList);
-		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
-		return true;
+// 		var json = JSON.stringify(arr_cartList);
+// 		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
+// 		return true;
+// 	});
+	
+	$("#paymentToss,#paymentKakao").click(function(){
+		console.log($(this));
+		if($(this).get(0) == $("#paymentToss").get(0)){
+			console.log("1");
+			$("#iamportPaymentToss").prop("checked",true);
+		}else if($(this).get(0) == $("#paymentKakao").get(0)){
+			$("#iamportPaymentKakao").prop("checked",true);
+			
+		}
 	});
 	
-	
-	 radioCheck();
+	radioCheck();
 	 
 	$("input[type=radio]").click(function(){
 		 radioCheck();
 	});
+
+
+
 	
+	//카카오결제
+	$("#btn_payment").click(function(){
+		if($("#iamportPaymentToss").is(":checked")){
+			Tosspayment();
+		}else if($("#iamportPaymentKakao").is(":checked")){			
+			Kakaopayment();
+		}else{
+			alert("결제 수단을 선택해주세요");
+		}
+	});
+		
 });
+
+function Kakaopayment(){
+	var arr_cartList = ${arr_cartList};	
+	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+	var address = $("#road_address").val() + "," + $("#detail_address").val();
+	IMP.init("imp85835735");
+	IMP.request_pay({
+		pg: "kakaopay.TC0ONETIME",
+		pay_method:"card",
+		merchant_uid:"iamport_test_id"+new Date().getTime(),
+		name:$(".productName").eq(0).text()+" 외 "+(arr_cartList.length-1) +"종",
+		amount:$(".totalPrice").text().trim().replace("원",""),
+		buyer_name:"${loginMemberVo.member_name}",
+		buyer_email:"${loginMemberVo.email}",
+		buyer_tel:order_phonenum,
+		buyer_addr:address
+// 		m_redirect_url : '/spring/cart/order'
+	},function(rsp){
+		if(rsp.success){
+			alert("결제완료!");
+			var json = JSON.stringify(arr_cartList);
+			$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+			$("#order_phonenum").val(order_phonenum);
+			frmOrder.submit();
+		}else{
+			alert("실패: 코드("+rsp.error_code+") / 메세지("+rsp.error_msg+")");
+		}
+			
+	});
+}
+
+function Tosspayment(){
+	var arr_cartList = ${arr_cartList};	
+	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+	var address = $("#road_address").val() + "," + $("#detail_address").val();
+	IMP.init("imp85835735");
+	IMP.request_pay({
+		pg: "uplus.tlgdacomxpay",
+		pay_method:"card",
+		merchant_uid:"iamport_test_id"+new Date().getTime(),
+		name:$(".productName").eq(0).text()+" 외 "+(arr_cartList.length-1) +"종",
+		amount:$(".totalPrice").text().trim().replace("원",""),
+		buyer_name:"${loginMemberVo.member_name}",
+		buyer_email:"${loginMemberVo.email}",
+		buyer_tel:order_phonenum,
+		buyer_addr:address
+		//m_redirect_url : '{모바일에서 결제 완료 후 리디렉션 될 URL}'
+	},function(rsp){
+		if(rsp.success){
+			alert("결제완료->imp_uid:"+rsp.imp_uid +" / merchant_uid(order_key):"+rsp.merchant_uid);
+		}else{
+			alert("실패: 코드("+rsp.error_code+") / 메세지("+rsp.error_msg+")");
+		}	
+	});
+}
 
 function radioCheck(){
 	var checked = $("#rdo_recent_address").is(":checked"); // 최근배송지 list.get(0)처음꺼 불러오기
@@ -109,13 +192,9 @@ function radioCheck(){
 		$("#phonenum3").val("");
 		
 	}
-
 }
 
 
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
 window.onload = function(){
 	document.getElementById("road_address").addEventListener("click", function(){ //주소입력칸을 클릭하면
 	//카카오 지도 발생
@@ -167,7 +246,7 @@ ${cartList}
 								<th>합계</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="cartList">
 						<c:set var="total" value="0"/>
 						<c:forEach items="${cartList}" var="list" varStatus="status">
 							<input type="hidden" name="product_id" value="${list.product_id}"/>
@@ -179,7 +258,7 @@ ${cartList}
 									product_id=${list.product_id}'">
 									<h5 onclick="location.href='/spring/product/detail?
 									product_id=${list.product_id}'">
-									${list.product_name}<br>
+									<span class="productName">${list.product_name}</span><br>
 									<span style="font-size:11px; color:gray;"
 									>${list.product_author}|${list.product_publisher}</span></h5>
 								</td>
@@ -232,7 +311,7 @@ ${cartList}
 	<div class="col-lg-12">
 	<hr>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<table class="table-group">
 					<tr style ='vertical-align : top'>
 						<td><p>배송지</p></td>
@@ -265,8 +344,22 @@ ${cartList}
 					</tr>
 				</table>
 				
-				<div class="text-right">
-					<button type="submit" class="primary-btn-payment">결제하기</button>　
+			</div>
+			<!-- 결제 시작 -->
+			<div class="col-md-6">
+				<div class="row payment__list__title" style="margin-top: 30px">
+					<div class="col-lg-12">
+						<h3>결제방법</h3>
+						<div class="text-right">
+							<input type="radio" id="iamportPaymentKakao" name="rdo_payment"/>
+							<img src="/spring/resources/img/payment/payment_icon_yellow_medium.png" id="paymentKakao">
+							<input type="radio" id="iamportPaymentToss" name="rdo_payment"/>
+							<img src="/spring/resources/img/payment/toss.png" id="paymentToss">
+						</div>
+						<div class="text-right">
+							<button type="button" id="btn_payment" class="primary-btn-payment">결제하기</button>　
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -275,19 +368,9 @@ ${cartList}
 	</div>
 	</form>
 <!-- 배송 정보 끝 -->	
-<!-- 결제 시작 -->
-	<div class="row">
-		<div class="row payment__list__title" style="margin-top: 30px">
-			<div class="col-lg-12">
-				<h3>결제방법</h3>
-			</div>
-		</div>
-	<div class="col-lg-12">
 	<hr>	
-	</div>
 	
 <!-- 결제 끝 -->	
-			</div>
 			</div>
 </section>
 <!-- Shoping Cart Section End -->

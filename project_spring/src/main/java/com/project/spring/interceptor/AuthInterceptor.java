@@ -15,7 +15,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		String member_id = (String)session.getAttribute("loginMember");
-		System.out.println(request.getRequestURI().contains("/admin"));
 		
 		if(member_id == null) {
 			response.sendRedirect("/spring/member/login");

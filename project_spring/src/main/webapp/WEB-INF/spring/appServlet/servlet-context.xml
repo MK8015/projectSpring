@@ -39,6 +39,9 @@
 		<interceptor>
 			<mapping path="/**/*"/>
 			<exclude-mapping path="/member/*"/>
+			<exclude-mapping path="/product/*"/>
+			<exclude-mapping path="/main/*"/>
+			<exclude-mapping path="/list/*"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
