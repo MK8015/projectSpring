@@ -64,6 +64,7 @@ public class CartController {
 		// 세션 다시 넣기
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+			System.out.println("loginMemberVo"+loginMemberVo);
 			int count = loginMemberVo.getMemberCartCount();
 			loginMemberVo.setMemberCartCount(count+1);
 			session.setAttribute("loginMemberVo", loginMemberVo);
@@ -115,18 +116,24 @@ public class CartController {
 
 		for (Object cartno : cartnoListjson) {
 			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
+			
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
+			System.out.println("cartVo:"+cartVo);
 			cartList.add(cartVo);
 		}
 
 		String member_id = (String)session.getAttribute("loginMember");
 		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
 		
+		
 		model.addAttribute("orderList",orderList);
 		model.addAttribute("cartList",cartList);
 		
 		JSONArray arr_cartList = new JSONArray(cartList); 
 		model.addAttribute("arr_cartList", arr_cartList);
+		System.out.println("orderList"+orderList);
+		System.out.println("cartList"+cartList);
+		System.out.println("arr_cartList"+arr_cartList);
 		
 		return "shopping/payment";
 	}

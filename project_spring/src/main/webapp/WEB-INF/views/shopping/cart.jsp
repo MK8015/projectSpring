@@ -56,7 +56,6 @@ $(document).ready(function() {
 			  "product_id" : product_id,
 			  "cart_amount"	 : update_cart_amount	
 		};
-// 		console.log("sData: "+ sData);
 		$.post(url, sData, function(rData) {
 // 		console.log("rData:", rData); 
 		if(rData == "true"){

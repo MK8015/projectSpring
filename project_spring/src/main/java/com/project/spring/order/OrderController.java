@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
@@ -33,7 +34,8 @@ public class OrderController {
 
 
 	@RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
-	public String order(String list, Model model, HttpSession session, OrderVo vo) {
+	public String order(String list, Model model, HttpSession session, OrderVo vo,String totalPrice) {
+		String page="";
 		JSONArray array = new JSONArray(list);
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		List<OrderVo> orderList = new ArrayList<>(); 
@@ -50,10 +52,21 @@ public class OrderController {
 			orderVo.setOrder_phonenum(vo.getOrder_phonenum());
 			orderList.add(orderVo);	
 			orderService.insertOrder(orderVo);
-	}
-	model.addAttribute("orderList",orderList);
+			}
+		model.addAttribute("orderList",orderList);
+		boolean result= orderService.updatePoint(memberVo.getMember_id(),Integer.parseInt(totalPrice));
+		if(result) {
+			
+			page="redirect:/order/orderList";
+			
+		}else {
+			
+			page="redirect:/shopping/payment";
+		} 
+		
+		
 	
-	return "redirect:/order/orderList";
+		return page;
 	}
   
 }

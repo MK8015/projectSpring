@@ -8,6 +8,7 @@
  		select a.*,b.* 
  		from t_order a, t_product b 
  		where a.product_id =b.product_id
+ 		
  		order by a.order_no
  	</select>
  	
@@ -53,5 +54,13 @@
  		where a.member_id = b.member_id
  		order by b.order_no desc
  	</select>
+ 	
+ 	<update id="updatePoint">
+		update t_member set member_point=#{nowHavePoint} where member_id=#{member_id}
+	</update>
+	
+	<select id="nowPoint" resultType="int">
+		select member_point from t_member where member_id=#{member_id}
+	</select>
 
  </mapper>

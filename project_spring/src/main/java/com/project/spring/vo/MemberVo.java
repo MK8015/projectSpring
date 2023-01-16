@@ -17,5 +17,5 @@ public class MemberVo {
 	String address_detail;
 	int memberLikeCount;
 	int memberCartCount;
-	
+	int member_point;
 }
