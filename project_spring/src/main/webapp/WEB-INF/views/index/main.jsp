@@ -51,6 +51,47 @@ $(document).ready(function() {
  	$(".closeBtn").click(function() {
  		$(this).parent().attr("style","display:none");
  	});
+ 	
+ 	// 좋아요 클릭
+ 	$(document).on("click", ".like-cart", function(e) {
+ 		e.preventDefault();
+ 		console.log("좋아요 클릭");
+		var product_id = $(this).attr("data-product_id");
+ 		
+		var url = "/spring/like/insertLike";
+		var sData = {
+				"product_id" : product_id
+		};
+		console.log("sData", sData);
+		
+		// 좋아요 0 빨간색으로 적힌 부분 바꾸기 
+		var likeCount = $(this).parent().parent().parent().next().find(".likeCount"); 
+		var headerLikeCount = $("#headerLikeCount"); // 헤더 좋아요 딱지
+		
+		$.post(url, sData, function(rData) {
+ 			console.log("rData: " + rData); 
+ 			
+			if (rData == "true") {
+				var count = parseInt(likeCount.text());
+				var headerCount = parseInt(headerLikeCount.text());
+				count++; //맞나??
+				headerCount++;
+				likeCount.text(count);
+				headerLikeCount.text(headerCount);
+				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
+				
+			} else if (rData == "false"){
+				alert("좋아요 등록 실패!");
+				return;
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.")
+				location.href="/spring/member/login";
+			} 
+		});
+		var p = $(this).next();
+		p.css("display","");
+		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
+ 	});
 	
 }); //$(document).ready(function()
 </script>
@@ -173,7 +214,17 @@ $(document).ready(function() {
 							alt="" onclick="location.href='/spring/product/detail?product_id=${productVo.product_id}'">
 
 						<ul class="featured__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
+							<!-- 좋아요 -->
+							<li><a href="#" class="like-cart" 
+								data-product_id="${productVo.product_id}">
+								<i class="fa fa-heart"></i></a>
+								<p class="child abs" style="display:none">
+									위시 리스트에 담겼습니다.<br>
+									<input onclick="location.href='/spring/like/list'" 
+									type="button" value="위시 리스트 보기>"/>
+									<input type="button" class="closeBtn" value="닫기"/>
+								</p>
+							</li>
 							<!-- 장바구니 -->
 							<li><a href="#" class="shopping-cart"
 								data-product_id="${productVo.product_id}">

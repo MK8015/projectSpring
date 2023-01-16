@@ -27,7 +27,7 @@ public class OrderController {
 
 	@RequestMapping(value = "/orderList",method = RequestMethod.GET)
 	public String orderList(Model model, String arr_cart_no) { 
-		List<OrderVo>list=orderService.orderList();
+		List<OrderVo>list = orderService.orderList();
 		model.addAttribute("list", list);
 		return "order/orderList";
 	}
