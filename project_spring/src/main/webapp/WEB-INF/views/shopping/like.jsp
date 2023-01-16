@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 <style>
 .abs {
@@ -159,7 +160,7 @@ $(document).ready(function() {
 								${list.product_name}<br>
 									<span style="font-size:11px; color:gray;">
 									${list.product_author} | ${list.product_publisher}</span></a></h6>
-						<h5>${list.price}</h5>
+						<h5><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</h5>
 					</div>
 				</div>
 			</div>

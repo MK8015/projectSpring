@@ -2037,7 +2037,7 @@ ol {
 
 .shoping__cart__table table tbody tr td.shoping__cart__check {
 	width: 80px;
-	text-align: left;
+	text-align: center;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
@@ -2071,7 +2071,7 @@ ol {
 
 .shoping__cart__table table tbody tr td.shoping__cart__item__close {
 	width: 80px;
-	text-align: right;
+	text-align: center;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item__close span {

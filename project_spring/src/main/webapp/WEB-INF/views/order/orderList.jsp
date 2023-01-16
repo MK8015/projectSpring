@@ -4,39 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 
-
-
-
 <head>
-    <meta charset="utf-8">
-  
-    <style>
-      #product_info {
-        text-align: center;
-      }
-      
-    </style>
-  </head>
+<meta charset="utf-8">
+<style>
+  #product_info {
+    text-align: center;
+  }
+</style>
+</head>
 <script>
-
-
-	
-
-	
 </script>
-
-
 <div class="row">
-		
-	</div>
-
+</div>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<div class="breadcrumb__text">
-					<h2>Shopping Cart</h2>
+					<h2>주문상세정보</h2>
 				</div>
 			</div>
 		</div>
@@ -58,7 +44,6 @@
 								<th>수량</th>
 								<th>상품금액</th>
 								<th>수령인 아이디</th>
-								
 							</tr>
 						</thead>
 						<tbody>
@@ -73,16 +58,12 @@
 								<td class="order__id">${orderList.member_id}</td>
 							</tr>
 						</c:forEach>
-								
-								
-
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		
-							<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
+			<div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
 				
 		</div>
 	
