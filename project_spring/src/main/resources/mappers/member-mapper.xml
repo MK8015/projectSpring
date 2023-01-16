@@ -74,5 +74,9 @@
         and member_id=#{member_id}
  		order by a.order_no
  	</select>
-	
+ 	
+	<select id="naverLoginRun" resultType="MemberVO">
+ 		select * from t_member where member_id=#{naverMember_id}
+ 	</select>
+ 	
 </mapper>
