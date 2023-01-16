@@ -68,9 +68,10 @@ $(document).ready(function() {
 // 	});
 	
 	$("#paymentToss,#paymentKakao").click(function(){
+		
 		console.log($(this));
 		if($(this).get(0) == $("#paymentToss").get(0)){
-			console.log("1");
+		
 			$("#iamportPaymentToss").prop("checked",true);
 		}else if($(this).get(0) == $("#paymentKakao").get(0)){
 			$("#iamportPaymentKakao").prop("checked",true);
@@ -89,7 +90,16 @@ $(document).ready(function() {
 	
 	//결제버튼
 	$("#btn_payment").click(function(){
-		
+
+		if("paymentresult:",parseInt("${loginMemberVo.member_point}")-parseInt($(".totalPrice").text().trim().replace("원",""))<0){
+			alert("잔액이 부족합니다 잔액을 채워주세요")
+			return 
+		}
+	
+		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
+			
+		}
+
 		
 		if($("#iamportPaymentToss").is(":checked")){
 			Tosspayment();
@@ -106,13 +116,14 @@ function Kakaopayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
+	var total_price=$(".totalPrice").text().trim().replace("원","")
 	IMP.init("imp85835735");
 	IMP.request_pay({
 		pg: "kakaopay.TC0ONETIME",
 		pay_method:"card",
 		merchant_uid:"iamport_test_id"+new Date().getTime(),
 		name:$(".productName").eq(0).text()+" 외 "+(arr_cartList.length-1) +"종",
-		amount:$(".totalPrice").text().trim().replace("원",""),
+		amount:total_price,
 		buyer_name:"${loginMemberVo.member_name}",
 		buyer_email:"${loginMemberVo.email}",
 		buyer_tel:order_phonenum,
@@ -123,6 +134,7 @@ function Kakaopayment(){
 			alert("결제완료!");
 			var json = JSON.stringify(arr_cartList);
 			$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+			$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
 			$("#order_phonenum").val(order_phonenum);
 			frmOrder.submit();
 		}else{
@@ -223,7 +235,7 @@ window.onload = function(){
 	</div>
 </section>
 <!-- Breadcrumb Section End -->
-${cartList}
+
 <!-- 상품 확인 처음 -->
 <section class="shoping-cart spad">
 	<div class="container">
@@ -295,17 +307,24 @@ ${cartList}
 					<h5>최종 결제 금액</h5>
 					<ul>
 						<li><span class="totalPrice">
-						<c:out value="${total}원"></c:out></span></li>
+						<fmt:formatNumber value="${total}" pattern="#,###"/>원</span></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 <!-- 상품 확인 끝 -->
+	<br>
+	<br>
 <!-- 배송 정보 시작 -->		
 	<div class="row">
-		<div class="row payment__list__title">
-			<div class="col-lg-12">
-				<h3>배송주소</h3>
+		<div class="col-md-12">
+			<div class="row payment__list__title">
+				<div class="col-md-6">
+					<h3>배송주소</h3>
+				</div>
+				<div class="col-md-6">
+					<h3>결제방법</h3>
+				</div>
 			</div>
 		</div>
 		<br>
@@ -318,9 +337,12 @@ ${cartList}
 					<tr style ='vertical-align : top'>
 						<td><p>배송지</p></td>
 						<td><span>
-						<input type="radio" id="rdo_recent_address" name="rdo_address" checked style="margin-right:10px"/>최근배송지
-						<input type="radio" id="rdo_member_address" name="rdo_address"/>회원정보동일
-						<input type="radio" id="rdo_new_address" name="rdo_address"/>새로입력
+						<input type="radio" id="rdo_recent_address" name="rdo_address" checked style="margin-right:10px"/>
+						<label for="rdo_recent_address">최근배송지</label>
+						<input type="radio" id="rdo_member_address" name="rdo_address"/>
+						<label for="rdo_member_address">회원정보동일</label>
+						<input type="radio" id="rdo_new_address" name="rdo_address"/>
+						<label for="rdo_new_address">새로입력</label>
 						</span></td>
 					</tr>
 					<tr style ='vertical-align : top'>
@@ -351,13 +373,14 @@ ${cartList}
 			<div class="col-md-6">
 				<div class="row payment__list__title" style="margin-top: 30px">
 					<div class="col-lg-12">
-						<h3>결제방법</h3>
-						<div class="text-right">
+						<div class="text-left">
 							<input type="radio" id="iamportPaymentKakao" name="rdo_payment"/>
 							<img src="/spring/resources/img/payment/payment_icon_yellow_medium.png" id="paymentKakao">
+							<br>
 							<input type="radio" id="iamportPaymentToss" name="rdo_payment"/>
 							<img src="/spring/resources/img/payment/toss.png" id="paymentToss">
 						</div>
+						
 						<div class="text-right">
 							<button type="button" id="btn_payment" class="primary-btn-payment">결제하기</button>　
 						</div>
@@ -365,7 +388,7 @@ ${cartList}
 				</div>
 			</div>
 		</div>
-		<hr>
+		
 	</div>
 	</div>
 	</form>

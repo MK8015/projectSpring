@@ -41,22 +41,29 @@
    <script src="/spring/resources/js/owl.carousel.min.js"></script>
 <!--    <script src="/spring/resources/js/main.js"></script> -->
 
+
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 
+<script type="text/javascript">
 
-<script>
-  var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginFm");
+  var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginForm");
+
   // 접근 토큰 값 출력s
 //   alert(naver_id_login.oauthParams.access_token);
  // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
   function naverSignInCallback() {
+	 console.log("naverSignInCallback실행됨")
+// 	 var logintoken=document.getElementById("loginToken");
+// 	 logintoken.value=naver_id_login.oauthParams.access_token;
 	 $("#loginToken").attr("value",naver_id_login.oauthParams.access_token);
 	 $("#naver_name").attr("value",naver_id_login.getProfileData('name'));
 	 $("#naver_eamil").attr("value",naver_id_login.getProfileData('email'));
 	 $("#naver_mobile").attr("value",naver_id_login.getProfileData('mobile'));
+	 $("#naver_id").attr("value",naver_id_login.getProfileData('id'));
 	 $("#frmPaging").submit();
 	 
 	 
@@ -82,7 +89,7 @@
 		<input type="hidden" id="naver_name" name="member_name"/>
 		<input type="hidden" id="naver_eamil" name="email"/>
 		<input type="hidden" id="naver_mobile" name="phonenum"/>
-		
+		<input type="hidden" id="naver_id" name="naver_id"/>
 	</form>
 
 </body>

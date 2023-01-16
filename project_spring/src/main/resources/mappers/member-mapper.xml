@@ -79,4 +79,5 @@
  		select * from t_member where member_id=#{naverMember_id}
  	</select>
  	
+ 	
 </mapper>
