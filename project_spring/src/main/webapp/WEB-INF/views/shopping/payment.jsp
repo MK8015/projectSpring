@@ -68,9 +68,10 @@ $(document).ready(function() {
 // 	});
 	
 	$("#paymentToss,#paymentKakao").click(function(){
+		
 		console.log($(this));
 		if($(this).get(0) == $("#paymentToss").get(0)){
-			console.log("1");
+		
 			$("#iamportPaymentToss").prop("checked",true);
 		}else if($(this).get(0) == $("#paymentKakao").get(0)){
 			$("#iamportPaymentKakao").prop("checked",true);
@@ -89,6 +90,15 @@ $(document).ready(function() {
 	
 	//카카오결제
 	$("#btn_payment").click(function(){
+		if("paymentresult:",parseInt("${loginMemberVo.member_point}")-parseInt($(".totalPrice").text().trim().replace("원",""))<0){
+			alert("잔액이 부족합니다 잔액을 채워주세요")
+			return 
+		}
+	
+		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
+			
+		}
+		
 		if($("#iamportPaymentToss").is(":checked")){
 			Tosspayment();
 		}else if($("#iamportPaymentKakao").is(":checked")){			
@@ -104,13 +114,14 @@ function Kakaopayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
+	var total_price=$(".totalPrice").text().trim().replace("원","")
 	IMP.init("imp85835735");
 	IMP.request_pay({
 		pg: "kakaopay.TC0ONETIME",
 		pay_method:"card",
 		merchant_uid:"iamport_test_id"+new Date().getTime(),
 		name:$(".productName").eq(0).text()+" 외 "+(arr_cartList.length-1) +"종",
-		amount:$(".totalPrice").text().trim().replace("원",""),
+		amount:total_price,
 		buyer_name:"${loginMemberVo.member_name}",
 		buyer_email:"${loginMemberVo.email}",
 		buyer_tel:order_phonenum,
@@ -121,6 +132,7 @@ function Kakaopayment(){
 			alert("결제완료!");
 			var json = JSON.stringify(arr_cartList);
 			$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+			$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
 			$("#order_phonenum").val(order_phonenum);
 			frmOrder.submit();
 		}else{

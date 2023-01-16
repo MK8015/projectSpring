@@ -265,6 +265,7 @@ public class MemberController {
 		
 		return "redirect:/member/mypage";
 	}
+	
 	@RequestMapping(value = "/getProfile",method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] getImage(String profileImage) { 
@@ -289,19 +290,17 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
-    public String loginPOSTNaver(HttpSession session) {
-		
-		
-        return "member/naverLoginForm";
-    }
+
 	
 	
 	@RequestMapping(value="/naverLoginRun", method=RequestMethod.POST)
-    public String naverLoginRun(HttpSession session,String loginToken,MemberVo getmemberVo,RedirectAttributes attr,Model model) {
+    public String naverLoginRun(HttpSession session,String loginToken,MemberVo getmemberVo,
+    							RedirectAttributes attr,Model model,String naver_id) {
+		System.out.println("naver_id"+naver_id);
 		System.out.println("getmemberVo:"+getmemberVo);
+		System.out.println("naverLoginRun실행됨");
 		String page="";
-		String naverMember_id= loginToken.substring(loginToken.length()-10,loginToken.length());
+		String naverMember_id=(naver_id.substring(naver_id.length()-5,naver_id.length())).toLowerCase();
 		
 		MemberVo memberVo= memberService.naverLoginRun(naverMember_id);
 		
@@ -314,7 +313,6 @@ public class MemberController {
 			page="member/naverRegister";
 			
 		}else {
-			
 						// 멤버당 좋아요 개수
 						int memberLikeCount = likeService.memberLikeCount(naverMember_id);
 						memberVo.setMemberLikeCount(memberLikeCount);
@@ -333,13 +331,12 @@ public class MemberController {
 		return page;
     }
 	
-	
-//	@RequestMapping(value = "/naverRegisterForm", method = RequestMethod.GET)
-//	public String shownaverRegister() {
-//		
-//		return "member/naverRegister";
-//	}
-	
+	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
+    public String loginPOSTNaver(HttpSession session) {
+		
+		System.out.println("naverLoginForm실행됨");
+        return "member/naverLoginForm";
+    }
 
 	
 }
