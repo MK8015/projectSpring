@@ -203,7 +203,6 @@ $(document).ready(function() {
 									리뷰 ${list.reviewCount} | 좋아요 </span>
 									<span style="font-size:11px; color:#dd2222;" class="likeCount">${list.likeCount}</span>
 									</a></h6>
-
 									<h5><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</h5>
 								</div>
 							</div>

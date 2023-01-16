@@ -61,7 +61,10 @@ $(document).ready(function() {
 // 		console.log("rData:", rData); 
 		if(rData == "true"){
 			var newPrice = parseInt(unitprice*update_cart_amount);
-			that.parent().parent().next().text(newPrice+"원");
+			var commaPrice = newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 숫자에 콤마 붙이기
+			console.log("newPrice:",newPrice);
+			console.log("commaPrice:",commaPrice);
+			that.parent().parent().next().text(commaPrice+"원");
 			that.parent().parent().parent().find("td").eq(0).find("input").attr("data-price", newPrice);
 			showTotalPrice();
 		} else {
@@ -92,8 +95,8 @@ $(document).ready(function() {
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
+						showTotalPrice();
 			        });
-					showTotalPrice();
 				});
 				
 			}
@@ -125,8 +128,8 @@ $(document).ready(function() {
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
+						showTotalPrice();
 			        });
-					showTotalPrice();
 				});
 			}
 		});
@@ -182,13 +185,11 @@ $(document).ready(function() {
 					<table>
 						<thead>
 							<tr>
-								<th>전체선택<br>
-									<input id="chkAll" type="checkbox" checked/></th>
+								<th><input id="chkAll" type="checkbox" checked/></th>
 								<th>상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
-								<th>선택삭제<br>
-									<span class="icon_close cartDelete"></span></th>
+								<th><span class="fa fa-trash" style="color: #dd2222;"></span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -236,29 +237,16 @@ $(document).ready(function() {
 			<div class="col-lg-6">
 				<div class="shoping__cart__btns">
 					<a href="/spring/list/list" class="primary-btn cart-btn">쇼핑 계속하기</a>
-<!-- 					<a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span> -->
-<!--                             카트 업데이트하기</a> -->
 				</div>
 			</div>
-<!-- 			<div class="col-lg-6"> -->
-<!-- 				<div class="shoping__continue"> -->
-<!-- 					<div class="shoping__discount"> -->
-<!-- 						<h5>Discount Codes</h5> -->
-<!-- 						<form action="#"> -->
-<!-- 							<input type="text" placeholder="Enter your coupon code"> -->
-<!-- 							<button type="submit" class="site-btn">APPLY COUPON</button> -->
-<!-- 						</form> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="col-lg-6"></div>	 -->
 			<div class="col-lg-6">
 				<div class="shoping__checkout">
 					<h5>카트 정보</h5>
 					<ul>
 						<li>총 상품금액 <span class="totalPrice"></span></li>
 					</ul>
-					<a href="/spring/order/orderList" class="primary-btn orderBtn">주문하기</a>
+					<a href="/spring/order/orderList" class="primary-btn orderBtn"
+					style="font-size: 20px">주문하기</a>
 				</div>
 			</div>
 		</div>
