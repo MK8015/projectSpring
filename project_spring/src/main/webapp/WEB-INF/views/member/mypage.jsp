@@ -1,71 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <%@ include file="../include/header.jsp" %>
 
 
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>마이페이지</title>
-
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap"
-	rel="stylesheet">
-
-<!-- Css Styles -->
-<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/styleB.css"
-	type="text/css">
-<!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
-
-
-
-<!--첨부파일 style 조정한 것 -->
 <style>
+.modify__form p {
+	column-rule: #b2b2b2;
+}
+
+.modify__input {
+	margin-bottom: 24px;
+}
+
+.modify__input p {
+	color: #1c1c1c;
+	margin-bottom: 20px;
+}
+
+.modify__input p span {
+	color: #dd2222;
+}
+
+.modify__input {
+	width: 98%;
+	height: 46px;
+	margin: 0px 10px 25px;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	color: #6f6f6f;
+	border-radius: 4px;
+}
+
+.modify__input::placeholder {
+	color: #6f6f6f;
+}
+
+
+.modify-btn {
+	width: 100%;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 500;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 30px 10px;
+	background: #7fad39;
+	border: none;
+}
+
 .form-group .custom-file {
 	display: inline-block;
 	height: 30px;
 	padding: 10px 20px;
+	margin: 0px 10px 25px;
 	vertical-align: middle;
-	border: 1px solid #dddddd;
-	width: 50%;
-	color: #999999;
+	border: 1px solid #ebebeb;
+	color: #6f6f6f;
+	border-radius: 4px;
+	font-size: 16px;
 }
 
 .form-group label {
@@ -75,6 +69,7 @@
 	vertical-align: middle;
 	background-color: #999999;
 	cursor: pointer;
+	width: 98%;
 	height: 35px;
 	margin-top: 5px;
 	margin-left: 5px;
@@ -94,7 +89,6 @@
       }
 </style>
 
-</head>
 <script>
 $(document).ready(
 		function() {
@@ -175,176 +169,135 @@ $(document).ready(
 		            }
 		        }).open();
 		    });
-		    
-		    
 		}
 		</script>	
 		
 
+<!-- START : 왼쪽 카테고리 Section -->
+<section class="mypage__sidebar spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-2 col-md-5 order-md-1 order-2">
+				<div class="mypage__sidebar__item">
+					<img src="/spring/member/getProfile?profileImage=${memberVo.member_pic}" 
+				alt="/spring/resources/img/defaultprofile.png">
+					<h4>${memberVo.member_id}님의<br>마이 페이지</h4>
+						<ul>
+							<li><a href="#" id="btnmemberInfo">회원 정보</a></li>
+							<li><a href="#" id="btnorderList">주문 내역</a></li>
+						</ul>
+				</div>
+			</div> <!-- 컨탠츠 들어갈 곳-->
+<!-- END : 왼쪽 카테고리 Section --> 
 
+<!-- START : 오른쪽 my page Section -->
 
-
-
-<body class="header__top">
-   <!-- Blog Details Section Begin -->
-    <section class="blog-details spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-md-5 order-md-1 order-2">
-                    <div class="blog__sidebar">
-			<img src="/spring/member/getProfile?profileImage=${memberVo.member_pic}" alt="/spring/resources/img/defaultprofile.png">
-			<p>${memberVo.member_id}님 환영합니다</p>
-                        <div class="blog__sidebar__item">
-                            <h4>마이페이지</h4>
-                            <ul>
-                                <li><a href="#" id="btnmemberInfo">회원정보</a></li>
-                                <li><a href="#" id="btnorderList">주문내역</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-10 col-md-9 order-md-1 order-1"> <!-- 컨탠츠 들어갈 곳-->
-                
-                
-                
-                
-                
-          <div id="modifydiv" style="display: block;" >
-	<div class="container">	
-	
-
-		<!-- Outer Row -->
-		
-		<div class="row justify-content-center">
-		
-
-			<div class="col-lg-12">
-
-				<div class="card o-hidden border-0 shadow-lg my-5">
-					<div class="card-body p-0">
-						<!-- Nested Row within Card Body -->
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="p-5">
-									<div class="text-center">
-										<br>
-										<h3>회원 정보 수정</h3>
-										<br>
-										<br>
-									</div>
-
-
-									<form class="checkout_form" id="modifyForm" method="post"
-										action="/spring/member/modify" enctype="multipart/form-data">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="form-gruop row">
-													<div class="col-lg-6">
-														<p>아이디</p>
-														<input type="text" class="form-control form-control-user"
-															id="member_id" name="member_id" value="${memberVo.member_id}" readonly>
-													</div>
-													
-												</div>
-												<div>
-												
-
-
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														패스워드<span></span>
-													</p>
-													<input type="text" id="password" name="password" value="${memberVo.password}">
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														이름<span></span>
-													</p>
-													<input type="text" id="member_name" name="member_name" value="${memberVo.member_name}">
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														휴대폰번호<span></span>
-													</p>
-													<input type="text" id="phonenum" name="phonenum" value="${memberVo.phonenum}">
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														이메일<span></span>
-													</p>
-													<input type="email" id="email" name="email" value="${memberVo.email}">
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														주소<span></span>
-													</p>
-													
-													<input type="text" id="address" name="address"
-														style="margin-bottom: 20px" value="${memberVo.address}" readonly>
-												</div>
-												<div class="checkout__input">
-													<p style="margin-top: 15px">
-														상세<span></span>
-													</p>
-													
-													<input type="text" id="address_detail" name="address_detail"
-														style="margin-bottom: 20px" value="${memberVo.address_detail}">
-												</div>
-
-
-												<div class="col-lg-5 d-none d-lg-block bg-register-image"
-													id="registerImage">
-													<img src="/spring/resources/img/defaultprofile.png">
-												</div>
-
-												<div class="form-group row">
-													<div class="col-sm-12 mb-3 mb-sm-0 custom-file"
-														style="margin: 20px">
-														<input type="file" class="custom-file-input"
-															id="member_pic" name="file"> <label
-															class="custom-file-label" id="pic_label" for="member_pic">사진 선택</label>
-
-													</div>
-												</div>
-
+<!-- START : 회원 정보 -->
+			<div class="col-lg-9 col-md-7 order-md-1 order-1"
+				 id="modifydiv" style="display: block;">
+				<div class="mypage_title">
+					<h3 style="margin-bottom: 35px;">회원 정보 수정</h3>
+				</div>
+				
+				<form class="modify_form" id="modifyForm" method="post"
+					action="/spring/member/modify" enctype="multipart/form-data" style="padding-left: 40px;">
+					<div class="row">
+					<div class="col-lg-12">
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">아이디</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" class="modify__input"
+								id="member_id" name="member_id" value="${memberVo.member_id}" readonly>
+						</div>
+					</div>
 					
-											</div>
-										</div>
-										<hr>
-										<button type="submit"
-											class="btn btn-white text-white btn-user btn-block"
-											style="background-color: rgb(127, 173, 57);">수정하기</button>
-									</form>
-									<hr>
-
-
-
-
-
-
-
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">패스워드</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" class="modify__input"
+								id="password" name="password" value="${memberVo.password}">
+						</div>
+					</div>
+					
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">이름</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" class="modify__input" 
+								id="member_name" name="member_name" value="${memberVo.member_name}">
+						</div>
+					</div>
+					
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">휴대전화</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" class="modify__input" 
+								id="phonenum" name="phonenum" value="${memberVo.phonenum}">
+						</div>
+					</div>
+					
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">이메일</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="email" class="modify__input" 
+								id="email" name="email" value="${memberVo.email}">
+						</div>
+					</div>
+					
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">주소</p>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" class="modify__input" 
+								id="address" name="address" value="${memberVo.address}" readonly>
+								<p style="padding-left: 10px;">상세</p>
+								<input type="text" class="modify__input" id="address_detail" 
+									name="address_detail" value="${memberVo.address_detail}">
+						</div>
+					</div>
+					
+					<div class="form-gruop row">
+						<div class="col-lg-2">
+							<p style="padding-top: 13px;">사진</p>
+						</div>
+						<div class="col-lg-10">
+							<div class="col-lg-5 d-none d-lg-block bg-register-image" id="registerImage">
+								<img src="/spring/resources/img/defaultprofile.png">
+							</div>
+							<div class="form-group row">
+								<div class="custom-file" style="margin: 20px">
+									<input type="file" class="custom-file-input" id="member_pic" name="file">
+									<label class="custom-file-label" id="pic_label" for="member_pic">사진 선택</label>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+					</div>
+					</div>
+					<hr style="margin-top: 20px; margin-bottom: 40px;">
+					<button type="submit" class="modify-btn">수정하기</button>
+				</form>
+				
+				
+			</div> <!-- END : 회원 정보 -->
 
-			</div>
-
-		</div>
-	</div> <!-- div끝 -->
-</div><!-- modifydiv끝 -->
-
-
-<div id="orderlistdiv" style="display: none;">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
+<!-- START : 주문 내역 -->
+			<div class="col-lg-9 col-md-7 order-md-1 order-1"
+				id="orderlistdiv" style="display: none;">
 				<div class="shoping__cart__table">
 					<table>
 						<thead>
-							<tr>
+							<tr> <!-- 여기부터 -->
 								<th style="padding:0px 20px 0px 0px;">주문일</th>
 								<th id="product_info" align="center" class="shoping__product" colspan="2" >상품정보</th>
 								<th>수량</th>
@@ -373,34 +326,16 @@ $(document).ready(
 				</div>
 			</div>
 		</div>
-		
-							
-				
-		</div>
-</div><!-- orderlistdiv 끝 -->
-                    <div><a href="/spring/main/index" class="btn site-btn">메인으로 돌아가기</a></div>
-                </div><!--컨탠츠 들어갈 곳-->
-            </div>
-        </div>
-    </section>
+	</div>
+</section>
     <!-- Blog Details Section End -->
+                
+                
+                
+                
 
 
 
-
-
-
-
-			
-	<!-- Js Plugins -->
-	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="/spring/resources/js/bootstrap.min.js"></script>
-	<script src="/spring/resources/js/jquery.nice-select.min.js"></script>
-	<script src="/spring/resources/js/jquery-ui.min.js"></script>
-	<script src="/spring/resources/js/jquery.slicknav.js"></script>
-	<script src="/spring/resources/js/mixitup.min.js"></script>
-	<script src="/spring/resources/js/owl.carousel.min.js"></script>
-	<script src="/spring/resources/js/main.js"></script>
 <%@ include file="../include/footer.jsp" %>
 </body>
 

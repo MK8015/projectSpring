@@ -4,7 +4,6 @@
 
 
 <style>
-/* 상품 문의 부분 */
 .qna-form {
 	padding-top: 80px;
 	padding-bottom: 80px;
@@ -52,17 +51,16 @@ table {
 }
 
 .qna__input::placeholder {
-	color: #b2b2b2;
+	color: #6f6f6f;
 }
 
 .qna__textarea {
 	width: 98%;
-	height: 150px;
-	margin: 10px;
+	height: 200px;
+	margin: 28px 10px 10px;
 	font-size: 16px;
 	color: #6f6f6f;
 	padding-left: 20px;
-	margin-bottom: 24px;
 	border: 1px solid #ebebeb;
 	border-radius: 4px;
 	padding-top: 12px;
@@ -70,13 +68,35 @@ table {
 }
 
 .qna__textarea::placeholder {
-	color: #b2b2b2;
+	color: #6f6f6f;
 }
 
 .text-right {
 	text-align: right;
 }
 
+
+.white-btn {
+	display: inline-block;
+	font-size: 14px;
+	color: #6f6f6f;
+	font-weight: 500;
+	text-transform: uppercase;
+	padding: 10px 30px 13px;
+	display: inline-block;
+	background: #f5f5f5;
+}
+
+.green-btn {
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 400;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 30px 10px;
+	background: #7fad39;
+	border: none;
+}
 </style>
 
 <script>
@@ -85,9 +105,6 @@ $(document).ready(function() {
 		$("#secretChk").prop("checked", true);
 		$("input[name=password]").show(100);
 	}
-	
-	
-	
 	// 사진 선택
 	$("#customFile").change(function(e) {
 		console.log("e" + e);
@@ -125,24 +142,20 @@ function isSecret(){
 <%@ include file="../include/boardPageParam.jsp" %>
 
 
+
 <!-- START : qna 이미지 Section -->
-<section>
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
+				<div class="subtitle__text">
 					<h2>Q & A</h2>
-						<div class="breadcrumb__option">
-							<a href="./index.html">Home</a>
-							<span>Contact Us</span>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 <!-- END : qna 이미지 Section -->
-
 <!-- START : qna 게시판 Section -->
 <section class="qna-form spad">
 	<div class="container">
@@ -158,34 +171,36 @@ function isSecret(){
 		<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 				<table>
 					<tr style ='vertical-align : middle'>
-						<td>제목</td>
+						<td style="padding-top: 13px;">제목</td>
 						<td><input type="text" class="qna__input" id="title" 
 							name="title" placeholder="제목을 입력해 주세요" value="${boardVo.title}"/></td>
 					</tr>
 					<tr style ='vertical-align : top'>
-						<td><br>내용</td>
+						<td style="padding-top: 13px;"><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" 
 							placeholder="내용을 입력해 주세요">${boardVo.content}</textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
-						<td>사진</td>
-						<td><input type="file" class="form-control" 
-							id="customFile" name="file" /></td>
+						<td style="padding-top: 15px;">사진</td>
+						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
+								style="padding-top: 7px;" /></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
-						<td>비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()">
+						<td height="81" style="padding-top: 15px;">비밀글
+							<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()">
 						</td>
-						<td><input type="password" id="password" name="password" 
+						<td><input class="qna__input" type="password" id="password" name="password" 
 								placeholder="비밀번호를 입력해 주세요" style="display:none" value="${boardVo.password}"/>
 							<input type="hidden" id="secret" name="secret" value="${boardVo.secret}"></td>
 					</tr>
 				</table>
 				<hr>
 				<div class="text-right">
-					<button type="submit" class="site-smbtn">작성</button>　
-					<a href="/spring/board/list" class="site-smbtn">목록</a>
+					<button type="submit" class="green-btn">작성</button>　
+					<a href="/spring/board/list" class="white-btn">목록</a>
 				</div>
 			</form>
+		</div>
 	</div>
 </section>
 <!-- END : qna 게시판 Section -->

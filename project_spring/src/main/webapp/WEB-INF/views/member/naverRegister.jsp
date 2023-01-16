@@ -50,7 +50,7 @@
 	type="text/css">
 <link rel="stylesheet" href="/spring/resources/css/slicknav.min.css"
 	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/styleB.css"
+<link rel="stylesheet" href="/spring/resources/css/style.css"
 	type="text/css">
 <!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
 

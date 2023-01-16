@@ -3,6 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/header.jsp" %>
 <style>
+.wishlist {
+	padding-top: 30px;
+	padding-bottom: 0px;
+}
+
+.wishlist-section {
+	display: flex;
+	align-items: center;
+	padding: 43px 0 42px;
+}
+
+.wishlist__text h2 {
+	font-size: 46px;
+	color: #ffffff;
+	font-weight: 700;
+}
+
 .abs {
   position: absolute;
   bottom: 25px;
@@ -16,6 +33,7 @@
   padding: 0.5rem;
 }
 </style>
+
 <script>
 $(document).ready(function() {
 
@@ -104,23 +122,20 @@ $(document).ready(function() {
 }); //$(document).ready(function()
 </script>
 
-<!-- START : qnA 이미지 Section -->
-<section>
+
+<!-- START : Shopping Cart 이미지 Section -->
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>WISH LIST</h2>
-					<div class="breadcrumb__option">
-						<a href="./index.html">Home</a>
-						<span>Contact Us</span>
+				<div class="subtitle__text">
+					<h2>Wish List</h2>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-<!-- End : qnA 이미지 Section -->
+	</section>
+<!-- END : Shopping Cart 이미지 Section -->
 
 <!-- START : 메인 리스트 -->
 <section class="featured spad">

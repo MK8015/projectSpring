@@ -28,7 +28,7 @@
 	<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/style.css" type="text/css">
 
 	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
 	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
@@ -172,20 +172,31 @@ $(document).ready(function() {
 				<div class="col-lg-4 col-md-6">
 					<div class="header__top__right">
 						<div>
-						
-							<c:choose>
-								<c:when test="${empty loginMember}">
+							<!-- 로그인 안 했을 때 -->
+						<c:choose>
+							<c:when test="${empty loginMember}">
 								<div class="header__top__right__social">
 								<a href="/spring/member/registerForm">회원가입</a>
 								</div>
 								<div class="header__top__right__auth">
 								<a href="/spring/member/login">로그인</a>
 								</div>
+							</c:when>
 							
-					
-								</c:when>
+							<c:when test="${loginMember eq 'admin'}">
+								<div class="header__top__right__language">
+									<div>${loginMember}님 환영합니다</div>
+									<span class="arrow_carrot-down"></span>
+									<ul>
+										<li><a href="/spring/admin/index">관리자 페이지</a></li>
+										<li><a href="/spring/member/mypage">마이 페이지</a></li>
+										<li><a href="/spring/member/logout">로그아웃</a></li>
+									</ul>
+								</div>
+							</c:when>
+							
 							<c:otherwise>
-								<!-- 마이페이지 수정할라고 하는 중 -->
+								<!-- 회원일 때 마이페이지 뜨기 -->
 								<div class="header__top__right__language">
 									<div>${loginMember}님 환영합니다</div>
 									<span class="arrow_carrot-down"></span>
@@ -197,8 +208,8 @@ $(document).ready(function() {
 									</ul>
 								</div>
 								
-								</c:otherwise>
-							</c:choose>
+							</c:otherwise>
+						</c:choose>
 							
 						</div>
 						
