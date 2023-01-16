@@ -23,14 +23,16 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
-
-	@RequestMapping(value = "/orderList",method = RequestMethod.GET)
-	public String orderList(Model model, String arr_cart_no) { 
-		List<OrderVo>list=orderService.orderList();
+	//개인 주문리스트
+	@RequestMapping(value = "/myOrder",method = RequestMethod.GET)
+	public String myOrder(Model model, String arr_cart_no,HttpSession session) { 
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		List<OrderVo>list=orderService.myOrder(memberVo.getMember_id());
 		model.addAttribute("list", list);
 		return "order/orderList";
 	}
-
+	
 
 	@RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
 	public String order(String list, Model model, HttpSession session, OrderVo vo) {
@@ -53,7 +55,7 @@ public class OrderController {
 	}
 	model.addAttribute("orderList",orderList);
 	
-	return "redirect:/order/orderList";
+	return "redirect:/order/myOrder";
 	}
   
 }

@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Ogani Template">
 	<meta name="keywords" content="Ogani, unica, creative, html">
@@ -43,10 +42,10 @@
 <!--    <script src="/spring/resources/js/main.js"></script> -->
 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-</head>
 
 
-<script type="text/javascript">
+
+<script>
   var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginFm");
   // 접근 토큰 값 출력s
 //   alert(naver_id_login.oauthParams.access_token);
@@ -75,6 +74,8 @@
    }
  
 </script>
+
+</head>
 <body>
 	 <form method="post" id="frmPaging" action="/spring/member/naverLoginRun">
 		<input type="hidden" id="loginToken" name="loginToken"/>

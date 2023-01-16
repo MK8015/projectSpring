@@ -4,7 +4,7 @@
 <%@ include file="../include/adminHeader.jsp" %>
 <script>
 $(document).ready(function(){
-	
+	var openDetail = false;
 	$(document).on("change","input[type=file]",function(){
 		var image = this.files[0];
 		var input = $(this);
@@ -32,35 +32,40 @@ $(document).ready(function(){
 	
 	$(".productInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".productInsertForm").remove();
-		$(".productForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
-		var tds = $(this).parent().find("td");
-		var product_id = tds.eq(0).text();
-		console.log(product_id);
-		var tr = $(this).parent();
-		$.post("/spring/admin/productDetail",{"product_id":product_id},function(rData){
-			var jsonObject = JSON.parse(rData);
-			var inputs = form.find("input");
-			var textarea = form.find("textarea");
-			var img = form.find("img");
-			inputs.eq(0).attr("readonly","true").val(jsonObject.product_id);
-			inputs.eq(1).val(jsonObject.product_name);
-			inputs.eq(2).val(jsonObject.price);
-			inputs.eq(3).val(jsonObject.product_quantity);
-			inputs.eq(4).val(jsonObject.product_category);
-			textarea.text(jsonObject.product_description);
-			inputs.eq(5).val(jsonObject.product_author);
-			inputs.eq(6).val(jsonObject.product_publisher);
-			form.css("display","");
-			tr.after("<tr><td colspan='4'></td></tr>");
-			img.attr("src","/spring/product/getImage?imageName="+ jsonObject.product_image);
-			var td = tr.next().find("td");
-			form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id);
-			form.find("form").attr("action","/spring/admin/productUpdate");
-			td.append(form);
-			
-		});
+		openDetail = !openDetail;
+		if(openDetail){
+			$(".productInsertForm").remove();
+			$(".productForm:gt(0)").parent().parent().remove();
+			var form = $(".productForm").eq(0).clone();
+			var tds = $(this).parent().find("td");
+			var product_id = tds.eq(0).text();
+			console.log(product_id);
+			var tr = $(this).parent();
+			$.post("/spring/admin/productDetail",{"product_id":product_id},function(rData){
+				var jsonObject = JSON.parse(rData);
+				var inputs = form.find("input");
+				var textarea = form.find("textarea");
+				var img = form.find("img");
+				inputs.eq(0).attr("readonly","true").val(jsonObject.product_id);
+				inputs.eq(1).val(jsonObject.product_name);
+				inputs.eq(2).val(jsonObject.price);
+				inputs.eq(3).val(jsonObject.product_quantity);
+				inputs.eq(4).val(jsonObject.product_category);
+				textarea.text(jsonObject.product_description);
+				inputs.eq(5).val(jsonObject.product_author);
+				inputs.eq(6).val(jsonObject.product_publisher);
+				form.css("display","");
+				tr.after("<tr><td colspan='4'></td></tr>");
+				img.attr("src","/spring/product/getImage?imageName="+ jsonObject.product_image);
+				var td = tr.next().find("td");
+				form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id);
+				form.find("form").attr("action","/spring/admin/productUpdate");
+				td.append(form);
+			});
+		}else{
+			$(".productInsertForm").remove();
+			$(".productForm:gt(0)").parent().parent().remove();
+		}
 	});
 	
 });

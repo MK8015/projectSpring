@@ -94,7 +94,7 @@
       }
 </style>
 
-</head>
+
 <script>
 $(document).ready(
 		function() {
@@ -184,7 +184,7 @@ $(document).ready(
 
 
 
-
+</head>
 <body class="header__top">
    <!-- Blog Details Section Begin -->
     <section class="blog-details spad">

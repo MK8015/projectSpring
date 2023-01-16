@@ -87,8 +87,10 @@ $(document).ready(function() {
 
 
 	
-	//카카오결제
+	//결제버튼
 	$("#btn_payment").click(function(){
+		
+		
 		if($("#iamportPaymentToss").is(":checked")){
 			Tosspayment();
 		}else if($("#iamportPaymentKakao").is(":checked")){			
