@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <%@ include file="../include/adminHeader.jsp" %>
+
 <script>
 $(document).ready(function(){
 	var openDetail = false;
@@ -72,45 +73,83 @@ $(document).ready(function(){
 });
 </script>
 
+
+
+
+
+
 	<!--  입력,수정 양식 -->
 	<div style="margin:10px; display:none" class="memberForm">
-		<form role="form" action="/spring/admin/updateMember" method="post" enctype="multipart/form-data">
-			<div class="form-group">
-				아이디
-				<input type="text" class="form-control" placeholder="아이디" name="member_id"/>
+		<form role="form" action="/spring/admin/updateMember" method="post" 
+			enctype="multipart/form-data" class="mypage_form">
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">아이디</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="아이디" name="member_id"/>
+				</div>
 			</div>
-			<div class="form-group">
-				이름
-				<input type="text" class="form-control" placeholder="이름" name="member_name"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">이름</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="이름" name="member_name"/>
+				</div>
 			</div>
-			<div class="form-group">
-				비밀번호
-				<input type="text" class="form-control" placeholder="비밀번호" name="password"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">비밀번호</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="이름" name="password"/>
+				</div>
 			</div>
-			<div class="form-group">
-				폰번호
-				<input type="text" class="form-control" placeholder="폰번호" name="phonenum"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">전화번호</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="이름" name="phonenum"/>
+				</div>
 			</div>
-			<div class="form-group">
-				이메일
-				<input type="text" class="form-control" placeholder="이메일" name="email"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">이메일</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="이름" name="email"/>
+				</div>
 			</div>
-			<div class="form-group">
-				주소
-				<input type="text" class="form-control address" placeholder="주소" name="address"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">주소</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input address" 
+						 placeholder="주소" name="address">
+					<p style="padding-left: 10px;">상세</p>
+					<input type="text" class="mypage__input address_detail"
+						 placeholder="상세 주소" name="address_detail">
+				</div>
 			</div>
-			<div class="form-group">
-				상세 주소
-				<input type="text" class="form-control address_detail" placeholder="상세 주소" name="address_detail"/>
-			</div>
-			<div class="col-lg-5 d-none d-lg-block bg-register-image">
+			
+			
+			<div class="col-lg-5 d-none d-lg-block bg-register-image" style="margin-bottom: 18px;">
 				<img src="/spring/resources/img/defaultprofile.png">
 			</div>
 			<div class="form-group">
-				<div class="custom-file" style="margin: 20px">
-					<input type="file" class="custom-file-input productImage" id="member_pic" name="file"> 
+				<div class="custom-file">
+					<input type="file" class="custom-file-input productImage" id="member_pic" name="file"
+						style="margin-top: 20px;"> 
 					<label class="custom-file-label" id="productImageLabel" for="member_pic">사진 선택</label>
-
 				</div>
 			</div>
 
@@ -118,120 +157,45 @@ $(document).ready(function(){
 			<a href="#" class="site-smbtn">삭제</a>
 		</form>
 	</div>
-				<div class="col-lg-10 col-md-7 order-md-1 order-1">
+	
+	
+<!-- 오른쪽 관리 부분 -->
+<div class="col-lg-10 col-md-7 order-md-1 order-1">
+	<div class="mypage_title">
+		<h3>회원 관리</h3>
+		<p style="text-align: center; padding-top: 7px; padding-bottom: 15px;">항목을 누르면 수정/삭제 가능</p>
+	</div>
+	
+<table class="table table-hover" style="table-layout: fixed">
+	<thead>
+		<tr>
+			<th>회원 아이디</th>
+			<th>회원 이름</th>
+			<th>가입일</th>
+			<th>이메일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach items="${list}" var="memberVo">
+		<tr class="memberInfo">
+			<td>${memberVo.member_id}</td>
+			<td>${memberVo.member_name}</td>
+			<td>${memberVo.regdate}</td>
+			<td>${memberVo.email}</td>
+		</tr>
+		</c:forEach>
+	</tbody>
+</table>		
+</div>
 
-					<!-- Page Wrapper -->
-					<div id="wrapper">
-
-
-						<!-- Content Wrapper -->
-						<div id="content-wrapper" class="d-flex flex-column">
-
-							<!-- Main Content -->
-							<div id="content">
-
-
-								<!-- Begin Page Content -->
-								<div class="container-fluid">
-
-									<!-- Page Heading -->
-									<div
-										class="d-sm-flex align-items-center justify-content-between mb-4">
-										<h1 class="h3 mb-0 text-gray-800">관리자 페이지</h1>
-									</div>
-
-									<!-- Content Row -->
-
-									<div class="row">
-
-										<!-- Area Chart -->
-										<div class="col-xl-12 col-lg-7">
-											<div class="card shadow mb-4">
-												<!-- Card Header - Dropdown -->
-												<div
-													class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-													<h6 class="m-0 font-weight-bold text-primary">회원 목록</h6>항목을 누르면 수정,삭제 가능
-												</div>
-												<!-- Card Body -->
-												<div class="card-body">
-													<table class="table table-hover" style="table-layout: fixed">
-														<thead>
-															<tr>
-																<th>회원 아이디</th>
-																<th>회원 이름</th>
-																<th>가입일</th>
-																<th>이메일</th>
-															</tr>
-														</thead>
-														<tbody>
-															<c:forEach items="${list}" var="memberVo">
-																<tr class="memberInfo">
-																	<td>${memberVo.member_id}</td>
-																	<td>${memberVo.member_name}</td>
-																	<td>${memberVo.regdate}</td>
-																	<td>${memberVo.email}</td>
-																</tr>
-															</c:forEach>
-														</tbody>
-													</table>					
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- /.container-fluid -->
-
-							</div>
-							<!-- End of Main Content -->
-
-							<!-- Footer -->
-							<footer class="sticky-footer bg-white">
-								<div class="container my-auto">
-									<div class="copyright text-center my-auto">
-										<span>Copyright &copy; Your Website 2021</span>
-									</div>
-								</div>
-							</footer>
-							<!-- End of Footer -->
-
-						</div>
-						<!-- End of Content Wrapper -->
-
-					</div>
-					<!-- End of Page Wrapper -->
+</div>
+</div>
+</section>
+<!-- 끝 -->
 
 
-					<!-- Logout Modal-->
-					<div class="modal fade" id="logoutModal" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Ready to
-										Leave?</h5>
-									<button class="close" type="button" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-								<div class="modal-body">Select "Logout" below if you are
-									ready to end your current session.</div>
-								<div class="modal-footer">
-									<button class="btn btn-secondary" type="button"
-										data-dismiss="modal">Cancel</button>
-									<a class="btn btn-primary" href="login.html">Logout</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Blog Details Section End -->
-
+<%@ include file="../include/footer.jsp" %>
 </body>
 
 </html>
+

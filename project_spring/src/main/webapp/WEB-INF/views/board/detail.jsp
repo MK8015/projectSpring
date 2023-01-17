@@ -5,7 +5,6 @@
 
 
 <style>
-/* 상품 문의 부분 */
 .qna-form {
 	padding-top: 80px;
 	padding-bottom: 80px;
@@ -48,6 +47,10 @@ pre p {
 	border: none;
 }
 
+.white-btn a {
+	display: inline-block;
+}
+
 </style>
 
 <script>
@@ -82,18 +85,13 @@ $(document).ready(function() {
 
 <%@ include file="../include/boardPageParam.jsp" %>
 
-
 <!-- START : qna 이미지 Section -->
-<section>
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
+				<div class="subtitle__text">
 					<h2>Q & A</h2>
-						<div class="breadcrumb__option">
-							<a href="./index.html">Home</a>
-							<span>Contact Us</span>
-						</div>
 					</div>
 				</div>
 			</div>

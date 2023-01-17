@@ -4,7 +4,24 @@
 
 
 <style>
-/* 상품 문의 부분 */
+.qnatitle {
+	padding-top: 30px;
+	padding-bottom: 0px;
+}
+
+.qnatitle-section {
+	display: flex;
+	align-items: center;
+	padding: 43px 0 42px;
+}
+
+.qnatitle__text h2 {
+	font-size: 46px;
+	color: #ffffff;
+	font-weight: 700;
+}
+
+
 .qna-form {
 	padding-top: 80px;
 	padding-bottom: 80px;
@@ -52,12 +69,12 @@ table {
 }
 
 .qna__input::placeholder {
-	color: #b2b2b2;
+	color: #6f6f6f;
 }
 
 .qna__textarea {
 	width: 98%;
-	height: 150px;
+	height: 200px;
 	margin: 28px 10px 10px;
 	font-size: 16px;
 	color: #6f6f6f;
@@ -69,7 +86,7 @@ table {
 }
 
 .qna__textarea::placeholder {
-	color: #b2b2b2;
+	color: #6f6f6f;
 }
 
 .text-right {
@@ -77,7 +94,27 @@ table {
 }
 
 
+.white-btn {
+	display: inline-block;
+	font-size: 14px;
+	color: #6f6f6f;
+	font-weight: 500;
+	text-transform: uppercase;
+	padding: 10px 30px 13px;
+	display: inline-block;
+	background: #f5f5f5;
+}
 
+.green-btn {
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 400;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 30px 10px;
+	background: #7fad39;
+	border: none;
+}
 </style>
 
 <script>
@@ -120,16 +157,12 @@ function isSecret(){
 
 
 <!-- START : qna 이미지 Section -->
-<section>
+<section class="qnatitle spad">
 	<div class="container">
-		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row qnatitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
+				<div class="qnatitle__text">
 					<h2>Q & A</h2>
-						<div class="breadcrumb__option">
-							<a href="./index.html">Home</a>
-							<span>Contact Us</span>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -156,23 +189,29 @@ function isSecret(){
 					</tr>
 					<tr style ='vertical-align : top'>
 						<td style="padding-top: 13px;"><br>내용</td>
-						<td><textarea class="qna__textarea" id="content" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
+						<td><textarea class="qna__textarea" id="content" name="content" 
+							placeholder="게시판 문의시 아래 내용을 기입해 주셔야 빠르게 처리 가능합니다.
+
+* 개인 정보보호를 위해 되도록 성함, 핸드폰 번호, 계좌 정보 입력을 자제 부탁드립니다.
+
+▶ 문의 상품 :
+▶ 문의 내용 : "></textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
-						<td>사진</td>
+						<td style="padding-top: 15px;">사진</td>
 						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
 								style="padding-top: 7px;"/></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
-						<td>비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()"></td>
+						<td height="81" style="padding-top: 15px;">비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()"></td>
 						<td><input class="qna__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요" style="display:none"/>
 							<input type="hidden" id="secret" name="secret"></td>
 					</tr>
 				</table>
 				<hr>
 				<div class="text-right">
-					<button type="submit" class="site-smbtn">작성</button>　
-					<a href="/spring/board/list" class="site-smbtn">목록</a>
+					<button type="submit" class="green-btn">작성</button>　
+					<a href="/spring/board/list" class="white-btn">목록</a>
 				</div>
 			</form>
 	</div>
