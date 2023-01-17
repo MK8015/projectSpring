@@ -103,7 +103,7 @@ $(document).ready(function(){
 													checked
 													</c:if>
 												>
-												<label class="custom-control-label" for="customCheck" >아이디 기억</label>
+												<label class="custom-control-label" for="customCheck">아이디 기억</label>
 											</div>
 										</div>
 										<button
@@ -112,7 +112,8 @@ $(document).ready(function(){
 										</button>
 									</form>
 									<hr>
-									<div id="naver_id_login"><img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
+									<div id="naver_id_login"><img width="223" 
+									src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
 									<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 									<script type="text/javascript">
 										var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginForm");

@@ -79,6 +79,8 @@ $(document).ready(function() {
 	// 카트 상품 체크박스 선택 삭제
 	$(".cartDelete").click(function() {
 		console.log("삭제클릭");
+		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
+		
 		var deleteEl = [];
 		var arr_product_id = [];
 		$(".chkbox").each(function() {
@@ -90,10 +92,18 @@ $(document).ready(function() {
 				deleteEl.push($(this).parent().parent()); // 선택된 체크박스의 tr들 삭제
 			}
 		});
+		
 		var url = "/spring/cart/delete";
 		var sData = {"arr_product_id": arr_product_id};
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
+				
+				var headerCount = parseInt(headerCartCount.text());
+				headerCount--;
+				headerCartCount.text(headerCount);
+				headerCartCount.css("display", "");
+				
+				
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
@@ -192,7 +202,7 @@ $(document).ready(function() {
 								<th>상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
-								<th><span class="fa fa-trash" style="color: #dd2222;"></span></th>
+								<th><span class="fa fa-trash cartDelete" style="color: #dd2222;"></span></th>
 							</tr>
 						</thead>
 						<tbody>

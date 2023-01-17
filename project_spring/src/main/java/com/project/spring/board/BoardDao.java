@@ -21,7 +21,6 @@ public class BoardDao {
 
 	// 占쏙옙 占쏙옙占
 	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
-		
 		Map<String, String>map=new HashMap<>();
 		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
 		map.put("endRow", String.valueOf(boardPagingDto.getEndRow()));
@@ -105,10 +104,22 @@ public class BoardDao {
 			return true;
 		}
 		return false;
-
 	}
-	public int getCount() {
+	
+	//원글 작성자 체크
+	
+	public BoardVo checkOriginalWriter(String member_id, int bno, int re_group) {
 		
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("bno", String.valueOf(bno));
+		map.put("re_group", String.valueOf(re_group));
+
+		return sqlSession.selectOne(NAME_SPACE + "checkOriginalWriter", map);
+	}
+	
+	
+	public int getCount() {
 		int count=sqlSession.selectOne(NAME_SPACE+"getCount");
 		return count;
 	}
