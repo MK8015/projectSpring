@@ -438,7 +438,7 @@ ol {
 }
 
 .header__logo {
-	padding: 15px 0;
+	padding: 30px 0 15px;
 }
 
 .header__logo a {
@@ -581,7 +581,7 @@ ol {
 
 .header__cart {
 	text-align: right;
-	padding: 24px 0;
+	padding: 39px 0 24px;
 }
 
 .header__cart ul {
@@ -2598,7 +2598,7 @@ ol {
 .mypage-btn {
 	font-size: 14px;
 	color: #ffffff;
-	font-weight: 500;
+	font-weight: 400;
 	text-transform: uppercase;
 	display: inline-block;
 	padding: 10px 50px 10px;
@@ -2610,10 +2610,6 @@ ol {
 
 .mypage__form p {
 	column-rule: #b2b2b2;
-}
-
-.mypage__input {
-	margin-bottom: 24px;
 }
 
 .mypage__input p {
@@ -2639,6 +2635,25 @@ ol {
 .mypage__input::placeholder {
 	color: #6f6f6f;
 }
+
+
+.mypage__textarea {
+	width: 98%;
+	height: 200px;
+	margin: 28px 10px 10px;
+	font-size: 16px;
+	color: #6f6f6f;
+	padding-left: 20px;
+	border: 1px solid #ebebeb;
+	border-radius: 4px;
+	padding-top: 12px;
+	resize: none;
+}
+
+.mypage__textarea::placeholder {
+	color: #6f6f6f;
+}
+
 
 
 

@@ -167,7 +167,7 @@ function isSecret(){
 		
 		<form id="frmReply" role="form" action="/spring/board/reply" method="post">
 		
-		<input type="hidden" name="re_group" id="re_group" value="${re_group}">
+		<input type="text" name="re_group" id="re_group" value="${re_group}">
 				<table>
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 13px;">제목</td>
@@ -176,6 +176,20 @@ function isSecret(){
 					<tr style ='vertical-align : top'>
 						<td style="padding-top: 13px;"><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" placeholder="내용을 입력해 주세요"></textarea></td>
+					</tr>
+					<tr style ='vertical-align : middle'>
+						<td height="81" style="padding-top: 15px;">비밀글
+							<input type="checkbox" id="secretChk" name="secretChk" 
+								onclick="isSecret()"
+								
+								<c:if test="${secret eq 'Y'}">checked</c:if>
+								
+								></td>
+						<td><input class="qna__input" type="password" id="password"
+							 name="password" placeholder="비밀번호를 입력해 주세요" 
+							  value="${password}"/>
+							<input type="hidden" id="secret" 
+								name="secret" value="${secret}"></td>
 					</tr>
 				</table>
 				<hr>

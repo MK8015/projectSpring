@@ -61,7 +61,21 @@
 
 <script>
 $(document).ready(function() {
+	var checkOriginalWriter = "${checkOriginalWriter}";
+	
+	if (checkOriginalWriter == "fail") {
+		var bno = "${bno}";
+		var re_group = "${re_group}";
+		$("#btnModal").attr("data-bno", bno);
+		$("#btnModal").attr("data-re_group", re_group);
+		$("#modal-secret").trigger("click");
+	}
+	
+	
 	var endpage="${BoardPagingDto.endPage}";
+	var loginMember = "${loginMemberVo.member_id}";
+	
+	
 	console.log("endpage:",endpage);
  	
 	// 디테일로 이동(제목 클릭)
@@ -69,32 +83,43 @@ $(document).ready(function() {
 		//var password = $(this).attr("data-password");
 		var secret = $(this).attr("data-secret");
 		var bno = $(this).attr("data-bno");
+		var re_group = $(this).attr("data-re_group");
+		var writer = $(this).attr("data-writer");
+		
+		if (secret == "Y") {
+			if (loginMember == "admin" || loginMember == writer || 
+					(writer == "admin" && loginMember != "")) {
+				runDetail(bno, re_group);
+			} else {
+				$("#btnModal").attr("data-bno", bno);
+				$("#btnModal").attr("data-re_group", re_group);
+				$("#modal-secret").trigger("click");
+			}
+		} else {
+			runDetail(bno, re_group);
+		}
+		
+		
+		
 		
 		// 비밀글일 때는 모달 띄우기 공개 글일 때는 그냥 이동
-		if (secret == "Y") {
-			console.log("비밀글");
-			$("#btnModal").attr("data-bno", bno);
-			$("#modal-secret").trigger("click");
-		} else {
-			console.log("안 비밀글");	
-			runDetail(bno);
-		}
+		
 	}); // END : $(".a_title").click(function(e)
 	
 	// 해당 글(디테일)로 이동하는 function	
-	function runDetail(bno) {
-
-		location.href = "/spring/board/detail?bno=" + bno;
-
+	function runDetail(bno, re_group) {
+		location.href = "/spring/board/detail?bno=" + bno + "&re_group=" + re_group;
 	} // END : runDetail
 	
 	// 비밀번호 확인 창 눌렀을 때 비밀번호 체크 후 이동
 	$("#btnModal").click(function() {
 		var password = $('input[name=password]').val();
 		var bno = $(this).attr("data-bno");
+		var re_group = $(this).attr("data-re_group");
 		
 		console.log("password: " + password);
 		console.log("data-bno" + bno);
+		console.log("data-re_group" + re_group);
 		
 		var url = "/spring/board/checkPassword";
 		var sData = {
@@ -106,10 +131,8 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData) {
 			console.log("rData", rData);
 			if (rData == "true") {
-				console.log("패스워드 일치");
-				runDetail(bno);
+				runDetail(bno, re_group);
 			} else {
-				console.log("실패");
 				alert("비밀번호가 틀립니다. 다시 확인해 주세요.");
 			}
 		}); // END: $.post
@@ -152,7 +175,7 @@ $(document).ready(function() {
 							<p style="text-align: center;">이 글은 비밀글입니다. 비밀번호를 입력해 주세요.
 							<input class="modal__input" type="password" name="password" id="password" placeholder="비밀번호 입력"><br>
 							<button type="button" id="btnModal"
-								 data-bno="" class="modal-btn">
+								 data-bno="" data-re_group="" class="modal-btn">
 								확인
 							</button></p>
 						</div>
@@ -187,16 +210,7 @@ $(document).ready(function() {
 				<h3>상품문의</h3>
 			</div>
 			<div class="col-md-8 text-right">
-				<a href=
-				<c:choose>
-				<c:when test="${empty loginMember}">		
-				"/spring/member/login" class="site-btn"
-				</c:when>	
-				<c:otherwise>
-				"/spring/board/write" class="site-btn"
-				</c:otherwise>
-				</c:choose>	
-				>문의 작성하기</a>
+				<a href="/spring/board/write" class="site-btn">문의 작성하기</a>
 			</div>
 		</div>
 		<div class="row">
@@ -209,7 +223,6 @@ $(document).ready(function() {
 							<th width="40%">제목</th>
 							<th>날짜</th>
 							<th>작성자</th>
-							<th>조회수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -225,8 +238,9 @@ $(document).ready(function() {
 							</td>
 					<!-- 제목 부분, 답글일 때 > 나타내기 -->
 							<td>
-								<a class="a_title" data-bno="${boardVo.bno}" 
-									data-secret="${boardVo.secret}" href="#">
+								<a class="a_title" data-bno="${boardVo.bno}" data-writer="${boardVo.writer}" 
+									 data-re_group="${boardVo.re_group}" 
+									 data-secret="${boardVo.secret}" href="#">
 								<c:if test="${boardVo.re_level gt 0}">	
 									<i class="fa fa-chevron-right" aria-hidden="true"></i>
 								</c:if>${boardVo.title}</a>
@@ -236,7 +250,6 @@ $(document).ready(function() {
 							</td>
 							<td>${boardVo.regdate}</td>
 							<td>${boardVo.writer}</td>
-							<td>${boardVo.viewcnt}</td>
 						</tr>
 					</c:forEach>
 					

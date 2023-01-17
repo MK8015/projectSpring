@@ -55,8 +55,42 @@ public class BoardController {
 	
 	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String getArticle(int bno, Model model, HttpSession session) {
-		BoardVo boardVo = boardService.selectByBno(bno);
+	public String getArticle(int bno, int re_group, Model model, HttpSession session,
+								RedirectAttributes rttr) {
+		
+		String member_id = (String)session.getAttribute("loginMember");
+		System.out.println("로그인멤버" + member_id);
+		
+		BoardVo boardVo = null;
+		
+		
+		if (bno == re_group) {
+			//원글
+			boardVo = boardService.selectByBno(bno);
+			System.out.println("원글일 때 Vo:" + boardVo);
+		} else {
+			// 답글일 때
+			boardVo = boardService.checkOriginalWriter(member_id, bno, re_group);
+			System.out.println("답글일 때 Vo:" + boardVo);
+			
+			
+
+			// 답글인데 비회원일 때 
+			if (member_id == null || member_id.equals("admin")) {
+				boardVo = boardService.selectByBno(bno);
+				model.addAttribute("boardVo", boardVo);
+				return "board/detail";
+			}
+			
+			if (boardVo == null) {
+				rttr.addFlashAttribute("checkOriginalWriter", "fail");
+				rttr.addFlashAttribute("bno", bno);
+				rttr.addFlashAttribute("re_group", re_group);
+				return "redirect:/board/list";
+			}
+			
+		}
+		
 		model.addAttribute("boardVo", boardVo);
 		return "board/detail";
 	}
@@ -98,9 +132,13 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		String loginMember = (String)session.getAttribute("loginMember");
-		boardVo.setWriter(loginMember);
+		if (loginMember != null) {
+			boardVo.setWriter(loginMember);
+		}
+		
+		
 		boolean result = boardService.insertArticle(boardVo);
 		rttr.addFlashAttribute("register_result", result);
 		return "redirect:/board/list";
@@ -110,8 +148,10 @@ public class BoardController {
 	 //답글 등록
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
-	public String reply(int re_group, HttpServletRequest request) {
+	public String reply(int re_group, String password, String secret, HttpServletRequest request) {
 		request.setAttribute("re_group", re_group);
+		request.setAttribute("password", password);
+		request.setAttribute("secret", secret);
 		return "board/reply";
 	}
 	
@@ -155,10 +195,11 @@ public class BoardController {
 		return String.valueOf(result);
 	}
 	
+	
 
 	// 글 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public String modifyArticle(int bno, Model model) {
+	public String modifyArticle(int bno, int re_group, Model model) {
 		BoardVo boardVo = boardService.selectByBno(bno);
 		model.addAttribute("boardVo", boardVo);
 		return "board/modify";
