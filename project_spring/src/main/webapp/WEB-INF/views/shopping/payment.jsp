@@ -57,15 +57,15 @@
 $(document).ready(function() {
 	
 	
-// 	$("#frmOrder").submit(function(){
-// 		// 폰번호 name:order_phonenum에 저장
-// 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
-// 		$("#order_phonenum").val(order_phonenum);
+	$("#frmOrder").submit(function(){
+		// 폰번호 name:order_phonenum에 저장
+		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+		$("#order_phonenum").val(order_phonenum);
 		
-// 		var json = JSON.stringify(arr_cartList);
-// 		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
-// 		return true;
-// 	});
+		var json = JSON.stringify(arr_cartList);
+		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
+		return true;
+	});
 	
 	$("#paymentToss,#paymentKakao").click(function(){
 		
@@ -116,7 +116,7 @@ function Kakaopayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
-	var total_price=$(".totalPrice").text().trim().replace("원","")
+	var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
 	IMP.init("imp85835735");
 	IMP.request_pay({
 		pg: "kakaopay.TC0ONETIME",
@@ -251,7 +251,7 @@ window.onload = function(){
 			<hr>
 				
 				<div class="shoping__cart__table">
-					<table>
+  				<table>
 						<thead>
 							<tr>
 								<th>상품명</th>
@@ -307,7 +307,7 @@ window.onload = function(){
 					<h5>최종 결제 금액</h5>
 					<ul>
 						<li><span class="totalPrice">
-						<fmt:formatNumber value="${total}" pattern="#,###"/>원</span></li>
+ 						<fmt:formatNumber value="${total}" pattern="#,###"/>원</span></li> 
 					</ul>
 				</div>
 			</div>
