@@ -396,7 +396,7 @@ ol {
 
 .header__top__right__language ul {
 	background: #222222;
-	width: 100px;
+	width: 120px;
 	text-align: left;
 	padding: 5px 0;
 	position: absolute;
@@ -847,6 +847,31 @@ ol {
 	margin-bottom: 35px;
 }
 
+
+
+/*---------------------
+  Subtitle
+-----------------------*/
+
+.subtitle {
+	padding-top: 30px;
+	padding-bottom: 0px;
+}
+
+.subtitle-section {
+	display: flex;
+	align-items: center;
+	padding: 43px 0 42px;
+}
+
+.subtitle__text h2 {
+	font-size: 46px;
+	color: #ffffff;
+	font-weight: 700;
+}
+
+
+
 /*---------------------
   Categories
 -----------------------*/
@@ -1143,10 +1168,11 @@ ol {
   Breadcrumb
 -----------------------*/
 
+
 .breadcrumb-section {
 	display: flex;
 	align-items: center;
-	padding: 45px 0 40px;
+	padding: 43px 0 42px;
 }
 
 .breadcrumb__text h2 {
@@ -1542,8 +1568,8 @@ ol {
 }
 
 .filter__item {
-	padding-top: 45px;
-	border-top: 1px solid #ebebeb;
+	padding-top: 0px;
+	border-top: 0px solid #ebebeb;
 	padding-bottom: 20px;
 }
 
@@ -2037,7 +2063,7 @@ ol {
 
 .shoping__cart__table table tbody tr td.shoping__cart__check {
 	width: 80px;
-	text-align: center;
+	text-align: left;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
@@ -2071,7 +2097,7 @@ ol {
 
 .shoping__cart__table table tbody tr td.shoping__cart__item__close {
 	width: 80px;
-	text-align: center;
+	text-align: right;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item__close span {
@@ -2478,6 +2504,109 @@ ol {
 	opacity: 0.1;
 	content: "";
 }
+
+
+
+
+/*---------------------
+  My Page
+-----------------------*/
+
+
+.mypage__sidebar {
+	padding-top: 30px;
+}
+
+.mypage__sidebar__item {
+	padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+	border: 1px solid #ebebeb;
+}
+
+.mypage__sidebar__item h4 {
+	color: #1c1c1c;
+	font-weight: 700;
+	padding-top: 25px;
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+.mypage__sidebar__item ul li {
+	list-style: none;
+	text-align: center;
+}
+
+.mypage__sidebar__item ul li a {
+	font-size: 16px;
+	color: #666666;
+	line-height: 48px;
+	text-align: center;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+}
+
+.mypage__sidebar__item ul li a:hover {
+	color: #7fad39;
+}
+
+.mypage_title h3 {
+	color: #1c1c1c;
+	font-weight: 700;
+	text-align: center;
+}
+
+
+.mypage-btn {
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 500;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 10px 50px 10px;
+	background: #7fad39;
+	border: none;
+	margin-bottom: 30px;
+}
+
+
+.mypage__form p {
+	column-rule: #b2b2b2;
+}
+
+.mypage__input {
+	margin-bottom: 24px;
+}
+
+.mypage__input p {
+	color: #1c1c1c;
+	margin-bottom: 20px;
+}
+
+.mypage__input p span {
+	color: #dd2222;
+}
+
+.mypage__input {
+	width: 98%;
+	height: 46px;
+	margin: 0px 10px 25px;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	color: #6f6f6f;
+	border-radius: 4px;
+}
+
+.mypage__input::placeholder {
+	color: #6f6f6f;
+}
+
+
 
 /*---------------------
   Blog Sidebar
