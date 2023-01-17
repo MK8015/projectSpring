@@ -20,7 +20,14 @@
 		where product_id = #{product_id} 
 		and member_id = #{member_id}
 	</delete>
-
+	
+	<!-- 좋아요 했는지 체크 -->
+	<select id="isAlreadyLike" resultType="int">
+		select count(*) from t_like 
+		where product_id=#{product_id} and member_id=#{member_id}
+	</select>
+	
+	
 	<!-- 좋아요 등록 -->
 	<insert id="insertLike">
 		insert into t_like (member_id, product_id)
@@ -54,6 +61,8 @@
 		select count(*) from t_like
 		where member_id = #{member_id}
 	</select>
+	
+	
 		
 	
 </mapper>

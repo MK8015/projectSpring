@@ -27,6 +27,11 @@ public class LikeService {
 		return likeDao.deleteLike(product_id, member_id);
 	}
 	
+	// 좋아요 했는지 체크
+	public boolean isAlreadyLike(String product_id, String member_id) {
+		return likeDao.isAlreadyLike(product_id, member_id);
+	}
+	
 	// 좋아요 등록
 	public boolean insertLike(String product_id, String member_id) {
 		return likeDao.insertLike(product_id, member_id);
@@ -55,6 +60,7 @@ public class LikeService {
 	public int memberLikeCount(String member_id) {
 		return likeDao.memberLikeCount(member_id);
 	}
+	
 	
 	
 }

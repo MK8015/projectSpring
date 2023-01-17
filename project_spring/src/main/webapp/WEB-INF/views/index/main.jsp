@@ -27,6 +27,9 @@
 <script>
 $(document).ready(function() {
 	
+	
+	
+	
 	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
  		e.preventDefault();
@@ -56,7 +59,10 @@ $(document).ready(function() {
  	$(document).on("click", ".like-cart", function(e) {
  		e.preventDefault();
  		console.log("좋아요 클릭");
+ 		var nowclickLike= $(this).find("i");
 		var product_id = $(this).attr("data-product_id");
+		var alreadyclick=$(this).attr("data-already_click");
+		console.log("alreadyclick:"+alreadyclick);
  		
 		var url = "/spring/like/insertLike";
 		var sData = {
@@ -71,7 +77,10 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData) {
  			console.log("rData: " + rData); 
  			
-			if (rData == "true") {
+			if (rData == "couldlike-true") {
+				console.log("couldlike-true실행됨")
+				nowclickLike.attr("class","fa fa-trash");
+				console.log("fa_heart:",fa_heart);
 				var count = parseInt(likeCount.text());
 				var headerCount = parseInt(headerLikeCount.text());
 				count++; //맞나??
@@ -80,17 +89,26 @@ $(document).ready(function() {
 				headerLikeCount.text(headerCount);
 				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
 				
-			} else if (rData == "false"){
+			}else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
 				return;
-			} else if (rData == "notLogin") {
+			}else if (rData == "notLogin") {
 				alert("로그인후 이용바랍니다.")
 				location.href="/spring/member/login";
-			} 
+			}else if(rData=="couldntlike-true") {
+				var count = parseInt(likeCount.text());
+				var headerCount = parseInt(headerLikeCount.text());
+				count--;
+				headerCount--;
+				likeCount.text(count);
+				headerLikeCount.text(headerCount)
+			}else if(rData=="couldntlike-false"){
+				alert("삭제 실패");
+			}
 		});
 		var p = $(this).next();
 		p.css("display","");
-		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
+// 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
 	
 }); //$(document).ready(function()
@@ -216,7 +234,7 @@ $(document).ready(function() {
 						<ul class="featured__item__pic__hover">
 							<!-- 좋아요 -->
 							<li><a href="#" class="like-cart" 
-								data-product_id="${productVo.product_id}">
+								data-product_id="${productVo.product_id}" data-already_click="true">
 								<i class="fa fa-heart"></i></a>
 								<p class="child abs" style="display:none">
 									위시 리스트에 담겼습니다.<br>

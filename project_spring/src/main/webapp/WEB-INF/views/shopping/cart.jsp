@@ -192,7 +192,7 @@ $(document).ready(function() {
 								<th>상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
-								<th><span class="fa fa-trash" style="color: #dd2222;"></span></th>
+								<th><span class="fa fa-trash cartDelete" style="color: #dd2222;"></span></th>
 							</tr>
 						</thead>
 						<tbody>

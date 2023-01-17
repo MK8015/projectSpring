@@ -41,10 +41,10 @@
 						<thead>
 							<tr>
 								<th style="padding:0px 20px 0px 0px;">주문일</th>
-								<th id="product_info" align="center" class="shoping__product" colspan="2" >상품정보</th>
+								<th id="product_info" align="center" class="shoping__product" colspan="3" >상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
-								<th>수령인 아이디</th>
+							
 							</tr>
 						</thead>
 						<tbody>
@@ -53,10 +53,14 @@
 								<td>${orderList.order_date}</td>
 								<td class="order__item">
 								<img src="/spring/product/getImage?imageName=${orderList.product_image}" height="150" width="100" alt=""></td>			
-								<td><a href="/spring/product/detail?product_id=${orderList.product_id}" style="color: black; font-size: 14pt;"><strong>${orderList.product_name}</strong></a></td>
+								<td><a href="/spring/product/detail?product_id=${orderList.product_id}" style="color: black; font-size: 14pt;"><strong>${orderList.product_name}</strong></a><br>
+								<span>${orderList.product_author}|${orderList.product_publisher}<br> 
+								</span></td>
+								
+								<td></td>
 								<td class="order__quantity">${orderList.order_amount}</td>
 								<td class="order__price">${orderList.price}</td>
-								<td class="order__id">${orderList.member_id}</td>
+								
 							</tr>
 						</c:forEach>
 						</tbody>

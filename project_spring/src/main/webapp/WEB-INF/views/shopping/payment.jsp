@@ -91,14 +91,12 @@ $(document).ready(function() {
 	//결제버튼
 	$("#btn_payment").click(function(){
 
-		if("paymentresult:",parseInt("${loginMemberVo.member_point}")-parseInt($(".totalPrice").text().trim().replace("원",""))<0){
+		if(parseInt("${loginMemberVo.member_point}")-parseInt($(".totalPrice").text().trim().replace("원",""))<0){
 			alert("잔액이 부족합니다 잔액을 채워주세요")
 			return 
 		}
 	
-		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
-			
-		}
+		
 
 		
 		if($("#iamportPaymentToss").is(":checked")){
@@ -116,7 +114,7 @@ function Kakaopayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
-	var total_price=$(".totalPrice").text().trim().replace("원","")
+	var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
 	IMP.init("imp85835735");
 	IMP.request_pay({
 		pg: "kakaopay.TC0ONETIME",
@@ -131,7 +129,7 @@ function Kakaopayment(){
 // 		m_redirect_url : '/spring/cart/order'
 	},function(rsp){
 		if(rsp.success){
-			alert("결제완료!");
+			alert(total_price+" 원 결제가 완료되었습니다!");
 			var json = JSON.stringify(arr_cartList);
 			$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
 			$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
@@ -148,13 +146,14 @@ function Tosspayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
+	var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
 	IMP.init("imp85835735");
 	IMP.request_pay({
 		pg: "uplus.tlgdacomxpay",
 		pay_method:"card",
 		merchant_uid:"iamport_test_id"+new Date().getTime(),
 		name:$(".productName").eq(0).text()+" 외 "+(arr_cartList.length-1) +"종",
-		amount:$(".totalPrice").text().trim().replace("원",""),
+		amount:total_price,
 		buyer_name:"${loginMemberVo.member_name}",
 		buyer_email:"${loginMemberVo.email}",
 		buyer_tel:order_phonenum,
@@ -162,7 +161,12 @@ function Tosspayment(){
 		//m_redirect_url : '{모바일에서 결제 완료 후 리디렉션 될 URL}'
 	},function(rsp){
 		if(rsp.success){
-			alert("결제완료->imp_uid:"+rsp.imp_uid +" / merchant_uid(order_key):"+rsp.merchant_uid);
+			alert(total_price+" 원 결제가 완료되었습니다!");
+			var json = JSON.stringify(arr_cartList);
+			$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+			$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
+			$("#order_phonenum").val(order_phonenum);
+			frmOrder.submit();
 		}else{
 			alert("실패: 코드("+rsp.error_code+") / 메세지("+rsp.error_msg+")");
 		}	
@@ -175,6 +179,7 @@ function radioCheck(){
 	var checked3 = $("#rdo_new_address").is(":checked");
 	
 	if (checked) { // 최근 배송지 선택할때 : 최근정보 불러오기
+		console.log("orderList:","${orderList}");
 		var phonenum = "${orderList.get(0).order_phonenum}";
 		var arr_phonenum = phonenum.split("-");
 		$("#member_name").val("${orderList.get(0).member_name}"); // 이름 불러오기
