@@ -209,7 +209,13 @@ $(document).ready(function() {
 				var tr = $("#review").find("tr").eq(0).clone();
 				var tds = tr.find("td");
 				tds.eq(0).find("img").attr("src","/spring/product/getImage?imageName="+ jsonArray[i].member_pic);
-				tds.eq(0).find("span").text(jsonArray[i].member_id);
+				if(jsonArray[i].checkBuyer == "true"){
+					tds.eq(0).find("span").text(jsonArray[i].member_id);
+					tds.eq(0).find("span").append("<img src='/spring/resources/img/icon_label_buy.png' />");
+					
+				}else{
+					tds.eq(0).find("span").text(jsonArray[i].member_id);				
+				}
 				var review_rating = tds.eq(0).find(".review_rating");
 				review_rating.empty();
 				for (var j = 0; j < jsonArray[i].review_rating; j++) {
@@ -224,7 +230,7 @@ $(document).ready(function() {
 					tds.eq(2).find("a").css("display","none");
 				}
 				tr.show();
-				$("#review").find("tr").eq(0).after(tr);
+				$("#review").append(tr);
 			}
 		});
 	}

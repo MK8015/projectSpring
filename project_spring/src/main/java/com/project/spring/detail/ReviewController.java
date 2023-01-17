@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.spring.order.OrderService;
 import com.project.spring.vo.ProductVo;
 import com.project.spring.vo.ReviewVo;
 
@@ -24,6 +25,8 @@ public class ReviewController {
 	ProductService productService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	OrderService orderService;
 	
 
 	
@@ -58,8 +61,11 @@ public class ReviewController {
 		JSONArray jsonArray = new JSONArray();
 		for(ReviewVo vo:reviewList) {
 			JSONObject jsonObject = new JSONObject(vo);
+			boolean result = orderService.checkBuyer(vo.getMember_id(),product_id);
+			jsonObject.append("checkBuyer", result);
 			jsonArray.put(jsonObject);
 		}
+		System.out.println(jsonArray);
 		return jsonArray.toString();
 	}
 	

@@ -60,12 +60,12 @@ public class OrderDao {
 		return list;
 	}
 	
-	public Boolean updatePoint(String member_id,int nowHavePoint) {
+	public boolean updatePoint(String member_id,int nowHavePoint) {
 		
 		Map<Object, Object>map=new HashMap<>();
 		map.put("member_id", member_id);
 		map.put("nowHavePoint", nowHavePoint);
-		int count= sqlSession.update(NAME_SPACE+"updatePoint",map);
+		int count = sqlSession.update(NAME_SPACE+"updatePoint",map);
 		if(count>0) {
 			return true;
 		}
@@ -76,6 +76,17 @@ public class OrderDao {
 		int now_point=sqlSession.selectOne(NAME_SPACE+"nowPoint",member_id);
 		
 		return now_point;
+	}
+	
+	public boolean checkBuyer(String member_id,String product_id) {
+		Map<Object, Object>map=new HashMap<>();
+		map.put("member_id", member_id);
+		map.put("product_id", product_id);
+		int count = sqlSession.selectOne(NAME_SPACE+"checkBuyer",map);
+		if(count>0) {
+			return true;
+		}
+		return false;
 	}
 
 }
