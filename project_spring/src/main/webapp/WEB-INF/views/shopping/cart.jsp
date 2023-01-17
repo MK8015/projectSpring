@@ -81,6 +81,9 @@ $(document).ready(function() {
 		console.log("삭제클릭");
 		var deleteEl = [];
 		var arr_product_id = [];
+		
+		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
+		
 		$(".chkbox").each(function() {
 			var checked = $(this).is(":checked");
 			console.log(checked);
@@ -94,13 +97,17 @@ $(document).ready(function() {
 		var sData = {"arr_product_id": arr_product_id};
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
+				var headerCount = parseInt(headerCartCount.text());
+				headerCount--;
+				headerCartCount.text(headerCount);
+				headerCartCount.css("display", ""); //0일 때 배지 사라지게 하기
+
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
 						showTotalPrice();
 			        });
 				});
-				
 			}
 		});
 	});
@@ -114,7 +121,7 @@ $(document).ready(function() {
 		
 		var product_id = $(this).parent().parent().find("td").eq(0).find("input").attr("data-productId");
 		arr_product_id.push(product_id);
-		console.log($(this));
+		
 		deleteEl.push($(this).parent().parent()); // 선택된 체크박스의 tr들 삭제
 		
 		var url = "/spring/cart/delete";
@@ -123,7 +130,7 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
 				var headerCount = parseInt(headerCartCount.text());
-				headerCount--;
+				headerCount--; 
 				headerCartCount.text(headerCount);
 				headerCartCount.css("display", ""); //0일 때 배지 사라지게 하기
 
@@ -192,7 +199,7 @@ $(document).ready(function() {
 								<th>상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>
-								<th><span class="fa fa-trash" style="color: #dd2222;"></span></th>
+								<th><span class="fa fa-trash cartDelete" style="color: #dd2222;"></span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -248,7 +255,7 @@ $(document).ready(function() {
 					<ul>
 						<li>총 상품금액 <span class="totalPrice"></span></li>
 					</ul>
-					<a href="/spring/order/orderList" class="primary-btn orderBtn"
+					<a href="/spring/cart/paymentList" class="primary-btn orderBtn"
 					style="font-size: 20px">주문하기</a>
 				</div>
 			</div>
