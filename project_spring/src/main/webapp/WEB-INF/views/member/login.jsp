@@ -4,14 +4,14 @@
 
 
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--     <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     <title>로그인</title>
 
     <!-- Google Font -->
@@ -27,14 +27,14 @@
     <link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/spring/resources/css/style.css" type="text/css">
- <!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
-</head>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">														
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">														
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>		
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>												
+
 
 <style>
 .login-btn {
@@ -63,15 +63,15 @@ $(document).ready(function(){
 	if(isLogin=="fail"){
 		alert("로그인에 실패하였습니다");
 	};
-	
-	
 	$("#customCheck").change(function(){
 	});
 });
 
-</script>
+	
+	</script>
+	
+</head>
  
-
 <body class="header__top">
 <div class="container">
 	<!-- Outer Row -->

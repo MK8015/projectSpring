@@ -1,6 +1,8 @@
 package com.project.spring.order;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class OrderDao {
 		return list;
 	}
 	
+	public List<OrderVo> myOrder(String member_id) {
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "myOrder",member_id);	
+			return list;
+	}
 
 	public OrderVo detailOrder(String order_no) {
 		return sqlSession.selectOne(NAME_SPACE+"detailOrder",order_no);
@@ -50,7 +56,26 @@ public class OrderDao {
 	}
 
 	public List<OrderVo> orderListBymemId(String member_id) {
-		return sqlSession.selectList(NAME_SPACE + "orderListBymemId", member_id);
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "orderListBymemId", member_id);
+		return list;
+	}
+	
+	public Boolean updatePoint(String member_id,int nowHavePoint) {
+		
+		Map<Object, Object>map=new HashMap<>();
+		map.put("member_id", member_id);
+		map.put("nowHavePoint", nowHavePoint);
+		int count= sqlSession.update(NAME_SPACE+"updatePoint",map);
+		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int nowPoint(String member_id) {
+		int now_point=sqlSession.selectOne(NAME_SPACE+"nowPoint",member_id);
+		
+		return now_point;
 	}
 
 }

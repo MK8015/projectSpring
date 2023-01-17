@@ -41,7 +41,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		return "shopping/paymentRun";
+		return "admin/product";
 	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
@@ -82,9 +82,6 @@ public class AdminController {
 		rttr.addFlashAttribute("result",result);
 		return "redirect:/admin/order";
 	}
-	//
-	
-	
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
 	public String member(Model model) {
@@ -173,7 +170,6 @@ public class AdminController {
 			rttr.addFlashAttribute("result",result);
 		}catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		}
 		return "redirect:/admin/product";
 	}

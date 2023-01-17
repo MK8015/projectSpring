@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -90,7 +86,7 @@
 }
 </style>
 
-</head>
+
 <script>
 $(document).ready(
 		function() {
@@ -218,7 +214,7 @@ $(document).ready(
 
 
 
-
+</head>
 <body class="header__top">
 	<div class="container">
 

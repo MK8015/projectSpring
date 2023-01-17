@@ -4,7 +4,7 @@
 <%@ include file="../include/adminHeader.jsp" %>
 <script>
 $(document).ready(function(){
-	
+	var openDetail = false;
 
 	$("#insertOrder").click(function(e){
 		e.preventDefault();
@@ -17,32 +17,38 @@ $(document).ready(function(){
 	
 	$(".orderInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".insertOrderForm").remove();
-		$(".orderForm:gt(0)").parent().parent().remove();
-		var form = $(".orderForm").eq(0).clone();
-		var tds = $(this).parent().find("td");
-		var order_no = tds.eq(0).text();
-		console.log(order_no);
-		var tr = $(this).parent();
-		$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
-			var jsonObject = JSON.parse(rData);
-			var inputs = form.find("input");
-			inputs.eq(0).attr("readonly","true").val(jsonObject.order_no);
-			inputs.eq(1).val(jsonObject.member_id);
-			inputs.eq(2).val(jsonObject.product_id);
-			inputs.eq(3).val(jsonObject.order_amount);
-			inputs.eq(4).val(jsonObject.order_address);
-			inputs.eq(5).val(jsonObject.order_address_detail);
-			inputs.eq(6).val(jsonObject.order_phonenum);
-			inputs.eq(7).val(jsonObject.order_date);
-			form.css("display","");
-			tr.after("<tr><td colspan='5'></td></tr>");
-			var td = tr.next().find("td");
-			form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
-			form.find("form").attr("action","/spring/admin/updateOrder");
-			td.append(form);
-			
-		});
+		openDetail = !openDetail;
+		if(openDetail){
+			$(".insertOrderForm").remove();
+			$(".orderForm:gt(0)").parent().parent().remove();
+			var form = $(".orderForm").eq(0).clone();
+			var tds = $(this).parent().find("td");
+			var order_no = tds.eq(0).text();
+			console.log(order_no);
+			var tr = $(this).parent();
+			$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
+				var jsonObject = JSON.parse(rData);
+				var inputs = form.find("input");
+				inputs.eq(0).attr("readonly","true").val(jsonObject.order_no);
+				inputs.eq(1).val(jsonObject.member_id);
+				inputs.eq(2).val(jsonObject.product_id);
+				inputs.eq(3).val(jsonObject.order_amount);
+				inputs.eq(4).val(jsonObject.order_address);
+				inputs.eq(5).val(jsonObject.order_address_detail);
+				inputs.eq(6).val(jsonObject.order_phonenum);
+				inputs.eq(7).val(jsonObject.order_date);
+				form.css("display","");
+				tr.after("<tr><td colspan='5'></td></tr>");
+				var td = tr.next().find("td");
+				form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
+				form.find("form").attr("action","/spring/admin/updateOrder");
+				td.append(form);
+				
+			});
+		}else{
+			$(".insertOrderForm").remove();
+			$(".orderForm:gt(0)").parent().parent().remove();
+		}
 	});
 	
 });
@@ -88,9 +94,8 @@ $(document).ready(function(){
 		</form>
 	</div>
 
+	<!-- 오른쪽 관리 부분 -->
 
-
-<!-- 오른쪽 관리 부분 -->
 <div class="col-lg-10 col-md-7 order-md-1 order-1">
 	<div class="mypage_title">
 		<h3>주문 관리</h3>
@@ -99,7 +104,9 @@ $(document).ready(function(){
 		<p style="text-align: center; padding-top: 7px;">
 			<a href="#" class="mypage-btn" id="insertOrder">주문 입력</a></p>
 	</div>
+
 	
+
 <table class="table table-hover" style="table-layout: fixed">
 	<thead>
 		<tr>
@@ -123,6 +130,7 @@ $(document).ready(function(){
 	</tbody>
 </table>
 </div>
+
 
 </div>
 </div>

@@ -73,8 +73,6 @@ function Tosspayment(){
 </head>
 <body>
 
-<input type="radio"/>a
-<input type="radio"/>b
 <button id="iamportPaymentKakao" style="background: url('/spring/resources/img/payment/payment_icon_yellow_medium.png'); width: 121px; height:50px; border:0px"></button>
 <button id="iamportPaymentToss" style="background: url('/spring/resources/img/payment/toss.png'); width: 121px; height:50px; border:0px"></button>
 </body>

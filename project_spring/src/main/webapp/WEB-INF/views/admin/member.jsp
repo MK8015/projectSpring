@@ -5,6 +5,7 @@
 
 <script>
 $(document).ready(function(){
+	var openDetail = false;
 	
 	$(document).on("change","input[type=file]",function(){
 		var image = this.files[0];
@@ -25,31 +26,36 @@ $(document).ready(function(){
 	
 	$(".memberInfo").on("click","td",function(e){
 		e.preventDefault();
-		$(".memberForm:gt(0)").parent().parent().remove();
-		var form = $(".memberForm").eq(0).clone();
-		var tds = $(this).parent().find("td");
-		var member_id = tds.eq(0).text();
-		console.log(member_id);
-		var tr = $(this).parent();
-		$.post("/spring/admin/memberDetail",{"member_id":member_id},function(rData){
-			var jsonObject = JSON.parse(rData);
-			var inputs = form.find("input");
-			var img = form.find("img");
-			inputs.eq(0).attr("readonly","true").val(jsonObject.member_id);
-			inputs.eq(1).val(jsonObject.member_name);
-			inputs.eq(2).val(jsonObject.password);
-			inputs.eq(3).val(jsonObject.phonenum);
-			inputs.eq(4).val(jsonObject.email);
-			inputs.eq(5).val(jsonObject.address);
-			inputs.eq(6).val(jsonObject.address_detail);
-			form.css("display","");
-			tr.after("<tr><td colspan='4'></td></tr>");
-			img.attr("src","/spring/product/getImage?imageName="+ jsonObject.member_pic);
-			var td = tr.next().find("td");
-			form.find("a").attr("href","/spring/admin/deleteMember?member_id="+jsonObject.member_id);
-			td.append(form);
-			
-		});
+		openDetail = !openDetail;
+		if(openDetail){
+			$(".memberForm:gt(0)").parent().parent().remove();
+			var form = $(".memberForm").eq(0).clone();
+			var tds = $(this).parent().find("td");
+			var member_id = tds.eq(0).text();
+			console.log(member_id);
+			var tr = $(this).parent();
+			$.post("/spring/admin/memberDetail",{"member_id":member_id},function(rData){
+				var jsonObject = JSON.parse(rData);
+				var inputs = form.find("input");
+				var img = form.find("img");
+				inputs.eq(0).attr("readonly","true").val(jsonObject.member_id);
+				inputs.eq(1).val(jsonObject.member_name);
+				inputs.eq(2).val(jsonObject.password);
+				inputs.eq(3).val(jsonObject.phonenum);
+				inputs.eq(4).val(jsonObject.email);
+				inputs.eq(5).val(jsonObject.address);
+				inputs.eq(6).val(jsonObject.address_detail);
+				form.css("display","");
+				tr.after("<tr><td colspan='4'></td></tr>");
+				img.attr("src","/spring/product/getImage?imageName="+ jsonObject.member_pic);
+				var td = tr.next().find("td");
+				form.find("a").attr("href","/spring/admin/deleteMember?member_id="+jsonObject.member_id);
+				td.append(form);
+				
+			});
+		}else{
+			$(".memberForm:gt(0)").parent().parent().remove();
+		}
 	});
 	
 	
