@@ -191,7 +191,8 @@ function isSecret(){
 						</td>
 						<td><input class="qna__input" type="password" id="password" name="password" 
 								placeholder="비밀번호를 입력해 주세요" style="display:none" value="${boardVo.password}"/>
-							<input type="hidden" id="secret" name="secret" value="${boardVo.secret}"></td>
+							<input type="hidden" id="secret" name="secret" 
+									value="${boardVo.secret}"></td>
 					</tr>
 				</table>
 				<hr>

@@ -32,6 +32,36 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>		
+
+<style>
+
+.forgot__input p {
+	color: #1c1c1c;
+	margin-bottom: 20px;
+}
+
+.forgot__input p span {
+	color: #dd2222;
+}
+
+.forgot__input {
+	width: 100%;
+	height: 46px;
+	margin: 0px 0px 0px;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	color: #6f6f6f;
+	border-radius: 4px;
+}
+
+.forgot__input::placeholder {
+	color: #6f6f6f;
+	font-weight: 400;
+}
+
+</style>
+
 <script>
 $(document).ready(function(){
 	var isEmpty="${isEmpty}";
@@ -69,20 +99,21 @@ $(document).ready(function(){
                                 <div class="p-5">
                                     <div class="text-center">
                                                                                 <br><h3>비밀번호 찾기</h3><br>
-                                        <p class="mb-4">가입하신 아이디와 이메일주소를 입력해주시면 임시 비밀번호를 발송해 드립니다</p>
+                                        <p class="mb-4">가입하신 아이디와 이메일주소를 입력해주시면<br>임시 비밀번호를 발송해 드립니다</p>
                                     </div>
                                     <form class="user" action="/spring/member/forgot-password" method="post">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
+                                            <input type="text" class="forgot__input"
                                                 id="member_id" name="member_id" 
                                                 placeholder="아이디를 입력해주세요">
                                         </div>
                                          <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" class="forgot__input"
                                                 id="to" name="to" 
                                                 placeholder="임시 비밀번호를 받으실 이메일을 입력해주세요">
                                         </div>
-                                        <button type="submit" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
+                                        <button type="submit" class="btn btn-white text-white btn-user 
+                                        		btn-block" style="background-color: rgb(127, 173, 57);">
                                             이메일로 임시 비밀번호 발송
                                         </button>
                                     </form>

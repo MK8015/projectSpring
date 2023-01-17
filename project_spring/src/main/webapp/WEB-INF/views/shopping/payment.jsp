@@ -57,15 +57,15 @@
 $(document).ready(function() {
 	
 	
-// 	$("#frmOrder").submit(function(){
-// 		// 폰번호 name:order_phonenum에 저장
-// 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
-// 		$("#order_phonenum").val(order_phonenum);
+	$("#frmOrder").submit(function(){
+		// 폰번호 name:order_phonenum에 저장
+		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+		$("#order_phonenum").val(order_phonenum);
 		
-// 		var json = JSON.stringify(arr_cartList);
-// 		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
-// 		return true;
-// 	});
+		var json = JSON.stringify(arr_cartList);
+		$(this).append("<input type='hidden' name='list' value='"+json+"'>");
+		return true;
+	});
 	
 	$("#paymentToss,#paymentKakao").click(function(){
 		
@@ -81,7 +81,7 @@ $(document).ready(function() {
 	
 	radioCheck();
 	 
-	$("input[type=radio]").click(function(){
+	$("input[name=rdo_address]").click(function(){
 		 radioCheck();
 	});
 
@@ -96,16 +96,27 @@ $(document).ready(function() {
 			return 
 		}
 	
-		
+		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
+			
+		}
+		var arr_cartList = ${arr_cartList};	
+		var json = JSON.stringify(arr_cartList);
+		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+		var address = $("#road_address").val() + "," + $("#detail_address").val();
+		var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
+		$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+		$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
+		$("#order_phonenum").val(order_phonenum);
+		frmOrder.submit();
 
 		
-		if($("#iamportPaymentToss").is(":checked")){
-			Tosspayment();
-		}else if($("#iamportPaymentKakao").is(":checked")){			
-			Kakaopayment();
-		}else{
-			alert("결제 수단을 선택해주세요");
-		}
+// 		if($("#iamportPaymentToss").is(":checked")){
+// 			Tosspayment();
+// 		}else if($("#iamportPaymentKakao").is(":checked")){			
+// 			Kakaopayment();
+// 		}else{
+// 			alert("결제 수단을 선택해주세요");
+// 		}
 	});
 		
 });
@@ -174,12 +185,19 @@ function Tosspayment(){
 }
 
 function radioCheck(){
-	var checked = $("#rdo_recent_address").is(":checked"); // 최근배송지 list.get(0)처음꺼 불러오기
+	// 최근 배송지가 없을때 (이전구매내역이 없을때) 라디오 버튼 사라지게 하기
+	if("${orderList}" == null || "${orderList}" == ""){
+		$("#rdo_recent_address").attr("style","display:none");
+		$("#lbl_rdo_recent_address").attr("style","display:none");
+		$("#rdo_recent_address").attr("checked", false);
+		$("#rdo_member_address").attr("checked", true);
+	}
+	
+	var checked1 = $("#rdo_recent_address").is(":checked"); // 최근배송지 list.get(0)처음꺼 불러오기
 	var checked2 = $("#rdo_member_address").is(":checked"); // 회원정보 주소 불러오기
 	var checked3 = $("#rdo_new_address").is(":checked");
 	
-	if (checked) { // 최근 배송지 선택할때 : 최근정보 불러오기
-		console.log("orderList:","${orderList}");
+	if (checked1) { // 최근 배송지 선택할때 : 최근정보 불러오기
 		var phonenum = "${orderList.get(0).order_phonenum}";
 		var arr_phonenum = phonenum.split("-");
 		$("#member_name").val("${orderList.get(0).member_name}"); // 이름 불러오기
@@ -244,6 +262,7 @@ window.onload = function(){
 <!-- 상품 확인 처음 -->
 <section class="shoping-cart spad">
 	<div class="container">
+	${orderList}
 	<form id="frmOrder" role="form" action="/spring/order/insertOrder" method="post">
 		<div class="row">
 			<div class="row payment__list__title">
@@ -256,7 +275,7 @@ window.onload = function(){
 			<hr>
 				
 				<div class="shoping__cart__table">
-					<table>
+  				<table>
 						<thead>
 							<tr>
 								<th>상품명</th>
@@ -312,7 +331,7 @@ window.onload = function(){
 					<h5>최종 결제 금액</h5>
 					<ul>
 						<li><span class="totalPrice">
-						<fmt:formatNumber value="${total}" pattern="#,###"/>원</span></li>
+ 						<fmt:formatNumber value="${total}" pattern="#,###"/>원</span></li> 
 					</ul>
 				</div>
 			</div>
@@ -343,7 +362,7 @@ window.onload = function(){
 						<td><p>배송지</p></td>
 						<td><span>
 						<input type="radio" id="rdo_recent_address" name="rdo_address" checked style="margin-right:10px"/>
-						<label for="rdo_recent_address">최근배송지</label>
+						<label for="rdo_recent_address" id="lbl_rdo_recent_address">최근배송지</label>
 						<input type="radio" id="rdo_member_address" name="rdo_address"/>
 						<label for="rdo_member_address">회원정보동일</label>
 						<input type="radio" id="rdo_new_address" name="rdo_address"/>
@@ -352,7 +371,8 @@ window.onload = function(){
 					</tr>
 					<tr style ='vertical-align : top'>
 						<td><p>이름</p></td>
-						<td><input type="text" class="table-control" id="member_name" readonly/></td>
+						<td><input type="text" class="table-control" id="member_name"
+						name="member_name" readonly/></td>
 					</tr>
 					<tr style ='vertical-align : top'>
 						<td><p>배송주소</p></td>

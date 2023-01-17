@@ -42,6 +42,11 @@
 			<exclude-mapping path="/product/*"/>
 			<exclude-mapping path="/main/*"/>
 			<exclude-mapping path="/list/*"/>
+			
+			<exclude-mapping path="/board/*"/>
+			<exclude-mapping path="/resources/*"/>
+			<exclude-mapping path="/**/*.css"/>
+			<exclude-mapping path="/**/*.js"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

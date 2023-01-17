@@ -17,6 +17,5 @@ public class CartVo {
 	private String product_author;
 	private String product_publisher;
 	
-	private List<CartVo> cartList;
 }
  

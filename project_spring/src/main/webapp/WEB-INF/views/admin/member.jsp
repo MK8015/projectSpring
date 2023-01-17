@@ -75,9 +75,6 @@ $(document).ready(function(){
 
 
 
-
-
-
 	<!--  입력,수정 양식 -->
 	<div style="margin:10px; display:none" class="memberForm">
 		<form role="form" action="/spring/admin/updateMember" method="post" 
@@ -134,27 +131,36 @@ $(document).ready(function(){
 				</div>
 				<div class="col-lg-10">
 					<input type="text" class="mypage__input address" 
-						 placeholder="주소" name="address">
-					<p style="padding-left: 10px;">상세</p>
+						 placeholder="주소" name="address" style="margin-bottom: 10px;">
+					<p style="padding-left: 10px; margin-bottom: 10px;">상세</p>
 					<input type="text" class="mypage__input address_detail"
 						 placeholder="상세 주소" name="address_detail">
 				</div>
 			</div>
 			
 			
-			<div class="col-lg-5 d-none d-lg-block bg-register-image" style="margin-bottom: 18px;">
-				<img src="/spring/resources/img/defaultprofile.png">
-			</div>
-			<div class="form-group">
-				<div class="custom-file">
-					<input type="file" class="custom-file-input productImage" id="member_pic" name="file"
-						style="margin-top: 20px;"> 
-					<label class="custom-file-label" id="productImageLabel" for="member_pic">사진 선택</label>
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="padding-top: 13px;">사진</p>
+				</div>
+				<div class="col-lg-10">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image" style="margin-bottom: 18px;">
+						<img src="/spring/resources/img/defaultprofile.png" style="margin-left: 10px;">
+					</div>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input productImage" id="member_pic" name="file"
+							 style="margin-top: 20px; padding-left: 10px;"> 
+						<label class="custom-file-label" id="productImageLabel" for="member_pic"
+								style="margin-left: 10px;">사진 선택</label>
+					</div>
 				</div>
 			</div>
-
+			
+			
+			
 			<button type="submit" class="site-smbtn">작성 완료</button>
 			<a href="#" class="site-smbtn">삭제</a>
+			
 		</form>
 	</div>
 	

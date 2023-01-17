@@ -124,9 +124,10 @@ public class CartController {
 
 		String member_id = (String)session.getAttribute("loginMember");
 		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
-		
-		
-		model.addAttribute("orderList",orderList);
+		// 이전 구매내역이 없을경우 model에 넣지 않음
+		if(orderList.size() != 0) {
+			model.addAttribute("orderList",orderList);			
+		}
 		model.addAttribute("cartList",cartList);
 		
 		JSONArray arr_cartList = new JSONArray(cartList); 
@@ -137,8 +138,6 @@ public class CartController {
 		
 		return "shopping/payment";
 	}
-	
-	
 
   // detail 에서 카트 추가
 	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
@@ -178,8 +177,4 @@ public class CartController {
 		
 		return "order/orderList";
 	}
-	
-	
-
-	
 }
