@@ -47,6 +47,8 @@
 <script>
 $(document).ready(function() {
 	
+	var isAlreadyLike
+	
 	console.log("session:","${loginMember}")
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
@@ -198,7 +200,7 @@ $(document).ready(function() {
 							<c:otherwise>
 								<!-- 회원일 때 마이페이지 뜨기 -->
 								<div class="header__top__right__language">
-									<div>${loginMember}님 환영합니다</div>
+									<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
 									<span class="arrow_carrot-down"></span>
 									<ul>
 										<li><a href="/spring/member/mypage">마이 페이지</a></li>

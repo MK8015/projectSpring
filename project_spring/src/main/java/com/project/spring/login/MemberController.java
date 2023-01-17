@@ -326,7 +326,7 @@ public class MemberController {
 						session.setAttribute("loginMemberVo", memberVo);
 						session.setAttribute("loginMember", memberVo.getMember_id());
 						System.out.println("로그인 됨");
-			page= "index/main";
+			page= "redirect:/main/index";
 		}
 		return page;
     }

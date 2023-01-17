@@ -22,5 +22,11 @@ public class MainDao {
 //		System.out.println("MainDao, list" + list);
 		return list;
 	}
+
+	public List<ProductVo> getListlike(String member_id) {
+//		List<ProductVo> listlike = sqlSession.selectList(NAME_SPACE + "getListlike",member_id);
+		System.out.println("main dao member_id" + member_id);
+		return null;
+	}
 	
 }

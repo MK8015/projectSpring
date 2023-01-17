@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+import com.project.spring.login.MemberService;
 import com.project.spring.cart.CartService;
 import com.project.spring.detail.ProductService;
 import com.project.spring.vo.MemberVo;
@@ -24,6 +26,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	MemberService memberService;
 
 	@Autowired
 	ProductService productService;
@@ -79,6 +84,10 @@ public class OrderController {
 		if(result) {
 			
 			page="redirect:/order/myOrder";
+			
+			MemberVo memberVopoint= memberService.memberDetail(memberVo.getMember_id());
+			
+			memberVo.setMember_point(memberVopoint.getMember_point());
 			
 		}else {
 			
