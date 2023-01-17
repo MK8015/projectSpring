@@ -54,7 +54,7 @@ public class CartDao {
 		map.put("cart_amount", cart_amount);
 		map.put("product_id", product_id);
 		map.put("member_id", member_id);
-		int count = sqlSession.update(NAME_SPACE + "updateCart", map);
+		int count = sqlSession.update(NAME_SPACE + "updateCart", map); 
 		if (count > 0) {
 			return true;
 		}

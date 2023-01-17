@@ -57,40 +57,80 @@ $(document).ready(function(){
 	<!--  입력,수정 양식 -->
 	<div style="margin: 10px; display: none" class="orderForm">
 		<form role="form" action="/spring/admin/insertOrder" method="post">
-			<div class="form-group">
-				주문 번호
-				<input type="text" class="form-control" placeholder="주문 번호" name="order_no"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">주문 번호</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="주문 번호" name="order_no"/>
+				</div>
 			</div>
-			<div class="form-group">
-				주문한 회원
-				<input type="text" class="form-control" placeholder="주문한 회원" name="member_id"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">주문한 회원</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="주문한 회원" name="member_id"/>
+				</div>
 			</div>
-			<div class="form-group">
-				주문한 상품
-				<input type="text" class="form-control" placeholder="주문한 상품" name="product_id"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">주문한 상품</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="주문한 상품" name="product_id"/>
+				</div>
 			</div>
-			<div class="form-group">
-				수량
-				<input type="number" class="form-control" placeholder="수량" name="order_amount"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">수량</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="수량" name="order_amount"/>
+				</div>
 			</div>
-			<div class="form-group">
-				배송지
-				<input type="text" class="form-control" placeholder="배송지" name="order_address"/>
+			
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">배송지</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input address" 
+						  placeholder="배송지" name="order_address" style="margin-bottom: 10px;">
+					<p style="text-align: left; padding-left: 10px; margin-bottom: 10px;">상세</p>
+					<input type="text" class="mypage__input address_detail"
+						  placeholder="상세" name="address_detail">
+				</div>
 			</div>
-			<div class="form-group">
-				상세 주소
-				<input type="text" class="form-control" placeholder="상세 주소" name="address_detail"/>
-			</div>		
-			<div class="form-group">
-				전화번호
-				<input type="text" class="form-control" placeholder="전화번호" name="order_phonenum"/>
+			
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">전화번호</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="전화번호" name="order_phonenum"/>
+				</div>
 			</div>
-			<div class="form-group">
-				주문 날짜
-				<input type="text" class="form-control" placeholder="주문 날짜" name="order_date"/>
+				
+				
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">주문 날짜</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="주문 날짜" name="order_date"/>
+				</div>
 			</div>
+			
+			<p style="text-align: left; padding-top: 7px; padding-bottom: 35px;">
 			<button type="submit" class="site-smbtn">작성 완료</button>
-			<a href="#" class="site-smbtn">삭제</a>
+			<a href="#" class="site-smbtn">삭제</a></p>
 		</form>
 	</div>
 

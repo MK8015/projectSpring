@@ -46,4 +46,11 @@
 		delete from t_product
 		where product_id = #{product_id}
 	</delete>
+	
+<!-- 	재고차감 업데이트 -->
+	<update id="subInventory">
+		update t_product set
+			product_quantity = product_quantity - #{order_amount}
+		where product_id = #{product_id}
+	</update>
 </mapper>

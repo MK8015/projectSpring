@@ -137,7 +137,13 @@ $(document).ready(function() {
 						<a href="/spring/board/modify?bno=${boardVo.bno}" class="white-btn">수정</a>　
 						<a href="/spring/board/delete?bno=${boardVo.bno}" class="white-btn">삭제</a>　
 					</c:if>
-						<a href="/spring/board/reply?re_group=${boardVo.re_group}" class="green-btn">답글</a></td>
+					
+						<c:if test="${loginMemberVo.member_id eq 'admin'}">
+						<a href="/spring/board/reply?re_group=${boardVo.re_group}&
+										password=${boardVo.password}&secret=${boardVo.secret}" 
+							class="green-btn">답글</a>
+						</c:if>
+						</td>
 					
 					<td style ='text-align: right; vertical-align : middle'>
 						<a href="/spring/board/list" class="white-btn">목록</a>　

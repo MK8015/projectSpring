@@ -149,7 +149,7 @@ $(document).ready(function() {
 				<div class="filter__item">
 					<div class="row">
 							<div class="col-lg-12 col-md-12">
-<!-- 검색된 도서의 갯수 표시 -->
+							<!-- 검색된 도서의 갯수 표시 -->
 								<div class="filter__found">
 									<h6>검색결과 ( 총 <span>${pagingDto.count}</span> 건)</h6>
 								</div>
@@ -157,7 +157,10 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="row">
-<!-- 도서(상품)list -->
+					<c:if test="${pagingDto.count eq 0}">
+						<h5 style="text-align: center; color: gray;" > *** 검색 결과가 없습니다.</h5>
+					</c:if>
+					<!-- 도서(상품)list -->
 					<c:forEach items="${list}" var="list">
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
@@ -209,7 +212,7 @@ $(document).ready(function() {
 						</div>
 					</c:forEach>
 					</div>
-<!-- 페이지 번호 -->
+				<!-- 페이지 번호 -->
 				<div class="product__pagination pagination justify-content-center">
 					<c:if test="${pagingDto.startPage ne 1}">
 						<a class="pagelink" href="${pagingDto.startPage-1}">
@@ -217,7 +220,6 @@ $(document).ready(function() {
 					</c:if>
 					<c:forEach var="v" begin="${pagingDto.startPage}" 
 										end="${pagingDto.endPage}">
-
 						<a class="pagelink" href="${v}">${v}</a>
 					</c:forEach>
 					<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
@@ -231,7 +233,5 @@ $(document).ready(function() {
 	</div>
 </section>
 <!-- Product Section End -->
-
-
 
 <%@ include file="../include/footer.jsp" %>

@@ -13,9 +13,13 @@ public class MainService {
 	@Autowired
 	MainDao mainDao;
 	
-	// ¸ÞÀÎ¿¡¼­ ¸®½ºÆ® º¸±â
+	// ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	public List<ProductVo> getList() {
 		return mainDao.getList();
+	}
+	
+	public List<ProductVo> getListlike(String member_id) {
+		return mainDao.getListlike(member_id);
 	}
 	
 	

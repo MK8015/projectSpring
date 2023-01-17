@@ -81,56 +81,103 @@ function closeForm(){
 	<!--  입력,수정 양식 -->
 	<div style="margin: 10px; display: none" class="productForm">
 		<form role="form" class="productInsert" action="/spring/admin/productInsert" method="post" enctype="multipart/form-data">
-			<div class="form-group">
-				상품 번호
-				<input type="text" class="form-control" placeholder="상품 번호" name="product_id"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">상품 번호</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="상품 번호" name="product_id"/>
+				</div>
 			</div>
-			<div class="form-group">
-				상품 이름
-				<input type="text" class="form-control" placeholder="상품 이름" name="product_name"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">상품 이름</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="상품 이름" name="product_name"/>
+				</div>
 			</div>
-			<div class="form-group">
-				가격
-				<input type="number" class="form-control" placeholder="가격" name="price"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">가격</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="가격" name="price"/>
+				</div>
 			</div>
-			<div class="form-group">
-				재고
-				<input type="number" class="form-control" placeholder="재고" name="product_quantity"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">재고</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="재고" name="product_quantity"/>
+				</div>
 			</div>
-			<div class="form-group">
-				카테고리
-				<input type="text" class="form-control" placeholder="카테고리" name="product_category"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">카테고리</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="카테고리" name="product_category"/>
+				</div>
 			</div>
-			<div class="form-group">
-				상세 정보
-				<textarea rows="5" cols="" class="form-control" style="resize:none" name="product_description"></textarea>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">상세 정보</p>
+				</div>
+				<div class="col-lg-10">
+					<textarea rows="5" cols="" class="mypage__textarea" 
+						style="resize:none" name="product_description"></textarea>
+				</div>
 			</div>
-			<div class="form-group">
-				작가
-				<input type="text" class="form-control" placeholder="작가" name="product_author"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">작가</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="작가" name="product_author"/>
+				</div>
 			</div>
-			<div class="form-group">
-				출판사
-				<input type="text" class="form-control" placeholder="출판사" name="product_publisher"/>
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">출판사</p>
+				</div>
+				<div class="col-lg-10">
+					<input type="text" class="mypage__input" placeholder="출판사" name="product_publisher"/>
+				</div>
 			</div>
-			<div class="col-lg-5 d-none d-lg-block bg-register-image"
-				id="productImagePreview" style="margin-bottom: 18px;">
-				<img src="/spring/resources/img/defaultprofile.png">
-			</div>
-
-			<div class="form-group">
-				<div class="custom-file">
-					<input type="file" class="custom-file-input productImage" id="productImage" name="file"
-						 style="margin-top: 20px;"> 
-					<label class="custom-file-label" id="productImageLabel" for="productImage">이미지 선택</label>
-
+			
+			
+			
+			<div class="form-gruop row">
+				<div class="col-lg-2">
+					<p style="text-align: left; padding-top: 13px;">사진</p>
+				</div>
+				<div class="col-lg-10">
+					<div class="col-lg-5 d-none d-lg-block bg-register-image" style="margin-bottom: 18px;">
+						<img src="/spring/resources/img/defaultprofile.png" style="margin-left: 10px;">
+					</div>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input productImage" id="productImage" name="file"
+							 style="margin-top: 20px; padding-left: 10px;"> 
+						<label class="custom-file-label" id="productImageLabel" for="productImage"
+								style="text-align: left; margin-left: 10px;">사진 선택</label>
+					</div>
 				</div>
 			</div>
 
 					
-		
+			<p style="text-align: left; padding-top: 7px; padding-bottom: 35px;">
 			<button type="submit" class="site-smbtn">작성 완료</button>
-			<a href="#" class="site-smbtn">삭제</a>
+			<a href="#" class="site-smbtn">삭제</a></p>
 		</form>
 	</div>
 

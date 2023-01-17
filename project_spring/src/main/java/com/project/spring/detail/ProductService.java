@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 @Service
 public class ProductService {
@@ -29,4 +30,8 @@ public class ProductService {
 		return productDao.update(productVo);
 	}
 	
+	// 재고 차감
+	public boolean subInventory(OrderVo orderVo) {
+		return productDao.subInventory(orderVo);
+	}
 }

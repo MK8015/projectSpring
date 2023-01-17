@@ -50,6 +50,19 @@ public class LikeDao {
 		return false;
 	}
 	
+	
+	// 좋아요 했는지 체크
+	public boolean isAlreadyLike(String product_id, String member_id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("product_id", product_id);
+		map.put("member_id", member_id);
+		int count = sqlSession.selectOne(NAME_SPACE + "isAlreadyLike", map);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
+		
 	// 좋아요 등록
 	public boolean insertLike(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();

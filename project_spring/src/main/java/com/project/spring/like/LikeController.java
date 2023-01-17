@@ -84,11 +84,14 @@ public class LikeController {
 	@RequestMapping(value = "/insertLike", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertLike(String product_id, HttpSession session) {
+		
 		System.out.println("insertLike");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
+		boolean isLike= likeService.isAlreadyLike(product_id,member_id);
+		System.out.println("isLike:"+isLike);
 		boolean result = likeService.insertLike(product_id, member_id);
 		return String.valueOf(result);
 		
@@ -99,20 +102,48 @@ public class LikeController {
 	// 좋아요 등록 POST
 	@RequestMapping(value = "/insertLike", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertLike(Model model, String product_id, HttpSession session) {
+	public String insertLike(Model model, String product_id,
+			HttpSession session,RedirectAttributes rttr) {
+		String page="";
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
-		boolean result = likeService.insertLike(product_id, member_id);
-		// 세션 다시 넣기
-		if (result == true) {
+		//좋아요 있는지 체크
+		boolean isLike= likeService.isAlreadyLike(product_id,member_id);
+		if(isLike) {
+			//좋아요가 이미 있다면
+			boolean result = likeService.cancelLike(product_id, member_id);
+			if(result) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 			int count = loginMemberVo.getMemberLikeCount();
-			loginMemberVo.setMemberLikeCount(count+1);
+			loginMemberVo.setMemberLikeCount(count-1);
 			session.setAttribute("loginMemberVo", loginMemberVo);
+			model.addAttribute("isAlreadyLike","true");
+			rttr.addFlashAttribute("isLikeDelete", "true");
+			}else {
+				rttr.addFlashAttribute("isLikeDelete", "true");
+				 return "couldntlike-false";
+			}
+			return "coudntlike-true";
+		}else {
+			//좋아요가 없다면
+			boolean result = likeService.insertLike(product_id, member_id);
+			// 세션 다시 넣기
+				if (result == true) {
+					MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+					System.out.println("loginMemberVo:"+loginMemberVo);
+					int count = loginMemberVo.getMemberLikeCount();
+					loginMemberVo.setMemberLikeCount(count+1);
+					session.setAttribute("loginMemberVo", loginMemberVo);
+					page=String.valueOf(result);
+					model.addAttribute("isAlreadyLike","false");
+				}else {
+					return "couldlike-flase";
+				}
+				return "couldlike-true";
 		}
-		return String.valueOf(result);
+		
 	}
 	
 	

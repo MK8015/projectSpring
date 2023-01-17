@@ -184,6 +184,17 @@ function isSecret(){
 				
 				<table>
 					<tr style ='vertical-align : middle'>
+						<td style="padding-top: 13px;">이름</td>
+						<td><input type="text" class="qna__input" id="writer" 
+							name="writer" placeholder="이름을 입력해 주세요"
+							value="${loginMemberVo.member_id}"
+							
+							<c:if test="${not empty loginMemberVo.member_id}">
+							readonly
+							</c:if>
+							/></td>
+					</tr>
+					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 13px;">제목</td>
 						<td><input type="text" class="qna__input" id="title" name="title" placeholder="제목을 입력해 주세요"/></td>
 					</tr>

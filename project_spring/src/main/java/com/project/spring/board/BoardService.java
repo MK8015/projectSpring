@@ -65,8 +65,14 @@ public class BoardService {
 	// 비밀번호 체크
 	public boolean checkPassword(BoardVo boardVo) {
 		return boardDao.checkPassword(boardVo);
-
 	}
+	
+	// 작성자 체크
+	public BoardVo checkOriginalWriter(String member_id, int bno, int re_group) {
+		return boardDao.checkOriginalWriter(member_id, bno, re_group);
+	}
+	
+	
 	public int getCount() {
 		int count=boardDao.getCount();
 		return count;

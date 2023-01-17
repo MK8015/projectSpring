@@ -28,6 +28,16 @@
 		and password = #{password}
 	</select>
 	
+	
+	<!-- 로그인한 사람이 원글 글쓴이가 맞나 체크 -->
+	<select id="checkOriginalWriter" resultType="BoardVo">
+		select * from t_board
+    	where (select writer from t_board
+            	where bno = #{re_group}) = #{member_id}
+            	and bno = #{bno}
+	</select>
+	
+	
 	<!-- 조회수 증가 -->
 	<update id="updateViewcnt">
 		update t_board set
@@ -52,10 +62,10 @@
 	<!-- 답글 등록 -->
 	<insert id="insertReply">
 		insert into t_board
-			(bno, title, content, writer, re_group, re_seq, re_level)
+			(bno, title, content, writer, re_group, re_seq, re_level, secret, password)
 		values
 			(seq_board_bno.nextval, #{title}, #{content}, #{writer},
-			 #{re_group}, #{re_seq} + 1, #{re_level} + 1)
+			 #{re_group}, #{re_seq} + 1, #{re_level} + 1, #{secret}, #{password})
 	</insert>
 	
 
@@ -85,6 +95,7 @@
 			content = #{content},
 			pic = #{pic, jdbcType=VARCHAR},
 			regdate = sysdate,
+			re_group = #{re_group}, 
 			secret = #{secret}, 
 			password = #{password}
 		where bno = #{bno}
