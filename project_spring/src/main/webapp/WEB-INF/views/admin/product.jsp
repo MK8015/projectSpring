@@ -23,19 +23,23 @@ $(document).ready(function(){
 	
 	$("#productInsert").click(function(e){
 		e.preventDefault();
-		$(".productForm:gt(0)").parent().parent().remove();
-		var form = $(".productForm").eq(0).clone();
-		form.attr("class","productInsertForm");
-		form.css("display","");
-		$(this).parent().append(form);
+		openDetail = !openDetail;
+		if(openDetail){
+			closeForm();
+			var form = $(".productForm").eq(0).clone();
+			form.attr("class","productInsertForm");
+			form.css("display","");
+			$(this).parent().append(form);	
+		}else{
+			closeForm();
+		}
 	});
 	
 	$(".productInfo").on("click","td",function(e){
 		e.preventDefault();
 		openDetail = !openDetail;
 		if(openDetail){
-			$(".productInsertForm").remove();
-			$(".productForm:gt(0)").parent().parent().remove();
+			closeForm();
 			var form = $(".productForm").eq(0).clone();
 			var tds = $(this).parent().find("td");
 			var product_id = tds.eq(0).text();
@@ -63,12 +67,15 @@ $(document).ready(function(){
 				td.append(form);
 			});
 		}else{
-			$(".productInsertForm").remove();
-			$(".productForm:gt(0)").parent().parent().remove();
+			closeForm();
 		}
 	});
 	
 });
+function closeForm(){
+	$(".productInsertForm").remove();
+	$(".productForm:gt(0)").parent().parent().remove();
+}
 </script>
 
 	<!--  입력,수정 양식 -->

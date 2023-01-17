@@ -48,4 +48,8 @@ public class OrderService {
 		
 		return orderDao.updatePoint(member_id,nowHavePoint);
 	}
+	
+	public boolean checkBuyer(String member_id,String product_id) {
+		return orderDao.checkBuyer(member_id,product_id);
+	}
 }

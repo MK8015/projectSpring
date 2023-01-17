@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    
-    
-    
+       
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -47,7 +45,7 @@
 <script>
 $(document).ready(function() {
 	
-	console.log("session:","${loginMember}")
+	console.log("session:","${loginMember}");
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
@@ -68,8 +66,8 @@ $(document).ready(function() {
 	   });
 	
 // 	var logininfo="{logininfo.member_id}"
-	var logininfo="${logininfo}"
-	console.log("member_id",logininfo)
+	var logininfo="${logininfo}";
+	console.log("member_id",logininfo);
 });
 </script>
 </head>
