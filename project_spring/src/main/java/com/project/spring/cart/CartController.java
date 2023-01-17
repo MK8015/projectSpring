@@ -123,10 +123,11 @@ public class CartController {
 		}
 
 		String member_id = (String)session.getAttribute("loginMember");
-		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
+		List<OrderVo> orderList = orderService.myOrder(member_id);
+		if(orderList.size() != 0) {
+			model.addAttribute("orderList",orderList);			
+		}
 		
-		
-		model.addAttribute("orderList",orderList);
 		model.addAttribute("cartList",cartList);
 		
 		JSONArray arr_cartList = new JSONArray(cartList); 
