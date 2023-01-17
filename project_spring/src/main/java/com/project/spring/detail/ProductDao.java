@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
 
 @Repository
@@ -40,6 +41,15 @@ public class ProductDao {
 	public boolean update(ProductVo productVo) {
 		int count = sqlSession.update(NAME_SPACE+"update",productVo);
 		if(count>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 재고 차감
+	public boolean subInventory(OrderVo orderVo) {
+		int count = sqlSession.update(NAME_SPACE + "subInventory", orderVo);
+		if (count > 0) {
 			return true;
 		}
 		return false;
