@@ -56,13 +56,6 @@
 	background: #7fad39;
 	border: none;
 }
-
-
-.qna {
-	padding-top: 30px;
-	padding-bottom: 0px;
-}
-
 </style>
 
 
@@ -173,16 +166,12 @@ $(document).ready(function() {
 
 
 <!-- START : qnA 이미지 Section -->
-<section class="qna spad">
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
+				<div class="subtitle__text">
 					<h2>Q & A</h2>
-					<div class="breadcrumb__option">
-						<a href="./index.html">Home</a>
-						<span>Contact Us</span>
-					</div>
 				</div>
 			</div>
 		</div>

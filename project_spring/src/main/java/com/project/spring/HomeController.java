@@ -27,7 +27,7 @@ public class HomeController {
 		model.addAttribute("list", list);
 		
 		
-		return "list/list";
+		return "index/mypage";
 	}
 	
 }

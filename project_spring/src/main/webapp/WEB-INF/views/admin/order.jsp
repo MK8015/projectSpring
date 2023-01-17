@@ -93,7 +93,9 @@ $(document).ready(function(){
 			<a href="#" class="site-smbtn">삭제</a>
 		</form>
 	</div>
+
 	<!-- 오른쪽 관리 부분 -->
+
 <div class="col-lg-10 col-md-7 order-md-1 order-1">
 	<div class="mypage_title">
 		<h3>주문 관리</h3>
@@ -102,6 +104,8 @@ $(document).ready(function(){
 		<p style="text-align: center; padding-top: 7px;">
 			<a href="#" class="mypage-btn" id="insertOrder">주문 입력</a></p>
 	</div>
+
+	
 
 <table class="table table-hover" style="table-layout: fixed">
 	<thead>
@@ -134,7 +138,8 @@ $(document).ready(function(){
 <!-- 끝 -->
 
 
-<%@ include file="../include/footer.jsp" %>			
+<%@ include file="../include/footer.jsp" %>
 </body>
 
 </html>
+

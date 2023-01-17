@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
-	<link rel="stylesheet" href="/spring/resources/css/styleB.css" type="text/css">
+	<link rel="stylesheet" href="/spring/resources/css/style.css" type="text/css">
 
 	<script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
 	<!-- css/style이 바로 안 읽힘, 이름 바꿔서 읽어야 읽힘 ㅠㅠ 나중에 style로 수정하기 -->
