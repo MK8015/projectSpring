@@ -26,9 +26,7 @@
 </style>
 <script>
 $(document).ready(function() {
-	
-	
-	
+
 	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
  		e.preventDefault();
@@ -52,11 +50,7 @@ $(document).ready(function() {
 		var p = $(this).next();
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
-		
  	});
- 	
- 	
- 	
  	
  	// 카트 닫기 버튼
  	$(".closeBtn").click(function() {
