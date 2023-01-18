@@ -44,7 +44,19 @@
 
 <script>
 $(document).ready(function() {
+	var location = window.location.href;
 	
+	if(location.includes("/spring/main/list")){
+		$("#main").addClass("active");
+	}else if(location.includes("/spring/list")||(location).includes("/spring/product")){
+		$("#list").addClass("active");	
+	}else if(location.includes("/spring/main/event")){
+		$("#event").addClass("active");	
+	}else if(location.includes("/spring/board")){
+		$("#qna").addClass("active");	
+	}else if(location.includes("/spring/main/about")){
+		$("#about").addClass("active");
+	}
 
 	var isAlreadyLike;	
 	console.log("session:","${loginMember}")
@@ -149,8 +161,8 @@ $(document).ready(function() {
 				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="/spring/main/list">MAIN</a></li>
-							<li><a href="/spring/list/list">BOOK</a>
+							<li id="main"><a href="/spring/main/list">MAIN</a></li>
+							<li id="list"><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="/spring/list/list?category=humanity">인문</a></li>
 									<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
@@ -164,9 +176,9 @@ $(document).ready(function() {
 									<li><a href="/spring/list/list?category=self">자기계발</a></li>
 								</ul>
 							</li>
-							<li><a href="/spring/main/event">EVENT</a></li>
-							<li><a href="/spring/board/list">Q & A</a></li>
-							<li><a href="#">ABOUT</a></li>
+							<li id="event"><a href="/spring/main/event">EVENT</a></li>
+							<li id="qna"><a href="/spring/board/list">Q & A</a></li>
+							<li id="about"><a href="#">ABOUT</a></li>
 						</ul>
 					</nav>
 				</div>

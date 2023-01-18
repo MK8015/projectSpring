@@ -97,8 +97,10 @@ public class ReviewController {
 		JSONObject jsonObject = new JSONObject();
 		int reviewCount = reviewService.getCount(product_id);
 		if(reviewCount>0) {
-			double ratingAvg = reviewService.ratingAvg(product_id);		
+			double ratingAvg = reviewService.ratingAvg(product_id);
 			jsonObject.put("ratingAvg", ratingAvg);
+		}else {
+			jsonObject.put("ratingAvg", 0);
 		}
 		jsonObject.put("reviewCount", reviewCount);
 		return jsonObject.toString();
