@@ -44,6 +44,8 @@
 
 <script>
 $(document).ready(function() {
+	getCartCountNum();
+	
 	
 
 	var isAlreadyLike;	
@@ -72,6 +74,20 @@ $(document).ready(function() {
 	var logininfo="${logininfo}";
 	console.log("member_id",logininfo);
 });
+
+	function getCartCountNum(){
+		url="/spring/cart/countNum";
+		sData={};
+		$.post(url,sData,function(rData){
+			if(rData==0){
+				$("#headerCartCount").attr("style","display:none");
+			}else{
+				$("#headerCartCount").attr("style","");
+				$("#headerCartCount").text(rData);
+			}
+		});
+	};
+
 </script>
 </head>
 <body>
@@ -85,7 +101,7 @@ $(document).ready(function() {
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
 
-		<a href="/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -149,7 +165,7 @@ $(document).ready(function() {
 				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="/spring/main/list">MAIN</a></li>
+							<li class="active"><a href="/spring/main/index">MAIN</a></li>
 							<li><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -226,7 +242,7 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+					<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
@@ -276,12 +292,8 @@ $(document).ready(function() {
 							</span>
 							</a></li>
 						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-							<span id="headerCartCount" 
-							<c:if test="${empty loginMemberVo.memberCartCount || 
-											loginMemberVo.memberCartCount eq 0}">
-								style="display:none"</c:if>
-								>
-								${loginMemberVo.memberCartCount}
+							<span id="headerCartCount" >
+
 							</span>
 						</a></li>
 					</ul>

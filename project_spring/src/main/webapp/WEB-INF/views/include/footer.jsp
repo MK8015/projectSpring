@@ -8,7 +8,7 @@
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="footer__about">
 					<div class="footer__about__logo">
-						<a href="./index.html"><img src="/spring/resources/img/logo.png" alt=""></a>
+						<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 					</div>
 					<p>주식회사 에프엔에스리테일<br>
 						주소. 서울특별시 압구정로 2길 청구빌딩<br>

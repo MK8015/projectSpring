@@ -41,33 +41,29 @@ public class MainController {
 		List<ProductVo>listlike = mainService.getListlike(member_id);
 		
 		List<ProductVo> list = mainService.getList();
-//		System.out.println("MainController, list" + list);
-		model.addAttribute("list", list);
+		System.out.println("MainController, listlike" + listlike);
+		model.addAttribute("list", listlike);
 		
 		return "index/main";
 	}
 	
 
-	// ���ο��� ��� ����
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String getList(Model model,HttpSession session) {
-		
-		
-		List<ProductVo> list = mainService.getList();
-//		System.out.println("MainController, list" + list);
-		model.addAttribute("list", list);
-		
-		return "index/main";
-	}
-	
+//	// ���ο��� ��� ����
+//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+//	public String getList(Model model,HttpSession session) {
+//		
+//		
+//		List<ProductVo> list = mainService.getList();
+////		System.out.println("MainController, list" + list);
+//		model.addAttribute("list", list);
+//		
+//		return "index/main";
+//	}
+//	
 
 	// ���ο��� ��� ����
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String runEvent(Model model) {
 		return "index/event";
 	}
-	
-	
-
-	
 }

@@ -84,4 +84,9 @@ public class CartDao {
 		return false;
 	}
 	
+	public int getNowCartNum(String member_id) {
+		int count=sqlSession.selectOne(NAME_SPACE+"getNowCartNum",member_id);
+		System.out.println("cartDoa count:"+count);
+			return count;
+	}	
 }
