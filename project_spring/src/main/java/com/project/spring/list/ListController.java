@@ -2,6 +2,8 @@ package com.project.spring.list;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.spring.detail.ReviewService;
 import com.project.spring.like.LikeService;
+import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.PagingDto;
 import com.project.spring.vo.ProductVo;
 
@@ -27,8 +30,10 @@ public class ListController {
 	
 	// 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, PagingDto pagingDto, String category) {
+	public String list(Model model, PagingDto pagingDto, String category,HttpSession session) {
 		//System.out.println(category);
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id=memberVo.getMember_id();
 		
 		List<ProductVo> list = null;
 		pagingDto.setPagingInfo(pagingDto.getPage()
@@ -37,11 +42,12 @@ public class ListController {
 		//System.out.println("list페이지pagingDto:"+pagingDto);
 		// 카테고리가 없는경우 : 전체조회 (getProductList)
 		if (category == null || category.equals("")) { 
-			list = listService.getProductList(pagingDto);
+			list = listService.getProductList(pagingDto,member_id);
+			System.out.println("listcontroller not category list:"+list);
 		} 
 		// 카테고리가 있는경우 : 카테고리별 조회 (getListByCategory)
 		else {
-			list = listService.getListByCategory(category, pagingDto);
+			list = listService.getListByCategory(category, pagingDto,member_id);
 			model.addAttribute("category",category);
 		}
 		

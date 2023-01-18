@@ -36,13 +36,6 @@
 					<table>
 						<thead>
 							<tr>
-
-//								<th style="padding:0px 20px 0px 0px;">주문일</th>
-//								<th id="product_info" align="center" class="shoping__product" colspan="3" >상품정보</th>
-//								<th>수량</th>
-//								<th>상품금액</th>
-							
-
 								<th>주문일</th>
 								<th colspan="2">상품정보</th>
 								<th>수량</th>
@@ -53,17 +46,6 @@
 						<tbody>
 						<c:forEach items="${list}" var="orderList">
 							<tr>
-
-//								<td>${orderList.order_date}</td>
-//								<td class="order__item">
-//								<img src="/spring/product/getImage?imageName=${orderList.product_image}" height="150" width="100" alt=""></td>			
-//								<td><a href="/spring/product/detail?product_id=${orderList.product_id}" style="color: black; font-size: 14pt;"><strong>${orderList.product_name}</strong></a><br>
-//								<span>${orderList.product_author}|${orderList.product_publisher}<br> 
-//								</span></td>								
-//								<td></td>
-//								<td class="order__quantity">${orderList.order_amount}</td>
-//								<td class="order__price">${orderList.price}</td>
-
 								<td class="shoping__cart__date">${orderList.order_date}</td>
 								<td style="padding-left: 50px">
 									<img width="100px" src="/spring/product/getImage?imageName=${orderList.product_image}"
@@ -76,7 +58,9 @@
 									>${orderList.product_author}|${orderList.product_publisher}</span></h5>
 								</td>
 								<td class="shoping__order__quantity">${orderList.order_amount}</td>
-								<td class="shoping__order__price">${orderList.price}</td>
+								<td class="shoping__order__price">
+								<fmt:formatNumber value="${orderList.price}" pattern="#,###"/>
+								원</td>
 							</tr>
 						</c:forEach>
 						</tbody>

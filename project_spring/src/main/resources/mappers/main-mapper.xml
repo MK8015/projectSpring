@@ -23,7 +23,7 @@
 	<select id="getListlike" resultType="ProductVo">
 	<![CDATA[
 	select c.member_id,d.* from 
- (select * from t_like where member_id=${member_id})c,
+ (select * from t_like where member_id=#{member_id})c,
  (select * from (
 		select a.likeCount, b.*
 		from (select product_id, count(*) likeCount
@@ -32,7 +32,7 @@
 		where a.product_id = b.product_id
 		order by a.likeCount desc)
 	where rownum <= 8)d 
-    where c.product_id(+)=d.product_id;
+    where c.product_id(+)=d.product_id
     ]]>
 	</select>
 	
