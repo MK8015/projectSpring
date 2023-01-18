@@ -56,6 +56,7 @@ public class CartController {
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
+		System.out.println("cartcontroller product_id:"+product_id);
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
@@ -65,9 +66,11 @@ public class CartController {
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 			System.out.println("loginMemberVo"+loginMemberVo);
-			int count = loginMemberVo.getMemberCartCount();
-			loginMemberVo.setMemberCartCount(count+1);
+			int count=cartService.getNowCartNum(member_id);
+			loginMemberVo.setMemberCartCount(count);
+			System.out.println("cartcontroller count:"+count);
 			session.setAttribute("loginMemberVo", loginMemberVo);
+			model.addAttribute("loginMemberVo", loginMemberVo);
 		}
 		return String.valueOf(result);
 	}
@@ -176,5 +179,13 @@ public class CartController {
 		model.addAttribute("orderList",orderList);
 		
 		return "order/orderList";
+	}
+	
+	@RequestMapping(value = "/countNum", method = RequestMethod.POST)
+	@ResponseBody
+	public int memberCartCount(HttpSession session){
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		int count= cartService.getNowCartNum(memberVo.getMember_id());
+		return count; 
 	}
 }
