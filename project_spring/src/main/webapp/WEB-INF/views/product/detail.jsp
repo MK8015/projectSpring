@@ -189,8 +189,9 @@ $(document).ready(function() {
 	function setRating(product_id){
 		$.get("/spring/review/setRating",{"product_id":product_id},function(rData){
 			var jsonObject = JSON.parse(rData);
-+			$("#reviewCount").text("(리뷰 "+jsonObject.reviewCount+"개)");
+			$("#reviewCount").text(jsonObject.reviewCount+"개의 리뷰");
 			$(".productRating").css("width", (jsonObject.ratingAvg/5)*100 + "%");
+			$("#ratingAvg").text(jsonObject.ratingAvg+"/5점");
 		});
 	}
 
@@ -295,11 +296,12 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6">
+			<div class="col-lg-6 col-md-6" style="padding-top: 100px">
 				<div class="product__details__text">
 					<h3>${productVo.product_name}</h3>
 					<span>${productVo.product_author}</span> | 
 					<span>${productVo.product_publisher}</span>
+					<div style="padding: 10px" class="col-lg-6 col-md-6">
 					<div class="product__details__rating">
 						<div class="containerdiv">
 							<div>
@@ -309,17 +311,20 @@ $(document).ready(function() {
 								<img src="/spring/resources/img/stars_full.png">
 							</div>
 						</div>
-							<span id="reviewCount"></span>
-												</div>
-							<div class="product__details__price">&#8361;${productVo.price}</div>
-							<p>${productVo.product_description}</p>
-							<div class="product__details__quantity">
-								<div class="quantity">
-									<div class="pro-qty">
-										<input type="text" value="1">
-									</div>
+					</div>
+					<br>
+						<span id="ratingAvg" style="font: bolder; 20px;">	
+						</span><br>
+						<span id="reviewCount"></span>
+					</div>
+					<div class="product__details__price">&#8361;${productVo.price}</div>
+						<div class="product__details__quantity">
+							<div class="quantity">
+								<div class="pro-qty">
+									<input type="text" value="1">
 								</div>
 							</div>
+						</div>
               
 							<a href="#" class="primary-btn" id="btnInsertCart">ADD TO CART</a>
 						<!-- START : 좋아요 -->	
@@ -344,10 +349,9 @@ $(document).ready(function() {
 								<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
 								<li><b>공유하기</b>
 									<div class="share">
-										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-											class="fa fa-twitter"></i></a> <a href="#"><i
-											class="fa fa-instagram"></i></a> <a href="#"><i
-											class="fa fa-pinterest"></i></a>
+										<a href="#"><i class="fa fa-facebook"></i></a> 
+										<a href="#"><i class="fa fa-twitter"></i></a> 
+										<a href="#"><i class="fa fa-instagram"></i></a> 
 									</div>
 								</li>
 							</ul>

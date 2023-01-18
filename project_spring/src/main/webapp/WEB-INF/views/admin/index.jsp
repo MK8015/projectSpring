@@ -171,7 +171,7 @@
                                     <div class="card bg-dark text-white shadow">
                                         <div class="card-body">
                                             Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
+                                         <div class="text-white-50 small">#5a5c69</div>
                                         </div>
                                     </div>
                                 </div>
