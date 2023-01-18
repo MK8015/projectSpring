@@ -37,17 +37,22 @@ public class BoardController {
 	
 //	BoardPagingDto boardPagingDto=new BoardPagingDto();
 	
-	
+
 	
 	// 占쏙옙 占쏙옙占 占쏙옙占쏙옙
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
 	
+		
 		System.out.println("boardPagingDto1111:"+boardPagingDto);
 		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
 		List<BoardVo> list = boardService.listArticle(boardPagingDto);
 		//		BoardPagingDto.setPagingInform(BoardPagingDto. , boardPagingDto.getPerPage(), boardService.getCount());
 		System.out.println("boardPagingDto:"+boardPagingDto);
+		
+		List<BoardVo> listNotify = boardService.listNotify();
+		model.addAttribute("listNotify", listNotify);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("BoardPagingDto", boardPagingDto);
 		return "board/list";
@@ -148,10 +153,9 @@ public class BoardController {
 	 //답글 등록
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
-	public String reply(int re_group, String password, String secret, HttpServletRequest request) {
+	public String reply(int re_group, String password, HttpServletRequest request) {
 		request.setAttribute("re_group", re_group);
 		request.setAttribute("password", password);
-		request.setAttribute("secret", secret);
 		return "board/reply";
 	}
 	
@@ -228,7 +232,8 @@ public class BoardController {
 		
 		boardService.updateArticle(boardVo);
 		return "redirect:/board/detail" +
-				"?bno=" + boardVo.getBno();
+				"?bno=" + boardVo.getBno() +
+				"&re_group=" + boardVo.getRe_group();
 	}
 	
 

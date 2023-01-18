@@ -7,14 +7,10 @@
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <meta charset="UTF-8">
 <meta name="description" content="Ogani Template">
@@ -24,31 +20,18 @@
 <title>회원가입</title>
 
 <!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap" rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/nice-select.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/spring/resources/css/style.css"
-	type="text/css">
-<!--   <link rel="stylesheet" href="css/style.css" type="text/css"> -->
+<link rel="stylesheet" href="/spring/resources/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="/spring/resources/css/style.css" type="text/css">
 
 
 

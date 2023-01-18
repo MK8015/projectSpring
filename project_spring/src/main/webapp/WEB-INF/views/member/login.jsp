@@ -7,6 +7,13 @@
 <html lang="ko">
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>		
+
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
@@ -27,27 +34,44 @@
     <link rel="stylesheet" href="/spring/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/spring/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/spring/resources/css/style.css" type="text/css">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">														
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">														
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>														
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>														
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>		
-	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>												
-
+										
 
 <style>
 .login-btn {
-	width: 70%;
+	width: 106.812px;
+	height: 24;
 	font-size: 14px;
 	color: #ffffff;
 	font-weight: 500;
 	text-transform: uppercase;
 	display: inline-block;
-	padding: 10px 30px 10px;
+	padding: 10px 30px 9px;
 	background: #7fad39;
 	border: none;
 }
+
+
+
+a {
+	font-size: 16px;
+	color: #252525;
+	text-transform: uppercase;
+	font-weight: 900;
+	letter-spacing: 2px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+	padding: 5px 0;
+	display: block;
+}
+
+a:hover {
+	color: #7fad39;
+}
+
+
 </style>
 
 
@@ -66,9 +90,7 @@ $(document).ready(function(){
 	$("#customCheck").change(function(){
 	});
 });
-
-	
-	</script>
+</script>
 	
 </head>
  
@@ -156,20 +178,20 @@ $(document).ready(function(){
 			<div class="card o-hidden border-0 shadow-lg my-5">
 				<div class="card-body p-0">
 					<!-- Nested Row within Card Body -->
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="p-5">
-									<div class="text-center">
-										<br><h3>환영합니다</h3><br><br>
-									</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="p-5">
+								<div class="text-center">
+									<br><h3>환영합니다</h3><br><br>
+								</div>
 									<form class="user" method="post" action="/spring/member/login">
 										<div class="form-group" >
-											<input type="text" class="form-control form-control-user"
+											<input type="text" class="mypage__input"
 												id="member_id" name="member_id" aria-describedby="emailHelp"
 												placeholder="아이디를 입력해주세요" value="${cookie.member_id.value}">
 										</div>
 										<div class="form-group">
-											<input type="password" class="form-control form-control-user"
+											<input type="password" class="mypage__input"
 												id="password" name="password" placeholder="비밀번호를 입력해주세요">
 										</div>
 										<div class="form-group">
@@ -182,13 +204,18 @@ $(document).ready(function(){
 												<label class="custom-control-label" for="customCheck">아이디 기억</label>
 											</div>
 										</div>
-										<button
-											type="submit" class="btn btn-white text-white btn-user btn-block" style="background-color: rgb(127, 173, 57);">
-											로그인
-										</button>
-									</form>
-									<hr>
-									<div id="naver_id_login"><img width="223" 
+										
+									
+									
+									<table border="0" width="100%" style="text-align:center">
+										<tr>
+											<td width="10%"></td>
+											<td width="35%">
+												<button type="submit" class="login-btn">로그인</button>
+											</td>
+											<td width="10%"></td>
+											<td width="35%">
+												<div id="naver_id_login"><img width="223" 
 									src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></div>
 									<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 									<script type="text/javascript">
@@ -199,14 +226,33 @@ $(document).ready(function(){
 										naver_id_login.setState(state);
 										naver_id_login.init_naver_id_login();
 									</script>
+											</td>
+											<td width="10%"></td>
+										</tr>
+									</table>
 									
-									<div class="header__menu" align="center">
-										<ul>
-											<li><a href="/spring/member/forgot-passwordForm">비밀번호 찾기</a></li>
-											<li><a href="/spring/member/registerForm">회원 가입</a></li>
-										</ul>
-									</div>
-								</div>
+									
+									
+										
+									</form>
+									
+									
+									<hr>
+									
+									
+									
+									<table border="0" width="100%" style="text-align:center">
+										<tr>
+											<td width="10%"></td>
+											<td width="35%">
+												<a href="/spring/member/forgot-passwordForm">비밀번호 찾기</a>
+											</td>
+											<td width="10%"></td>
+											<td width="35%"><a href="/spring/member/registerForm">회원 가입</a></td>
+											<td width="10%"></td>
+										</tr>
+									</table>
+								
 							</div>
 						</div>
 					</div>

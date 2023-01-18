@@ -19,14 +19,20 @@ public class BoardDao {
 	@Autowired
 	SqlSession sqlSession;
 
+	
+
+	public List<BoardVo> listNotify() {
+		List<BoardVo> listNotify = sqlSession.selectList(NAME_SPACE + "listNotify");
+		return listNotify;
+	}
+	
 	// 占쏙옙 占쏙옙占
 	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
 		Map<String, String>map=new HashMap<>();
 		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
 		map.put("endRow", String.valueOf(boardPagingDto.getEndRow()));
 		System.out.println("map:"+map);
-		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle",map);
-		
+		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle", map);
 		return list;
 	}
 	
@@ -36,6 +42,10 @@ public class BoardDao {
 				NAME_SPACE + "selectByBno", bno);
 		return boardVo;
 	}
+	
+
+
+
 	
 	// 占쏙옙 占쏙옙占쏙옙
 	public boolean updateArticle(BoardVo boardVo) {

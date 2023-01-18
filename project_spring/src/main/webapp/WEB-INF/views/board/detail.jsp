@@ -117,7 +117,7 @@ $(document).ready(function() {
 							<span style="font-size:14px; color:#b2b2b2;">${boardVo.writer}　</span>
 							<span style="font-size:16px; color:#dddddd;">|</span>
 							<span style="font-size:14px; color:#b2b2b2;">　${boardVo.regdate}</span></p>
-						
+							
 					</td>
 				</tr>
 				<tr height="150">
@@ -133,14 +133,14 @@ $(document).ready(function() {
 				</tr>
 				<tr height="110">
 					<td style ='vertical-align : middle'>
-					<c:if test="${boardVo.writer eq loginMemberVo.member_id}">
-						<a href="/spring/board/modify?bno=${boardVo.bno}" class="white-btn">수정</a>　
+						<a href="/spring/board/modify?bno=${boardVo.bno}
+								&re_group=${boardVo.re_group}" class="white-btn">수정</a>　
 						<a href="/spring/board/delete?bno=${boardVo.bno}" class="white-btn">삭제</a>　
-					</c:if>
-					
+						
+					<!-- admin일 때 답글 버튼 보이기 -->
 						<c:if test="${loginMemberVo.member_id eq 'admin'}">
 						<a href="/spring/board/reply?re_group=${boardVo.re_group}&
-										password=${boardVo.password}&secret=${boardVo.secret}" 
+										password=${boardVo.password}" 
 							class="green-btn">답글</a>
 						</c:if>
 						</td>

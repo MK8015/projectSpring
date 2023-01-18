@@ -15,6 +15,11 @@ public class BoardService {
 	@Autowired
 	BoardDao boardDao;
 	
+
+	public List<BoardVo> listNotify() {
+		return boardDao.listNotify();
+	}
+	
 	// 占쏙옙 占쏙옙占 占쏙옙占쏙옙
 	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
 		return boardDao.listArticle(boardPagingDto);

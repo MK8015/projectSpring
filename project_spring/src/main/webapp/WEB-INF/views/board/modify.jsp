@@ -101,9 +101,8 @@ table {
 
 <script>
 $(document).ready(function() {
-	if ('${boardVo.secret}' == 'Y') {
-		$("#secretChk").prop("checked", true);
-		$("input[name=password]").show(100);
+	if ('${boardVo.notify}' == 'Y') {
+		$("#notifyChk").prop("checked", true);
 	}
 	// 사진 선택
 	$("#customFile").change(function(e) {
@@ -129,12 +128,12 @@ $(document).ready(function() {
 		
 		
 // 비밀글이면 Y, 비밀글이면 비밀번호 인풋 창 나타나게 하기
-function isSecret(){
-	var secret = $("#secretChk").is(":checked") ? "Y" : "N";
-	$("#secret").val(secret);
+function isNotify(){
+	var notify = $("#notifyChk").is(":checked") ? "Y" : "N";
+	$("#notify").val(notify);
 	
-	if (secret == "Y") {
-		$("input[name=password]").show(100);
+	if (notify == "Y") {
+		console.log("Y 나타남");
 	}
 }
 </script>
@@ -169,7 +168,15 @@ function isSecret(){
 		<form id="frmUpdate" role="form" action="/spring/board/modify" method="post" enctype="multipart/form-data">
 				
 		<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
+		<input type="hidden" name="re_group" id="re_group" value="${boardVo.re_group}">
 				<table>
+					
+					<tr style ='vertical-align : middle'>
+						<td height="81" style="padding-top: 15px;">비밀번호</td>
+						<td><input class="qna__input" type="password" 
+							id="password" name="password" value="${boardVo.password}"/></td>
+					</tr>
+					
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 13px;">제목</td>
 						<td><input type="text" class="qna__input" id="title" 
@@ -185,15 +192,17 @@ function isSecret(){
 						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
 								style="padding-top: 7px;" /></td>
 					</tr>
+					
+					
+				<!-- 공지사항일 때 -->	
+					<c:if test="${loginMemberVo.member_id eq 'admin'}">
 					<tr style ='vertical-align : middle'>
-						<td height="81" style="padding-top: 15px;">비밀글
-							<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()">
-						</td>
-						<td><input class="qna__input" type="password" id="password" name="password" 
-								placeholder="비밀번호를 입력해 주세요" style="display:none" value="${boardVo.password}"/>
-							<input type="hidden" id="secret" name="secret" 
-									value="${boardVo.secret}"></td>
+						<td height="81" style="padding-top: 15px;">공지사항
+							<input type="checkbox" id="notifyChk" name="notifyChk" onclick="isNotify()"></td>
+						<td><input type="text" id="notify" name="notify" value="${boardVo.notify}"></td>
 					</tr>
+					</c:if>
+					
 				</table>
 				<hr>
 				<div class="text-right">

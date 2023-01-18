@@ -4,6 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mappers.board">
+	
+	
+	<!-- 공지 글 리스트 -->
+	<select id="listNotify" resultType="BoardVo">
+		select * from t_board
+		where notify = 'Y'
+	</select>
 
 	<!-- 글 목록 보기 -->
 	<select id="listArticle" resultType="BoardVo">
@@ -21,13 +28,13 @@
 	</select>
 	
 	
+	
 	<!-- 비밀번호 찾기 -->
 	<select id="checkPassword" resultType="int">
 		select count(*) from t_board
 		where bno = #{bno}
 		and password = #{password}
 	</select>
-	
 	
 	<!-- 로그인한 사람이 원글 글쓴이가 맞나 체크 -->
 	<select id="checkOriginalWriter" resultType="BoardVo">
@@ -36,7 +43,6 @@
             	where bno = #{re_group}) = #{member_id}
             	and bno = #{bno}
 	</select>
-	
 	
 	<!-- 조회수 증가 -->
 	<update id="updateViewcnt">
@@ -52,20 +58,33 @@
 	
 	<!-- 글 등록 -->
 	<insert id="insertArticle">
-		insert into t_board
-			(bno, title, content, pic, writer, re_group, secret, password)
-		values
-			(#{bno}, #{title}, #{content}, #{pic, jdbcType=VARCHAR}, 
-				#{writer}, #{bno}, #{secret}, #{password})
+		<choose>
+			<when test='writer eq "admin"'>
+			insert into t_board
+				(bno, title, content, pic, writer, re_group, password, notify)
+			values (#{bno}, #{title}, #{content}, #{pic, jdbcType=VARCHAR}, 
+					#{writer}, #{bno}, #{password}, #{notify})
+			</when>
+			<otherwise>
+			insert into t_board
+				(bno, title, content, pic, writer, re_group, password)
+			values (#{bno}, #{title}, #{content}, #{pic, jdbcType=VARCHAR}, 
+					#{writer}, #{bno}, #{password})
+			</otherwise>
+		</choose>
 	</insert>
+	
+	
+		
+	
 	
 	<!-- 답글 등록 -->
 	<insert id="insertReply">
 		insert into t_board
-			(bno, title, content, writer, re_group, re_seq, re_level, secret, password)
+			(bno, title, content, writer, re_group, re_seq, re_level, password)
 		values
 			(seq_board_bno.nextval, #{title}, #{content}, #{writer},
-			 #{re_group}, #{re_seq} + 1, #{re_level} + 1, #{secret}, #{password})
+			 #{re_group}, #{re_seq} + 1, #{re_level} + 1, #{password})
 	</insert>
 	
 
@@ -85,20 +104,31 @@
  	</select>
 	
 	
-	
-	
-	
 	<!-- 글 수정 -->
 	<update id="updateArticle">
-		update t_board set
+		<choose>
+			<when test='writer eq "admin"'>
+			update t_board set
 			title = #{title},
 			content = #{content},
 			pic = #{pic, jdbcType=VARCHAR},
 			regdate = sysdate,
 			re_group = #{re_group}, 
-			secret = #{secret}, 
+			password = #{password},
+			notify = #{notify}
+			where bno = #{bno}
+			</when>
+			<otherwise>
+			update t_board set
+			title = #{title},
+			content = #{content},
+			pic = #{pic, jdbcType=VARCHAR},
+			regdate = sysdate,
+			re_group = #{re_group}, 
 			password = #{password}
-		where bno = #{bno}
+			where bno = #{bno}
+			</otherwise>
+		</choose>
 	</update>
 	
 	<!-- 글 삭제 -->
