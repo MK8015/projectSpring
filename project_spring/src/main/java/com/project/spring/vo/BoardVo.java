@@ -17,6 +17,6 @@ public class BoardVo {
 	String re_group;
 	int re_seq;
 	int re_level;
-	String secret;
 	String password;
+	String notify;
 }

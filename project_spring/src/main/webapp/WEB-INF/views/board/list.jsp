@@ -81,12 +81,15 @@ $(document).ready(function() {
 	// 디테일로 이동(제목 클릭)
 	$(".a_title").click(function(e) {
 		//var password = $(this).attr("data-password");
-		var secret = $(this).attr("data-secret");
+		var notify = $(this).attr("data-notify");
 		var bno = $(this).attr("data-bno");
 		var re_group = $(this).attr("data-re_group");
 		var writer = $(this).attr("data-writer");
 		
-		if (secret == "Y") {
+		if (notify == "Y") {
+			runDetail(bno, re_group);
+		} else {
+			console.log("비밀글");
 			if (loginMember == "admin" || loginMember == writer || 
 					(writer == "admin" && loginMember != "")) {
 				runDetail(bno, re_group);
@@ -95,8 +98,6 @@ $(document).ready(function() {
 				$("#btnModal").attr("data-re_group", re_group);
 				$("#modal-secret").trigger("click");
 			}
-		} else {
-			runDetail(bno, re_group);
 		}
 		
 		
@@ -216,31 +217,29 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col-md-12">
 				<table class="table">
-					<thead>
+					
+				<c:forEach items="${listNotify}" var="boardVo">
 						<tr height="50" bgcolor="#f5f5f5">
-							<th>번호</th>
-							<th>비밀글</th>
-							<th width="40%">제목</th>
-							<th>날짜</th>
-							<th>작성자</th>
+							<td>이미지</td>
+							<td>중요</td>
+							<td width="50%"><b>
+								<a class="a_title" data-bno="${boardVo.bno}" data-writer="${boardVo.writer}" 
+									 data-re_group="${boardVo.re_group}" data-notify="${boardVo.notify}" href="#">
+								${boardVo.title}</a></b></td>
+							<td>논픽션</td>
+							<td>${boardVo.regdate}</td>
 						</tr>
-					</thead>
-					<tbody>
+				</c:forEach>
 					
 					<c:forEach items="${list}" var="boardVo">
 						<tr height="50">
 							<td>${boardVo.bno}</td>
 					<!-- 비밀글일 때 자물쇠, 사진 있을 때 이미지 나타내기 -->
-							<td>
-								<c:if test="${boardVo.secret eq 'Y'}">	
-									<font color="#f0bd5a"><i class="fa fa-lock" aria-hidden="true"></i></font>
-								</c:if>
-							</td>
+							<td><font color="#f0bd5a"><i class="fa fa-lock" aria-hidden="true"></i></font></td>
 					<!-- 제목 부분, 답글일 때 > 나타내기 -->
 							<td>
 								<a class="a_title" data-bno="${boardVo.bno}" data-writer="${boardVo.writer}" 
-									 data-re_group="${boardVo.re_group}" 
-									 data-secret="${boardVo.secret}" href="#">
+									 data-re_group="${boardVo.re_group}" href="#">
 								<c:if test="${boardVo.re_level gt 0}">	
 									<i class="fa fa-chevron-right" aria-hidden="true"></i>
 								</c:if>${boardVo.title}</a>
@@ -248,12 +247,10 @@ $(document).ready(function() {
 									<font color="#2da9e6">  <i class="fa fa-picture-o" aria-hidden="true"></i></font>
 								</c:if>
 							</td>
-							<td>${boardVo.regdate}</td>
 							<td>${boardVo.writer}</td>
+							<td>${boardVo.regdate}</td>
 						</tr>
 					</c:forEach>
-					
-					</tbody>
 				</table>
 			</div>
 		</div>

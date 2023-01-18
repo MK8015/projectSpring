@@ -50,4 +50,8 @@ public class CartService {
 		return cartDao.insertCart(product_id,member_id,cart_amount);
 
 	}
+	public int getNowCartNum(String member_id) {
+		return cartDao.getNowCartNum(member_id);
+	}
+	
 }

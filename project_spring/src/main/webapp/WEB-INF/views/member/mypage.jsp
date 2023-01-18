@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 
 
@@ -193,7 +193,7 @@ $(document).ready(
 <!-- START : 오른쪽 my page Section -->
 
 <!-- START : 회원 정보 -->
-			<div class="col-lg-9 col-md-7 order-md-1 order-1"
+			<div class="col-lg-10 col-md-7 order-md-1 order-1"
 				 id="modifydiv" style="display: block;">
 				<div class="mypage_title">
 					<h3 style="margin-bottom: 35px;">회원 정보 수정</h3>
@@ -292,10 +292,10 @@ $(document).ready(
 			</div> <!-- END : 회원 정보 -->
 
 <!-- START : 주문 내역 -->
-			<div class="col-lg-9 col-md-7 order-md-1 order-1"
+			<div class="col-lg-10 col-md-7 order-md-1 order-1"
 				id="orderlistdiv" style="display: none;">
 				<div class="shoping__cart__table">
-					<table>
+					<table style="margin-left: 40px;">
 						<thead>
 							<tr>
 								<th>주문일</th>
@@ -319,7 +319,9 @@ $(document).ready(
 									>${orderList.product_author}|${orderList.product_publisher}</span></h5>
 								</td>
 								<td class="shoping__order__quantity">${orderList.order_amount}</td>
-								<td class="shoping__cart__price">${orderList.price}</td>
+								<td class="shoping__cart__price">
+								<fmt:formatNumber value="${orderList.price}" pattern="#,###"/>
+								원</td>
 							</tr>
 						</c:forEach>
 						</tbody>

@@ -14,8 +14,8 @@ public class ListService {
 	ListDao listDao;
 	
 	// 목록조회
-	public List<ProductVo> getProductList(PagingDto pagingDto) {
-		return listDao.getProductList(pagingDto);
+	public List<ProductVo> getProductList(PagingDto pagingDto,String member_id) {
+		return listDao.getProductList(pagingDto,member_id);
 	}
 	
 	// 카운트 조회
@@ -24,7 +24,7 @@ public class ListService {
 	}
 	
 	// 카테고리별 리스트 조회
-	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto){
-		return listDao.getListByCategory(category, pagingDto);
+	public List<ProductVo> getListByCategory(String category, PagingDto pagingDto,String member_id){
+		return listDao.getListByCategory(category, pagingDto,member_id);
 	}
 }
