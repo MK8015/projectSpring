@@ -379,6 +379,7 @@ $(document).ready(function() {
 												<tr>
 													<th>리뷰</th>
 													<th></th>
+													<th></th>
 												</tr>
 												<tr class="reviewForm">
 													<td style="width: 25%"><img

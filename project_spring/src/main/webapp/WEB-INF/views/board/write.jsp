@@ -141,15 +141,14 @@ $(document).ready(function() {
 }); //$(document).ready(function()
 		
 		
-// 비밀글이면 Y, 비밀글이면 비밀번호 인풋 창 나타나게 하기
-function isSecret(){
-	var secret = $("#secretChk").is(":checked") ? "Y" : "N";
-	$("#secret").val(secret);
-	
-	if (secret == "Y") {
-		console.log("나타남");
-		$("input[name=password]").show(100);
-	}
+//공지글이면 Y, 
+function isNotify(){
+   var notify = $("#notifyChk").is(":checked") ? "Y" : "N";
+   $("#notify").val(notify);
+   
+   if (notify == "Y") {
+      console.log("나타남");
+   }
 }
 </script>
 
@@ -188,11 +187,15 @@ function isSecret(){
 						<td><input type="text" class="qna__input" id="writer" 
 							name="writer" placeholder="이름을 입력해 주세요"
 							value="${loginMemberVo.member_id}"
-							
 							<c:if test="${not empty loginMemberVo.member_id}">
 							readonly
 							</c:if>
 							/></td>
+					</tr>
+					<tr style ='vertical-align : middle'>
+						<td height="81" style="padding-top: 15px;">비밀번호</td>
+						<td><input class="qna__input" type="password" 
+							id="password" name="password" placeholder="비밀번호를 입력해 주세요"/></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 13px;">제목</td>
@@ -201,23 +204,24 @@ function isSecret(){
 					<tr style ='vertical-align : top'>
 						<td style="padding-top: 13px;"><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" 
-							placeholder="게시판 문의시 아래 내용을 기입해 주셔야 빠르게 처리 가능합니다.
-
-* 개인 정보보호를 위해 되도록 성함, 핸드폰 번호, 계좌 정보 입력을 자제 부탁드립니다.
-
-▶ 문의 상품 :
-▶ 문의 내용 : "></textarea></td>
+							placeholder="* 개인 정보보호를 위해 되도록 성함, 핸드폰 번호, 계좌 정보 입력을 자제 부탁드립니다.
+* 문의 상품과 문의 내용을 입력해 주세요.
+* 게시판 문의시 아래 내용을 기입해 주셔야 빠르게 처리 가능합니다."></textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 15px;">사진</td>
 						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
 								style="padding-top: 7px;"/></td>
 					</tr>
+					
+					<c:if test="${loginMemberVo.member_id eq 'admin'}">
 					<tr style ='vertical-align : middle'>
-						<td height="81" style="padding-top: 15px;">비밀글<input type="checkbox" id="secretChk" name="secretChk" onclick="isSecret()"></td>
-						<td><input class="qna__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해 주세요" style="display:none"/>
-							<input type="hidden" id="secret" name="secret"></td>
+						<td height="81" style="padding-top: 15px;">공지사항
+							<input type="checkbox" id="notifyChk" name="notifyChk" onclick="isNotify()"></td>
+						<td><input type="hidden" id="notify" name="notify"></td>
 					</tr>
+					</c:if>
+					
 				</table>
 				<hr>
 				<div class="text-right">
