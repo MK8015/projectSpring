@@ -26,10 +26,6 @@
 </style>
 <script>
 $(document).ready(function() {
-	
-	
-	
-	
 	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
  		e.preventDefault();
@@ -48,7 +44,12 @@ $(document).ready(function() {
 		});
 		var p = $(this).next();
 		p.css("display","");
+		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
+ 	
+ 	function hideDisplay(closeBtn) {
+ 		closeBtn.parent().attr("style","display:none");
+ 	}
  	
  	// 카트 닫기 버튼
  	$(".closeBtn").click(function() {
@@ -108,7 +109,7 @@ $(document).ready(function() {
 		});
 		var p = $(this).next();
 		p.css("display","");
-// 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
+		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
 	
 }); //$(document).ready(function()

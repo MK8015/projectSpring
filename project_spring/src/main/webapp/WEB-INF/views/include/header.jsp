@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
        
 <!DOCTYPE html>
@@ -44,7 +45,6 @@
 
 <script>
 $(document).ready(function() {
-	
 
 	var isAlreadyLike;	
 	console.log("session:","${loginMember}")
@@ -68,9 +68,9 @@ $(document).ready(function() {
 		  
 	   });
 	
-// 	var logininfo="{logininfo.member_id}"
 	var logininfo="${logininfo}";
 	console.log("member_id",logininfo);
+	
 });
 </script>
 </head>
@@ -84,44 +84,93 @@ $(document).ready(function() {
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-
-		<a href="/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
-		<ul>
-			<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-			<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-		</ul>
-		<div class="header__cart__price">item: <span>$150.00</span></div>
+		<c:choose>
+			<c:when test="${empty loginMember}">
+			</c:when>
+			<c:otherwise>
+				<ul>
+					<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
+					<span id="headerLikeCount" 
+						<c:if test="${empty loginMemberVo.memberLikeCount || 
+										loginMemberVo.memberLikeCount eq 0}">
+							style="display:none"</c:if>
+							>
+							${loginMemberVo.memberLikeCount}
+						</span></a></li>
+					<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
+					<span id="headerCartCount" 
+						<c:if test="${empty loginMemberVo.memberCartCount || 
+										loginMemberVo.memberCartCount eq 0}">
+							style="display:none"</c:if>
+							>
+							${loginMemberVo.memberCartCount}
+						</span></a></li>
+				</ul>
+				<div class="header__cart__price">point: 
+				<span><fmt:formatNumber value="${loginMemberVo.member_point}" pattern="#,###"/>원</span></div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div class="humberger__menu__widget">
-		<div class="header__top__right__language">
-			<img src="/spring/resources/img/language.png" alt="">
-			<div>English</div>
-			<span class="arrow_carrot-down"></span>
-			<ul>
-				<li><a href="#">Spanis</a></li>
-				<li><a href="#">English</a></li>
-			</ul>
-		</div>
-		<div class="header__top__right__auth">
-			<a href="#"><i class="fa fa-user"></i> Login</a>
-		</div>
+		<c:choose>
+			<c:when test="${empty loginMember}">
+				<div class="header__top__right__auth">
+					<a href="/spring/member/login"><i class="fa fa-user"></i>로그인</a>
+					<a href="/spring/member/registerForm"><i class="fa fa-user"></i>회원가입</a>
+				</div>
+			</c:when>
+			<c:when test="${loginMember eq 'admin'}">
+				<div class="header__top__right__language">
+					<div><i class="fa fa-user">
+					${loginMember}님 환영합니다</i></div>
+					<span class="arrow_carrot-down"></span>
+					<ul>
+						<li><a href="/spring/admin/index">관리자 페이지</a></li>
+						<li><a href="/spring/member/mypage">마이 페이지</a></li>
+						<li><a href="/spring/member/logout">로그아웃</a></li>
+					</ul>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="header__top__right__language">
+					<div><i class="fa fa-user">
+					${loginMember}님 환영합니다</i></div>
+					<span class="arrow_carrot-down"></span>
+					<ul>
+						<li><a href="/spring/member/mypage">마이 페이지</a></li>
+						<li><a href="/spring/like/list">위시 리스트</a></li>
+						<li><a href="/spring/cart/list">장바구니</a></li>
+						<li><a href="/spring/member/logout">로그아웃</a></li>
+					</ul>
+				</div>
+				
+			</c:otherwise>
+		</c:choose>
+						
 	</div>
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
-			<li class="active"><a href="./index.html">Home</a></li>
-			<li><a href="./shop-grid.html">Shop</a></li>
-			<li><a href="#">Pages</a>
+			<li class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
-					<li><a href="./shop-details.html">Shop Details</a></li>
-					<li><a href="./shoping-cart.html">Shoping Cart</a></li>
-					<li><a href="./checkout.html">Check Out</a></li>
-					<li><a href="./blog-details.html">Blog Details</a></li>
+					<li><a href="/spring/list/list?category=humanity">인문</a></li>
+					<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
+					<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+					<li><a href="/spring/list/list?category=history">역사</a></li>
+					<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
+					<li><a href="/spring/list/list?category=science">과학</a></li>
+					<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+					<li><a href="/spring/list/list?category=language">외국어</a></li>
+					<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
+					<li><a href="/spring/list/list?category=self">자기계발</a></li>
 				</ul>
 			</li>
-			<li><a href="./blog.html">Blog</a></li>
-			<li><a href="./contact.html">Contact</a></li>
+			<li><a href="/spring/main/event">EVENT</a></li>
+			<li><a href="/spring/board/list">Q & A</a></li>
+			<li><a href="#">ABOUT</a></li>
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>
@@ -138,7 +187,7 @@ $(document).ready(function() {
 		</ul>
 	</div>
 </div>
-<!-- END : START : 반응형 부분 : 나중에 고칠게요 ㅠㅠ -->
+<!-- END : START : 반응형 부분>
 
 <!-- START : 헤더 -->
 <!-- START : 헤더의 첫 번째 줄 -->
@@ -174,47 +223,44 @@ $(document).ready(function() {
 					<div class="header__top__right">
 						<div>
 							<!-- 로그인 안 했을 때 -->
-						<c:choose>
-							<c:when test="${empty loginMember}">
-								<div class="header__top__right__social">
-								<a href="/spring/member/registerForm">회원가입</a>
-								</div>
-								<div class="header__top__right__auth">
-								<a href="/spring/member/login">로그인</a>
-								</div>
-							</c:when>
-							
-							<c:when test="${loginMember eq 'admin'}">
-								<div class="header__top__right__language">
-									<div>${loginMember}님 환영합니다</div>
-									<span class="arrow_carrot-down"></span>
-									<ul>
-										<li><a href="/spring/admin/index">관리자 페이지</a></li>
-										<li><a href="/spring/member/mypage">마이 페이지</a></li>
-										<li><a href="/spring/member/logout">로그아웃</a></li>
-									</ul>
-								</div>
-							</c:when>
-							
-							<c:otherwise>
-								<!-- 회원일 때 마이페이지 뜨기 -->
-								<div class="header__top__right__language">
-									<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
-									<span class="arrow_carrot-down"></span>
-									<ul>
-										<li><a href="/spring/member/mypage">마이 페이지</a></li>
-										<li><a href="/spring/like/list">위시 리스트</a></li>
-										<li><a href="/spring/cart/list">장바구니</a></li>
-										<li><a href="/spring/member/logout">로그아웃</a></li>
-									</ul>
-								</div>
+							<c:choose>
+								<c:when test="${empty loginMember}">
+									<div class="header__top__right__social">
+									<a href="/spring/member/registerForm">회원가입</a>
+									</div>
+									<div class="header__top__right__auth">
+									<a href="/spring/member/login">로그인</a>
+									</div>
+								</c:when>
 								
-							</c:otherwise>
-						</c:choose>
-							
+								<c:when test="${loginMember eq 'admin'}">
+									<div class="header__top__right__language">
+										<div>${loginMember}님 환영합니다</div>
+										<span class="arrow_carrot-down"></span>
+										<ul>
+											<li><a href="/spring/admin/index">관리자 페이지</a></li>
+											<li><a href="/spring/member/mypage">마이 페이지</a></li>
+											<li><a href="/spring/member/logout">로그아웃</a></li>
+										</ul>
+									</div>
+								</c:when>
+								
+								<c:otherwise>
+									<!-- 회원일 때 마이페이지 뜨기 -->
+									<div class="header__top__right__language">
+										<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
+										<span class="arrow_carrot-down"></span>
+										<ul>
+											<li><a href="/spring/member/mypage">마이 페이지</a></li>
+											<li><a href="/spring/like/list">위시 리스트</a></li>
+											<li><a href="/spring/cart/list">장바구니</a></li>
+											<li><a href="/spring/member/logout">로그아웃</a></li>
+										</ul>
+									</div>
+									
+								</c:otherwise>
+							</c:choose>
 						</div>
-            
-            
 					</div>
 				</div>
 			</div>
