@@ -81,8 +81,82 @@ $(document).ready(function(){
 
 
 </head>
+<body>
+<!-- Humberger Begin 반응형 -->
 
-<body  class="header__top">
+<div class="humberger__menu__overlay">
+</div>
+<div class="humberger__menu__wrapper">
+	<div class="humberger__menu__logo">
+		<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+	</div>
+	<div class="humberger__menu__widget">
+		<div class="header__top__right__auth">
+			<a href="/spring/member/login"><i class="fa fa-user"></i>로그인</a>
+			<a href="/spring/member/registerForm"><i class="fa fa-user"></i>회원가입</a>
+		</div>
+	</div>
+	<nav class="humberger__menu__nav mobile-menu">
+		<ul>
+			<li class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li><a href="/spring/list/list">BOOK</a>
+				<ul class="header__menu__dropdown">
+					<li><a href="/spring/list/list?category=humanity">인문</a></li>
+					<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
+					<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+					<li><a href="/spring/list/list?category=history">역사</a></li>
+					<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
+					<li><a href="/spring/list/list?category=science">과학</a></li>
+					<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+					<li><a href="/spring/list/list?category=language">외국어</a></li>
+					<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
+					<li><a href="/spring/list/list?category=self">자기계발</a></li>
+				</ul>
+			</li>
+			<li><a href="/spring/main/event">EVENT</a></li>
+			<li><a href="/spring/board/list">Q & A</a></li>
+			<li><a href="#">ABOUT</a></li>
+		</ul>
+	</nav>
+	<div id="mobile-menu-wrap"></div>
+	<div class="header__top__right__social">
+		<a href="#"><i class="fa fa-facebook"></i></a>
+		<a href="#"><i class="fa fa-twitter"></i></a>
+		<a href="#"><i class="fa fa-linkedin"></i></a>
+		<a href="#"><i class="fa fa-pinterest-p"></i></a>
+	</div>
+	<div class="humberger__menu__contact">
+		<ul>
+			<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+			<li>Free Shipping for all Order of $99</li>
+		</ul>
+	</div>
+</div>
+<!-- END : START : 반응형 부분>
+
+<!-- START : 헤더 -->
+<!-- START : 헤더의 첫 번째 줄 -->
+<header class="header">
+<!-- END : 헤더의 첫 번째 줄 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="header__logo">
+					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+				</div>
+			</div>
+			<div class="humberger__menu__overlay"></div>
+			<div class="col-lg-9"></div>
+			
+		</div>
+	<div class="humberger__open">
+		<i class="fa fa-bars"></i>
+	</div>
+	</div>
+</header>
+<!-- END : 헤더 끝 -->
+
+<div class="header__top">
 
     <div class="container">
 
@@ -120,10 +194,10 @@ $(document).ready(function(){
                                     <hr>
 
 									<div class="header__menu" align="center">
-	                            <ul>
-	                                <li><a href="/spring/member/registerForm">회원 가입</a></li>
-	                                <li><a href="/spring/member/login">로그인</a></li>
-	                            </ul>
+	                           	 		<ul>
+	                                		<li><a href="/spring/member/registerForm">회원 가입</a></li>
+	                                		<li><a href="/spring/member/login">로그인</a></li>
+	                            		</ul>
 	                        		</div>
                                 </div>
                             </div>
@@ -136,7 +210,7 @@ $(document).ready(function(){
         </div>
 
     </div>
-
+</div>
     <!-- Js Plugins -->
     <script src="/spring/resources/js/jquery-3.3.1.min.js"></script>
     <script src="/spring/resources/js/bootstrap.min.js"></script>

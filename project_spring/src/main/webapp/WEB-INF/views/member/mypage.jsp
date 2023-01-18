@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp" %>
 
 
@@ -319,7 +319,9 @@ $(document).ready(
 									>${orderList.product_author}|${orderList.product_publisher}</span></h5>
 								</td>
 								<td class="shoping__order__quantity">${orderList.order_amount}</td>
-								<td class="shoping__cart__price">${orderList.price}</td>
+								<td class="shoping__cart__price">
+								<fmt:formatNumber value="${orderList.price}" pattern="#,###"/>
+								원</td>
 							</tr>
 						</c:forEach>
 						</tbody>
