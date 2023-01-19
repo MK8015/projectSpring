@@ -65,6 +65,17 @@
 	border-radius: 4px;
 }
 
+.modify__input__3spots {
+	width: 25%;
+	height: 46px;
+	margin: 0px 10px 25px;
+	border: 1px solid #ebebeb;
+	padding-left: 20px;
+	font-size: 16px;
+	color: #6f6f6f;
+	border-radius: 4px;
+}
+
 .modify__input::placeholder {
 	color: #6f6f6f;
 }
@@ -123,108 +134,108 @@
 
 
 <script>
-$(document).ready(
-		function() {
+$(document).ready(function() {
+	//회원가입 실패(flase시 안내창)
+	var registerresult = "${register_result}";
+	if (registerresult == "flase") {
+		alert("회원가입에 실패하였습니다 다시 회원가입 해주세요");
+	}
 
-			//회원가입 실패(flase시 안내창)
-			var registerresult = "${register_result}";
-			if (registerresult == "flase") {
-				alert("회원가입에 실패하였습니다 다시 회원가입 해주세요");
-			}
+	var member_id = ""
+	//아이디 중복확인 
+	$("#id_check").click(function(){
 
-			var member_id = ""
-			//아이디 중복확인 
-			$("#id_check").click(function(){
+				//들어간 값이 없을때
+				member_id = $("#member_id").val().trim();
+				console.log("member_id:", member_id);
+				if ($("#member_id").val().trim() == "") {
+					alert("아이디를 입력해주세요");
+					$("#member_id").focus();
+					return false;
+				} else {
+					//제대로 값을 넣었을때
+					url = "/spring/member/idcheck";
+					sData = {
+						"member_id" : member_id
+					};
+					$.post(url, sData, function(rData) {
+						console.log("idcheck rData", rData);
+						if (rData) {
+							$("#isUsedid").hide(0).text(
+									"이미 사용중인 아이디입니다").attr(
+									"class",
+									"alert alert-danger")
+									.show(1000);
 
-						//들어간 값이 없을때
-						member_id = $("#member_id").val().trim();
-						console.log("member_id:", member_id);
-						if ($("#member_id").val().trim() == "") {
-							alert("아이디를 입력해주세요");
-							$("#member_id").focus();
-							return false;
 						} else {
-							//제대로 값을 넣었을때
-							url = "/spring/member/idcheck";
-							sData = {
-								"member_id" : member_id
-							};
-							$.post(url, sData, function(rData) {
-								console.log("idcheck rData", rData);
-								if (rData) {
-									$("#isUsedid").hide(0).text(
-											"이미 사용중인 아이디입니다").attr(
-											"class",
-											"alert alert-danger")
-											.show(1000);
-
-								} else {
-									$("#isUsedid").hide(0).text(
-											"사용 가능한 아이디 입니다").attr(
-											"class",
-											"alert alert-success").show(
-											1000).attr("data-idCanUse",
-											member_id);
-								}
-							});
+							$("#isUsedid").hide(0).text(
+									"사용 가능한 아이디 입니다").attr(
+									"class",
+									"alert alert-success").show(
+									1000).attr("data-idCanUse",
+									member_id);
 						}
 					});
-
-			//폼을 전송할 떄
-			$("#registerForm").submit(function() {
-
-				//각 회원가입 필수 내용 들어가있는지 확인
-				if ($("#password").val() == "") {
-					alert("패스워드를 확인해주세요")
-					return false;
-				} else if ($("#member_name").val() == "") {
-					alert("이름을 확인해주세요")
-					return false;
-				} else if ($("#phonenum").val() == "") {
-					alert("휴대폰번호를 확인해주세요")
-					return false;
-				} else if ($("#email").val() == "") {
-					alert("이메일을 확인해주세요")
-					return false;
-				} else if ($("#address").val() == "") {
-					alert("주소를 확인해주세요")
-					return false;
 				}
-
-				//멤버아이디체크 클릭했는지 + 클릭했다면 사용가능한 아이디가 맞는지 	
-				var isIdCheck = $("#isUsedid").attr("class");
-				if (isIdCheck == "alert alert-success") {
-					var idCanUse = $("#isUsedid").attr("data-idCanUse");
-					console.log("idCanUse", idCanUse);
-					console.log("member_id", member_id);
-					if (idCanUse == member_id) {
-						return true
-					};
-				};
-				alert("아이디 중복체크가 맞는지 확인해주세요");
-				return false;
 			});
-			
-			//들어간 이미지가 변할 때 
-			$("#member_pic").change(function(e) {
+	
+	//폼을 전송할 떄
+	$("#registerForm").submit(function() {
+		var register_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+		$("#phonenum").val(register_phonenum);
+		
+		//각 회원가입 필수 내용 들어가있는지 확인
+		if ($("#password").val() == "") {
+			alert("패스워드를 확인해주세요")
+			return false;
+		} else if ($("#member_name").val() == "") {
+			alert("이름을 확인해주세요")
+			return false;
+		} else if ($("#phonenum1").val() == "" || $("#phonenum2").val() == "" || $("#phonenum3").val() == "") {
+			alert("휴대폰번호를 확인해주세요")
+			return false;
+		} else if ($("#email").val() == "") {
+			alert("이메일을 확인해주세요")
+			return false;
+		} else if ($("#address").val() == "") {
+			alert("주소를 확인해주세요")
+			return false;
+		}
 
-				var insertimage = this.files[0];
-				console.log("insertimage:", insertimage);
+		//멤버아이디체크 클릭했는지 + 클릭했다면 사용가능한 아이디가 맞는지 	
+		var isIdCheck = $("#isUsedid").attr("class");
+		if (isIdCheck == "alert alert-success") {
+			var idCanUse = $("#isUsedid").attr("data-idCanUse");
+			console.log("idCanUse", idCanUse);
+			console.log("member_id", member_id);
+			if (idCanUse == member_id) {
+				return true;
+			};
+		};
+		alert("아이디 중복체크가 맞는지 확인해주세요");
+		return false;
+	});
+	
+	//들어간 이미지가 변할 때 
+	$("#member_pic").change(function(e) {
 
-				var fileReader = new FileReader();
-				fileReader.readAsDataURL(insertimage);
-				fileReader.onload = function(e) {
-				
-				var imgFileName = $("#member_pic").val();
-				var spliteImgFileName = imgFileName.split("\\");
-				var ImageName= spliteImgFileName.pop();
-				$("#pic_label").text(ImageName);
-				$("#registerImage>img").attr("src",e.target.result);
-				
-				};
-			});
+		var insertimage = this.files[0];
+		console.log("insertimage:", insertimage);
 
-		});//document
+		var fileReader = new FileReader();
+		fileReader.readAsDataURL(insertimage);
+		fileReader.onload = function(e) {
+		
+		var imgFileName = $("#member_pic").val();
+		var spliteImgFileName = imgFileName.split("\\");
+		var ImageName= spliteImgFileName.pop();
+		$("#pic_label").text(ImageName);
+		$("#registerImage>img").attr("src",e.target.result);
+		
+		};
+	});
+
+});//document
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
@@ -374,7 +385,7 @@ $(document).ready(
 												<p style="padding-top: 13px;">패스워드<span>*</span></p>
 											</div>
 											<div class="col-lg-9">
-												<input type="text" class="modify__input"
+												<input type="password" class="modify__input"
 													id="password" name="password">
 											</div>
 										</div>
@@ -394,8 +405,13 @@ $(document).ready(
 												<p style="padding-top: 13px;">휴대전화<span>*</span></p>
 											</div>
 											<div class="col-lg-9">
-												<input type="text" class="modify__input" 
-													id="phonenum" name="phonenum">
+												<input class="modify__input__3spots" name="phonenum1" 
+												id="phonenum1" type="text" maxlength="3"/>-
+												<input class="modify__input__3spots" name="phonenum2" 
+												id="phonenum2" type="text" maxlength="4"/>-
+												<input class="modify__input__3spots" name="phonenum3" 
+												id="phonenum3" type="text" maxlength="4"/>
+												<input type="hidden" name="phonenum" id="phonenum"/>
 											</div>
 										</div>
 										

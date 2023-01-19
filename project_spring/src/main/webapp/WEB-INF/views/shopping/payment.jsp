@@ -262,7 +262,7 @@ window.onload = function(){
 <!-- 상품 확인 처음 -->
 <section class="shoping-cart spad">
 	<div class="container">
-	${orderList}
+
 	<form id="frmOrder" role="form" action="/spring/order/insertOrder" method="post">
 		<div class="row">
 			<div class="row payment__list__title">

@@ -49,17 +49,23 @@ $(document).ready(function() {
 
 	getCartCountNum();
 	
-	if(location.includes("/spring/main/list")){
+	if(location.includes("/spring/main/index")){
 		$("#main").addClass("active");
+		$("#hummain").addClass("active");
 	}else if(location.includes("/spring/list")||(location).includes("/spring/product")){
 		$("#list").addClass("active");	
+		$("#humlist").addClass("active");	
 	}else if(location.includes("/spring/main/event")){
 		$("#event").addClass("active");	
+		$("#humevent").addClass("active");	
 	}else if(location.includes("/spring/board")){
-		$("#qna").addClass("active");	
+		$("#qna").addClass("active");
+		$("#humqna").addClass("active");	
 	}else if(location.includes("/spring/main/about")){
 		$("#about").addClass("active");
+		$("#humabout").addClass("active");
 	}
+	
 
 	var isAlreadyLike;	
 	console.log("session:","${loginMember}")
@@ -182,8 +188,8 @@ $(document).ready(function() {
 	</div>
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
-			<li class="active"><a href="/spring/main/index">MAIN</a></li>
-			<li><a href="/spring/list/list">BOOK</a>
+			<li id="hummain" class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li id="humlist"><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
 					<li><a href="/spring/list/list?category=humanity">인문</a></li>
 					<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
@@ -197,9 +203,9 @@ $(document).ready(function() {
 					<li><a href="/spring/list/list?category=self">자기계발</a></li>
 				</ul>
 			</li>
-			<li><a href="/spring/main/event">EVENT</a></li>
-			<li><a href="/spring/board/list">Q & A</a></li>
-			<li><a href="/spring/main/about">ABOUT</a></li>
+			<li id="humevent"><a href="/spring/main/event">EVENT</a></li>
+			<li id="humqna"><a href="/spring/board/list">Q & A</a></li>
+			<li id="humabout"><a href="#">ABOUT</a></li>
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>
