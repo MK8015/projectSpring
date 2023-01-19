@@ -159,64 +159,33 @@ function hideDisplay(closeBtn) {
 		<div class="row">
 			<div class="categories__slider owl-carousel">
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/humanity.jpg"
-						 onclick="location.href='/spring/list/list?category=humanity';">
-						<h5><a href="/spring/list/list?category=humanity">인문학</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e1.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/economy.jpg"
-						onclick="location.href='/spring/list/list?category=economy';">
-						<h5><a href="/spring/list/list?category=economy">경제/경영</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e2.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/sociology.jpg"
-						onclick="location.href='/spring/list/list?category=sociology';">
-						<h5><a href="/spring/list/list?category=sociology">정치/사회</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e3.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/history.jpg"
-						onclick="location.href='/spring/list/list?category=history';">
-						<h5><a href="/spring/list/list?category=history">역사</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e4.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/science.jpg"
-						onclick="location.href='/spring/list/list?category=science';">
-						<h5><a href="/spring/list/list?category=science">과학</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e5.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/culture.jpg"
-						onclick="location.href='/spring/list/list?category=culture';">
-						<h5><a href="/spring/list/list?category=culture">문화/예술</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e6.png">
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/computer.jpg"
-						onclick="location.href='/spring/list/list?category=computer';">
-						<h5><a href="/spring/list/list?category=computer">컴퓨터</a></h5>
+					<div class="categories__item set-bg" data-setbg="/spring/resources/img/event/e7.png">
 					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/language.jpg"
-						onclick="location.href='/spring/list/list?category=language';">
-						<h5><a href="/spring/list/list?category=language">외국어</a></h5>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/religion.jpg"
-						onclick="location.href='/spring/list/list?category=religion';">
-						<h5><a href="/spring/list/list?category=religion">종교/역학</a></h5>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="categories__item set-bg" data-setbg="/spring/resources/img/categories/self.jpg"
-						onclick="location.href='/spring/list/list?category=self';">
-						<h5><a href="/spring/list/list?category=self">자기계발</a></h5>
-					</div>
 				</div>
 			</div>
 		</div>

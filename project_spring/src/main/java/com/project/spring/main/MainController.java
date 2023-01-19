@@ -66,4 +66,11 @@ public class MainController {
 	public String runEvent(Model model) {
 		return "index/event";
 	}
+	
+	
+	// ���ο��� ��� ����
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String runAbout(Model model) {
+		return "index/about";
+	}
 }
