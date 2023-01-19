@@ -38,6 +38,13 @@
         var bg = $(this).data('setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
+    
+    //about에 하려고 추가한 것
+    $('.eventset-bg').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+        $(this).css('height', '980px');
+    });
 
     //Humberger Menu
     $(".humberger__open").on('click', function () {

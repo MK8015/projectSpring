@@ -11,22 +11,23 @@
 <script>
 
 </script>
+
 <div class="row">
 </div>
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+<!-- START : Shopping Cart 이미지 Section -->
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>주문상세정보</h2>
+				<div class="subtitle__text">
+					<h2>주문완료</h2>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-<!-- Breadcrumb Section End -->
-
+	</section>
+<!-- END : Shopping Cart 이미지 Section -->
+${list}
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
 	<div class="container">

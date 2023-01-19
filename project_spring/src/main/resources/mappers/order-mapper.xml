@@ -4,11 +4,20 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="mappers.order">
  
+ 	<!-- // 방금(최근) 구매한 개인 주문목록만 조회 -->
+ 	<select id="recentOrderList" resultType="OrderVo">
+ 		select * from 
+			(select rownum rnum, a.* from
+				(select * from t_order
+				where member_id = #{member_id}
+				order by order_no desc) a)
+		where rnum between 1 and #{orderCount}
+ 	</select>
+ 
  	<select id="orderList" resultType="OrderVo">
  		select a.*,b.* 
  		from t_order a, t_product b 
  		where a.product_id =b.product_id
- 		
  		order by a.order_no
  	</select>
  	
@@ -17,7 +26,7 @@
  		from t_order a, t_product b 
  		where a.product_id =b.product_id
  		and a.member_id = #{member_id}
- 		order by a.order_no
+ 		order by a.order_no desc
  	</select>
  	
 

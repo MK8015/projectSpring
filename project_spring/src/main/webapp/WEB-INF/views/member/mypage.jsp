@@ -87,6 +87,10 @@
 #product_info {
         text-align: center;
       }
+      
+.mypage__sidebar__item ul li.active a{
+	color: #7fad39;
+}
 </style>
 
 <script>
@@ -106,46 +110,46 @@ $(document).ready(
 			
 
 
-			//회원가입 실패(flase시 안내창)
-			var modifyresult = "${isModify}";
-			if (modifyresult == "flase") {
-				alert("수정에 실패하였습니다 새로고침 후 다시 시도해주세요");
-			}else if(modifyresult == "true"){
-				alert("수정에 성공하였습니다");
-			}
-			//폼을 전송할 떄
-			$("#modifyForm").submit(function() {
-				if ($("#password").val().trim()  == ""
-					|| $("#member_name").val().trim() == ""
-					|| $("#password").val().trim()  == ""
-					|| $("#phonenum").val().trim() == ""
-					|| $("#email").val().trim() == ""
-					|| $("#address").val().trim() == "") {
-					alert("빈칸은 입력하실 수 없습니다")
-					return false;
-				} 
-			});
-			
-			//들어간 이미지가 변할 때 
-			$("#member_pic").change(function(e) {
+	//회원가입 실패(flase시 안내창)
+	var modifyresult = "${isModify}";
+	if (modifyresult == "flase") {
+		alert("수정에 실패하였습니다 새로고침 후 다시 시도해주세요");
+	}else if(modifyresult == "true"){
+		alert("수정에 성공하였습니다");
+	}
+	//폼을 전송할 떄
+	$("#modifyForm").submit(function() {
+		if ($("#password").val().trim()  == ""
+			|| $("#member_name").val().trim() == ""
+			|| $("#password").val().trim()  == ""
+			|| $("#phonenum").val().trim() == ""
+			|| $("#email").val().trim() == ""
+			|| $("#address").val().trim() == "") {
+			alert("빈칸은 입력하실 수 없습니다")
+			return false;
+		} 
+	});
+	
+	//들어간 이미지가 변할 때 
+	$("#member_pic").change(function(e) {
 
-				var insertimage = this.files[0];
-				console.log("insertimage:", insertimage);
+		var insertimage = this.files[0];
+		console.log("insertimage:", insertimage);
 
-				var fileReader = new FileReader();
-				fileReader.readAsDataURL(insertimage);
-				fileReader.onload = function(e) {
-				
-				var imgFileName = $("#member_pic").val();
-				var spliteImgFileName = imgFileName.split("\\");
-				var ImageName= spliteImgFileName.pop();
-				$("#pic_label").text(ImageName);
-				$("#registerImage>img").attr("src",e.target.result);
-				
-				};
-			});
+		var fileReader = new FileReader();
+		fileReader.readAsDataURL(insertimage);
+		fileReader.onload = function(e) {
+		
+		var imgFileName = $("#member_pic").val();
+		var spliteImgFileName = imgFileName.split("\\");
+		var ImageName= spliteImgFileName.pop();
+		$("#pic_label").text(ImageName);
+		$("#registerImage>img").attr("src",e.target.result);
+		
+		};
+	});
 
-		});//document
+});//document
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
@@ -173,12 +177,12 @@ $(document).ready(
 			<div class="col-lg-2 col-md-5 order-md-1 order-2">
 				<div class="mypage__sidebar__item">
 					<img src="/spring/member/getProfile?profileImage=${memberVo.member_pic}" 
-				alt="/spring/resources/img/defaultprofile.png">
+						alt="/spring/resources/img/defaultprofile.png">
 					<h4>${memberVo.member_id}님의<br>마이 페이지</h4>
-						<ul>
-							<li><a href="#" id="btnmemberInfo">회원 정보</a></li>
-							<li><a href="#" id="btnorderList">주문 내역</a></li>
-						</ul>
+					<ul>
+						<li class="active"><a href="#" id="btnmemberInfo">회원 정보</a></li>
+						<li><a href="#" id="btnorderList">주문 내역</a></li>
+					</ul>
 				</div>
 			</div> <!-- 컨탠츠 들어갈 곳-->
 <!-- END : 왼쪽 카테고리 Section --> 

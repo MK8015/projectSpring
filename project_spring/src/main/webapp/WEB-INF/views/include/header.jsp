@@ -53,17 +53,23 @@ $(document).ready(function() {
 	getCartCountNum();
 	getLikeCountNum();
 	
-	if(location.includes("/spring/main/list")){
+	if(location.includes("/spring/main/index")){
 		$("#main").addClass("active");
+		$("#hummain").addClass("active");
 	}else if(location.includes("/spring/list")||(location).includes("/spring/product")){
 		$("#list").addClass("active");	
+		$("#humlist").addClass("active");	
 	}else if(location.includes("/spring/main/event")){
 		$("#event").addClass("active");	
+		$("#humevent").addClass("active");	
 	}else if(location.includes("/spring/board")){
-		$("#qna").addClass("active");	
+		$("#qna").addClass("active");
+		$("#humqna").addClass("active");	
 	}else if(location.includes("/spring/main/about")){
 		$("#about").addClass("active");
+		$("#humabout").addClass("active");
 	}
+	
 
 	
 	console.log("session:","${loginMember}")
@@ -202,8 +208,9 @@ $(document).ready(function() {
 	</div>
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
-			<li class="active"><a href="/spring/main/index">MAIN</a></li>
-			<li><a href="/spring/list/list">BOOK</a>
+
+			<li id="hummain" class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li id="humlist"><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
 					<li><a href="/spring/list/list?category=humanity">인문</a></li>
 					<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
@@ -217,9 +224,9 @@ $(document).ready(function() {
 					<li><a href="/spring/list/list?category=self">자기계발</a></li>
 				</ul>
 			</li>
-			<li><a href="/spring/main/event">EVENT</a></li>
-			<li><a href="/spring/board/list">Q & A</a></li>
-			<li><a href="#">ABOUT</a></li>
+			<li id="humevent"><a href="/spring/main/event">EVENT</a></li>
+			<li id="humqna"><a href="/spring/board/list">Q & A</a></li>
+			<li id="humabout"><a href="#">ABOUT</a></li>
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>
@@ -264,7 +271,7 @@ $(document).ready(function() {
 							</li>
 							<li id="event"><a href="/spring/main/event">EVENT</a></li>
 							<li id="qna"><a href="/spring/board/list">Q & A</a></li>
-							<li id="about"><a href="#">ABOUT</a></li>
+							<li id="about"><a href="/spring/main/about">ABOUT</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -297,7 +304,10 @@ $(document).ready(function() {
 								<c:otherwise>
 									<!-- 회원일 때 마이페이지 뜨기 -->
 									<div class="header__top__right__language">
-										<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
+										<div><b>${loginMemberVo.member_name} 님</b>
+											<img src="/spring/resources/img/coin.png" style="margin-right: 0px;">
+											<span style="font-size:12px; color:#be7115;"><b>
+											${loginMemberVo.member_point}</b></span></div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
 											<li><a href="/spring/member/mypage">마이 페이지</a></li>
