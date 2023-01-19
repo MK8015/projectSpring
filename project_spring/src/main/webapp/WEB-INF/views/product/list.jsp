@@ -6,23 +6,46 @@
 <style>
 .abs {
   position: absolute;
-  bottom: 25px;
-  right: 10px;
+  
+  bottom:10px;
   font-size: 10px;
 }
 
 .child {
-  color: lightgray;
   background: white;
   padding: 0.5rem;
+  cursor: pointer;
+}
+
+.hero__categories ul li.active a{
+	color: #7fad39;
 }
 </style>
 <script>
 $(document).ready(function() {
+	var location = window.location.href;
 	
-	
-	
-	
+	if(location.includes("/spring/list/list?category=humanity")){
+		$("#humanity").addClass("active");
+	}else if(location.includes("/spring/list/list?category=economy")){
+		$("#economy").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=sociology")){
+		$("#sociology").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=history")){
+		$("#history").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=culture")){
+		$("#culture").addClass("active");
+	}else if(location.includes("/spring/list/list?category=science")){
+		$("#science").addClass("active");
+	}else if(location.includes("/spring/list/list?category=computer")){
+		$("#computer").addClass("active");
+	}else if(location.includes("/spring/list/list?category=language")){
+		$("#language").addClass("active");
+	}else if(location.includes("/spring/list/list?category=religion")){
+		$("#religion").addClass("active");
+	}else if(location.includes("/spring/list/list?category=self")){
+		$("#self").addClass("active");
+	}
 	
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
@@ -150,16 +173,16 @@ $(document).ready(function() {
 						<span><a href="/spring/list/list">All Categories</a></span>
 					</div>
 					<ul>
-						<li><a href="/spring/list/list?category=humanity">인문</a></li>
-						<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
-						<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
-						<li><a href="/spring/list/list?category=history">역사</a></li>
-						<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
-						<li><a href="/spring/list/list?category=science">과학</a></li>
-						<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
-						<li><a href="/spring/list/list?category=language">외국어</a></li>
-						<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
-						<li><a href="/spring/list/list?category=self">자기계발</a></li>
+						<li id="humanity"><a href="/spring/list/list?category=humanity">인문</a></li>
+						<li id="economy"><a href="/spring/list/list?category=economy">경제/경영</a></li>
+						<li id="sociology"><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+						<li id="history"><a href="/spring/list/list?category=history">역사</a></li>
+						<li id="culture"><a href="/spring/list/list?category=culture">문화/예술</a></li>
+						<li id="science"><a href="/spring/list/list?category=science">과학</a></li>
+						<li id="computer"><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+						<li id="language"><a href="/spring/list/list?category=language">외국어</a></li>
+						<li id="religion"><a href="/spring/list/list?category=religion">종교/역학</a></li>
+						<li id="self"><a href="/spring/list/list?category=self">자기계발</a></li>
 					</ul>
 				</div>
 			</div>
@@ -183,10 +206,15 @@ $(document).ready(function() {
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
 								<div class="product__item__pic">
-									<img class="product__item__pic"
+									<img class="product__item__pic parent"
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-										
+										<p class="child abs" style="display:">
+											카트에 담겼습니다.<br>
+											<input onclick="location.href='/spring/cart/list'" 
+											type="button" value="카트 보기>"/>
+											<input type="button" class="closeBtn" value="닫기"/>
+										</p>
 										<ul class="product__item__pic__hover">
 									<!-- 좋아요 -->
 											<li><a href="#" class="like-cart" 
@@ -203,6 +231,7 @@ $(document).ready(function() {
 													<span>위시 리스트에 담겼습니다.</span><br>
 													<input onclick="location.href='/spring/like/list'" 
 													type="button" value="위시 리스트 보기>"/>
+													<i class="fa fa-"></i>
 													<input type="button" class="closeBtn" value="닫기"/>
 												</p>
 											</li>
@@ -210,14 +239,9 @@ $(document).ready(function() {
 									<!-- 장바구니 -->
 											<li><a href="#" class="shopping-cart"
 												data-product_id="${list.product_id}">
-													<i class="fa fa-shopping-cart parent"></i>
+													<i class="fa fa-shopping-cart"></i>
 												</a>
-												<p class="child abs" style="display:none">
-													카트에 담겼습니다.<br>
-													<input onclick="location.href='/spring/cart/list'" 
-													type="button" value="카트 보기>"/>
-													<input type="button" class="closeBtn" value="닫기"/>
-												</p>
+												
 											</li>
 											
 										</ul>

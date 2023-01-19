@@ -184,7 +184,7 @@ $(document).ready(function() {
 		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
 				<div class="subtitle__text">
-					<h2>Shopping Cart</h2>
+					<h2>장바구니</h2>
 					</div>
 				</div>
 			</div>

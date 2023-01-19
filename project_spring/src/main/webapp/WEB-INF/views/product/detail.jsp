@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
 <style>
 
@@ -317,7 +318,8 @@ $(document).ready(function() {
 						</span><br>
 						<span id="reviewCount"></span>
 					</div>
-					<div class="product__details__price">&#8361;${productVo.price}</div>
+					<div class="product__details__price">
+					<fmt:formatNumber value="${productVo.price}" pattern="#,###"/>원</div>
 						<div class="product__details__quantity">
 							<div class="quantity">
 								<div class="pro-qty">

@@ -36,6 +36,17 @@ public class OrderController {
 	@Autowired
 	CartService cartService;
 	
+	// 방금(최근) 구매한 개인 주문목록만 조회
+	@RequestMapping(value = "/recentMyOrder",method = RequestMethod.GET)
+	public String recentOrderList(Model model, HttpSession session){
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String member_id = memberVo.getMember_id();
+		int orderCount = (int) session.getAttribute("orderCount");
+		List<OrderVo>list = orderService.recentOrderList(orderCount, member_id);
+		model.addAttribute("list", list);
+		return "order/orderList";
+	}
+	
 	//개인 주문리스트
 	@RequestMapping(value = "/myOrder",method = RequestMethod.GET)
 	public String myOrder(Model model, String arr_cart_no,HttpSession session) { 
@@ -78,12 +89,12 @@ public class OrderController {
 			arr_product_id[index++] = (String) jsonObject.get("product_id");
 			}
 		cartService.deleteCart(arr_product_id, memberVo.getMember_id());
-		
+		session.setAttribute("orderCount", array.length());
 		model.addAttribute("orderList",orderList);
 		boolean result= orderService.updatePoint(memberVo.getMember_id(),Integer.parseInt(totalPrice));
 		if(result) {
 			
-			page="redirect:/order/myOrder";
+			page="redirect:/order/recentMyOrder";
 			
 			MemberVo memberVopoint= memberService.memberDetail(memberVo.getMember_id());
 			
