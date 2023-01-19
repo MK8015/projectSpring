@@ -64,6 +64,7 @@
 </style>
 
 <script>
+//아이디 이메일 메시지 알림
 $(document).ready(function(){
 	var isEmpty="${isEmpty}";
 	console.log("isEmpty:",isEmpty);
@@ -89,7 +90,7 @@ $(document).ready(function(){
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__widget">
 		<div class="header__top__right__auth">
@@ -143,7 +144,7 @@ $(document).ready(function(){
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+					<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>

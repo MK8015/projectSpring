@@ -138,7 +138,11 @@ public class BoardController {
 			}
 		}
 
-		String loginMember = (String)session.getAttribute("loginMember");
+		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String loginMember = loginMemberVo.getMember_id();
+		String member_name = loginMemberVo.getMember_name();
+		System.out.println("이름으로나오나요?" + member_name);
+		
 		if (loginMember != null) {
 			boardVo.setWriter(loginMember);
 		}
@@ -161,6 +165,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
 	public String reply(BoardVo boardVo, RedirectAttributes rttr, HttpSession session) {
+		
 		String loginMember = (String)session.getAttribute("loginMember");
 		boardVo.setWriter(loginMember);
 		boolean result = boardService.insertReply(boardVo);

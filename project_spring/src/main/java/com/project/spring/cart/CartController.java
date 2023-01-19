@@ -1,9 +1,7 @@
 package com.project.spring.cart;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +10,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +20,6 @@ import com.project.spring.order.OrderService;
 import com.project.spring.vo.CartVo;
 import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
-import com.project.spring.vo.OrderVo;
 
 
 
@@ -46,7 +42,6 @@ public class CartController {
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}
-		System.out.println("member_id: " + member_id);
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
 		model.addAttribute("cartProductList", cartProductList);
 		return "shopping/cart";
@@ -61,18 +56,32 @@ public class CartController {
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
-		boolean result = cartService.insertProductInCart(product_id, member_id);	// 占쏙옙품占쏙옙占쏙옙 t_cart占쏙옙 占쌍깍옙
+		boolean result = cartService.insertProductInCart(product_id, member_id);
 		// 세션 다시 넣기
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
-			System.out.println("loginMemberVo"+loginMemberVo);
+		
 			int count=cartService.getNowCartNum(member_id);
 			loginMemberVo.setMemberCartCount(count);
-			System.out.println("cartcontroller count:"+count);
 			session.setAttribute("loginMemberVo", loginMemberVo);
 			model.addAttribute("loginMemberVo", loginMemberVo);
+			
+			
 		}
 		return String.valueOf(result);
+	}
+	
+	
+	@RequestMapping(value = "/isAlreadyCart", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertCart(String product_id, HttpSession session) {
+		
+		
+		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String member_id=loginMemberVo.getMember_id();
+		int alreadyCartResult=cartService.isAlreadyCart(product_id,member_id);
+	
+		return String.valueOf(alreadyCartResult);
 	}
 	
 	// 카트 삭제
@@ -102,8 +111,6 @@ public class CartController {
 	@ResponseBody
 	public String updateCart(int cart_amount, String product_id, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
-		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
-				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
 		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
 		return String.valueOf(result);
 

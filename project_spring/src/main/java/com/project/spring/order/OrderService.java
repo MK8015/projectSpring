@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.spring.vo.OrderVo;
-import com.project.spring.vo.ProductVo;
 
 @Service
 public class OrderService {
@@ -15,8 +14,12 @@ public class OrderService {
 	@Autowired
 	OrderDao orderDao;
 	
-	public List<OrderVo> orderList() {
+	// 방금(최근) 구매한 개인 주문목록만 조회
+	public List<OrderVo> recentOrderList(int orderCount, String member_id){
+		return orderDao.recentOrderList(orderCount, member_id);
+	}
 	
+	public List<OrderVo> orderList() {
 		return orderDao.orderList();
 	}
 	

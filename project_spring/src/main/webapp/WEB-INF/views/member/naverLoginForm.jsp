@@ -50,34 +50,21 @@
 
   var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginForm");
 
-  // 접근 토큰 값 출력s
-//   alert(naver_id_login.oauthParams.access_token);
+  // 접근 토큰 값 출력
  // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
   function naverSignInCallback() {
-	 console.log("naverSignInCallback실행됨")
-// 	 var logintoken=document.getElementById("loginToken");
-// 	 logintoken.value=naver_id_login.oauthParams.access_token;
+	 
+	 //네이버에서 정보 받아오기
+	 console.log("naverSignInCallback실행됨");
 	 $("#loginToken").attr("value",naver_id_login.oauthParams.access_token);
 	 $("#naver_name").attr("value",naver_id_login.getProfileData('name'));
 	 $("#naver_eamil").attr("value",naver_id_login.getProfileData('email'));
-	 $("#naver_mobile").attr("value",naver_id_login.getProfileData('mobile'));
 	 $("#naver_id").attr("value",naver_id_login.getProfileData('id'));
 	 $("#frmPaging").submit();
-	 
-	 
-// 	 var url="/spring/member/naverLoginRun"
-// 	 var sData={"loginToken":naver_id_login.oauthParams.access_token};
-// 	 $.post(url,sData,function(rData){
-// 		 console.log("rData:",rData)
-// 	 });
-	
-	 
-	 console.log("naver_id_login.oauthParams.access_token:",naver_id_login.oauthParams.access_token)
-//      alert(naver_id_login.getProfileData('email'));
-//      alert(naver_id_login.getProfileData('nickname'));
-//      alert(naver_id_login.getProfileData('age'));
+
+
    }
  
 </script>

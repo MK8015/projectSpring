@@ -99,24 +99,24 @@ $(document).ready(function() {
 		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
 			
 		}
-		var arr_cartList = ${arr_cartList};	
-		var json = JSON.stringify(arr_cartList);
-		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
-		var address = $("#road_address").val() + "," + $("#detail_address").val();
-		var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
-		$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
-		$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
-		$("#order_phonenum").val(order_phonenum);
-		frmOrder.submit();
+// 		var arr_cartList = ${arr_cartList};	
+// 		var json = JSON.stringify(arr_cartList);
+// 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+// 		var address = $("#road_address").val() + "," + $("#detail_address").val();
+// 		var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
+// 		$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+// 		$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
+// 		$("#order_phonenum").val(order_phonenum);
+// 		frmOrder.submit();
 
 		
-// 		if($("#iamportPaymentToss").is(":checked")){
-// 			Tosspayment();
-// 		}else if($("#iamportPaymentKakao").is(":checked")){			
-// 			Kakaopayment();
-// 		}else{
-// 			alert("결제 수단을 선택해주세요");
-// 		}
+		if($("#iamportPaymentToss").is(":checked")){
+			Tosspayment();
+		}else if($("#iamportPaymentKakao").is(":checked")){			
+			Kakaopayment();
+		}else{
+			alert("결제 수단을 선택해주세요");
+		}
 	});
 		
 });
@@ -262,7 +262,7 @@ window.onload = function(){
 <!-- 상품 확인 처음 -->
 <section class="shoping-cart spad">
 	<div class="container">
-	${orderList}
+
 	<form id="frmOrder" role="form" action="/spring/order/insertOrder" method="post">
 		<div class="row">
 			<div class="row payment__list__title">

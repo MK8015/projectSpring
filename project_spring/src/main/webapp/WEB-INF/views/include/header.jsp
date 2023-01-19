@@ -45,23 +45,33 @@
 
 <script>
 $(document).ready(function() {
-	var location = window.location.href;
-
-	getCartCountNum();
 	
-	if(location.includes("/spring/main/list")){
+	
+	var location = window.location.href;
+	
+	//처음 실행시 라이크와 카운트 숫자 가져옴
+	getCartCountNum();
+	getLikeCountNum();
+	
+	if(location.includes("/spring/main/index")){
 		$("#main").addClass("active");
+		$("#hummain").addClass("active");
 	}else if(location.includes("/spring/list")||(location).includes("/spring/product")){
 		$("#list").addClass("active");	
+		$("#humlist").addClass("active");	
 	}else if(location.includes("/spring/main/event")){
 		$("#event").addClass("active");	
+		$("#humevent").addClass("active");	
 	}else if(location.includes("/spring/board")){
-		$("#qna").addClass("active");	
+		$("#qna").addClass("active");
+		$("#humqna").addClass("active");	
 	}else if(location.includes("/spring/main/about")){
 		$("#about").addClass("active");
+		$("#humabout").addClass("active");
 	}
+	
 
-	var isAlreadyLike;	
+	
 	console.log("session:","${loginMember}")
 
 	// 검색 버튼
@@ -87,19 +97,45 @@ $(document).ready(function() {
 	console.log("member_id",logininfo);
 	
 });
-
+	//카트 카운트 가져오기 및 안내메시지 변경 함수
 	function getCartCountNum(){
 		url="/spring/cart/countNum";
 		sData={};
 		$.post(url,sData,function(rData){
+			console.log("getcount rData:",rData);
 			if(rData==0){
-				$("#headerCartCount").attr("style","display:none");
+				$(".headerCartCount").attr("style","display:none");
+				
 			}else{
-				$("#headerCartCount").attr("style","");
-				$("#headerCartCount").text(rData);
+				$(".headerCartCount").attr("style","");
+				$(".headerCartCount").text(rData);
+				var text= $(".headerCartCount").text();
+				
+				
 			}
 		});
 	};
+	//라이크 카운트 가져오기 및 안내메시지 변경 함수
+	function getLikeCountNum(){
+		url="/spring/like/getLikeCount";
+		sData={};
+		$.post(url,sData,function(rData){
+			console.log("getcount rData:",rData);
+			if(rData==0){
+				
+				$(".headerLikeCount").attr("style","display:none");
+				
+			}else{
+				
+				$(".headerLikeCount").attr("style","");
+				$(".headerLikeCount").text(rData);
+				var text= $(".headerLikeCount").text();
+				
+				
+			}
+		});
+	};
+
 
 </script>
 </head>
@@ -122,21 +158,11 @@ $(document).ready(function() {
 			<c:otherwise>
 				<ul>
 					<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
-					<span id="headerLikeCount" 
-						<c:if test="${empty loginMemberVo.memberLikeCount || 
-										loginMemberVo.memberLikeCount eq 0}">
-							style="display:none"</c:if>
-							>
-							${loginMemberVo.memberLikeCount}
+					<span class="headerLikeCount"> 
+					
 						</span></a></li>
 					<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-					<span id="headerCartCount" 
-						<c:if test="${empty loginMemberVo.memberCartCount || 
-										loginMemberVo.memberCartCount eq 0}">
-							style="display:none"</c:if>
-							>
-							${loginMemberVo.memberCartCount}
-						</span></a></li>
+					<span class="headerCartCount"></span></a></li>
 				</ul>
 				<div class="header__cart__price">point: 
 				<span><fmt:formatNumber value="${loginMemberVo.member_point}" pattern="#,###"/>원</span></div>
@@ -182,8 +208,9 @@ $(document).ready(function() {
 	</div>
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
-			<li class="active"><a href="/spring/main/list">MAIN</a></li>
-			<li><a href="/spring/list/list">BOOK</a>
+
+			<li id="hummain" class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li id="humlist"><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
 					<li><a href="/spring/list/list?category=humanity">인문</a></li>
 					<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
@@ -197,9 +224,9 @@ $(document).ready(function() {
 					<li><a href="/spring/list/list?category=self">자기계발</a></li>
 				</ul>
 			</li>
-			<li><a href="/spring/main/event">EVENT</a></li>
-			<li><a href="/spring/board/list">Q & A</a></li>
-			<li><a href="#">ABOUT</a></li>
+			<li id="humevent"><a href="/spring/main/event">EVENT</a></li>
+			<li id="humqna"><a href="/spring/board/list">Q & A</a></li>
+			<li id="humabout"><a href="#">ABOUT</a></li>
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>
@@ -227,7 +254,7 @@ $(document).ready(function() {
 				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
-							<li id="main"><a href="/spring/main/list">MAIN</a></li>
+							<li id="main"><a href="/spring/main/index">MAIN</a></li>
 							<li id="list"><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -244,7 +271,7 @@ $(document).ready(function() {
 							</li>
 							<li id="event"><a href="/spring/main/event">EVENT</a></li>
 							<li id="qna"><a href="/spring/board/list">Q & A</a></li>
-							<li id="about"><a href="#">ABOUT</a></li>
+							<li id="about"><a href="/spring/main/about">ABOUT</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -277,7 +304,10 @@ $(document).ready(function() {
 								<c:otherwise>
 									<!-- 회원일 때 마이페이지 뜨기 -->
 									<div class="header__top__right__language">
-										<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
+										<div><b>${loginMemberVo.member_name} 님</b>
+											<img src="/spring/resources/img/coin.png" style="margin-right: 0px;">
+											<span style="font-size:12px; color:#be7115;"><b>
+											${loginMemberVo.member_point}</b></span></div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
 											<li><a href="/spring/member/mypage">마이 페이지</a></li>
@@ -342,18 +372,12 @@ $(document).ready(function() {
 				<div class="header__cart">
 					<ul>
 						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
-							<span id="headerLikeCount" 
-							<c:if test="${empty loginMemberVo.memberLikeCount || 
-											loginMemberVo.memberLikeCount eq 0}">
-								style="display:none"</c:if>
-								>
-								${loginMemberVo.memberLikeCount}
+							<span class="headerLikeCount">
+								
 							</span>
 							</a></li>
 						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-							<span id="headerCartCount" >
-
-							</span>
+							<span class="headerCartCount"></span>
 						</a></li>
 					</ul>
 				</div>

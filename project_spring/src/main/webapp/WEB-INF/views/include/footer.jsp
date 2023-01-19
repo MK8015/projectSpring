@@ -10,10 +10,10 @@
 					<div class="footer__about__logo">
 						<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 					</div>
-					<p>주식회사 에프엔에스리테일<br>
-						주소. 서울특별시 압구정로 2길 청구빌딩<br>
-						대표이사. 황장순<br>
-						이메일. biz@fnsretail.com</p>
+					<p>주식회사 NONFICTION<br>
+						주소. 울산 남구 삼산로35번길 19<br>
+						대표이사. 이소설<br>
+						이메일. bookstory@nonfiction.co.kr</p>
 					<div class="footer__about__social">
 						<a href="#"><i class="fa fa-facebook"></i></a>
 						<a href="#"><i class="fa fa-instagram"></i></a>
@@ -25,7 +25,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__widget">
 						<h6>CUSTOMER CENTER</h6>
-						<p><span>070-4801-6174</span><br>
+						<p><span>070-1234-5678</span><br>
 							월-금 : am11:00~pm5:00<br>
 							런치OFF : am12:00~pm1:00<br>
 							토,일,공휴일 OFF</p>
@@ -35,19 +35,19 @@
 					<div class="footer__widget">
 						<h6>RETURN ADDRESS</h6>
 						<p><b>우체국</b><br>
-							서울특별시 광진구 강변역로2<br>
-							서울광진우체국 C동 3층<br>
-							광진우체국소포실 프롬비기닝 앞<br>
+							울산 남구 삼산로35번길 19<br>
+							울산우체국 C동 3층<br>
+							울산우체국소포실 논픽션 앞<br>
 							<b>타택배 이용 시(선불결제)</b></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-12">
 					<div class="footer__widget">
 						<h6>BANK INFO</h6>
-						<p>기업은행 216 115392 01 014<br>
-							농협 2345 2345 28
+						<p>기업은행 216 112233 04 055<br>
+							신한 1234 5678 33
 							<br>농협 2345 2345 28<br>
-							<b>예금주 비기닝리테일(주)</b></p>
+							<b>예금주 논픽션서점(주)</b></p>
 					<div class="footer__payment">
 						<a href="#"><img src="/spring/resources/img/payment/payment-1.png" alt=""></a>
 						<a href="#"><img src="/spring/resources/img/payment/payment-2.png" alt=""></a>

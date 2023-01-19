@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.spring.vo.OrderVo;
-import com.project.spring.vo.ProductVo;
 
 @Repository
 public class OrderDao {
@@ -18,6 +17,15 @@ public class OrderDao {
 	
 	@Autowired
 	SqlSession sqlSession;
+	
+	// 방금(최근) 구매한 개인 주문목록만 조회
+	public List<OrderVo> recentOrderList(int orderCount, String member_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("orderCount", orderCount);
+		map.put("member_id", member_id);
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "recentOrderList", map);	
+		return list;
+	}
 	
 	public List<OrderVo> orderList() {
 	List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "orderList");	

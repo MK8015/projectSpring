@@ -86,7 +86,15 @@ public class CartDao {
 	
 	public int getNowCartNum(String member_id) {
 		int count=sqlSession.selectOne(NAME_SPACE+"getNowCartNum",member_id);
-		System.out.println("cartDoa count:"+count);
 			return count;
 	}	
+	
+	public int isAlreadyCart(String product_id,String member_id){
+		Map<String, String>map=new HashMap<>();
+		map.put("product_id", product_id);
+		map.put("member_id", member_id);
+		int count=sqlSession.selectOne(NAME_SPACE+"isAlreadyCart",map);
+		
+		return count;
+	}
 }
