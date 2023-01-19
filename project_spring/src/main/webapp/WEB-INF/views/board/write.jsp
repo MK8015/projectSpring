@@ -186,8 +186,8 @@ function isNotify(){
 						<td style="padding-top: 13px;">이름</td>
 						<td><input type="text" class="qna__input" id="writer" 
 							name="writer" placeholder="이름을 입력해 주세요"
-							value="${loginMemberVo.member_id}"
-							<c:if test="${not empty loginMemberVo.member_id}">
+							value="${loginMemberVo.member_name}"
+							<c:if test="${not empty loginMemberVo.member_name}">
 							readonly
 							</c:if>
 							/></td>

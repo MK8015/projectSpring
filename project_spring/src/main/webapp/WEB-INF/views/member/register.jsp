@@ -255,7 +255,7 @@ $(document).ready(
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__widget">
 		<div class="header__top__right__auth">
@@ -309,7 +309,7 @@ $(document).ready(
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+					<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
@@ -440,16 +440,15 @@ $(document).ready(
 										</div>
 										</div>
 										</div>
-										<hr style="margin-top: 20px; margin-bottom: 40px;">
 										<button type="submit" class="btn btn-white text-white btn-user btn-block"
-											style="background-color: rgb(127, 173, 57);">회원가입</button>
+											style="background-color: rgb(127, 173, 57); margin-top: 20px;">회원가입</button>
 									</form>
 									<hr>
 
 									<div class="header__menu" align="center">
 										<ul>
 											<li><a href="/spring/member/forgot-passwordForm">비밀번호 찾기</a></li>
-											<li><a href="/spring/member/login">로그인화면으로</a></li>
+											<li><a href="/spring/member/login">로그인</a></li>
 										</ul>
 									</div>
 

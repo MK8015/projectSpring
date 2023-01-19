@@ -220,7 +220,7 @@ $(document).ready(function() {
 					
 				<c:forEach items="${listNotify}" var="boardVo">
 						<tr height="50" bgcolor="#f5f5f5">
-							<td>이미지</td>
+							<td><img src="/spring/resources/img/notify.png"></td>
 							<td>중요</td>
 							<td width="50%"><b>
 								<a class="a_title" data-bno="${boardVo.bno}" data-writer="${boardVo.writer}" 
@@ -235,13 +235,13 @@ $(document).ready(function() {
 						<tr height="50">
 							<td>${boardVo.bno}</td>
 					<!-- 비밀글일 때 자물쇠, 사진 있을 때 이미지 나타내기 -->
-							<td><font color="#f0bd5a"><i class="fa fa-lock" aria-hidden="true"></i></font></td>
+							<td><img src="/spring/resources/img/lock.png"></td>
 					<!-- 제목 부분, 답글일 때 > 나타내기 -->
 							<td>
 								<a class="a_title" data-bno="${boardVo.bno}" data-writer="${boardVo.writer}" 
 									 data-re_group="${boardVo.re_group}" href="#">
 								<c:if test="${boardVo.re_level gt 0}">	
-									<i class="fa fa-chevron-right" aria-hidden="true"></i>
+									<img src="/spring/resources/img/reply.png">
 								</c:if>${boardVo.title}</a>
 								<c:if test="${not empty boardVo.pic}">
 									<font color="#2da9e6">  <i class="fa fa-picture-o" aria-hidden="true"></i></font>
