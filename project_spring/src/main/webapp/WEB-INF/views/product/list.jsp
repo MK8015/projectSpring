@@ -203,7 +203,7 @@ $(document).ready(function() {
 									<img class="product__item__pic parent"
 										src="/spring/product/getImage?imageName=${list.product_image}"
 										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-										<p class="child abs" style="display:">
+										<p class="child abs" style="display:none">
 											카트에 담겼습니다.<br>
 											<input onclick="location.href='/spring/cart/list'" 
 											type="button" value="카트 보기>"/>
