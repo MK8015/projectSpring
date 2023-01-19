@@ -209,7 +209,7 @@ $(document).ready(function() {
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
 
-			<li id="hummain" class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li id="hummain" class="active"><a href="/spring/main/index">MAIN</a></li>
 			<li id="humlist"><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
 					<li><a href="/spring/list/list?category=humanity">인문</a></li>
