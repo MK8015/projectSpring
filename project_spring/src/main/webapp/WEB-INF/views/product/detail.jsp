@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../include/header.jsp"%>
 <style>
 
@@ -30,10 +31,13 @@
 	color: #FF912C;
 }
 
+/*
+	position: absolute; */
 .containerdiv {
 	border: 0;
 	float: left;
 	position: relative;
+	align-items: center;
 	width: 100px;
 }
 
@@ -46,8 +50,70 @@
 }
 
 img {
-	max-width: 100px;
+	max-width: 200px;
 }
+
+/* 디테일 부분 리뷰 박스 */
+
+.detail__box {
+	overflow: hidden;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.detail__box__form {
+	width: 70%;
+	height: 112px;
+	border: 1px solid #ebebeb;
+	position: relative;
+	float: left;
+}
+
+.detail__box__form form .detail__box__left {
+	width: 50%;
+	float: left;
+	font-size: 16px;
+	text-align: center;
+	color: #1c1c1c;
+	font-weight: 700;
+	padding-left: 18px;
+	padding-top: 11px;
+	position: relative;
+}
+
+
+
+.detail__box__form form .detail__box__right {
+	width: 50%;
+	float: left;
+	font-size: 16px;
+	text-align: center;
+	color: #1c1c1c;
+	font-weight: 700;
+	padding-left: 18px;
+	padding-top: 11px;
+	position: relative;
+}
+
+.detail__box__form form .detail__box__left:after {
+	position: absolute;
+	right: 0;
+	top: 14px;
+	height: 80px;
+	width: 1px;
+	background: #000000;
+	opacity: 0.1;
+	content: "";
+}
+
+/*
+.detail__box__form form .detail__box__left span {
+	position: absolute;
+	right: 14px;
+	top: 14px;
+}
+*/
+
 </style>
 
 <script>
@@ -189,7 +255,7 @@ $(document).ready(function() {
 	function setRating(product_id){
 		$.get("/spring/review/setRating",{"product_id":product_id},function(rData){
 			var jsonObject = JSON.parse(rData);
-			$("#reviewCount").text(jsonObject.reviewCount+"개의 리뷰");
+			$("#reviewCount").text(jsonObject.reviewCount + "개의 리뷰");
 			$(".productRating").css("width", (jsonObject.ratingAvg/5)*100 + "%");
 			$("#ratingAvg").text(jsonObject.ratingAvg+"/5점");
 		});
@@ -212,7 +278,7 @@ $(document).ready(function() {
 				tds.eq(0).find("img").attr("src","/spring/product/getImage?imageName="+ jsonArray[i].member_pic);
 				if(jsonArray[i].checkBuyer == "true"){
 					tds.eq(0).find("span").text(jsonArray[i].member_id);
-					tds.eq(0).find("span").append("<img src='/spring/resources/img/icon_label_buy.png' />");
+					tds.eq(0).find("span").append("<img src='/spring/resources/img/icon_label_buy.png' style='margin-left: 7px;'/>");
 					
 				}else{
 					tds.eq(0).find("span").text(jsonArray[i].member_id);				
@@ -296,37 +362,80 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6" style="padding-top: 100px">
+			<div class="col-lg-6 col-md-6">
 				<div class="product__details__text">
 					<h3>${productVo.product_name}</h3>
-					<span>${productVo.product_author}</span> | 
-					<span>${productVo.product_publisher}</span>
-					<div style="padding: 10px" class="col-lg-6 col-md-6">
-					<div class="product__details__rating">
-						<div class="containerdiv">
-							<div>
-								<img src="/spring/resources/img/stars_blank.png">
-							</div>
-							<div class="productRating" style="width: 0%">
-								<img src="/spring/resources/img/stars_full.png">
-							</div>
-						</div>
-					</div>
-					<br>
-						<span id="ratingAvg" style="font: bolder; 20px;">	
-						</span><br>
-						<span id="reviewCount"></span>
-					</div>
-					<div class="product__details__price">&#8361;${productVo.price}</div>
-						<div class="product__details__quantity">
-							<div class="quantity">
-								<div class="pro-qty">
-									<input type="text" value="1">
+					
+					<ul style="padding-top: 30px; margin-top: 40px;">
+						<li>
+							<b>지은이</b>
+							<span>${productVo.product_author}</span>
+						</li>
+						<li>
+							<b>출판사</b>
+							<span>${productVo.product_publisher}</span>
+						</li>
+						
+						<li>
+						
+						<!-- 별점 몇분의 몇 span
+						<span id="ratingAvg" style="font: bolder; 20px;"></span>
+						 -->
+							<table style="margin-top: 15px; margin-bottom: 20px;">
+								<tr>
+									<td style="padding-left: 0px; width: 170px;"><b>별점</b></td>
+									<td>
+										<div class="product__details__rating row"
+											style="margin-left: 0px; margin-bottom: 0px; margin-right: 0px;">
+										<div class="containerdiv">
+											<div>
+												<img src="/spring/resources/img/stars_blank.png">
+											</div>
+											<div class="productRating" style="width: 0%">
+												<img src="/spring/resources/img/stars_full.png">
+											</div>
+										</div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							
+						</li>
+						<li>
+							<b>리뷰</b>
+							<span id="reviewCount"></span>
+						</li>
+						
+						<li>
+							<b>배송료</b>
+							<span>무료</span>
+						</li>
+						<li>
+							<b>가격</b>
+							<span class="product__details__price">
+							<fmt:formatNumber value="${productVo.price}" pattern="#,###"/>원</span>
+						</li>
+						<li style="margin-top: 20px;margin-bottom: 30px;">
+							<b>수량</b>
+							<div class="product__details__quantity">
+								<div class="quantity">
+									<div class="pro-qty">
+										<input type="text" value="1">
+									</div>
 								</div>
 							</div>
-						</div>
+						</li>
+					</ul>
+					
+					
+					
+					
+									
+								
+					
+					
               
-							<a href="#" class="primary-btn" id="btnInsertCart">ADD TO CART</a>
+							<a href="#" class="primary-btn" id="btnInsertCart" style="margin-right: 18px;">장바구니 담기</a>
 						<!-- START : 좋아요 -->	
 							<a href="#" class="heart-icon" id="likeHeart" 
 									<c:if test="${isLike == 'true'}">

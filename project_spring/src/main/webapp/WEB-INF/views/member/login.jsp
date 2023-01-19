@@ -102,7 +102,7 @@ $(document).ready(function(){
 </div>
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
-		<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__widget">
 		<div class="header__top__right__auth">
@@ -156,7 +156,7 @@ $(document).ready(function(){
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+					<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
@@ -185,25 +185,29 @@ $(document).ready(function(){
 									<br><h3>환영합니다</h3><br><br>
 								</div>
 									<form class="user" method="post" action="/spring/member/login">
-										<div class="form-group" >
-											<input type="text" class="mypage__input"
-												id="member_id" name="member_id" aria-describedby="emailHelp"
-												placeholder="아이디를 입력해주세요" value="${cookie.member_id.value}">
-										</div>
-										<div class="form-group">
-											<input type="password" class="mypage__input"
-												id="password" name="password" placeholder="비밀번호를 입력해주세요">
-										</div>
-										<div class="form-group">
-											<div class="custom-control custom-checkbox small">
-												<input type="checkbox" class="custom-control-input" id="customCheck" name="saveId"
-													<c:if test="${not empty cookie.member_id}">
-													checked
-													</c:if>
-												>
-												<label class="custom-control-label" for="customCheck">아이디 기억</label>
-											</div>
-										</div>
+                              <div class="form-group" >
+                                 <input type="text" class="mypage__input"
+                                    id="member_id" name="member_id" aria-describedby="emailHelp"
+                                    placeholder="아이디를 입력해주세요" value="${cookie.member_id.value}"
+                                    style="margin-bottom: 0px;">
+                              </div>
+                              <div class="form-group">
+                                 <input type="password" class="mypage__input"
+                                    id="password" name="password" placeholder="비밀번호를 입력해주세요"
+                                    style="margin-bottom: 0px;">
+                              </div>
+                              <div class="form-group">
+                                 <div class="custom-control custom-checkbox small">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck" name="saveId"
+                                       <c:if test="${not empty cookie.member_id}">
+                                       checked
+                                       </c:if>
+                                    >
+                                    <label class="custom-control-label" for="customCheck"
+                                        style="margin-left: 10px;">아이디 기억</label>
+                                 </div>
+                              </div>
+
 										
 									
 									
