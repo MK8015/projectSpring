@@ -94,33 +94,21 @@
 </style>
 
 <script>
-$(document).ready(function() {
+$(document).ready(
+		function() {
+			//회원 정보 창
+			$(document).on("click","#btnmemberInfo",function(){
+				$("#modifydiv").attr("style","display: block;");
+				$("#orderlistdiv").attr("style","display: none;");
+			});
 			
-	$(document).on("click","#btnmemberInfo",function(){
-		$("#modifydiv").attr("style","display: block;");
-		$("#orderlistdiv").attr("style","display: none;");
-		$("#btnorderList").parent().removeClass("active");
-		$("#btnmemberInfo").parent().addClass("active");
-	});
-	
+			//주문 목록 창
+			$(document).on("click","#btnorderList",function(){
+				$("#orderlistdiv").attr("style","display: block;");
+				$("#modifydiv").attr("style","display: none;");
+			});
+			
 
-	$(document).on("click","#btnorderList",function(){
-		$("#orderlistdiv").attr("style","display: block;");
-		$("#modifydiv").attr("style","display: none;");
-		$("#btnmemberInfo").parent().removeClass("active");
-		$("#btnorderList").parent().addClass("active");
-		
-	});
-	
-// 	$("#btnmemberInfo").click(function(){
-// 		$("#orderlistdiv").attr("style","display: block;");
-// 		$("#modifydiv").attr("style","display: none;");
-// 	});
-// 	$("btnorderList").click(function(){
-// 		$("#modifydiv").attr("style","display: block;");
-// 		$("#orderlistdiv").attr("style","display: none;");
-	
-// 	});
 
 	//회원가입 실패(flase시 안내창)
 	var modifyresult = "${isModify}";
@@ -165,12 +153,13 @@ $(document).ready(function() {
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
+		//카카오로 주소 찾기
 		window.onload = function(){
-		    document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
-		        //카카오 지도 발생
+		    document.getElementById("address").addEventListener("click", function(){ 
+		        
 		        new daum.Postcode({
 		        
-		            oncomplete: function(data) { //선택시 입력값 세팅
+		            oncomplete: function(data) { 
 		                document.getElementById("address").value = data.address; // 주소 넣기
 		                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
 		            	

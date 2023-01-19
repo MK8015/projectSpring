@@ -54,4 +54,9 @@ public class CartService {
 		return cartDao.getNowCartNum(member_id);
 	}
 	
+	public int isAlreadyCart(String product_id,String member_id){
+		return cartDao.isAlreadyCart(product_id,member_id);
+	}
+	
+	
 }

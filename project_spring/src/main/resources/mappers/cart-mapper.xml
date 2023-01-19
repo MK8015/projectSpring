@@ -80,5 +80,9 @@
 		select count(*) from t_cart where member_id=#{member_id}
 	</select>
 	
+	<!-- 카트 안에 품목 있는지 체크 -->
+	<select id="isAlreadyCart" resultType="int">
+		select cart_amount from t_cart where product_id=#{product_id} and member_id=#{member_id}
+	</select>	
 
 </mapper>

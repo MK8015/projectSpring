@@ -64,6 +64,7 @@
 </style>
 
 <script>
+//아이디 이메일 메시지 알림
 $(document).ready(function(){
 	var isEmpty="${isEmpty}";
 	console.log("isEmpty:",isEmpty);

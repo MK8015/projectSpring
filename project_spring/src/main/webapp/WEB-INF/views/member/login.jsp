@@ -76,6 +76,7 @@ a:hover {
 
 
 <script>
+//회원가입 성공 실패시 메시지
 $(document).ready(function(){
 	var registerresult="${register_result}"
 	if(registerresult=="true"){

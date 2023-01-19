@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -85,13 +86,11 @@ public class LikeController {
 	@ResponseBody
 	public String insertLike(String product_id, HttpSession session) {
 		
-		System.out.println("insertLike");
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
 		boolean isLike= likeService.isAlreadyLike(product_id,member_id);
-		System.out.println("isLike:"+isLike);
 		boolean result = likeService.insertLike(product_id, member_id);
 		return String.valueOf(result);
 		
@@ -116,8 +115,6 @@ public class LikeController {
 			boolean result = likeService.cancelLike(product_id, member_id);
 			if(result) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
-			int count = loginMemberVo.getMemberLikeCount();
-			loginMemberVo.setMemberLikeCount(count-1);
 			session.setAttribute("loginMemberVo", loginMemberVo);
 			model.addAttribute("isAlreadyLike","true");
 			rttr.addFlashAttribute("isLikeDelete", "true");
@@ -132,7 +129,6 @@ public class LikeController {
 			// 세션 다시 넣기
 				if (result == true) {
 					MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
-					System.out.println("loginMemberVo:"+loginMemberVo);
 					int count = loginMemberVo.getMemberLikeCount();
 					loginMemberVo.setMemberLikeCount(count+1);
 					session.setAttribute("loginMemberVo", loginMemberVo);
@@ -146,10 +142,13 @@ public class LikeController {
 		
 	}
 	
-	
-	
-	
-	
-	
+	//라이크 숫자 가져오기
+	@RequestMapping(value = "/getLikeCount", method = RequestMethod.POST)
+	@ResponseBody
+	public int getLikeCount(HttpSession session) {
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		int likeCount= likeService.memberLikeCount(memberVo.getMember_id());
+		return likeCount;
+	}
 	
 }

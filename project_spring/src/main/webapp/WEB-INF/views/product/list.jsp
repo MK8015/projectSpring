@@ -46,7 +46,7 @@ $(document).ready(function() {
 	}else if(location.includes("/spring/list/list?category=self")){
 		$("#self").addClass("active");
 	}
-	
+
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
@@ -57,19 +57,33 @@ $(document).ready(function() {
  	
  	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
+ 		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
  		console.log("장바구니 클릭!!!");
  		
-		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
+		var headerCartCount = $(".headerCartCount"); // 헤더 장바구니 딱지
 		
 		var product_id = $(this).attr("data-product_id");
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
-// 			console.log("rData: "+rData); 
 			if (rData == "true") {
-
 				getCartCountNum();
+				//카트 갯수
+				url="/spring/cart/isAlreadyCart";
+				sData={"product_id":product_id};
+				$.post(url,sData,function(rData){
+					var AlreadyCartResult=rData;
+					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
+					if(AlreadyCartResult=="1"){
+						showTextTagCart.text("카트에 추가되었습니다");
+					}else{
+						showTextTagCart.text("수량이 추가되었습니다.");
+					}
+					
+					
+				});
+				
 			} else if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				return;
@@ -79,7 +93,6 @@ $(document).ready(function() {
 			}
 		});
 		var p = $(this).next();
-// 		console.log(p);
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
@@ -100,7 +113,6 @@ $(document).ready(function() {
  		e.preventDefault();
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
- 		console.log("좋아요 클릭");
 		var product_id = $(this).attr("data-product_id");
 		var alreadyclick=$(this).attr("data-already_click");
  		
@@ -112,22 +124,15 @@ $(document).ready(function() {
 		
 		// 좋아요 0 빨간색으로 적힌 부분 바꾸기 
 		var likeCount = $(this).parent().parent().parent().next().find(".likeCount"); 
-		var headerLikeCount = $("#headerLikeCount"); // 헤더 좋아요 딱지
+		var headerLikeCount = $(".headerLikeCount"); // 헤더 좋아요 딱지
 		
+		//좋아요 있을 경우 더 올라가지 않도록 설정 
 		$.post(url, sData, function(rData) {
  			console.log("rData: " + rData); 
  			
  			if (rData == "couldlike-true") {
-				console.log("couldlike-true실행됨")
 				nowclickLike.attr("class","fa fa-trash");
-				
-				var count = parseInt(likeCount.text());
-				var headerCount = parseInt(headerLikeCount.text());
-				count++; //맞나??
-				headerCount++;
-				likeCount.text(count);
-				headerLikeCount.text(headerCount);
-				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
+				getLikeCountNum();
 				showTextTag.text("위시 리스트에 담겼습니다.")
 			}else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
@@ -136,13 +141,7 @@ $(document).ready(function() {
 				alert("로그인후 이용바랍니다.")
 				location.href="/spring/member/login";
 			}else if(rData=="coudntlike-true") {
-				console.log("coudntlike-true 실행됨")
-				var count = parseInt(likeCount.text());
-				var headerCount = parseInt(headerLikeCount.text());
-				count--;
-				headerCount--;
-				likeCount.text(count);
-				headerLikeCount.text(headerCount);
+				getLikeCountNum();
 				nowclickLike.attr("class","fa fa-heart");
 				showTextTag.text("위시 리스트에서 삭제되었습니다.")
 			}else if(rData=="couldntlike-false"){
@@ -150,14 +149,9 @@ $(document).ready(function() {
 			}
 		});
 		var p = $(this).next();
-// 		console.log(p);
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
- 	
- 	
- 	
- 	
 });
 </script>
 
@@ -241,7 +235,13 @@ $(document).ready(function() {
 												data-product_id="${list.product_id}">
 													<i class="fa fa-shopping-cart"></i>
 												</a>
-												
+												<p class="child abs" style="display:none">
+													<span></span><br>
+													<input onclick="location.href='/spring/cart/list'" 
+													type="button" value="카트 보기>"/>
+													<input type="button" class="closeBtn" value="닫기"/>
+												</p>
+
 											</li>
 											
 										</ul>

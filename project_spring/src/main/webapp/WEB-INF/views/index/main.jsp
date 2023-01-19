@@ -26,15 +26,18 @@
 </style>
 <script>
 $(document).ready(function() {
-
+	
+	
 	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
+ 		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
- 		console.log("장바구니 클릭!!!");
+ 		
 		var product_id = $(this).attr("data-product_id");
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
+			
 			if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				getCartCountNum();
@@ -44,6 +47,21 @@ $(document).ready(function() {
 				location.href="/spring/member/login";
 			}else if(rData=="true"){
 				getCartCountNum();
+				url="/spring/cart/isAlreadyCart";
+				sData={"product_id":product_id};
+				$.post(url,sData,function(rData){
+					var AlreadyCartResult=rData;
+					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
+					if(AlreadyCartResult=="1"){
+						showTextTagCart.text("카트에 추가되었습니다");
+					}else{
+						showTextTagCart.text("수량이 추가되었습니다.");
+					}
+					
+					
+				});
+				
+
 				
 			}
 		});
@@ -63,38 +81,31 @@ $(document).ready(function() {
  		//좋아요 그림 바꾸는 클래스 있는 i테그
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
- 		console.log("showTextTag",showTextTag);
+ 		
  		
 		var product_id = $(this).attr("data-product_id");
 		var alreadyclick=$(this).attr("data-already_click");
-		console.log("alreadyclick:"+alreadyclick);
+	
  		
 		var url = "/spring/like/insertLike";
 		var sData = {
 				"product_id" : product_id
 		};
-		console.log("sData", sData);
+	
 		
 		// 좋아요 0 빨간색으로 적힌 부분 바꾸기 
 		var likeCount = $(this).parent().parent().parent().next().find(".likeCount"); 
-		var headerLikeCount = $("#headerLikeCount"); // 헤더 좋아요 딱지
+		var headerLikeCount = $(".header__cart").find("headerLikeCount"); // 헤더 좋아요 딱지
 		
 		$.post(url, sData, function(rData) {
- 			console.log("rData: " + rData); 
+ 		
  			
 			if (rData == "couldlike-true") {
-				console.log("couldlike-true실행됨")
+			
 				nowclickLike.attr("class","fa fa-trash");
-				
-				var count = parseInt(likeCount.text());
-				var headerCount = parseInt(headerLikeCount.text());
-				count++; //맞나??
-				headerCount++;
-				likeCount.text(count);
-				headerLikeCount.text(headerCount);
-				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
+				console.log("좋아요 등록 성공");
+				getLikeCountNum();
 				showTextTag.text("위시 리스트에 담겼습니다.");
-				
 			}else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
 				return;
@@ -102,13 +113,7 @@ $(document).ready(function() {
 				alert("로그인후 이용바랍니다.")
 				location.href="/spring/member/login";
 			}else if(rData=="coudntlike-true") {
-				console.log("coudntlike-true 실행됨")
-				var count = parseInt(likeCount.text());
-				var headerCount = parseInt(headerLikeCount.text());
-				count--;
-				headerCount--;
-				likeCount.text(count);
-				headerLikeCount.text(headerCount);
+				getLikeCountNum();
 				nowclickLike.attr("class","fa fa-heart");
 				showTextTag.text("위시 리스트에서 삭제되었습니다.")
 			}else if(rData=="couldntlike-false"){
@@ -126,7 +131,7 @@ $(document).ready(function() {
 		
 function hideDisplay(closeBtn) {
 		closeBtn.parent().attr("style","display:none");
-		console.log("실행됨");
+	
 	}
 </script>
 <!-- 네이버 api 넣었습니다 -->
@@ -241,8 +246,8 @@ function hideDisplay(closeBtn) {
 								data-product_id="${productVo.product_id}">
 									<i class="fa fa-shopping-cart parent"></i>
 								</a>
-								<p class="child abs" style="display:none">
-									카트에 담겼습니다.<br>
+								<p class="child abs" style="display:none"><span>
+									</span><br>
 									<input onclick="location.href='/spring/cart/list'" 
 									type="button" value="카트 보기>"/>
 									<input type="button" class="closeBtn" value="닫기"/>

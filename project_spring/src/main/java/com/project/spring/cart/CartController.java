@@ -42,7 +42,6 @@ public class CartController {
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}
-		System.out.println("member_id: " + member_id);
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
 		model.addAttribute("cartProductList", cartProductList);
 		return "shopping/cart";
@@ -61,14 +60,28 @@ public class CartController {
 		// 세션 다시 넣기
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
-			System.out.println("loginMemberVo"+loginMemberVo);
+		
 			int count=cartService.getNowCartNum(member_id);
 			loginMemberVo.setMemberCartCount(count);
-			System.out.println("cartcontroller count:"+count);
 			session.setAttribute("loginMemberVo", loginMemberVo);
 			model.addAttribute("loginMemberVo", loginMemberVo);
+			
+			
 		}
 		return String.valueOf(result);
+	}
+	
+	
+	@RequestMapping(value = "/isAlreadyCart", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertCart(String product_id, HttpSession session) {
+		
+		
+		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String member_id=loginMemberVo.getMember_id();
+		int alreadyCartResult=cartService.isAlreadyCart(product_id,member_id);
+	
+		return String.valueOf(alreadyCartResult);
 	}
 	
 	// 카트 삭제
