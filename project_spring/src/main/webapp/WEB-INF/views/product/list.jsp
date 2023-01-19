@@ -20,10 +20,7 @@
 <script>
 $(document).ready(function() {
 	
-	
-	
 
-	
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
 	   e.preventDefault();
@@ -44,10 +41,9 @@ $(document).ready(function() {
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
-// 			console.log("rData: "+rData); 
 			if (rData == "true") {
-	
 				getCartCountNum();
+				//카트 갯수
 				url="/spring/cart/isAlreadyCart";
 				sData={"product_id":product_id};
 				$.post(url,sData,function(rData){
@@ -71,7 +67,6 @@ $(document).ready(function() {
 			}
 		});
 		var p = $(this).next();
-// 		console.log(p);
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
@@ -92,7 +87,6 @@ $(document).ready(function() {
  		e.preventDefault();
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
- 		console.log("좋아요 클릭");
 		var product_id = $(this).attr("data-product_id");
 		var alreadyclick=$(this).attr("data-already_click");
  		
@@ -106,20 +100,13 @@ $(document).ready(function() {
 		var likeCount = $(this).parent().parent().parent().next().find(".likeCount"); 
 		var headerLikeCount = $(".headerLikeCount"); // 헤더 좋아요 딱지
 		
+		//좋아요 있을 경우 더 올라가지 않도록 설정 
 		$.post(url, sData, function(rData) {
  			console.log("rData: " + rData); 
  			
  			if (rData == "couldlike-true") {
-				console.log("couldlike-true실행됨")
 				nowclickLike.attr("class","fa fa-trash");
 				getLikeCountNum();
-// 				var count = parseInt(likeCount.text());
-// 				var headerCount = parseInt(headerLikeCount.text());
-// 				count++; //맞나??
-// 				headerCount++;
-// 				likeCount.text(count);
-// 				headerLikeCount.text(headerCount);
-// 				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
 				showTextTag.text("위시 리스트에 담겼습니다.")
 			}else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
@@ -129,13 +116,6 @@ $(document).ready(function() {
 				location.href="/spring/member/login";
 			}else if(rData=="coudntlike-true") {
 				getLikeCountNum();
-				console.log("coudntlike-true 실행됨")
-// 				var count = parseInt(likeCount.text());
-// 				var headerCount = parseInt(headerLikeCount.text());
-// 				count--;
-// 				headerCount--;
-// 				likeCount.text(count);
-// 				headerLikeCount.text(headerCount);
 				nowclickLike.attr("class","fa fa-heart");
 				showTextTag.text("위시 리스트에서 삭제되었습니다.")
 			}else if(rData=="couldntlike-false"){
@@ -143,7 +123,6 @@ $(document).ready(function() {
 			}
 		});
 		var p = $(this).next();
-// 		console.log(p);
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});

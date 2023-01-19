@@ -55,14 +55,14 @@ public class MemberController {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	
-	//濡쒓렇�씤 �솕硫� �쓣�슦湲�
+	//처음 로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
 		
 		return "member/login";
 	}
 	
-	//濡쒓렇�씤 �떆
+	//로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginRun(String member_id, String password,HttpSession session
 							,RedirectAttributes rttr,String saveId,HttpServletResponse response) {
@@ -72,7 +72,7 @@ public class MemberController {
 		
 		
 		if(memberVo ==null){
-			//濡쒓렇�씤 �떎�뙣�떆
+			//로그인 실패시 
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
 		} else {
@@ -95,7 +95,7 @@ public class MemberController {
 				return "redirect:/admin/index";
 			}
 			
-			//荑좏궎�꽔湲�
+			//아이디 저장 쿠키 넣기
 			Cookie cookie=new Cookie("member_id",member_id);
 			if(saveId!=null) {
 				cookie.setMaxAge(60*60*24*7);
@@ -107,14 +107,14 @@ public class MemberController {
 		}
 		return page; 
 	}
-	//濡쒓렇�븘�썐
+	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		session.invalidate(); // �쁽�옱 �꽭�뀡 臾댄슚�솕
+		session.invalidate(); //세션이 없을 때
 		return "redirect:/member/login";
 	}
 	
-	//�쉶�썝媛��엯 �솕硫� �쓣�슦湲�
+	//등록 띄우기
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
 	public String showRegister() {
 		
@@ -123,16 +123,15 @@ public class MemberController {
 	
 	
 	
-	//�벑濡� �떎�뻾
+	//등록 실행
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerRun(MemberVo memberVo, MultipartFile file, RedirectAttributes rttr) {
 		
 		
-		System.out.println("register memberVo:"+memberVo);
 		String page="";
 		String originalFilename=file.getOriginalFilename();
 		
-		//�씠誘몄� �뙆�씪�뾽濡쒕뱶
+
 		
 //		"//192.168.0.233/userpics/"
 		try {
@@ -144,7 +143,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		
-		//�벑濡앹떎�뻾
+		//등록 결과
 		boolean result=memberService.registerRun(memberVo);
 		System.out.println("controller memberVo:"+memberVo);
 		if(result) {
@@ -159,18 +158,18 @@ public class MemberController {
 			return page;
 	}
 	
-	//鍮꾨�踰덊샇 李얘린 �쓣�슦湲�
+	//비밀번호 찾기 창 띄우기
 	@RequestMapping(value = "/forgot-passwordForm", method = RequestMethod.GET)
 	public String showforgotpassword() {
 		
 		return "member/forgot-password";
 	}
 	
-	//鍮꾨�踰덊샇 李얘린 �떎�뻾
+	//비밀번호 찾기 실행
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.POST)
 	public String snedPassword(EmailDto emailDto, RedirectAttributes rttr) {
 		
-		//李얘린�븯�뒗�뜲 �젣��濡� �꽔吏� �븡�� 寃쎌슦
+		//정보가 하나라도 입력되지 않았을 경우
 		if(emailDto.getMember_id()==null ||
 		   emailDto.getMember_id().equals("") ||
 		   emailDto.getTo()==null ||
@@ -179,14 +178,14 @@ public class MemberController {
 			return "redirect:/member/forgot-passwordForm";
 		}
 		
-		//�븘�씠�뵒�븯怨� �씠硫붿씪�씠 �젣��濡� �엳�뒗吏�
+		//아이디,메일이 등록이 되지 않은 경우
 		if(!memberService.isExist(emailDto.getMember_id(),emailDto.getTo())) {
 			rttr.addFlashAttribute("isExist","false");
 			return "redirect:/member/forgot-passwordForm";
 			
 		}
 		
-		//�엫�떆鍮꾨�踰덊샇 �깮�꽦 諛� 諛쒖넚
+		
 		String uuid=UUID.randomUUID().toString();
 		String uuidsub = uuid.substring(0, uuid.indexOf("-"));
 		
@@ -213,7 +212,7 @@ public class MemberController {
 		
 	}
 	
-	//�븘�씠�뵒 泥댄겕
+	//아이디 체크하기
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean idCheck(String member_id) {
@@ -222,6 +221,7 @@ public class MemberController {
 		return result;
 	}
 	
+	//마이페이지 열기
 	@RequestMapping(value="/mypage",method = RequestMethod.GET)
 	public String MyPage(HttpSession session,Model model) {
 		 String member_id=(String)session.getAttribute("loginMember");
@@ -239,6 +239,7 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	//마이페이지 정보 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyInfo(MemberVo memberVo,RedirectAttributes rttr,MultipartFile file) {
 		
@@ -266,6 +267,8 @@ public class MemberController {
 		return "redirect:/member/mypage";
 	}
 	
+	
+	//프로필 가져오기
 	@RequestMapping(value = "/getProfile",method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] getImage(String profileImage) { 
@@ -292,7 +295,7 @@ public class MemberController {
 	
 
 	
-	
+	//네이버 로그인 하기
 	@RequestMapping(value="/naverLoginRun", method=RequestMethod.POST)
     public String naverLoginRun(HttpSession session,String loginToken,MemberVo getmemberVo,
     							RedirectAttributes attr,Model model,String naver_id) {
@@ -331,6 +334,8 @@ public class MemberController {
 		return page;
     }
 	
+	
+	//네이버 로그인 실행 폼
 	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
     public String loginPOSTNaver(HttpSession session) {
 		

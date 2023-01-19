@@ -103,6 +103,7 @@ $(document).ready(function() {
 			if (rData == "couldlike-true") {
 			
 				nowclickLike.attr("class","fa fa-trash");
+				console.log("좋아요 등록 성공");
 				getLikeCountNum();
 				showTextTag.text("위시 리스트에 담겼습니다.");
 			}else if (rData == "couldlike-flase"){

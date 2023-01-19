@@ -142,6 +142,7 @@ public class LikeController {
 		
 	}
 	
+	//라이크 숫자 가져오기
 	@RequestMapping(value = "/getLikeCount", method = RequestMethod.POST)
 	@ResponseBody
 	public int getLikeCount(HttpSession session) {

@@ -48,7 +48,8 @@ $(document).ready(function() {
 	
 	
 	var location = window.location.href;
-
+	
+	//처음 실행시 라이크와 카운트 숫자 가져옴
 	getCartCountNum();
 	getLikeCountNum();
 	
@@ -64,7 +65,7 @@ $(document).ready(function() {
 		$("#about").addClass("active");
 	}
 
-	var isAlreadyLike;	
+	
 	console.log("session:","${loginMember}")
 
 	// 검색 버튼
@@ -90,7 +91,7 @@ $(document).ready(function() {
 	console.log("member_id",logininfo);
 	
 });
-
+	//카트 카운트 가져오기 및 안내메시지 변경 함수
 	function getCartCountNum(){
 		url="/spring/cart/countNum";
 		sData={};
@@ -108,7 +109,7 @@ $(document).ready(function() {
 			}
 		});
 	};
-	
+	//라이크 카운트 가져오기 및 안내메시지 변경 함수
 	function getLikeCountNum(){
 		url="/spring/like/getLikeCount";
 		sData={};
@@ -129,7 +130,6 @@ $(document).ready(function() {
 		});
 	};
 
-	
 
 </script>
 </head>

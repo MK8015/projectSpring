@@ -47,7 +47,7 @@ public class OrderController {
 		return "order/orderList";
 	}
 	
-
+	//주문 넣기
 	@RequestMapping(value = "/insertOrder", method = RequestMethod.POST)
 	public String order(String list, Model model, HttpSession session, OrderVo vo,String totalPrice) {
 		String page="";
