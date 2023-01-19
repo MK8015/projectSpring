@@ -41,10 +41,11 @@ $(document).ready(function() {
 
  	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
+ 		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
  		console.log("장바구니 클릭!!!");
  		
-		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
+		var headerCartCount = $(".headerCartCount"); // 헤더 장바구니 딱지
 		
 		var product_id = $(this).attr("data-product_id");
 		var sData = {"product_id" : product_id};
@@ -52,10 +53,22 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData) {
 // 			console.log("rData: "+rData); 
 			if (rData == "true") {
-				var headerCount = parseInt(headerCartCount.text());
-				headerCount++;
-				headerCartCount.text(headerCount);
-				headerCartCount.css("display", ""); //0일 때 배지 사라지게 하기
+
+				getCartCountNum();
+				url="/spring/cart/isAlreadyCart";
+				sData={"product_id":product_id};
+				$.post(url,sData,function(rData){
+					var AlreadyCartResult=rData;
+					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
+					if(AlreadyCartResult=="1"){
+						showTextTagCart.text("카트에 추가되었습니다");
+					}else{
+						showTextTagCart.text("수량이 추가되었습니다.");
+					}
+					
+					
+				});
+				
 			} else if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				return;
@@ -71,9 +84,7 @@ $(document).ready(function() {
  	});
  	
  	function hideDisplay(closeBtn) {
- 		//closeBtn.parent().hide(2000);
  		closeBtn.parent().attr("style","display:none");
- 		//closeBtn.parent().attr("style","display:none");
  	}
  	
  	// 카트 닫기 버튼
@@ -100,12 +111,8 @@ $(document).ready(function() {
 		
 		$.post(url, sData, function(rData) {
  			if (rData == "true"){
- 				console.log("삭제 완료")
-				var headerCount = parseInt(headerLikeCount.text());
-				headerCount--;
-				headerLikeCount.text(headerCount);
-				headerLikeCount.css("display", ""); //0일 때 배지 사라지게 하기
- 				
+ 				console.log("삭제 완료");
+ 				getLikeCountNum(); 				
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
@@ -113,9 +120,6 @@ $(document).ready(function() {
 				});
 			}
 		});
-		//var p = $(this).next();
-// 		console.log(p);
-		//p.css("display","");
  	});
  	
 	
@@ -161,7 +165,7 @@ $(document).ready(function() {
 													<i class="fa fa-shopping-cart parent"></i>
 												</a>
 												<p class="child abs" style="display:none">
-													카트에 담겼습니다.<br>
+													<span></span><br>
 													<input onclick="location.href='/spring/cart/list'" 
 													type="button" value="카트 보기>"/>
 													<input type="button" class="closeBtn" value="닫기"/>

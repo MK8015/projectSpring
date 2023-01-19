@@ -45,9 +45,12 @@
 
 <script>
 $(document).ready(function() {
+	
+	
 	var location = window.location.href;
 
 	getCartCountNum();
+	getLikeCountNum();
 	
 	if(location.includes("/spring/main/list")){
 		$("#main").addClass("active");
@@ -92,14 +95,41 @@ $(document).ready(function() {
 		url="/spring/cart/countNum";
 		sData={};
 		$.post(url,sData,function(rData){
+			console.log("getcount rData:",rData);
 			if(rData==0){
-				$("#headerCartCount").attr("style","display:none");
+				$(".headerCartCount").attr("style","display:none");
+				
 			}else{
-				$("#headerCartCount").attr("style","");
-				$("#headerCartCount").text(rData);
+				$(".headerCartCount").attr("style","");
+				$(".headerCartCount").text(rData);
+				var text= $(".headerCartCount").text();
+				
+				
 			}
 		});
 	};
+	
+	function getLikeCountNum(){
+		url="/spring/like/getLikeCount";
+		sData={};
+		$.post(url,sData,function(rData){
+			console.log("getcount rData:",rData);
+			if(rData==0){
+				
+				$(".headerLikeCount").attr("style","display:none");
+				
+			}else{
+				
+				$(".headerLikeCount").attr("style","");
+				$(".headerLikeCount").text(rData);
+				var text= $(".headerLikeCount").text();
+				
+				
+			}
+		});
+	};
+
+	
 
 </script>
 </head>
@@ -122,21 +152,11 @@ $(document).ready(function() {
 			<c:otherwise>
 				<ul>
 					<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
-					<span id="headerLikeCount" 
-						<c:if test="${empty loginMemberVo.memberLikeCount || 
-										loginMemberVo.memberLikeCount eq 0}">
-							style="display:none"</c:if>
-							>
-							${loginMemberVo.memberLikeCount}
+					<span class="headerLikeCount"> 
+					
 						</span></a></li>
 					<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-					<span id="headerCartCount" 
-						<c:if test="${empty loginMemberVo.memberCartCount || 
-										loginMemberVo.memberCartCount eq 0}">
-							style="display:none"</c:if>
-							>
-							${loginMemberVo.memberCartCount}
-						</span></a></li>
+					<span class="headerCartCount"></span></a></li>
 				</ul>
 				<div class="header__cart__price">point: 
 				<span><fmt:formatNumber value="${loginMemberVo.member_point}" pattern="#,###"/>원</span></div>
@@ -182,7 +202,7 @@ $(document).ready(function() {
 	</div>
 	<nav class="humberger__menu__nav mobile-menu">
 		<ul>
-			<li class="active"><a href="/spring/main/list">MAIN</a></li>
+			<li class="active"><a href="/spring/main/index">MAIN</a></li>
 			<li><a href="/spring/list/list">BOOK</a>
 				<ul class="header__menu__dropdown">
 					<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -227,7 +247,7 @@ $(document).ready(function() {
 				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
-							<li id="main"><a href="/spring/main/list">MAIN</a></li>
+							<li id="main"><a href="/spring/main/index">MAIN</a></li>
 							<li id="list"><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -342,18 +362,12 @@ $(document).ready(function() {
 				<div class="header__cart">
 					<ul>
 						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
-							<span id="headerLikeCount" 
-							<c:if test="${empty loginMemberVo.memberLikeCount || 
-											loginMemberVo.memberLikeCount eq 0}">
-								style="display:none"</c:if>
-								>
-								${loginMemberVo.memberLikeCount}
+							<span class="headerLikeCount">
+								
 							</span>
 							</a></li>
 						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-							<span id="headerCartCount" >
-
-							</span>
+							<span class="headerCartCount"></span>
 						</a></li>
 					</ul>
 				</div>

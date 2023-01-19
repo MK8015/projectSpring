@@ -134,7 +134,7 @@ $(document).ready(function() {
 				<tr height="110">
 					<td style ='vertical-align : middle'>
 						<a href="/spring/board/modify?bno=${boardVo.bno}
-								&re_group=${boardVo.re_group}" class="white-btn">수정</a>　
+								&re_group=${boardVo.re_group}" class="white-btn">수정</a>
 						<a href="/spring/board/delete?bno=${boardVo.bno}" class="white-btn">삭제</a>　
 						
 					<!-- admin일 때 답글 버튼 보이기 -->
