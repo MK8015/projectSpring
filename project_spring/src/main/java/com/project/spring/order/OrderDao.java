@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.spring.vo.AdminVo;
 import com.project.spring.vo.OrderVo;
 
 @Repository
@@ -95,6 +96,17 @@ public class OrderDao {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<OrderVo> getOrderList() {
+		return sqlSession.selectList(NAME_SPACE+"getOrderList");
+	}
+	
+	public List<AdminVo> getChart(){
+		return sqlSession.selectList(NAME_SPACE+"getChart");
+	}
+	public List<AdminVo> getBestSeller(){
+		return sqlSession.selectList(NAME_SPACE+"getBestSeller");
 	}
 
 }

@@ -37,7 +37,7 @@ $(document).ready(function() {
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
-			
+			console.log(rData);
 			if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				getCartCountNum();

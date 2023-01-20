@@ -38,7 +38,7 @@
 	float: left;
 	position: relative;
 	align-items: center;
-	width: 100px;
+	width: 200px;
 }
 
 .productRating {
@@ -115,15 +115,19 @@ img {
 */
 
 </style>
-
 <script>
 $(document).ready(function() {
 	
+	//리뷰 1페이지 로딩 
 	getReview(1);
+	
+	//해당 품목의 별점 세팅
 	setRating("${productVo.product_id}");
+	
 	// 좋아요 눌렀는지 안 눌렀는지
 	var isLike = "${likeMap.isLike}";
 	
+	//카트에 담기
 	$("#btnInsertCart").click(function(e){
 		e.preventDefault();
 		var cart_amount = $(".pro-qty").find("input").val();
@@ -133,7 +137,7 @@ $(document).ready(function() {
 				"product_id": product_id,
 		};
 		var form = $("<form></form>");
-		form.attr("method","post");
+		form.attr("method","get");
 		form.attr("action","/spring/cart/insertCart");
 		for(var data in sData){
 			var input = $("<input></input>");
@@ -147,6 +151,7 @@ $(document).ready(function() {
 		
 	});
 	
+	//리뷰 수정 클릭
 	$(document).on("click", ".btnUpdateReview", function(e) {
 		e.preventDefault();
 		var td = $(".reviewForm").find("td").eq(1).clone();
@@ -155,8 +160,9 @@ $(document).ready(function() {
 		$(this).parent().parent().after("<tr id='reviewUpdateForm'></tr>");
 		$("#reviewUpdateForm").append(td);
 		$("#reviewUpdateForm").append("<td><a href='#' class='site-smbtn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
-	}); // END : $(document).on("click", ".btnUpdateReview"
+	}); // END : 리뷰 수정 클릭
 	
+	//리뷰 수정 실행
 	$(document).on("click", ".btnUpdateRun", function(e) {
 		e.preventDefault();
 		var review_no = $(this).attr("data-review_no");
@@ -173,8 +179,9 @@ $(document).ready(function() {
 				reviewForm.remove();
 			}
 		});
-	}); // END : $(document).on("click", ".btnUpdateRun",
+	}); // END : 리뷰 수정 실행
 	
+	//리뷰 삭제
 	$(document).on("click", ".btnDeleteReview", function(e) {
 		e.preventDefault();
 		var review_no = $(this).attr("data-review_no");
@@ -184,10 +191,10 @@ $(document).ready(function() {
 				setRating("${productVo.product_id}");				
 			}
 		});
-	}); // END : $(document).on("click", ".btnDeleteReview",
+	}); // END : 리뷰 삭제
 	
 	
-	//리뷰 별점
+	//리뷰 별점 선택(마우스오버,클릭)
 	$("#stars li").on("mouseover",function() {
 		var onStar = parseInt($(this).data("value"), 10);
 		$(this).parent().children("li.star").each(function(e) {
@@ -212,11 +219,16 @@ $(document).ready(function() {
 			$(stars[i]).addClass("selected");
 		}
 	});
-	//리뷰별점 끝
+	//END : 리뷰 별점 선택(마우스오버,클릭)
 
-	//리뷰 입력	
+	//리뷰 입력
 	$(".btnInsertReview").click(function(e) {
 		e.preventDefault();
+		var checkLogin = "${loginMemberVo}";
+		if(checkLogin == ""){
+			location.href = "/spring/member/login";
+			console.log("1");
+		}
 		var review_content = $("#review_content").text();
 		var review_rating = parseInt($('#stars li.selected').last().data('value'), 10);
 		if (isNaN(review_rating)) {
@@ -244,20 +256,14 @@ $(document).ready(function() {
 		getReview(page);
 	});
 
-// 	$(".perPage").click(function(e) {
-// 		e.preventDefault();
-// 		var perPage = $(this).attr("href");
-// 		location.href = "/board/list?perPage=" + perPage;
-// 	});
 	
-	
-	//상품 별점,리뷰수 세팅
+	//상품 별점,리뷰 수 세팅
 	function setRating(product_id){
 		$.get("/spring/review/setRating",{"product_id":product_id},function(rData){
 			var jsonObject = JSON.parse(rData);
 			$("#reviewCount").text(jsonObject.reviewCount + "개의 리뷰");
 			$(".productRating").css("width", (jsonObject.ratingAvg/5)*100 + "%");
-			$("#ratingAvg").text(jsonObject.ratingAvg+"/5점");
+			$("#ratingAvg").text("("+jsonObject.ratingAvg+"/5점)");
 		});
 	}
 
@@ -271,7 +277,6 @@ $(document).ready(function() {
 		};
 		$.get("/spring/review/reviewPaging",sData,function(rData) {
 			var jsonArray = JSON.parse(rData);	
-			console.log(jsonArray);
 			for (var i = 0; i < jsonArray.length; i++) {
 				var tr = $("#review").find("tr").eq(0).clone();
 				var tds = tr.find("td");
@@ -312,7 +317,7 @@ $(document).ready(function() {
 			console.log("좋아요 url: cancelLike");
 			url = "/spring/like/cancelLike";
 		} else {
-			console.log("좋아요 url: inserLike");
+			console.log("좋아요 url: insertLike");
 			url = "/spring/like/insertLike";
 		}
 		var sData = {"product_id" : "${productVo.product_id}"};
@@ -397,6 +402,7 @@ $(document).ready(function() {
 										</div>
 										</div>
 									</td>
+									<td style="text-align: center;"><span id="ratingAvg"></span></td>
 								</tr>
 							</table>
 							

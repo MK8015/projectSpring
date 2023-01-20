@@ -3,7 +3,6 @@
 
 <%@ include file="../include/header.jsp" %>
 
-
 <style>
 .qna-form {
 	padding-top: 80px;
@@ -23,7 +22,6 @@ pre p {
 	margin-top: 20px;
 	text-align: justify;
 }
-
 
 .white-btn {
 	display: inline-block;
@@ -55,7 +53,8 @@ pre p {
 
 <script>
 $(document).ready(function() {
-
+	
+	
 	$("#a_reply_ok").click(function(e) {
 		e.preventDefault();
 		$("#frmUpdate").attr("action", "/spring/board/reply").submit();

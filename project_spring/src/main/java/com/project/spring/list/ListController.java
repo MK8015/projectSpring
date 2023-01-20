@@ -32,6 +32,7 @@ public class ListController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category,HttpSession session) {
 		//System.out.println(category);
+		System.out.println(pagingDto);
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		String member_id= null;
 		if(memberVo != null) {

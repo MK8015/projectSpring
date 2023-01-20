@@ -13,12 +13,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		System.out.println("인터셉터");
 		HttpSession session = request.getSession();
 		String member_id = (String)session.getAttribute("loginMember");
 		if(member_id == null) {
-			String returnURI = request.getRequestURI();
+			String returnURI = request.getRequestURI().substring(7);
+			System.out.println(returnURI);
 			String queryString = request.getQueryString();
-			if (!queryString.equals("null")) {
+			if (queryString != null) {
 				returnURI = returnURI + "?" + queryString;
 			}
 			session.setAttribute("returnURI", returnURI);

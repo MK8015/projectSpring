@@ -25,6 +25,8 @@ public class ListDao {
 		map.put("startRow", pagingDto.getStartRow());
 		map.put("endRow", pagingDto.getEndRow());
 		map.put("member_id", member_id);
+		map.put("searchType", pagingDto.getSearchType());
+		map.put("keyword", pagingDto.getKeyword());
 		return sqlSession.selectList(NAME_SPACE + "getProductList", map);
 	}
 	

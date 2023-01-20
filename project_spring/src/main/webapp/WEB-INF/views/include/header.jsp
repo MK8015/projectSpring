@@ -50,8 +50,11 @@ $(document).ready(function() {
 	var location = window.location.href;
 	
 	//처음 실행시 라이크와 카운트 숫자 가져옴
-	getCartCountNum();
-	getLikeCountNum();
+	var checkLogin = "${loginMemberVo}"
+	if(checkLogin != null && checkLogin != ""){
+		getCartCountNum();
+		getLikeCountNum();		
+	}
 	
 	if(location.includes("/spring/main/index")){
 		$("#main").addClass("active");
@@ -77,7 +80,7 @@ $(document).ready(function() {
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
-		  console.log("검색버튼")
+		  console.log("검색버튼");
 		  var searchType = $("#frmSearch").find("[name=searchType]").val(); 
 		  var keyword = $("#frmSearch").find("[name=keyword]").val();
 // 		  if (keyword == null || keyword.trim() == "") {
@@ -372,12 +375,12 @@ $(document).ready(function() {
 				<div class="header__cart">
 					<ul>
 						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
-							<span class="headerLikeCount">
+							<span class="headerLikeCount" style="display: none">
 								
 							</span>
 							</a></li>
 						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
-							<span class="headerCartCount"></span>
+							<span class="headerCartCount" style="display: none"></span>
 						</a></li>
 					</ul>
 				</div>

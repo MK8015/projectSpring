@@ -90,7 +90,11 @@ public class MemberController {
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
 			session.setAttribute("loginMember", memberVo.getMember_id());
-
+			String returnURI = (String)session.getAttribute("returnURI");
+			if(returnURI == null) {
+				returnURI = "/main/index";
+			}
+			session.removeAttribute("returnURI");
 			if(memberVo.getMember_id().equals("admin")) {
 				return "redirect:/admin/index";
 			}
@@ -103,7 +107,8 @@ public class MemberController {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);
-			page="redirect:/main/index";
+			
+			page = "redirect:"+returnURI;
 		}
 		return page; 
 	}

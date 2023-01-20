@@ -35,19 +35,19 @@
 				        where member_id = #{member_id}) e
 				    where d.product_id = e.product_id(+)
    			 	</if>
-				    )
+				    ) f
 		where rnum between #{startRow} and #{endRow}
 	<if test='searchType neq null and keyword neq null and
 			searchType neq "" and keyword neq ""'>
 			<choose>
 				<when test='searchType eq "t"'>
-					and product_name like '%' || #{keyword} || '%'
+					and f.product_name like '%' || #{keyword} || '%'
 				</when>
 				<when test='searchType == "w"'>
-					and product_author like '%' || #{keyword} || '%'
+					and f.product_author like '%' || #{keyword} || '%'
 				</when>
 				<when test='searchType == "p"'>
-					and product_publisher like '%' || #{keyword} || '%'
+					and f.product_publisher like '%' || #{keyword} || '%'
 				</when>
 			</choose>			
     	 </if>

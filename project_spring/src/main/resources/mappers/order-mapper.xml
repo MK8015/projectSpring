@@ -85,5 +85,36 @@
 		where member_id = #{member_id}
 		and product_id = #{product_id}
 	</select>
+	
+	<select id="getOrderList" resultType="OrderVo">
+	<![CDATA[
+		 select * from
+        (select o.*, p.product_name, p.product_image, p.price, p.product_author, p.product_publisher 
+        from t_order o,t_product p
+        where o.product_id = p.product_id 
+        order by o.order_no desc)
+        where ROWNUM <= 5
+	]]>
+	</select>
+	
+	<select id="getChart" resultType="AdminVo">
+		select TO_CHAR(o.order_date, 'yyyy/mm/dd') order_date,
+        sum(o.order_amount*p.price) revenue
+        from t_order o,t_product p
+        where o.product_id = p.product_id
+        group by TO_CHAR(o.order_date, 'yyyy/mm/dd')
+        order by TO_CHAR(o.order_date, 'yyyy/mm/dd') desc
+	</select>
+	
+	<select id="getBestSeller" resultType="AdminVo">
+	<![CDATA[
+		select a.cnt,b.product_name from
+        (select product_id,sum(order_amount) cnt from t_order
+        group by product_id
+        order by sum(order_amount) desc)a,t_product b
+        where a.product_id = b.product_id
+        and rownum <= 5
+    ]]>
+	</select>
 
  </mapper>

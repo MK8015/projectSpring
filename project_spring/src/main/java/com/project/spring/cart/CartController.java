@@ -150,7 +150,7 @@ public class CartController {
 	}
 
   // detail 에서 카트 추가
-	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
