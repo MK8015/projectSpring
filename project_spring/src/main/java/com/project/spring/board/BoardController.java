@@ -40,9 +40,11 @@ public class BoardController {
 	// 전체 글 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
+
 		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
 		List<BoardVo> list = boardService.listArticle(boardPagingDto);
 		// 공지 글 리스트 따로, 그냥 글 리스트 따로
+
 		List<BoardVo> listNotify = boardService.listNotify();
 		model.addAttribute("listNotify", listNotify);
 		model.addAttribute("list", list);
@@ -54,7 +56,13 @@ public class BoardController {
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String getArticle(int bno, int re_group, Model model, HttpSession session,
 								RedirectAttributes rttr) {
-		String member_id = (String)session.getAttribute("loginMember");
+
+		
+		MemberVo memberVo =(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id = memberVo.getMember_id();
+		System.out.println("로그인멤버" + member_id);
+		
+
 		BoardVo boardVo = null;
 		if (bno == re_group) {
 			//원글
@@ -109,9 +117,11 @@ public class BoardController {
 				e.printStackTrace();
 			}
 		}
+
 		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		if (loginMemberVo != null) {
 			boardVo.setWriter(loginMemberVo.getMember_id());
+
 		}
 		boolean result = boardService.insertArticle(boardVo);
 		rttr.addFlashAttribute("register_result", result);
@@ -128,7 +138,8 @@ public class BoardController {
 	
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
 	public String reply(BoardVo boardVo, RedirectAttributes rttr, HttpSession session) {
-		String loginMember = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String loginMember = memberVo.getMember_id();
 		boardVo.setWriter(loginMember);
 		boolean result = boardService.insertReply(boardVo);
 		rttr.addFlashAttribute("reply_result", result);
