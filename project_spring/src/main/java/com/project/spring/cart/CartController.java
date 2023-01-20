@@ -21,8 +21,6 @@ import com.project.spring.vo.CartVo;
 import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
 
-
-
 @Controller
 @RequestMapping("/cart/*")
 public class CartController {
@@ -40,7 +38,7 @@ public class CartController {
 	public String list(Model model, HttpSession session) {
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
-			return "member/login";
+			return "notLogin";
 		}
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
 		model.addAttribute("cartProductList", cartProductList);
@@ -51,7 +49,6 @@ public class CartController {
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("cartcontroller product_id:"+product_id);
 		String member_id = (String)session.getAttribute("loginMember");
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
@@ -192,6 +189,7 @@ public class CartController {
 	@ResponseBody
 	public int memberCartCount(HttpSession session){
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		
 		int count= cartService.getNowCartNum(memberVo.getMember_id());
 		return count; 
 	}

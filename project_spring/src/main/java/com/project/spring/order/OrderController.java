@@ -42,7 +42,8 @@ public class OrderController {
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id = memberVo.getMember_id();
 		int orderCount = (int) session.getAttribute("orderCount");
-		List<OrderVo>list = orderService.recentOrderList(orderCount, member_id);
+		session.removeAttribute("orderCount");
+		List<OrderVo> list = orderService.recentOrderList(orderCount, member_id);
 		model.addAttribute("list", list);
 		return "order/orderList";
 	}
@@ -50,10 +51,8 @@ public class OrderController {
 	//개인 주문리스트
 	@RequestMapping(value = "/myOrder",method = RequestMethod.GET)
 	public String myOrder(Model model, String arr_cart_no,HttpSession session) { 
-		
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		List<OrderVo>list=orderService.myOrder(memberVo.getMember_id());
-
 		model.addAttribute("list", list);
 		return "order/orderList";
 	}
@@ -69,8 +68,6 @@ public class OrderController {
 		int index = 0;
 		for(Object obj: array) {
 			JSONObject jsonObject = (JSONObject)obj;
-//			System.out.println(jsonObject.get("product_id"));
-//			System.out.println(jsonObject.get("cart_amount"));
 			OrderVo orderVo = new OrderVo();
 			orderVo.setMember_id(memberVo.getMember_id());
 			orderVo.setProduct_id(String.valueOf(jsonObject.get("product_id")));
