@@ -36,13 +36,16 @@ public class MainController {
 	public String indexRun(Model model,HttpSession session) {
 		
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id= memberVo.getMember_id();
-		System.out.println("maincontroller member_id" + member_id);
-		List<ProductVo>listlike = mainService.getListlike(member_id);
+		if(memberVo != null) {
+			String member_id= memberVo.getMember_id();
+			System.out.println("maincontroller member_id" + member_id);
+			List<ProductVo>listlike = mainService.getListlike(member_id);			
+			model.addAttribute("list", listlike);
+		}else {
+			List<ProductVo> list = mainService.getList();			
+			model.addAttribute("list", list);
+		}
 		
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, listlike" + listlike);
-		model.addAttribute("list", listlike);
 		
 		return "index/main";
 	}
