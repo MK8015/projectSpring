@@ -71,7 +71,9 @@ a:hover {
 	color: #7fad39;
 }
 
-
+.form-group input[type=checkbox] {
+    accent-color: #28a745;
+}
 </style>
 
 
@@ -197,16 +199,15 @@ $(document).ready(function(){
                                     id="password" name="password" placeholder="비밀번호를 입력해주세요"
                                     style="margin-bottom: 0px;">
                               </div>
-                              <div class="form-group">
-                                 <div class="custom-control custom-checkbox small">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck" name="saveId"
+                              
+                              <div class="form-group" style="margin-left: 14px;">
+                                    <input type="checkbox" id="customCheck" name="saveId"
                                        <c:if test="${not empty cookie.member_id}">
                                        checked
                                        </c:if>
                                     >
-                                    <label class="custom-control-label" for="customCheck"
+                                    <label for="customCheck"
                                         style="margin-left: 10px;">아이디 기억</label>
-                                 </div>
                               </div>
 
 										

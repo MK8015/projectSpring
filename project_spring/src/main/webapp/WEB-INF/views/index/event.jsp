@@ -3,8 +3,6 @@
 
 <%@ include file="../include/header.jsp" %>
 
-
-
 <!-- START : 광고 이미지 Section -->
 <section>
 	<div class="container"><br>
@@ -13,8 +11,5 @@
 	</div>
 </section>
 <!-- End : 광고 이미지 Section -->
-
-
-
 
 <%@ include file="../include/footer.jsp" %>

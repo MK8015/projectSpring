@@ -18,15 +18,8 @@ public class BoardDao {
 	
 	@Autowired
 	SqlSession sqlSession;
-
 	
-
-	public List<BoardVo> listNotify() {
-		List<BoardVo> listNotify = sqlSession.selectList(NAME_SPACE + "listNotify");
-		return listNotify;
-	}
-	
-	// 占쏙옙 占쏙옙占
+	// 전체 글 리스트 보기
 	public List<BoardVo> listArticle(BoardPagingDto boardPagingDto) {
 		Map<String, String>map=new HashMap<>();
 		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
@@ -36,36 +29,38 @@ public class BoardDao {
 		return list;
 	}
 	
-	// 占쏙옙 占쏙옙호 占쏙옙占쏙옙
+	// 공지 글 리스트 보기
+	public List<BoardVo> listNotify() {
+		List<BoardVo> listNotify = sqlSession.selectList(NAME_SPACE + "listNotify");
+		return listNotify;
+	}
+	
+	// 글 번호 선택
 	public BoardVo selectByBno(int bno) {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByBno", bno);
 		return boardVo;
 	}
 	
-
-
-
-	
-	// 占쏙옙 占쏙옙占쏙옙
-	public boolean updateArticle(BoardVo boardVo) {
-		int count = sqlSession.update(NAME_SPACE + "updateArticle", boardVo);
+	// 비밀번호 체크
+	public boolean checkPassword(BoardVo boardVo) {
+		int count = sqlSession.selectOne(NAME_SPACE + "checkPassword", boardVo);
 		if (count > 0) {
 			return true;
 		}
 		return false;
 	}
 	
-	// 占쏙옙 占쏙옙占쏙옙
-	public boolean deleteArticle(int bno) {
-		int count = sqlSession.delete(NAME_SPACE + "deleteArticle", bno);
-		if (count > 0) {
-			return true;
-		}
-		return false;
+	//원글 작성자 체크
+	public BoardVo checkOriginalWriter(String member_id, int bno, int re_group) {
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("bno", String.valueOf(bno));
+		map.put("re_group", String.valueOf(re_group));
+		return sqlSession.selectOne(NAME_SPACE + "checkOriginalWriter", map);
 	}
 	
-	// 占쏙옙회占쏙옙 占쏙옙占쏙옙
+	// 조회수 증가
 	public void updateViewcnt(int bno) {
 		sqlSession.update(NAME_SPACE + "updateViewcnt", bno);
 	}
@@ -76,7 +71,7 @@ public class BoardDao {
 		return nextVal;
 	}
 
-	// 占쌉시깍옙 占쌜쇽옙
+	// 글 등록
 	public boolean insertArticle(BoardVo boardVo) {
 		int count = sqlSession.insert(NAME_SPACE + "insertArticle", boardVo);
 		if (count > 0) {
@@ -99,44 +94,33 @@ public class BoardDao {
 		sqlSession.update(NAME_SPACE + "updateReSeq", boardVo);
 	}
 
-
-	// 占쏙옙 占쏙옙호 占쏙옙占쏙옙
+	// re_group 선택하기
 	public BoardVo selectByRegroup(int re_group) {
 		BoardVo boardVo = sqlSession.selectOne(
 				NAME_SPACE + "selectByRegroup", re_group);
 		return boardVo;
 	}
-
-	// 비밀번호 체크
-	public boolean checkPassword(BoardVo boardVo) {
-		int count = sqlSession.selectOne(NAME_SPACE + "checkPassword", boardVo);
-		if (count > 0) {
-			return true;
-		}
-		return false;
-	}
-	
-	//원글 작성자 체크
-	
-	public BoardVo checkOriginalWriter(String member_id, int bno, int re_group) {
-		
-		Map<String, String> map = new HashMap<>();
-		map.put("member_id", String.valueOf(member_id));
-		map.put("bno", String.valueOf(bno));
-		map.put("re_group", String.valueOf(re_group));
-
-		return sqlSession.selectOne(NAME_SPACE + "checkOriginalWriter", map);
-	}
-	
-	
+	// 카운트 얻어오기
 	public int getCount() {
 		int count=sqlSession.selectOne(NAME_SPACE+"getCount");
 		return count;
 	}
 	
-	
+	// 글 수정
+	public boolean updateArticle(BoardVo boardVo) {
+		int count = sqlSession.update(NAME_SPACE + "updateArticle", boardVo);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
 
-	
-	
-	
+	// 글 삭제
+	public boolean deleteArticle(int bno) {
+		int count = sqlSession.delete(NAME_SPACE + "deleteArticle", bno);
+		if (count > 0) {
+			return true;
+		}
+		return false;
+	}
 }
