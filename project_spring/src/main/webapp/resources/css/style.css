@@ -2357,7 +2357,7 @@ ol {
 .checkout__input__checkbox label .checkmark {
 	position: absolute;
 	left: 0;
-	top: 4px;
+	top: 0;
 	height: 16px;
 	width: 14px;
 	border: 1px solid #a6a6a6;

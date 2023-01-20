@@ -20,10 +20,12 @@ public class ListDao {
 	SqlSession sqlSession;
 	
 	// 전체 도서 조회 (페이지별)
-	public List<ProductVo> getProductList(PagingDto pagingDto,String member_id) {
+	public List<ProductVo> getProductList(PagingDto pagingDto, String member_id) {
 		Map<String, Object>map=new HashMap<>();
 		map.put("startRow", pagingDto.getStartRow());
 		map.put("endRow", pagingDto.getEndRow());
+		map.put("searchType", pagingDto.getSearchType());
+		map.put("keyword", pagingDto.getKeyword());
 		map.put("member_id", member_id);
 		return sqlSession.selectList(NAME_SPACE + "getProductList", map);
 	}

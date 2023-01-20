@@ -5,6 +5,10 @@
 <%@ include file="../include/header.jsp" %>
 
 <style>
+.shoping__cart__table input[type=checkbox] {
+    accent-color: #28a745;
+}
+
 </style>
 
 <script>
@@ -13,7 +17,6 @@ $(document).ready(function() {
 	$(document).on("click", ".orderBtn", function(e) {
 		var arr_cart_no = [];
 		e.preventDefault();
-		console.log("주문하기 버튼");
 	   $(".chkbox").each(function() { // 체크된 상품만 읽어오기
 			var checked = $(this).is(":checked");
 			if (checked == true){
@@ -21,7 +24,6 @@ $(document).ready(function() {
 				arr_cart_no.push(cart_no);
 			}
 		});
-	   console.log(arr_cart_no);
 	   
 	   var json_cart_no = JSON.stringify(arr_cart_no); // 배열을 스트링으로 변환
 	   var form = $("<form></form>");
@@ -35,7 +37,6 @@ $(document).ready(function() {
 	   form.append(input);
 	   $(document.body).append(form);
 	   form.submit();
-	   
 	});
 	 
 	// 체크박스
@@ -48,37 +49,30 @@ $(document).ready(function() {
 	$(document).on("click",".cartUpdate",function(e){
 		e.preventDefault();
 		var that = $(this);
-		console.log("변경클릭");
 		var product_id = $(this).parent().parent().parent().find("td").eq(0).find("input").attr("data-productId");
 		var update_cart_amount = parseInt($(this).parent().find(".cart_amount").val());
 		var price = $(this).parent().parent().prev().find(".price").text();
 		var unitprice = parseInt(price.substring(0,price.length-1));
-		console.log(unitprice);
 		var url = "/spring/cart/update";
 		var sData = {
 			  "product_id" : product_id,
 			  "cart_amount"	 : update_cart_amount	
 		};
 		$.post(url, sData, function(rData) {
-// 		console.log("rData:", rData); 
-		if(rData == "true"){
-			var newPrice = parseInt(unitprice*update_cart_amount);
-			var commaPrice = newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 숫자에 콤마 붙이기
-			console.log("newPrice:",newPrice);
-			console.log("commaPrice:",commaPrice);
-			that.parent().parent().next().text(commaPrice+"원");
-			that.parent().parent().parent().find("td").eq(0).find("input").attr("data-price", newPrice);
-			showTotalPrice();
-		} else {
-			alert("수량 변경 실패");
-		}
+			if(rData == "true"){
+				var newPrice = parseInt(unitprice*update_cart_amount);
+				var commaPrice = newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 숫자에 콤마 붙이기
+				that.parent().parent().next().text(commaPrice+"원");
+				that.parent().parent().parent().find("td").eq(0).find("input").attr("data-price", newPrice);
+				showTotalPrice();
+			} else {
+				alert("수량 변경 실패");
+			}
 		}); // $post
-		
 	});
 	
 	// 카트 상품 체크박스 선택 삭제
 	$(".cartDelete").click(function() {
-		console.log("삭제클릭");
 		var headerCartCount = $("#headerCartCount"); // 헤더 장바구니 딱지
 		
 		var deleteEl = [];
@@ -88,7 +82,6 @@ $(document).ready(function() {
 		
 		$(".chkbox").each(function() {
 			var checked = $(this).is(":checked");
-			console.log(checked);
 			if (checked){
 				var product_id = $(this).attr("data-productId");
 				arr_product_id.push(product_id);
@@ -111,7 +104,6 @@ $(document).ready(function() {
 					$(this).fadeOut(1000, function() {
 			            $(this).remove();
 						showTotalPrice();
-						
 			        });
 				});
 			}
@@ -132,7 +124,6 @@ $(document).ready(function() {
 		
 		var url = "/spring/cart/delete";
 		var sData = {"arr_product_id": arr_product_id};
-		console.log("sData:",sData);
 		$.post(url, sData, function(rData){
 			if (rData == "true"){
 				var headerCount = parseInt(headerCartCount.text());
@@ -164,14 +155,11 @@ $(document).ready(function() {
 		var sumPrice = 0;
 		$(".chkbox").each(function() {
 			var checked = $(this).is(":checked");
-// 			console.log(checked);
 			if (checked == true){
 				var totalPrice = parseInt($(this).attr("data-price"));
-// 				console.log(totalPrice);
 				sumPrice += totalPrice;
 			}
 		});
-// 		console.log(sumPrice);
 		sumPrice = sumPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 숫자에 콤마 붙이기
 		$(".totalPrice").text(sumPrice + "원");
 	}
@@ -184,12 +172,12 @@ $(document).ready(function() {
 		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
 				<div class="subtitle__text">
-					<h2>장바구니</h2>
-					</div>
+					<h2>Shopping Cart</h2>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
 <!-- END : Shopping Cart 이미지 Section -->
 
 <!-- Shoping Cart Section Begin -->
@@ -213,34 +201,34 @@ $(document).ready(function() {
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${cartProductList}" var="list">
+						<c:forEach items="${cartProductList}" var="cartProductVo">
 							<tr>
 								<td class="shoping__cart__check">
 									<input class="chkbox" type="checkbox" checked
-										data-productId="${list.product_id}"
-										data-price="${list.price*list.cart_amount}"
-										data-cartNo="${list.cart_no}"/>
+										data-productId="${cartProductVo.product_id}"
+										data-price="${cartProductVo.price*cartProductVo.cart_amount}"
+										data-cartNo="${cartProductVo.cart_no}"/>
 								</td>
 								<td class="shoping__cart__item">
-									<img src="/spring/product/getImage?imageName=${list.product_image}" width="100px"
-									onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-									<h5 onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-									${list.product_name}<br>
+									<img src="/spring/product/getImage?imageName=${cartProductVo.product_image}" width="100px"
+									onclick="location.href='/spring/product/detail?product_id=${cartProductVo.product_id}'">
+									<h5 onclick="location.href='/spring/product/detail?product_id=${cartProductVo.product_id}'">
+									${cartProductVo.product_name}<br>
 									<span style="font-size:11px; color:gray;"
-									>${list.product_author}|${list.product_publisher}<br>
-									<span style="font-size:11px; color:white;" class="price">${list.price}원</span></span></h5>
+									>${cartProductVo.product_author}|${cartProductVo.product_publisher}<br>
+									<span style="font-size:11px; color:white;" class="price">${cartProductVo.price}원</span></span></h5>
 								</td>
 								<td class="shoping__cart__quantity">
 									<div class="quantity">
 										<div class="pro-qty">
 											<input class="cart_amount"
-											type="text" value="${list.cart_amount}">
+											type="text" value="${cartProductVo.cart_amount}">
 										</div><br>
 										<a href="#" class="primary-btn cartUpdate">변경</a>
 									</div>
 								</td>
 								<td class="shoping__cart__total">
-								<fmt:formatNumber value="${list.price*list.cart_amount}" pattern="#,###"/>
+								<fmt:formatNumber value="${cartProductVo.price*cartProductVo.cart_amount}" pattern="#,###"/>
 								원</td>
 								<td class="shoping__cart__item__close">
 									<span class="icon_close cartItemDelete" 
