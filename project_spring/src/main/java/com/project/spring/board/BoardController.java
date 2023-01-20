@@ -44,11 +44,10 @@ public class BoardController {
 	public String listArticle(Model model,BoardPagingDto boardPagingDto) {
 	
 		
-		System.out.println("boardPagingDto1111:"+boardPagingDto);
+		
 		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
 		List<BoardVo> list = boardService.listArticle(boardPagingDto);
 		//		BoardPagingDto.setPagingInform(BoardPagingDto. , boardPagingDto.getPerPage(), boardService.getCount());
-		System.out.println("boardPagingDto:"+boardPagingDto);
 		
 		List<BoardVo> listNotify = boardService.listNotify();
 		model.addAttribute("listNotify", listNotify);
@@ -63,7 +62,8 @@ public class BoardController {
 	public String getArticle(int bno, int re_group, Model model, HttpSession session,
 								RedirectAttributes rttr) {
 		
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo =(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id = memberVo.getMember_id();
 		System.out.println("로그인멤버" + member_id);
 		
 		BoardVo boardVo = null;
@@ -138,7 +138,8 @@ public class BoardController {
 			}
 		}
 
-		String loginMember = (String)session.getAttribute("loginMember");
+		MemberVo memberVo =(MemberVo)session.getAttribute("loginMemberVo");
+		String loginMember = memberVo.getMember_id();
 		if (loginMember != null) {
 			boardVo.setWriter(loginMember);
 		}
@@ -161,7 +162,8 @@ public class BoardController {
 	
 	@RequestMapping(value = "/reply", method = RequestMethod.POST)
 	public String reply(BoardVo boardVo, RedirectAttributes rttr, HttpSession session) {
-		String loginMember = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String loginMember = memberVo.getMember_id();
 		boardVo.setWriter(loginMember);
 		boolean result = boardService.insertReply(boardVo);
 		rttr.addFlashAttribute("reply_result", result);

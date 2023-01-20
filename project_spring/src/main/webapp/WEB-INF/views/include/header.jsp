@@ -66,7 +66,7 @@ $(document).ready(function() {
 	}
 
 	
-	console.log("session:","${loginMember}")
+	
 
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
@@ -116,19 +116,17 @@ $(document).ready(function() {
 		$.post(url,sData,function(rData){
 			console.log("getcount rData:",rData);
 			if(rData==0){
-				
 				$(".headerLikeCount").attr("style","display:none");
-				
 			}else{
-				
 				$(".headerLikeCount").attr("style","");
 				$(".headerLikeCount").text(rData);
 				var text= $(".headerLikeCount").text();
-				
-				
 			}
 		});
 	};
+	
+	
+
 
 
 </script>
@@ -147,7 +145,7 @@ $(document).ready(function() {
 	</div>
 	<div class="humberger__menu__cart">
 		<c:choose>
-			<c:when test="${empty loginMember}">
+			<c:when test="${empty loginMemberVo.member_id}">
 			</c:when>
 			<c:otherwise>
 				<ul>
@@ -165,16 +163,16 @@ $(document).ready(function() {
 	</div>
 	<div class="humberger__menu__widget">
 		<c:choose>
-			<c:when test="${empty loginMember}">
+			<c:when test="${empty loginMemberVo.member_id}">
 				<div class="header__top__right__auth">
 					<a href="/spring/member/login"><i class="fa fa-user"></i>로그인</a>
 					<a href="/spring/member/registerForm"><i class="fa fa-user"></i>회원가입</a>
 				</div>
 			</c:when>
-			<c:when test="${loginMember eq 'admin'}">
+			<c:when test="${loginMemberVo.member_id eq 'admin'}">
 				<div class="header__top__right__language">
 					<div><i class="fa fa-user">
-					${loginMember}님 환영합니다</i></div>
+					${loginMemberVo.member_id}님 환영합니다</i></div>
 					<span class="arrow_carrot-down"></span>
 					<ul>
 						<li><a href="/spring/admin/index">관리자 페이지</a></li>
@@ -186,7 +184,7 @@ $(document).ready(function() {
 			<c:otherwise>
 				<div class="header__top__right__language">
 					<div><i class="fa fa-user">
-					${loginMember}님 환영합니다</i></div>
+					${loginMemberVo.member_id}님 환영합니다</i></div>
 					<span class="arrow_carrot-down"></span>
 					<ul>
 						<li><a href="/spring/member/mypage">마이 페이지</a></li>
@@ -273,7 +271,7 @@ $(document).ready(function() {
 						<div>
 							<!-- 로그인 안 했을 때 -->
 							<c:choose>
-								<c:when test="${empty loginMember}">
+								<c:when test="${empty loginMemberVo.member_id}">
 									<div class="header__top__right__social">
 									<a href="/spring/member/registerForm">회원가입</a>
 									</div>
@@ -282,9 +280,9 @@ $(document).ready(function() {
 									</div>
 								</c:when>
 								
-								<c:when test="${loginMember eq 'admin'}">
+								<c:when test="${loginMemberVo.member_id eq 'admin'}">
 									<div class="header__top__right__language">
-										<div>${loginMember}님 환영합니다</div>
+										<div>${loginMemberVo.member_id}님 환영합니다</div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
 											<li><a href="/spring/admin/index">관리자 페이지</a></li>
@@ -297,7 +295,7 @@ $(document).ready(function() {
 								<c:otherwise>
 									<!-- 회원일 때 마이페이지 뜨기 -->
 									<div class="header__top__right__language">
-										<div>${loginMember}님(${loginMemberVo.member_point}포인트)</div>
+										<div>${loginMemberVo.member_id}님(${loginMemberVo.member_point}포인트)</div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
 											<li><a href="/spring/member/mypage">마이 페이지</a></li>

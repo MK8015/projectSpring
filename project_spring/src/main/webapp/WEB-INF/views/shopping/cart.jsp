@@ -139,6 +139,7 @@ $(document).ready(function() {
 				headerCount--; 
 				headerCartCount.text(headerCount);
 				headerCartCount.css("display", ""); //0일 때 배지 사라지게 하기
+				getCartCountNum();
 
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {

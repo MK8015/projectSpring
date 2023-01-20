@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.project.spring.vo.MemberVo;
+
 
 
 public class AuthInterceptor extends HandlerInterceptorAdapter {
@@ -14,11 +16,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		String member_id = (String)session.getAttribute("loginMember");
-		if(member_id == null) {
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		
+		if(memberVo == null) {
+			String member_id = memberVo.getMember_id();
 			String returnURI = request.getRequestURI();
 			String queryString = request.getQueryString();
-			if (!queryString.equals("null")) {
+			if (queryString!=null) {
 				returnURI = returnURI + "?" + queryString;
 			}
 			session.setAttribute("returnURI", returnURI);
@@ -26,7 +30,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}else {
 			if(request.getRequestURI().contains("/admin")){
-				if(member_id.equals("admin")) {
+				if(memberVo.getMember_id().equals("admin")) {
 					return true;
 				}
 				response.sendRedirect("/spring/member/login");

@@ -53,10 +53,13 @@ img {
 <script>
 $(document).ready(function() {
 	
+	
+	
 	getReview(1);
 	setRating("${productVo.product_id}");
 	// 좋아요 눌렀는지 안 눌렀는지
-	var isLike = "${likeMap.isLike}";
+	var isLike = "${isLike}";
+	console.log("islike:",isLike);
 	
 	$("#btnInsertCart").click(function(e){
 		e.preventDefault();
@@ -156,7 +159,7 @@ $(document).ready(function() {
 		if (isNaN(review_rating)) {
 			review_rating = 0;
 		}
-		var member_id = "${loginMember}";
+		var member_id = "${loginMemberVo.member_id}";
 		var sData = {
 			"member_id" : member_id,
 			"product_id" : "${productVo.product_id}",
@@ -227,7 +230,7 @@ $(document).ready(function() {
 				}
 				tds.eq(1).text(jsonArray[i].review_content);
 				tds.eq(2).find("a").attr("data-review_no",jsonArray[i].review_no);
-				if("${loginMember}" != jsonArray[i].member_id){
+				if("${loginMemberVo.member_id}" != jsonArray[i].member_id){
 					tds.eq(2).find("a").css("display","none");
 				}
 				tr.show();
@@ -241,41 +244,56 @@ $(document).ready(function() {
 	$("#likeHeart").click(function(e) {
 		e.preventDefault();
 		
-		var url;
-		if (isLike == "true") {
-			console.log("좋아요 url: cancelLike");
-			url = "/spring/like/cancelLike";
-		} else {
-			console.log("좋아요 url: inserLike");
-			url = "/spring/like/insertLike";
-		}
+		console.log("isllike:",isLike);
 		var sData = {"product_id" : "${productVo.product_id}"};
-		console.log("sData:", sData)
 		
-		$.get(url, sData, function(rData) {
-			console.log("rData:", rData)
-			var count = parseInt($("#likeCount").text());
-			
-			if (rData == "true") {
-				//이미 좋아요 한 경우 = true, 아닌 경우 = else
-				if (isLike == "true") {
-					isLike = "false";
-					$("#likeHeart").css("color", "#6f6f6f");
-					$("#heartIcon").attr("class", "fa fa-heart-o");
-					count--;
-				} else {
-					// 안 한 거
-					isLike = "true";
-					$("#likeHeart").css("color", "#dd2222");
-					$("#heartIcon").attr("class", "fa fa-heart");
-					count++;
+		//좋아요가 가능한 경우
+		if(isLike=="false"){
+			console.log("isAlreadyLike false 실행됨");
+			url = "/spring/like/insertLike";
+			$.post(url,sData,function(rData){
+				if(rData=="couldlike-true"){
+					
+ 					$("#likeHeart").css("color", "#dd2222");
+ 					$("#heartIcon").attr("class", "fa fa-heart");
+ 					url="/spring/like/getProductLikeCount";
+ 					$.post(url,sData,function(rData){
+ 						$("#likeCount").text(rData);
+ 						});
+ 					getLikeCountNum();
+ 					console.log("isalreadyLike:","${isAlreadyLike}");
+				}else if(rData=="couldlike-flase"){
+					alert("좋아요 등록에 실패했습니다.");
+				}else if(rData=="notLogin"){
+					alert("로그인후 이용바랍니다.");
+	 				location.href="/spring/member/login";
 				}
-				$("#likeCount").text(count);
-			} else if (rData == "notLogin") {
-				alert("로그인후 이용바랍니다.")
-				location.href="/spring/member/login";
-			}
-		}); // $.get(url
+			});
+		}else{
+			//좋아요가 이미 있어 불가능한 경우
+			console.log("isAlreadyLike true 실행됨");
+			url = "/spring/like/delete";
+			$.post(url,sData,function(rData){
+				console.log("rData:",rData);
+				if(rData == "true"){
+					$("#likeHeart").css("color", "#6f6f6f");
+ 					$("#heartIcon").attr("class", "fa fa-heart-o");
+ 					url="/spring/like/getProductLikeCount";
+ 					$.post(url,sData,function(rData){
+ 						$("#likeCount").text(rData);
+ 						});
+ 					
+ 					getLikeCountNum();
+ 					
+				}else{
+					alert("좋아요 삭제에 실패했습니다.");
+					
+				}
+			});
+		}
+		
+		isLike = !isLike;
+
 	}); // EMD " $("#likeHeart").click(fu
 	
 	
@@ -329,15 +347,15 @@ $(document).ready(function() {
 							<a href="#" class="primary-btn" id="btnInsertCart">ADD TO CART</a>
 						<!-- START : 좋아요 -->	
 							<a href="#" class="heart-icon" id="likeHeart" 
-									<c:if test="${isLike == 'true'}">
+									<c:if test="${isAlreadyLike == 'true'}">
 										style="color:#dd2222" 
 									</c:if>>
 								　
-								<c:if test="${isLike == 'true'}">
+								<c:if test="${isAlreadyLike == 'true'}">
 										<i class="fa fa-heart" aria-hidden="true" id="heartIcon"></i>
 								</c:if>
 								
-								<c:if test="${isLike != 'true'}">
+								<c:if test="${isAlreadyLike != 'true'}">
 										<i class="fa fa-heart-o" aria-hidden="true" id="heartIcon"></i>
 								</c:if>
 								
@@ -395,7 +413,7 @@ $(document).ready(function() {
 																src="/spring/resources/img/defaultprofile.png"
 															</c:otherwise>
 														</c:choose>
-														width="50px" class="rounded-circle" /><br> ${loginMember}<br>
+														width="50px" class="rounded-circle" /><br> ${loginMemberVo.member_id}<br>
 														<div class='rating-stars'>
 															<ul id='stars'>
 																<li class='star' data-value='1'><i

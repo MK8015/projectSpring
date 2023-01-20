@@ -42,7 +42,8 @@ public class CartController {
 	// 카드 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}
@@ -56,7 +57,8 @@ public class CartController {
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
 		System.out.println("cartcontroller product_id:"+product_id);
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id = memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
@@ -97,7 +99,8 @@ public class CartController {
 		for (String product_id : arr_product_id) {
 			System.out.println(product_id);
 		}
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String member_id = memberVo.getMember_id();
 		boolean result = cartService.deleteCart(arr_product_id, member_id);
 		// 세션 다시 넣기
 		if (result == true) {
@@ -114,7 +117,8 @@ public class CartController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateCart(int cart_amount, String product_id, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
 				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
 		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
@@ -129,7 +133,7 @@ public class CartController {
 //		System.out.println("arr_cart_no"+ arr_cart_no);
 		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
 		List<CartVo> cartList = new ArrayList<CartVo>();
-
+		
 		for (Object cartno : cartnoListjson) {
 			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
 			
@@ -137,8 +141,8 @@ public class CartController {
 			System.out.println("cartVo:"+cartVo);
 			cartList.add(cartVo);
 		}
-
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		List<OrderVo> orderList = orderService.orderListBymemId(member_id);
 		// 이전 구매내역이 없을경우 model에 넣지 않음
 		if(orderList.size() != 0) {
@@ -158,7 +162,8 @@ public class CartController {
   // detail 에서 카트 추가
 	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}

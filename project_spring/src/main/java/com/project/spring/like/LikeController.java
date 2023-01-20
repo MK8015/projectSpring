@@ -39,7 +39,8 @@ public class LikeController {
 	// 좋아요 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}
@@ -54,7 +55,8 @@ public class LikeController {
 	@RequestMapping(value = "/cancelLike", method = RequestMethod.GET)
 	@ResponseBody
 	public String cancelLike(String product_id, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
@@ -66,7 +68,8 @@ public class LikeController {
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteLike(String product_id, HttpSession session) {
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		boolean result = likeService.deleteLike(product_id, member_id);
 		
 		// 세션 다시 넣기
@@ -86,7 +89,8 @@ public class LikeController {
 	@ResponseBody
 	public String insertLike(String product_id, HttpSession session) {
 		
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
@@ -103,8 +107,8 @@ public class LikeController {
 	@ResponseBody
 	public String insertLike(Model model, String product_id,
 			HttpSession session,RedirectAttributes rttr) {
-		String page="";
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
@@ -132,7 +136,6 @@ public class LikeController {
 					int count = loginMemberVo.getMemberLikeCount();
 					loginMemberVo.setMemberLikeCount(count+1);
 					session.setAttribute("loginMemberVo", loginMemberVo);
-					page=String.valueOf(result);
 					model.addAttribute("isAlreadyLike","false");
 				}else {
 					return "couldlike-flase";
@@ -142,13 +145,32 @@ public class LikeController {
 		
 	}
 	
+	@RequestMapping(value = "/isAlreadyLike", method = RequestMethod.POST)
+	@ResponseBody
+	public String isAlreadyLike(HttpSession session,String product_id) {
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id=memberVo.getMember_id();
+		boolean result= likeService.isAlreadyLike(product_id,member_id);
+		return String.valueOf(result);
+	}
+	
+	
+	
 	//라이크 숫자 가져오기
 	@RequestMapping(value = "/getLikeCount", method = RequestMethod.POST)
 	@ResponseBody
-	public int getLikeCount(HttpSession session) {
+	public int getMemberLikeCount(HttpSession session) {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		int likeCount= likeService.memberLikeCount(memberVo.getMember_id());
 		return likeCount;
 	}
+	
+	//프로덕트별 라이크 숫자 가져오기
+		@RequestMapping(value = "/getProductLikeCount", method = RequestMethod.POST)
+		@ResponseBody
+		public int getLikeCount(String product_id) {
+			int reuslt= likeService.getLikeCount(product_id);
+			return reuslt;
+		}
 	
 }
