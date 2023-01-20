@@ -201,7 +201,11 @@ $(document).ready(function() {
 					<table>
 						<thead>
 							<tr>
-								<th><input id="chkAll" type="checkbox" checked/></th>
+								<th class="checkout__input__checkbox">
+									<label for="chkAll">
+	                                    <input id="chkAll" type="checkbox" checked>
+	                                    <span class="checkmark"></span>
+                                	</label></th>
 								<th>상품정보</th>
 								<th>수량</th>
 								<th>상품금액</th>

@@ -17,10 +17,10 @@
 <!-- START : Shopping Cart 이미지 Section -->
 <section class="subtitle spad">
 	<div class="container">
-		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/paymentok.png">
 			<div class="col-lg-12 text-center">
 				<div class="subtitle__text">
-					<h2>주문완료</h2>
+					<h2>　<font color="#7fad39">주문이 정상적으로 완료</font><font color="#252525">되었습니다.</font></h2>
 					</div>
 				</div>
 			</div>
