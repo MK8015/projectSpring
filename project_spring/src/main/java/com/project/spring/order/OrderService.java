@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.project.spring.vo.AdminVo;
 import com.project.spring.vo.OrderVo;
 
 @Service
@@ -55,4 +56,17 @@ public class OrderService {
 	public boolean checkBuyer(String member_id,String product_id) {
 		return orderDao.checkBuyer(member_id,product_id);
 	}
+	
+	public List<OrderVo> getOrderList() {
+		return orderDao.getOrderList();
+	}
+	
+	public List<AdminVo> getChart(){
+		return orderDao.getChart();
+	}
+	
+	public List<AdminVo> getBestSeller(){
+		return orderDao.getBestSeller();
+	}
+
 }

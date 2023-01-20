@@ -77,7 +77,6 @@ public class LikeController {
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
-		boolean isLike= likeService.isAlreadyLike(product_id,member_id);
 		boolean result = likeService.insertLike(product_id, member_id);
 		return String.valueOf(result);
 		

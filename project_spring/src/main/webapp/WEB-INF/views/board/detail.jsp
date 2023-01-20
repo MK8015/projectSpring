@@ -21,6 +21,7 @@ pre p {
 	margin-top: 20px;
 	text-align: justify;
 }
+
 .white-btn {
 	display: inline-block;
 	font-size: 14px;
@@ -48,6 +49,7 @@ pre p {
 
 <script>
 $(document).ready(function() {
+
 	// 답글 쓰기
 	$("#a_reply_ok").click(function(e) {
 		e.preventDefault();

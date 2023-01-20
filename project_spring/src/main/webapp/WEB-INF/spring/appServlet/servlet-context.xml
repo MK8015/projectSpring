@@ -37,7 +37,6 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/cart/*"/>
 			<mapping path="/order/*"/>
 			<mapping path="/admin/*"/>
 			<beans:ref bean="authInterceptor"/>

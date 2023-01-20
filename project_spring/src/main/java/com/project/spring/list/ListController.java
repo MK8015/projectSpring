@@ -29,7 +29,7 @@ public class ListController {
 	// 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, PagingDto pagingDto, String category,HttpSession session) {
-		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+	MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id= null;
 		if(memberVo != null) {
 			member_id = memberVo.getMember_id();
