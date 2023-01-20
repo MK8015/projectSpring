@@ -55,8 +55,6 @@
 <script src="https://js.tosspayments.com/v1/payment"></script>
 <script>
 $(document).ready(function() {
-	
-	
 	$("#frmOrder").submit(function(){
 		// 폰번호 name:order_phonenum에 저장
 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
@@ -99,24 +97,25 @@ $(document).ready(function() {
 		if(parseInt(${loginMemberVo.member_point})-parseInt($(".totalPrice").text().trim().replace("원",""))){
 			
 		}
-// 		var arr_cartList = ${arr_cartList};	
-// 		var json = JSON.stringify(arr_cartList);
-// 		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
-// 		var address = $("#road_address").val() + "," + $("#detail_address").val();
-// 		var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
-// 		$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
-// 		$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
-// 		$("#order_phonenum").val(order_phonenum);
-// 		frmOrder.submit();
+		// 결제 막고 바로 넘기기
+		var arr_cartList = ${arr_cartList};	
+		var json = JSON.stringify(arr_cartList);
+		var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
+		var address = $("#road_address").val() + "," + $("#detail_address").val();
+		var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
+		$("#frmOrder").append("<input type='hidden' name='list' value='"+json+"'>");
+		$("#frmOrder").append("<input type='hidden' name='totalPrice' value='"+total_price+"'>");
+		$("#order_phonenum").val(order_phonenum);
+		frmOrder.submit();
 
 		
-		if($("#iamportPaymentToss").is(":checked")){
-			Tosspayment();
-		}else if($("#iamportPaymentKakao").is(":checked")){			
-			Kakaopayment();
-		}else{
-			alert("결제 수단을 선택해주세요");
-		}
+// 		if($("#iamportPaymentToss").is(":checked")){
+// 			Tosspayment();
+// 		}else if($("#iamportPaymentKakao").is(":checked")){			
+// 			Kakaopayment();
+// 		}else{
+// 			alert("결제 수단을 선택해주세요");
+// 		}
 	});
 		
 });
@@ -244,20 +243,18 @@ window.onload = function(){
     });
 }
 </script>
-<!-- Breadcrumb Section Begin -->
-
-<section class="breadcrumb-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
+<!-- START : Shopping Cart 이미지 Section -->
+<section class="subtitle spad">
 	<div class="container">
-		<div class="row">
+		<div class="row subtitle-section set-bg" data-setbg="/spring/resources/img/breadcrumb.jpg">
 			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>결 제</h2>
+				<div class="subtitle__text">
+					<h2>Payment</h2>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<!-- Breadcrumb Section End -->
 
 <!-- 상품 확인 처음 -->
 <section class="shoping-cart spad">
@@ -286,30 +283,30 @@ window.onload = function(){
 						</thead>
 						<tbody id="cartList">
 						<c:set var="total" value="0"/>
-						<c:forEach items="${cartList}" var="list" varStatus="status">
-							<input type="hidden" name="product_id" value="${list.product_id}"/>
-							<input type="hidden" name="order_amount" value="${list.cart_amount}"/>
+						<c:forEach items="${cartList}" var="cartVo" varStatus="status">
+							<input type="hidden" name="product_id" value="${cartVo.product_id}"/>
+							<input type="hidden" name="order_amount" value="${cartVo.cart_amount}"/>
 							<tr>
 								<td class="shoping__cart__item">
-									<img src="/spring/product/getImage?imageName=${list.product_image}" 
+									<img src="/spring/product/getImage?imageName=${cartVo.product_image}" 
 									width="80px" onclick="location.href='/spring/product/detail?
-									product_id=${list.product_id}'">
+									product_id=${cartVo.product_id}'">
 									<h5 onclick="location.href='/spring/product/detail?
-									product_id=${list.product_id}'">
-									<span class="productName">${list.product_name}</span><br>
+									product_id=${cartVo.product_id}'">
+									<span class="productName">${cartVo.product_name}</span><br>
 									<span style="font-size:11px; color:gray;"
-									>${list.product_author}|${list.product_publisher}</span></h5>
+									>${cartVo.product_author}|${cartVo.product_publisher}</span></h5>
 								</td>
 								<td class="shoping__cart__price">
-								<fmt:formatNumber value="${list.price}" pattern="#,###"/>
+								<fmt:formatNumber value="${cartVo.price}" pattern="#,###"/>
 								원</td>
 								<td class="shoping__cart__quantity">
-								<fmt:formatNumber value="${list.cart_amount}" pattern="#,###"/>
+								<fmt:formatNumber value="${cartVo.cart_amount}" pattern="#,###"/>
 								</td>
 								<td class="shoping__cart__total">
-								<fmt:formatNumber value="${list.price*list.cart_amount}" pattern="#,###"/>
+								<fmt:formatNumber value="${cartVo.price*cartVo.cart_amount}" pattern="#,###"/>
 								원</td>
-								<c:set var="total" value="${total+list.price*list.cart_amount}"/>
+								<c:set var="total" value="${total+cartVo.price*cartVo.cart_amount}"/>
 							</tr>
 						</c:forEach>
 					

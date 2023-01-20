@@ -26,8 +26,9 @@ h3 {
 			<div class="col-lg-12 text-center">
 				<div class="subtitle__text">
 					<h2><span style="color:#7fad39;">N</span><span style="color:#a1cf25;">O</span><span style="color:#7fad39;">N</span><span style="color:#252525;">FICTION</span></h2>
-					<p>적은 말 있었느네~ 까먹었어요~</p>
-					<p>적은 말 있었느네~ 까먹었어요~</p>
+					<p style="margin-top: 15px;">¹ 상상이 아니라 사실에 근거하여 쓰인 글</p>
+					<p>² 픽션이 아닌 모든 글</p>
+					<p>³ <span style="font-size:18px;"><b>국내 유일 논픽션 전문 서점</b></span></p>
 				</div>
 			</div>
 		</div>
@@ -110,6 +111,24 @@ var marker = new kakao.maps.Marker({
 <!-- Contact Section End -->
 
 
+
+<!-- 지도 Begin -->
+<section class="contact spad">
+	<div class="container">
+		<div class="text-center">
+			<h3>오시는 길</h3>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div>
+				지도~
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- 지도 End -->
 
 
 

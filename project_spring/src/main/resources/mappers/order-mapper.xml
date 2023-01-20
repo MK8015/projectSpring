@@ -6,12 +6,16 @@
  
  	<!-- // 방금(최근) 구매한 개인 주문목록만 조회 -->
  	<select id="recentOrderList" resultType="OrderVo">
- 		select * from 
-			(select rownum rnum, a.* from
-				(select * from t_order
-				where member_id = #{member_id}
-				order by order_no desc) a)
-		where rnum between 1 and #{orderCount}
+ 		<![CDATA[
+ 		select * from
+			(select a.*,b.product_name,b.product_image,
+				b.price,b.product_author,b.product_publisher
+			from t_order a, t_product b
+			where member_id = #{member_id}
+			and a.product_id = b.product_id
+			order by order_no desc)
+		where rownum <= #{orderCount}
+		]]>
  	</select>
  
  	<select id="orderList" resultType="OrderVo">

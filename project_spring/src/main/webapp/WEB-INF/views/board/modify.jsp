@@ -2,43 +2,34 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 
-
 <style>
 .qna-form {
 	padding-top: 80px;
 	padding-bottom: 80px;
 }
-
 .qna__title {
 	margin-bottom: 35px;
 }
-
 .qna__title h3 {
 	color: #1c1c1c;
 	font-weight: 700;
 }
-
 .qna__form p {
 	column-rule: #b2b2b2;
 }
-
 .qna__input {
 	margin-bottom: 24px;
 }
-
 .qna__input p {
 	color: #1c1c1c;
 	margin-bottom: 20px;
 }
-
 .qna__input p span {
 	color: #dd2222;
 }
-
 table {
 	width: 100%;
 }
-
 .qna__input {
 	width: 98%;
 	height: 46px;
@@ -49,11 +40,9 @@ table {
 	color: #6f6f6f;
 	border-radius: 4px;
 }
-
 .qna__input::placeholder {
 	color: #6f6f6f;
 }
-
 .qna__textarea {
 	width: 98%;
 	height: 200px;
@@ -66,16 +55,12 @@ table {
 	padding-top: 12px;
 	resize: none;
 }
-
 .qna__textarea::placeholder {
 	color: #6f6f6f;
 }
-
 .text-right {
 	text-align: right;
 }
-
-
 .white-btn {
 	display: inline-block;
 	font-size: 14px;
@@ -86,7 +71,6 @@ table {
 	display: inline-block;
 	background: #f5f5f5;
 }
-
 .green-btn {
 	font-size: 14px;
 	color: #ffffff;
@@ -97,8 +81,10 @@ table {
 	background: #7fad39;
 	border: none;
 }
+table input[type=checkbox] {
+    accent-color: #28a745;
+}
 </style>
-
 <script>
 $(document).ready(function() {
 	if ('${boardVo.notify}' == 'Y') {
@@ -119,28 +105,15 @@ $(document).ready(function() {
 			$("#customFile").next().text(filename); 
 		}; // 
 		reader.readAsDataURL(file);
-	}); // $("#customFile").change(f
-	
-
-	
-			
-}); //$(document).ready(function()
-		
-		
-// 비밀글이면 Y, 비밀글이면 비밀번호 인풋 창 나타나게 하기
+	}); // $("#customFile").change(f	
+}); 	
+// 공지글이면 Y
 function isNotify(){
 	var notify = $("#notifyChk").is(":checked") ? "Y" : "N";
 	$("#notify").val(notify);
-	
-	if (notify == "Y") {
-		console.log("Y 나타남");
-	}
 }
 </script>
-
 <%@ include file="../include/boardPageParam.jsp" %>
-
-
 
 <!-- START : qna 이미지 Section -->
 <section class="subtitle spad">
@@ -166,7 +139,6 @@ function isNotify(){
 		<hr>
 		<div class="qna__form">
 		<form id="frmUpdate" role="form" action="/spring/board/modify" method="post" enctype="multipart/form-data">
-				
 		<input type="hidden" name="bno" id="bno" value="${boardVo.bno}">
 		<input type="hidden" name="re_group" id="re_group" value="${boardVo.re_group}">
 				<table>
@@ -174,26 +146,24 @@ function isNotify(){
 					<tr style ='vertical-align : middle'>
 						<td height="81" style="padding-top: 15px;">비밀번호</td>
 						<td><input class="qna__input" type="password" 
-							id="password" name="password" value="${boardVo.password}"/></td>
+							id="password" name="password" value="${boardVo.password}" required/></td>
 					</tr>
 					
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 13px;">제목</td>
 						<td><input type="text" class="qna__input" id="title" 
-							name="title" placeholder="제목을 입력해 주세요" value="${boardVo.title}"/></td>
+							name="title" placeholder="제목을 입력해 주세요" value="${boardVo.title}" required/></td>
 					</tr>
 					<tr style ='vertical-align : top'>
 						<td style="padding-top: 13px;"><br>내용</td>
 						<td><textarea class="qna__textarea" id="content" name="content" 
-							placeholder="내용을 입력해 주세요">${boardVo.content}</textarea></td>
+							placeholder="내용을 입력해 주세요" required>${boardVo.content}</textarea></td>
 					</tr>
 					<tr style ='vertical-align : middle'>
 						<td style="padding-top: 15px;">사진</td>
 						<td><input class="qna__input" type="file" class="form-control" id="customFile" name="file" 
 								style="padding-top: 7px;" /></td>
-					</tr>
-					
-					
+					</tr>	
 				<!-- 공지사항일 때 -->	
 					<c:if test="${loginMemberVo.member_id eq 'admin'}">
 					<tr style ='vertical-align : middle'>
@@ -202,7 +172,6 @@ function isNotify(){
 						<td><input type="text" id="notify" name="notify" value="${boardVo.notify}"></td>
 					</tr>
 					</c:if>
-					
 				</table>
 				<hr>
 				<div class="text-right">
@@ -214,6 +183,4 @@ function isNotify(){
 	</div>
 </section>
 <!-- END : qna 게시판 Section -->
-
-
 <%@ include file="../include/footer.jsp" %>

@@ -310,7 +310,8 @@ $(document).ready(function() {
 										<div><b>${loginMemberVo.member_name} 님</b>
 											<img src="/spring/resources/img/coin.png" style="margin-right: 0px;">
 											<span style="font-size:12px; color:#be7115;"><b>
-											${loginMemberVo.member_point}</b></span></div>
+											<fmt:formatNumber value="${loginMemberVo.member_point}" pattern="#,###"/>
+											</b></span></div>
 										<span class="arrow_carrot-down"></span>
 										<ul>
 											<li><a href="/spring/member/mypage">마이 페이지</a></li>
