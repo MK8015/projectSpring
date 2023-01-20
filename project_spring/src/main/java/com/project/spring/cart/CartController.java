@@ -1,9 +1,7 @@
 package com.project.spring.cart;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +10,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +20,6 @@ import com.project.spring.order.OrderService;
 import com.project.spring.vo.CartVo;
 import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.MemberVo;
-import com.project.spring.vo.OrderVo;
-
-
 
 @Controller
 @RequestMapping("/cart/*")
@@ -45,7 +39,7 @@ public class CartController {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		String member_id =memberVo.getMember_id();
 		if (member_id == null || member_id.equals("")) {
-			return "member/login";
+			return "notLogin";
 		}
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
 		model.addAttribute("cartProductList", cartProductList);
@@ -56,13 +50,14 @@ public class CartController {
 	@RequestMapping(value = "/insertProduct", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(Model model, String product_id, HttpSession session) {
-		System.out.println("cartcontroller product_id:"+product_id);
+
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		String member_id = memberVo.getMember_id();
+
 		if (member_id == null || member_id.equals("")) {
 			return "notLogin";
 		}
-		boolean result = cartService.insertProductInCart(product_id, member_id);	// 占쏙옙품占쏙옙占쏙옙 t_cart占쏙옙 占쌍깍옙
+		boolean result = cartService.insertProductInCart(product_id, member_id);
 		// 세션 다시 넣기
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
@@ -117,10 +112,12 @@ public class CartController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateCart(int cart_amount, String product_id, HttpSession session) {
+
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id =memberVo.getMember_id();
 		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
 				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
+
 		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
 		return String.valueOf(result);
 
@@ -160,7 +157,7 @@ public class CartController {
 	}
 
   // detail 에서 카트 추가
-	@RequestMapping(value = "/insertCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		String member_id =memberVo.getMember_id();
@@ -203,6 +200,7 @@ public class CartController {
 	@ResponseBody
 	public int memberCartCount(HttpSession session){
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
+		
 		int count= cartService.getNowCartNum(memberVo.getMember_id());
 		return count; 
 	}

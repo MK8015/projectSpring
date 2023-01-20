@@ -7,54 +7,43 @@
 	padding-top: 30px;
 	padding-bottom: 0px;
 }
-
 .qnatitle-section {
 	display: flex;
 	align-items: center;
 	padding: 43px 0 42px;
 }
-
 .qnatitle__text h2 {
 	font-size: 46px;
 	color: #ffffff;
 	font-weight: 700;
 }
-
 .qna-form {
 	padding-top: 80px;
 	padding-bottom: 80px;
 }
-
 .qna__title {
 	margin-bottom: 35px;
 }
-
 .qna__title h3 {
 	color: #1c1c1c;
 	font-weight: 700;
 }
-
 .qna__form p {
 	column-rule: #b2b2b2;
 }
-
 .qna__input {
 	margin-bottom: 24px;
 }
-
 .qna__input p {
 	color: #1c1c1c;
 	margin-bottom: 20px;
 }
-
 .qna__input p span {
 	color: #dd2222;
 }
-
 table {
 	width: 100%;
 }
-
 .qna__input {
 	width: 98%;
 	height: 46px;
@@ -65,11 +54,9 @@ table {
 	color: #6f6f6f;
 	border-radius: 4px;
 }
-
 .qna__input::placeholder {
 	color: #6f6f6f;
 }
-
 .qna__textarea {
 	width: 98%;
 	height: 200px;
@@ -82,16 +69,12 @@ table {
 	padding-top: 12px;
 	resize: none;
 }
-
 .qna__textarea::placeholder {
 	color: #6f6f6f;
 }
-
 .text-right {
 	text-align: right;
 }
-
-
 .white-btn {
 	display: inline-block;
 	font-size: 14px;
@@ -102,7 +85,6 @@ table {
 	display: inline-block;
 	background: #f5f5f5;
 }
-
 .green-btn {
 	font-size: 14px;
 	color: #ffffff;
@@ -115,30 +97,16 @@ table {
 }
 </style>
 
-
 <script>
 $(document).ready(function() {
 	if ('${boardVo.secret}' == 'Y') {
 		$("#secretChk").prop("checked", true);
 		$("input[name=password]").show(100);
 	}		
-}); //$(document).ready(function()
-		
-		
-// 비밀글이면 Y, 비밀글이면 비밀번호 인풋 창 나타나게 하기
-function isSecret(){
-	var secret = $("#secretChk").is(":checked") ? "Y" : "N";
-	$("#secret").val(secret);
-	
-	if (secret == "Y") {
-		$("input[name=password]").show(100);
-	}
-}
+}); 
 </script>
 
 <%@ include file="../include/boardPageParam.jsp" %>
-
-
 
 <!-- START : qna 이미지 Section -->
 <section class="subtitle spad">
@@ -164,9 +132,7 @@ function isSecret(){
 		</div>
 		<hr>
 		<div class="qna__form">
-		
 		<form id="frmReply" role="form" action="/spring/board/reply" method="post">
-		
 		<input type="hidden" name="re_group" id="re_group" value="${re_group}">
 				<table>
 					<tr style ='vertical-align : middle; display:none'>
@@ -195,6 +161,5 @@ function isSecret(){
 	</div>
 </section>
 <!-- END : qna 게시판 Section -->
-
 
 <%@ include file="../include/footer.jsp" %>

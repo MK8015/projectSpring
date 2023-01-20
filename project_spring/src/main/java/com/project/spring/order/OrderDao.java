@@ -8,8 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.spring.vo.AdminVo;
 import com.project.spring.vo.OrderVo;
-import com.project.spring.vo.ProductVo;
 
 @Repository
 public class OrderDao {
@@ -19,16 +19,26 @@ public class OrderDao {
 	@Autowired
 	SqlSession sqlSession;
 	
+	// 방금(최근) 구매한 개인 주문목록만 조회
+	public List<OrderVo> recentOrderList(int orderCount, String member_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("orderCount", orderCount);
+		map.put("member_id", member_id);
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "recentOrderList", map);	
+		return list;
+	}
+	
+	// 목록 조회
 	public List<OrderVo> orderList() {
 	List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "orderList");	
 		return list;
 	}
 	
 	public List<OrderVo> myOrder(String member_id) {
-		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "myOrder",member_id);	
+		List<OrderVo>list= sqlSession.selectList(NAME_SPACE + "myOrder", member_id);	
 			return list;
 	}
-
+	
 	public OrderVo detailOrder(String order_no) {
 		return sqlSession.selectOne(NAME_SPACE+"detailOrder",order_no);
 	}
@@ -40,15 +50,17 @@ public class OrderDao {
 		}
 		return false;
 	}
+	
 	public boolean deleteOrder(String order_no) {
-		int count = sqlSession.delete(NAME_SPACE+"deleteOrder",order_no);
-		if(count>0) {
+		int count = sqlSession.delete(NAME_SPACE+"deleteOrder", order_no);
+		if(count > 0) {
 			return true;
 		}
 		return false;
 	}
+	
 	public boolean updateOrder(OrderVo orderVo) {
-		int count = sqlSession.update(NAME_SPACE+"updateOrder",orderVo);
+		int count = sqlSession.update(NAME_SPACE+"updateOrder", orderVo);
 		if(count>0) {
 			return true;
 		}
@@ -60,8 +72,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	public boolean updatePoint(String member_id,int nowHavePoint) {
-		
+	public boolean updatePoint(String member_id, int nowHavePoint) {
 		Map<Object, Object>map=new HashMap<>();
 		map.put("member_id", member_id);
 		map.put("nowHavePoint", nowHavePoint);
@@ -73,20 +84,31 @@ public class OrderDao {
 	}
 	
 	public int nowPoint(String member_id) {
-		int now_point=sqlSession.selectOne(NAME_SPACE+"nowPoint",member_id);
-		
+		int now_point=sqlSession.selectOne(NAME_SPACE+"nowPoint", member_id);
 		return now_point;
 	}
 	
-	public boolean checkBuyer(String member_id,String product_id) {
-		Map<Object, Object>map=new HashMap<>();
+	public boolean checkBuyer(String member_id, String product_id) {
+		Map<Object, Object> map = new HashMap<>();
 		map.put("member_id", member_id);
 		map.put("product_id", product_id);
-		int count = sqlSession.selectOne(NAME_SPACE+"checkBuyer",map);
+		int count = sqlSession.selectOne(NAME_SPACE+"checkBuyer", map);
 		if(count>0) {
 			return true;
 		}
 		return false;
 	}
+	
+	public List<OrderVo> getOrderList() {
+		return sqlSession.selectList(NAME_SPACE+"getOrderList");
+	}
+	
+	public List<AdminVo> getChart(){
+		return sqlSession.selectList(NAME_SPACE+"getChart");
+	}
+	public List<AdminVo> getBestSeller(){
+		return sqlSession.selectList(NAME_SPACE+"getBestSeller");
+	}
+
 
 }

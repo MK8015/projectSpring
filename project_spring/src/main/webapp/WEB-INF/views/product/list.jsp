@@ -16,10 +16,38 @@
   background: white;
   padding: 0.5rem;
 }
+
+.hero__categories ul li.active a{
+	color: #7fad39;
+}
 </style>
 <script>
 $(document).ready(function() {
 	
+	// 클릭시 active 설정
+	var location = window.location.href;
+	
+	if(location.includes("/spring/list/list?category=humanity")){
+		$("#humanity").addClass("active");
+	}else if(location.includes("/spring/list/list?category=economy")){
+		$("#economy").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=sociology")){
+		$("#sociology").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=history")){
+		$("#history").addClass("active");	
+	}else if(location.includes("/spring/list/list?category=culture")){
+		$("#culture").addClass("active");
+	}else if(location.includes("/spring/list/list?category=science")){
+		$("#science").addClass("active");
+	}else if(location.includes("/spring/list/list?category=computer")){
+		$("#computer").addClass("active");
+	}else if(location.includes("/spring/list/list?category=language")){
+		$("#language").addClass("active");
+	}else if(location.includes("/spring/list/list?category=religion")){
+		$("#religion").addClass("active");
+	}else if(location.includes("/spring/list/list?category=self")){
+		$("#self").addClass("active");
+	}
 
  	// 페이지 번호
 	$(document).on("click", ".pagelink", function(e) {
@@ -33,8 +61,6 @@ $(document).ready(function() {
  	$(document).on("click", ".shopping-cart", function(e) {
  		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
- 		console.log("장바구니 클릭!!!");
- 		
 		var headerCartCount = $(".headerCartCount"); // 헤더 장바구니 딱지
 		
 		var product_id = $(this).attr("data-product_id");
@@ -42,22 +68,18 @@ $(document).ready(function() {
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
 			if (rData == "true") {
-				getCartCountNum();
+				getCartCountNum(); 
 				//카트 갯수
 				url="/spring/cart/isAlreadyCart";
-				sData={"product_id":product_id};
-				$.post(url,sData,function(rData){
-					var AlreadyCartResult=rData;
-					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
-					if(AlreadyCartResult=="1"){
+				sData={"product_id" : product_id};
+				$.post(url, sData, function(rData){
+					var AlreadyCartResult = rData;
+					if(AlreadyCartResult == "1"){
 						showTextTagCart.text("카트에 추가되었습니다");
-					}else{
+					} else{
 						showTextTagCart.text("수량이 추가되었습니다.");
 					}
-					
-					
 				});
-				
 			} else if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				return;
@@ -80,8 +102,6 @@ $(document).ready(function() {
  		$(this).parent().attr("style","display:none");
  	});
  	
- 	
- 	
   	// 좋아요 클릭
  	$(document).on("click", ".like-cart", function(e) {
  		e.preventDefault();
@@ -94,7 +114,6 @@ $(document).ready(function() {
 		var sData = {
 				"product_id" : product_id
 		};
-		console.log("sData", sData);
 		
 		// 좋아요 0 빨간색으로 적힌 부분 바꾸기 
 		var likeCount = $(this).parent().parent().parent().next().find(".likeCount"); 
@@ -102,23 +121,21 @@ $(document).ready(function() {
 		
 		//좋아요 있을 경우 더 올라가지 않도록 설정 
 		$.post(url, sData, function(rData) {
- 			console.log("rData: " + rData); 
- 			
  			if (rData == "couldlike-true") {
 				nowclickLike.attr("class","fa fa-trash");
 				getLikeCountNum();
 				showTextTag.text("위시 리스트에 담겼습니다.")
-			}else if (rData == "couldlike-flase"){
+			} else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
 				return;
-			}else if (rData == "notLogin") {
-				alert("로그인후 이용바랍니다.")
+			} else if (rData == "notLogin") {
+				alert("로그인후 이용바랍니다.");
 				location.href="/spring/member/login";
-			}else if(rData=="coudntlike-true") {
+			} else if(rData=="coudntlike-true") {
 				getLikeCountNum();
 				nowclickLike.attr("class","fa fa-heart");
 				showTextTag.text("위시 리스트에서 삭제되었습니다.")
-			}else if(rData=="couldntlike-false"){
+			} else if(rData=="couldntlike-false"){
 				alert("삭제 실패");
 			}
 		});
@@ -141,16 +158,16 @@ $(document).ready(function() {
 						<span><a href="/spring/list/list">All Categories</a></span>
 					</div>
 					<ul>
-						<li><a href="/spring/list/list?category=humanity">인문</a></li>
-						<li><a href="/spring/list/list?category=economy">경제/경영</a></li>
-						<li><a href="/spring/list/list?category=sociology">정치/사회</a></li>
-						<li><a href="/spring/list/list?category=history">역사</a></li>
-						<li><a href="/spring/list/list?category=culture">문화/예술</a></li>
-						<li><a href="/spring/list/list?category=science">과학</a></li>
-						<li><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
-						<li><a href="/spring/list/list?category=language">외국어</a></li>
-						<li><a href="/spring/list/list?category=religion">종교/역학</a></li>
-						<li><a href="/spring/list/list?category=self">자기계발</a></li>
+						<li id="humanity"><a href="/spring/list/list?category=humanity">인문</a></li>
+						<li id="economy"><a href="/spring/list/list?category=economy">경제/경영</a></li>
+						<li id="sociology"><a href="/spring/list/list?category=sociology">정치/사회</a></li>
+						<li id="history"><a href="/spring/list/list?category=history">역사</a></li>
+						<li id="culture"><a href="/spring/list/list?category=culture">문화/예술</a></li>
+						<li id="science"><a href="/spring/list/list?category=science">과학</a></li>
+						<li id="computer"><a href="/spring/list/list?category=computer">컴퓨터/IT</a></li>
+						<li id="language"><a href="/spring/list/list?category=language">외국어</a></li>
+						<li id="religion"><a href="/spring/list/list?category=religion">종교/역학</a></li>
+						<li id="self"><a href="/spring/list/list?category=self">자기계발</a></li>
 					</ul>
 				</div>
 			</div>
@@ -166,24 +183,30 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="row">
+					<!-- 검색결과없을때 검색결과없음 표시 -->
 					<c:if test="${pagingDto.count eq 0}">
-						<h5 style="text-align: center; color: gray;" > *** 검색 결과가 없습니다.</h5>
+						<h5 style="text-align: center; color: gray;" >**검색 결과가 없습니다.</h5>
 					</c:if>
 					<!-- 도서(상품)list -->
-					<c:forEach items="${list}" var="list">
+					<c:forEach items="${list}" var="productVo">
 						<div class="col-lg-3 col-md-6 col-sm-6">
 							<div class="product__item">
 								<div class="product__item__pic">
-									<img class="product__item__pic"
-										src="/spring/product/getImage?imageName=${list.product_image}"
-										alt="" onclick="location.href='/spring/product/detail?product_id=${list.product_id}'">
-										
+									<img class="product__item__pic parent"
+										src="/spring/product/getImage?imageName=${productVo.product_image}"
+										alt="" onclick="location.href='/spring/product/detail?product_id=${productVo.product_id}'">
+										<p class="child abs" style="display:none">
+											카트에 담겼습니다.<br>
+											<input onclick="location.href='/spring/cart/list'" 
+											type="button" value="카트 보기>"/>
+											<input type="button" class="closeBtn" value="닫기"/>
+										</p>
 										<ul class="product__item__pic__hover">
 									<!-- 좋아요 -->
 											<li><a href="#" class="like-cart" 
-												data-product_id="${list.product_id}">
+												data-product_id="${productVo.product_id}">
 												<c:choose>
-													<c:when test="${list.member_id==null}">
+													<c:when test="${productVo.member_id == null}">
 														<i class="fa fa-heart"></i>
 													</c:when>
 													<c:otherwise>
@@ -194,14 +217,14 @@ $(document).ready(function() {
 													<span>위시 리스트에 담겼습니다.</span><br>
 													<input onclick="location.href='/spring/like/list'" 
 													type="button" value="위시 리스트 보기>"/>
+													<i class="fa fa-"></i>
 													<input type="button" class="closeBtn" value="닫기"/>
 												</p>
 											</li>
-											
-									<!-- 장바구니 -->
+											<!-- 장바구니 -->
 											<li><a href="#" class="shopping-cart"
-												data-product_id="${list.product_id}">
-													<i class="fa fa-shopping-cart parent"></i>
+												data-product_id="${productVo.product_id}">
+													<i class="fa fa-shopping-cart"></i>
 												</a>
 												<p class="child abs" style="display:none">
 													<span></span><br>
@@ -210,19 +233,18 @@ $(document).ready(function() {
 													<input type="button" class="closeBtn" value="닫기"/>
 												</p>
 											</li>
-											
 										</ul>
 								</div>
 								<div class="product__item__text">
-									<h6><a href="/spring/product/detail?product_id=${list.product_id}">
-									${list.product_name}<br>
+									<h6><a href="/spring/product/detail?product_id=${productVo.product_id}">
+									${productVo.product_name}<br>
 									<span style="font-size:11px; color:gray;">
-									${list.product_author} | ${list.product_publisher}</span><br>
+									${productVo.product_author} | ${productVo.product_publisher}</span><br>
 									<span style="font-size:11px; color:#dd2222;">
-									리뷰 ${list.reviewCount} | 좋아요 </span>
-									<span style="font-size:11px; color:#dd2222;" class="likeCount">${list.likeCount}</span>
+									리뷰 ${productVo.reviewCount} | 좋아요 </span>
+									<span style="font-size:11px; color:#dd2222;" class="likeCount">${productVo.likeCount}</span>
 									</a></h6>
-									<h5><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</h5>
+									<h5><fmt:formatNumber value="${productVo.price}" pattern="#,###"/>원</h5>
 								</div>
 							</div>
 						</div>

@@ -3,6 +3,7 @@ package com.project.spring.admin;
 
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import com.project.spring.login.MemberService;
 import com.project.spring.main.MainService;
 import com.project.spring.order.OrderService;
 import com.project.spring.util.ImageUploader;
+import com.project.spring.vo.AdminVo;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
 import com.project.spring.vo.ProductVo;
@@ -41,7 +43,17 @@ public class AdminController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		return "redirect:/admin/product";
+		List<OrderVo> orderList = orderService.getOrderList();
+		List<AdminVo> chartList = orderService.getChart();
+		List<AdminVo> bsList = orderService.getBestSeller();
+		
+		JSONArray chartArray = new JSONArray(chartList);
+	
+		model.addAttribute("orderList",orderList);
+		model.addAttribute("bsList",bsList);
+		model.addAttribute("chartArray",chartArray);
+		System.out.println(bsList);
+		return "admin/index";
 	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.GET)

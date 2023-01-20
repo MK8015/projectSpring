@@ -31,18 +31,20 @@ public class MainController {
 	LikeService likeService;
 	
 
-	// �������� �̵�(��� �ʿ� X, �켱 �׳� �־��)
+	// 메인 리스트
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String indexRun(Model model,HttpSession session) {
 		
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id= memberVo.getMember_id();
-		System.out.println("maincontroller member_id" + member_id);
-		List<ProductVo>listlike = mainService.getListlike(member_id);
+		if(memberVo != null) {
+			String member_id= memberVo.getMember_id();
+			List<ProductVo>listlike = mainService.getListlike(member_id);			
+			model.addAttribute("list", listlike);
+		}else {
+			List<ProductVo> list = mainService.getList();			
+			model.addAttribute("list", list);
+		}
 		
-		List<ProductVo> list = mainService.getList();
-		System.out.println("MainController, listlike" + listlike);
-		model.addAttribute("list", listlike);
 		
 		return "index/main";
 	}
@@ -61,9 +63,16 @@ public class MainController {
 //	}
 //	
 
-	// ���ο��� ��� ����
+	// 이벤트 띄우기
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String runEvent(Model model) {
 		return "index/event";
+	}
+	
+	
+	// about 창 띄우기
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String runAbout(Model model) {
+		return "index/about";
 	}
 }
