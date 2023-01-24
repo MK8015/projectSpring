@@ -45,8 +45,7 @@
 
 <script>
 $(document).ready(function() {
-	
-	
+		
 	var location = window.location.href;
 	
 	//처음 실행시 라이크와 카운트 숫자 가져옴
@@ -72,10 +71,6 @@ $(document).ready(function() {
 		$("#about").addClass("active");
 		$("#humabout").addClass("active");
 	}
-	
-
-	
-	
 
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
@@ -95,10 +90,6 @@ $(document).ready(function() {
 		  $("#frmPaging").submit();
 		  
 	   });
-	
-	var logininfo="${logininfo}";
-	console.log("member_id",logininfo);
-	
 });
 	//카트 카운트 가져오기 및 안내메시지 변경 함수
 	function getCartCountNum(){
@@ -227,7 +218,7 @@ $(document).ready(function() {
 			</li>
 			<li id="humevent"><a href="/spring/main/event">EVENT</a></li>
 			<li id="humqna"><a href="/spring/board/list">Q & A</a></li>
-			<li id="humabout"><a href="#">ABOUT</a></li>
+			<li id="humabout"><a href="/spring/main/about">ABOUT</a></li>
 		</ul>
 	</nav>
 	<div id="mobile-menu-wrap"></div>

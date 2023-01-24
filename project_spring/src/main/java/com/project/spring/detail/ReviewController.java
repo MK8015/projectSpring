@@ -3,7 +3,6 @@ package com.project.spring.detail;
 import java.io.FileInputStream;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.order.OrderService;
-import com.project.spring.vo.ProductVo;
 import com.project.spring.vo.ReviewVo;
 
 @Controller

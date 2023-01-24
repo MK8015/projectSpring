@@ -119,7 +119,7 @@ $(document).ready(function() {
 	});
 		
 });
-
+//카카오 결제
 function Kakaopayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
@@ -136,7 +136,6 @@ function Kakaopayment(){
 		buyer_email:"${loginMemberVo.email}",
 		buyer_tel:order_phonenum,
 		buyer_addr:address
-// 		m_redirect_url : '/spring/cart/order'
 	},function(rsp){
 		if(rsp.success){
 			alert(total_price+" 원 결제가 완료되었습니다!");
@@ -151,7 +150,7 @@ function Kakaopayment(){
 			
 	});
 }
-
+//토스 결제
 function Tosspayment(){
 	var arr_cartList = ${arr_cartList};	
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
@@ -168,7 +167,6 @@ function Tosspayment(){
 		buyer_email:"${loginMemberVo.email}",
 		buyer_tel:order_phonenum,
 		buyer_addr:address
-		//m_redirect_url : '{모바일에서 결제 완료 후 리디렉션 될 URL}'
 	},function(rsp){
 		if(rsp.success){
 			alert(total_price+" 원 결제가 완료되었습니다!");

@@ -5,6 +5,7 @@
 <script>
 $(document).ready(function(){
 	var openDetail = false;
+	//상품 image 변경
 	$(document).on("change","input[type=file]",function(){
 		var image = this.files[0];
 		var input = $(this);
@@ -20,7 +21,7 @@ $(document).ready(function(){
 		
 		};
 	});
-	
+	//상품 입력 양식
 	$("#productInsert").click(function(e){
 		e.preventDefault();
 		openDetail = !openDetail;
@@ -34,7 +35,7 @@ $(document).ready(function(){
 			closeForm();
 		}
 	});
-	
+	//상품 상세 정보
 	$(".productInfo").on("click","td",function(e){
 		e.preventDefault();
 		openDetail = !openDetail;
@@ -72,6 +73,7 @@ $(document).ready(function(){
 	});
 	
 });
+// 상세정보,입력양식 닫기
 function closeForm(){
 	$(".productInsertForm").remove();
 	$(".productForm:gt(0)").parent().parent().remove();

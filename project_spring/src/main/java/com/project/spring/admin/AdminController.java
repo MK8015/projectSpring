@@ -52,7 +52,6 @@ public class AdminController {
 		model.addAttribute("orderList",orderList);
 		model.addAttribute("bsList",bsList);
 		model.addAttribute("chartArray",chartArray);
-		System.out.println(bsList);
 		return "admin/index";
 	}
 	

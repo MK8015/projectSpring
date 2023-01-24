@@ -1,6 +1,5 @@
 package com.project.spring.vo;
 
-import java.util.List;
 
 import lombok.Data;
 

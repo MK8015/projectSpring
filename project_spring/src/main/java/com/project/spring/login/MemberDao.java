@@ -8,10 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
-import com.project.spring.vo.ProductVo;
 
 @Repository
 public class MemberDao {
