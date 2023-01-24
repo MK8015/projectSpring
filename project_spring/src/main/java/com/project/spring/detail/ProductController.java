@@ -37,8 +37,6 @@ public class ProductController {
 		return "product/list";
 	}
 	
-	
-	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(String product_id, HttpServletRequest request,
 							ReviewPagingDto pagingDto, HttpSession session, Model model) {
@@ -51,9 +49,6 @@ public class ProductController {
 			request.setAttribute("ratingAvg", ratingAvg);
 		}
 		pagingDto.setPagingInfo(pagingDto.getPage(), pagingDto.getPerPage(), reviewCount);
-		System.out.println(pagingDto);
-		
-		// ���ƿ� üũ, ����
 		int likeCount = likeService.getLikeCount(product_id);
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		String member_id =memberVo.getMember_id();

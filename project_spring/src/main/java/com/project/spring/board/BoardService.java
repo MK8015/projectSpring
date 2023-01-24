@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.spring.vo.BoardVo;
-import com.project.spring.vo.ProductVo;
 
 @Service
 public class BoardService {

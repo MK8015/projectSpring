@@ -65,10 +65,6 @@ $(document).ready(function() {
 		  $("#frmPaging").submit();
 		  
 	   });
-	
-// 	var logininfo="{logininfo.member_id}"
-	var logininfo="${logininfo}"
-	console.log("member_id",logininfo)
 });
 </script>
 </head>
@@ -164,7 +160,7 @@ $(document).ready(function() {
 							</li>
 							<li><a href="/spring/main/event">EVENT</a></li>
 							<li><a href="/spring/board/list">Q & A</a></li>
-							<li><a href="#">ABOUT</a></li>
+							<li><a href="/spring/main/about">ABOUT</a></li>
 						</ul>
 					</nav>
 				</div>

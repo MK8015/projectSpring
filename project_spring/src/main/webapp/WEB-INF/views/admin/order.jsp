@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function(){
 	var openDetail = false;
-
+	//주문 입력 양식
 	$("#insertOrder").click(function(e){
 		e.preventDefault();
 		$(".orderForm:gt(0)").parent().parent().remove();
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		form.css("display","");
 		$(this).parent().append(form);
 	});
-	
+	//주문 상세 열기
 	$(".orderInfo").on("click","td",function(e){
 		e.preventDefault();
 		openDetail = !openDetail;

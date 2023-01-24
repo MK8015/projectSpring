@@ -13,7 +13,6 @@ public class MainService {
 	@Autowired
 	MainDao mainDao;
 	
-	// ���ο��� ����Ʈ ����
 	public List<ProductVo> getList() {
 		return mainDao.getList();
 	}

@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.spring.cart.CartService;
 import com.project.spring.like.LikeService;
+import com.project.spring.util.ImageUploader;
 import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
@@ -128,7 +129,7 @@ public class MemberController {
 		
 
 		try {
-		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());		
+		 String member_pic=ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());		
 		 memberVo.setMember_pic(member_pic);
 		
 		} catch (IOException e) {
@@ -213,6 +214,7 @@ public class MemberController {
 	}
 	
 	//마이페이지 열기
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/mypage",method = RequestMethod.GET)
 	public String MyPage(HttpSession session,Model model) {
 		MemberVo loginmemberVo=(MemberVo)session.getAttribute("loginMemberVo");
@@ -238,7 +240,7 @@ public class MemberController {
 		String originalFilename=file.getOriginalFilename();
 		
 		try {
-			 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
+			 String member_pic=ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
 			 memberVo.setMember_pic(member_pic);
 			
 			} catch (IOException e) {

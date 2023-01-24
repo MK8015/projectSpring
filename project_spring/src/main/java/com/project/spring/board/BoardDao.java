@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.spring.vo.BoardVo;
-import com.project.spring.vo.ProductVo;
 
 @Repository
 public class BoardDao {

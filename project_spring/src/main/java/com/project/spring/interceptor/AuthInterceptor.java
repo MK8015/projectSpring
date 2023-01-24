@@ -15,16 +15,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("인터셉터");
 		HttpSession session = request.getSession();
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
 		
 		if(memberVo == null) {
-			String member_id = memberVo.getMember_id();
 			String returnURI = request.getRequestURI();
 			String queryString = request.getQueryString();
 			if (queryString!=null) {
-
 				returnURI = returnURI + "?" + queryString;
 			}
 			session.setAttribute("returnURI", returnURI);

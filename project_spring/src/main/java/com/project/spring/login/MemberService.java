@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.spring.vo.EmailDto;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.OrderVo;
-import com.project.spring.vo.ProductVo;
 @Service
 public class MemberService {
 	

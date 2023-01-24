@@ -7,6 +7,7 @@
 $(document).ready(function(){
 	var openDetail = false;
 	
+	// member image 변경
 	$(document).on("change","input[type=file]",function(){
 		var image = this.files[0];
 		var input = $(this);
@@ -23,7 +24,7 @@ $(document).ready(function(){
 		};
 	});
 	
-	
+	// member 상세정보 열기
 	$(".memberInfo").on("click","td",function(e){
 		e.preventDefault();
 		openDetail = !openDetail;
@@ -58,7 +59,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	
+	//주소 api
 	$(document).on("click",".address",function(){
 		var address = $(this);
 		 new daum.Postcode({

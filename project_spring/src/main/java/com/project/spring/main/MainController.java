@@ -1,23 +1,16 @@
 package com.project.spring.main;
 
-import java.io.FileInputStream;
 import java.util.List;
-import java.util.Map;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.like.LikeService;
-import com.project.spring.vo.LikeVo;
 import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
 
@@ -49,20 +42,6 @@ public class MainController {
 		return "index/main";
 	}
 	
-
-//	// ���ο��� ��� ����
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//	public String getList(Model model,HttpSession session) {
-//		
-//		
-//		List<ProductVo> list = mainService.getList();
-////		System.out.println("MainController, list" + list);
-//		model.addAttribute("list", list);
-//		
-//		return "index/main";
-//	}
-//	
-
 	// 이벤트 띄우기
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String runEvent(Model model) {
