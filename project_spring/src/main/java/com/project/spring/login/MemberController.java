@@ -80,7 +80,6 @@ public class MemberController {
 			//로그인 성공시
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
-			session.setAttribute("loginMember", memberVo.getMember_id());
 			String returnURI = (String)session.getAttribute("returnURI");
 			if(returnURI == null) {
 				returnURI = "/main/index";
@@ -128,11 +127,8 @@ public class MemberController {
 		String originalFilename=file.getOriginalFilename();
 		
 
-		
-//		"//192.168.0.233/userpics/"
 		try {
-		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
-		 System.out.println("member_pic:"+member_pic);
+		 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());		
 		 memberVo.setMember_pic(member_pic);
 		
 		} catch (IOException e) {
@@ -141,7 +137,6 @@ public class MemberController {
 		
 		//등록 결과
 		boolean result=memberService.registerRun(memberVo);
-		System.out.println("controller memberVo:"+memberVo);
 		if(result) {
 			rttr.addFlashAttribute("register_result","true");
 			page="redirect:/member/login";
@@ -220,7 +215,8 @@ public class MemberController {
 	//마이페이지 열기
 	@RequestMapping(value="/mypage",method = RequestMethod.GET)
 	public String MyPage(HttpSession session,Model model) {
-		 String member_id=(String)session.getAttribute("loginMember");
+		MemberVo loginmemberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		 String member_id=loginmemberVo.getMember_id();
 		if(member_id==null || member_id.equals("")) {
 			return "member/login";
 		}
@@ -243,7 +239,6 @@ public class MemberController {
 		
 		try {
 			 String member_pic=MyFileUploader.uploadfile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
-			 System.out.println("member_pic:"+member_pic);
 			 memberVo.setMember_pic(member_pic);
 			
 			} catch (IOException e) {
@@ -295,9 +290,6 @@ public class MemberController {
 	@RequestMapping(value="/naverLoginRun", method=RequestMethod.POST)
     public String naverLoginRun(HttpSession session,String loginToken,MemberVo getmemberVo,
     							RedirectAttributes attr,Model model,String naver_id) {
-		System.out.println("naver_id"+naver_id);
-		System.out.println("getmemberVo:"+getmemberVo);
-		System.out.println("naverLoginRun실행됨");
 		String page="";
 		String naverMember_id=(naver_id.substring(naver_id.length()-5,naver_id.length())).toLowerCase();
 		
@@ -307,7 +299,6 @@ public class MemberController {
 		if(memberVo==null||memberVo.equals("")) {
 			getmemberVo.setMember_id(naverMember_id);
 			getmemberVo.setPassword(naverMember_id);
-			System.out.println("로그인 안됨");
 			model.addAttribute("MemberVo",getmemberVo);
 			page="member/naverRegister";
 			
@@ -324,6 +315,7 @@ public class MemberController {
 						//로그인 세션에 넣어둠    
 						session.setAttribute("loginMemberVo", memberVo);
 						session.setAttribute("loginMember", memberVo.getMember_id());
+						session.setAttribute("isNaverLogin", true);
 						System.out.println("로그인 됨");
 			page= "redirect:/main/index";
 		}
@@ -335,7 +327,6 @@ public class MemberController {
 	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
     public String loginPOSTNaver(HttpSession session) {
 		
-		System.out.println("naverLoginForm실행됨");
         return "member/naverLoginForm";
     }
 

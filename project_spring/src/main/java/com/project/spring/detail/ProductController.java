@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.spring.like.LikeService;
 import com.project.spring.vo.LikeVo;
+import com.project.spring.vo.MemberVo;
 import com.project.spring.vo.ProductVo;
 import com.project.spring.vo.ReviewVo;
 
@@ -54,7 +55,10 @@ public class ProductController {
 		
 		// ���ƿ� üũ, ����
 		int likeCount = likeService.getLikeCount(product_id);
-		String member_id = (String)session.getAttribute("loginMember");
+		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		String member_id =memberVo.getMember_id();
+		
+		boolean isAlreadyLike= likeService.isAlreadyLike(product_id,member_id);
 		
 		if (member_id != null && !member_id.equals("")) {
 			LikeVo likeVo = new LikeVo();
@@ -69,7 +73,7 @@ public class ProductController {
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewCount", reviewCount);
-		
+		request.setAttribute("isAlreadyLike", isAlreadyLike);
 		
 		return "product/detail";
 	}

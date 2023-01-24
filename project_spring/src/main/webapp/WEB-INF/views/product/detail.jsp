@@ -5,7 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 <style>
 
-/* Rating Star Widgets Style */
+/* 리뷰 별점 css */
 .rating-stars ul {
 	list-style-type: none;
 	padding: 0;
@@ -118,6 +118,7 @@ img {
 <script>
 $(document).ready(function() {
 	
+
 	//리뷰 1페이지 로딩 
 	getReview(1);
 	
@@ -125,7 +126,8 @@ $(document).ready(function() {
 	setRating("${productVo.product_id}");
 	
 	// 좋아요 눌렀는지 안 눌렀는지
-	var isLike = "${likeMap.isLike}";
+	var isLike = "${isLike}";
+	console.log("islike:",isLike);
 	
 	//카트에 담기
 	$("#btnInsertCart").click(function(e){
@@ -234,7 +236,7 @@ $(document).ready(function() {
 		if (isNaN(review_rating)) {
 			review_rating = 0;
 		}
-		var member_id = "${loginMember}";
+		var member_id = "${loginMemberVo.member_id}";
 		var sData = {
 			"member_id" : member_id,
 			"product_id" : "${productVo.product_id}",
@@ -298,7 +300,7 @@ $(document).ready(function() {
 				}
 				tds.eq(1).text(jsonArray[i].review_content);
 				tds.eq(2).find("a").attr("data-review_no",jsonArray[i].review_no);
-				if("${loginMember}" != jsonArray[i].member_id){
+				if("${loginMemberVo.member_id}" != jsonArray[i].member_id){
 					tds.eq(2).find("a").css("display","none");
 				}
 				tr.show();
@@ -320,34 +322,57 @@ $(document).ready(function() {
 			console.log("좋아요 url: insertLike");
 			url = "/spring/like/insertLike";
 		}
+    
 		var sData = {"product_id" : "${productVo.product_id}"};
-		console.log("sData:", sData)
 		
-		$.get(url, sData, function(rData) {
-			console.log("rData:", rData)
-			var count = parseInt($("#likeCount").text());
-			
-			if (rData == "true") {
-				//이미 좋아요 한 경우 = true, 아닌 경우 = else
-				if (isLike == "true") {
-					isLike = "false";
-					$("#likeHeart").css("color", "#6f6f6f");
-					$("#heartIcon").attr("class", "fa fa-heart-o");
-					count--;
-				} else {
-					// 안 한 거
-					isLike = "true";
-					$("#likeHeart").css("color", "#dd2222");
-					$("#heartIcon").attr("class", "fa fa-heart");
-					count++;
+		//좋아요가 가능한 경우
+		if(isLike=="false"){
+			console.log("isAlreadyLike false 실행됨");
+			url = "/spring/like/insertLike";
+			$.post(url,sData,function(rData){
+				if(rData=="couldlike-true"){
+					
+ 					$("#likeHeart").css("color", "#dd2222");
+ 					$("#heartIcon").attr("class", "fa fa-heart");
+ 					url="/spring/like/getProductLikeCount";
+ 					$.post(url,sData,function(rData){
+ 						$("#likeCount").text(rData);
+ 						});
+ 					getLikeCountNum();
+ 					console.log("isalreadyLike:","${isAlreadyLike}");
+				}else if(rData=="couldlike-flase"){
+					alert("좋아요 등록에 실패했습니다.");
+				}else if(rData=="notLogin"){
+					alert("로그인후 이용바랍니다.");
+	 				location.href="/spring/member/login";
 				}
-				$("#likeCount").text(count);
-			} else if (rData == "notLogin") {
-				alert("로그인후 이용바랍니다.")
-				location.href="/spring/member/login";
-			}
-		}); // $.get(url
-	}); // EMD " $("#likeHeart").click(fu
+			});
+		}else{
+			//좋아요가 이미 있어 불가능한 경우
+			console.log("isAlreadyLike true 실행됨");
+			url = "/spring/like/delete";
+			$.post(url,sData,function(rData){
+				console.log("rData:",rData);
+				if(rData == "true"){
+					$("#likeHeart").css("color", "#6f6f6f");
+ 					$("#heartIcon").attr("class", "fa fa-heart-o");
+ 					url="/spring/like/getProductLikeCount";
+ 					$.post(url,sData,function(rData){
+ 						$("#likeCount").text(rData);
+ 						});
+ 					
+ 					getLikeCountNum();
+ 					
+				}else{
+					alert("좋아요 삭제에 실패했습니다.");
+					
+				}
+			});
+		}
+		
+		isLike = !isLike;
+
+	}); // END : 좋아요 하트
 	
 	
 });
@@ -382,10 +407,6 @@ $(document).ready(function() {
 						</li>
 						
 						<li>
-						
-						<!-- 별점 몇분의 몇 span
-						<span id="ratingAvg" style="font: bolder; 20px;"></span>
-						 -->
 							<table style="margin-top: 15px; margin-bottom: 20px;">
 								<tr>
 									<td style="padding-left: 0px; width: 170px;"><b>별점</b></td>
@@ -432,159 +453,143 @@ $(document).ready(function() {
 							</div>
 						</li>
 					</ul>
-					
-					
-					
-					
-									
+			
+					<a href="#" class="primary-btn" id="btnInsertCart" style="margin-right: 18px;">장바구니 담기</a>
+					<!-- START : 좋아요 -->	
+					<a href="#" class="heart-icon" id="likeHeart" 
+						<c:if test="${isAlreadyLike == 'true'}">
+							style="color:#dd2222" 
+						</c:if>>		　
+					<c:if test="${isAlreadyLike == 'true'}">
+						<i class="fa fa-heart" aria-hidden="true" id="heartIcon"></i>
+					</c:if>
 								
-					
-					
-              
-							<a href="#" class="primary-btn" id="btnInsertCart" style="margin-right: 18px;">장바구니 담기</a>
-						<!-- START : 좋아요 -->	
-							<a href="#" class="heart-icon" id="likeHeart" 
-									<c:if test="${isLike == 'true'}">
-										style="color:#dd2222" 
-									</c:if>>
-								　
-								<c:if test="${isLike == 'true'}">
-										<i class="fa fa-heart" aria-hidden="true" id="heartIcon"></i>
-								</c:if>
-								
-								<c:if test="${isLike != 'true'}">
-										<i class="fa fa-heart-o" aria-hidden="true" id="heartIcon"></i>
-								</c:if>
-								
-								
-								<span style="font-size:16px; color:gray" id="likeCount"> ${likeCount}</span>　</a>
-						<!-- END : 좋아요 -->	
-
-							<ul>
-								<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
-								<li><b>공유하기</b>
-									<div class="share">
-										<a href="#"><i class="fa fa-facebook"></i></a> 
-										<a href="#"><i class="fa fa-twitter"></i></a> 
-										<a href="#"><i class="fa fa-instagram"></i></a> 
-									</div>
-								</li>
-							</ul>
+					<c:if test="${isAlreadyLike != 'true'}">
+						<i class="fa fa-heart-o" aria-hidden="true" id="heartIcon"></i>
+					</c:if>
+					<span style="font-size:16px; color:gray" id="likeCount"> ${likeCount}</span>　</a>
+					<!-- END : 좋아요 -->	
+					<ul>
+						<li><b>재고</b> <span>${productVo.product_quantity}</span></li>
+						<li><b>공유하기</b>
+							<div class="share">
+								<a href="#"><i class="fa fa-facebook"></i></a> 
+								<a href="#"><i class="fa fa-twitter"></i></a> 
+								<a href="#"><i class="fa fa-instagram"></i></a> 
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-12">
+				<div class="product__details__tab">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active"
+							data-toggle="tab" href="#tabs-1" role="tab"
+							aria-selected="true">책 소개</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab"
+							href="#tabs-2" role="tab" aria-selected="false">리뷰<span>(${reviewCount})</span></a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tabs-1" role="tabpanel">
+							<div class="product__details__tab__desc">
+								<h6>책 소개</h6>
+								<p>${productVo.product_description}</p>
+							</div>
 						</div>
-					</div>
-					<div class="col-lg-12">
-						<div class="product__details__tab">
-							<ul class="nav nav-tabs" role="tablist">
-								<li class="nav-item">
-									<a class="nav-link active"
-									data-toggle="tab" href="#tabs-1" role="tab"
-									aria-selected="true">책 소개</a></li>
-								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab"
-									href="#tabs-2" role="tab" aria-selected="false">리뷰<span>(${reviewCount})</span></a>
-								</li>
-							</ul>
-							<div class="tab-content">
-								<div class="tab-pane active" id="tabs-1" role="tabpanel">
-									<div class="product__details__tab__desc">
-										<h6>책 소개</h6>
-										<p>${productVo.product_description}</p>
-									</div>
-								</div>
-								<div class="tab-pane" id="tabs-2" role="tabpanel">
-									<div class="product__details__tab__desc">
-										<table class="table table-hover table-striped">
-											<thead>
-												<tr>
-													<th>리뷰</th>
-													<th></th>
-													<th></th>
-												</tr>
-												<tr class="reviewForm">
-													<td style="width: 25%"><img
-														<c:choose>
-															<c:when test="${not empty loginMemberVo.member_pic}">
-																src="/spring/product/getImage?imageName=${loginMemberVo.member_pic}"
-															</c:when>
-															<c:otherwise>
-																src="/spring/resources/img/defaultprofile.png"
-															</c:otherwise>
-														</c:choose>
-														width="50px" class="rounded-circle" /><br> ${loginMember}<br>
-														<div class='rating-stars'>
-															<ul id='stars'>
-																<li class='star' data-value='1'><i
-																	class='fa fa-star fa-fw'></i></li>
-																<li class='star' data-value='2'><i
-																	class='fa fa-star fa-fw'></i></li>
-																<li class='star' data-value='3'><i
-																	class='fa fa-star fa-fw'></i></li>
-																<li class='star' data-value='4'><i
-																	class='fa fa-star fa-fw'></i></li>
-																<li class='star' data-value='5'><i
-																	class='fa fa-star fa-fw'></i></li>
-															</ul>
-														</div> 
-														<br></td>
-													<td style="width: 60%">
-														<div contenteditable="true" id="review_content"
-															style="resize: none; height: 100px; width: 90%; border: 1px solid #d3d3d3; padding: 10px; outline: none;"></div>
-														
-													</td>
-													<td style="width: 15%"><a href="#" class="primary-btn btnInsertReview">등록</a></td>
-												</tr>
+						<div class="tab-pane" id="tabs-2" role="tabpanel">
+							<div class="product__details__tab__desc">
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr>
+											<th>리뷰</th>
+											<th></th>
+											<th></th>
+										</tr>
+										<tr class="reviewForm">
+											<td style="width: 25%">
+												<img
+													<c:choose>
+														<c:when test="${not empty loginMemberVo.member_pic}">
+															src="/spring/product/getImage?imageName=${loginMemberVo.member_pic}"
+														</c:when>
+														<c:otherwise>
+															src="/spring/resources/img/defaultprofile.png"
+														</c:otherwise>
+													</c:choose>
+												width="50px" class="rounded-circle" /><br> ${loginMemberVo.member_id}<br>
+												<div class='rating-stars'>
+													<ul id='stars'>
+														<li class='star' data-value='1'><i
+															class='fa fa-star fa-fw'></i></li>
+														<li class='star' data-value='2'><i
+															class='fa fa-star fa-fw'></i></li>
+														<li class='star' data-value='3'><i
+															class='fa fa-star fa-fw'></i></li>
+														<li class='star' data-value='4'><i
+															class='fa fa-star fa-fw'></i></li>
+														<li class='star' data-value='5'><i
+															class='fa fa-star fa-fw'></i></li>
+													</ul>
+												</div> 
+											<br>
+											</td>
+											<td style="width: 60%">
+												<div contenteditable="true" id="review_content"
+													style="resize: none; height: 100px; width: 90%; border: 1px solid #d3d3d3; padding: 10px; outline: none;"></div>		
+											</td>
+											<td style="width: 15%"><a href="#" class="primary-btn btnInsertReview">등록</a></td>
+										</tr>
 
-											</thead>
-											<tbody id="review">
-												<tr class="review_hidden" style="display: none">
-													<td style="width: 25%"><img
-														src="/spring/resources/img/defaultprofile.png"
-														width="50px" class="rounded-circle" /><br> <span></span><br>
-														<span style="display: none"> <i class="fa fa-star"
-															style="color: orange"></i> <i class="fa fa-star-o"
-															style="color: orange"></i></span> 
-														<span class="review_rating"> </span></td>
-													<td style="width: 60%">
-
-													</td><td style="width: 15%">
-													<a href="#" class="site-smbtn btnUpdateReview" style="margin-bottom: 10px">수정</a>
-													<a href="#" class="site-smbtn btnDeleteReview">삭제</a></td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<nav>
-												<div class="product__pagination pagination justify-content-center">
-													<c:if test="${pagingDto.startPage ne 1}">
-														<a class="pagelink"
-															href="${pagingDto.startPage-1}">이전</a>
-													</c:if>
-													<c:forEach var="v" begin="${pagingDto.startPage}"
-														end="${pagingDto.endPage}">
-														
-															<a class="pagelink" href="#" data-page="${v}">${v}</a>
-														
-
-													</c:forEach>
-													<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
-														<a class="pagelink"
-															href="${pagingDto.endPage+1}">다음</a>
-													</c:if>
-												</div>
-											</nav>
+									</thead>
+									<tbody id="review">
+										<tr class="review_hidden" style="display: none">
+											<td style="width: 25%">
+												<img src="/spring/resources/img/defaultprofile.png"
+												width="50px" class="rounded-circle" /><br> <span></span><br>
+												<span style="display: none"> <i class="fa fa-star"
+													style="color: orange"></i> <i class="fa fa-star-o"
+													style="color: orange"></i></span> 
+												<span class="review_rating"> </span>
+											</td>
+											<td style="width: 60%">
+											</td>
+											<td style="width: 15%">
+												<a href="#" class="site-smbtn btnUpdateReview" style="margin-bottom: 10px">수정</a>
+												<a href="#" class="site-smbtn btnDeleteReview">삭제</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<nav>
+										<div class="product__pagination pagination justify-content-center">
+											<c:if test="${pagingDto.startPage ne 1}">
+												<a class="pagelink" href="${pagingDto.startPage-1}">이전</a>
+											</c:if>
+											<c:forEach var="v" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
+												<a class="pagelink" href="#" data-page="${v}">${v}</a>
+											</c:forEach>
+											<c:if test="${pagingDto.endPage lt pagingDto.totalPage}">
+												<a class="pagelink" href="${pagingDto.endPage+1}">다음</a>
+											</c:if>
 										</div>
-									</div>
+									</nav>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 </section>
 <!-- Product Details Section End -->
-
-
 
 <%@ include file="../include/footer.jsp"%>
