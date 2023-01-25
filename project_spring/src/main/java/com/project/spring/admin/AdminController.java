@@ -27,7 +27,6 @@ import com.project.spring.vo.ProductVo;
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
-	
 
 	@Autowired
 	MainService mainService;
