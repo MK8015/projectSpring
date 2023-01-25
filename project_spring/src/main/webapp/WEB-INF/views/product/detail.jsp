@@ -313,9 +313,8 @@ $(document).ready(function() {
 	// 좋아요 하트
 	$("#likeHeart").click(function(e) {
 		e.preventDefault();
-		
+		var memberVo = ${loginMember};
 		var url;
- 
 		var sData = {"product_id" : "${productVo.product_id}"};
 		
 		//좋아요가 가능한 경우
@@ -331,7 +330,7 @@ $(document).ready(function() {
  						$("#likeCount").text(rData);
  						});
  					getLikeCountNum();
- 					console.log("isLike:",isLike);
+ 					isLike = !isLike;
 				}else if(rData=="couldlike-flase"){
 					alert("좋아요 등록에 실패했습니다.");
 				}else if(rData=="notLogin"){
@@ -353,8 +352,7 @@ $(document).ready(function() {
  						$("#likeCount").text(rData);
  						});
  					getLikeCountNum();
- 					
- 					console.log("isLike:",isLike);
+ 					isLike = !isLike;
 				}else{
 					alert("좋아요 삭제에 실패했습니다.");
 					
@@ -362,7 +360,7 @@ $(document).ready(function() {
 			});
 		}
 		
-		isLike = !isLike;
+		
 
 	}); // END : 좋아요 하트
 	
