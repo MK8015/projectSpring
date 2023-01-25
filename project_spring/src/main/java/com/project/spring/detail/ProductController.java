@@ -51,24 +51,22 @@ public class ProductController {
 		pagingDto.setPagingInfo(pagingDto.getPage(), pagingDto.getPerPage(), reviewCount);
 		int likeCount = likeService.getLikeCount(product_id);
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id =memberVo.getMember_id();
 		
-		boolean isAlreadyLike= likeService.isAlreadyLike(product_id,member_id);
-		
-		if (member_id != null && !member_id.equals("")) {
+		if (memberVo != null) {
+			String member_id =memberVo.getMember_id();
+			boolean isAlreadyLike= likeService.isAlreadyLike(product_id,member_id);
 			LikeVo likeVo = new LikeVo();
 			likeVo.setProduct_id(product_id);
 			likeVo.setMember_id(member_id);
 			boolean isLike = likeService.checkLike(likeVo);
 			// isLike 안에서
 			request.setAttribute("isLike", isLike);
+			request.setAttribute("isAlreadyLike", isAlreadyLike);
 		}
 		request.setAttribute("likeCount", likeCount);
-		
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewCount", reviewCount);
-		request.setAttribute("isAlreadyLike", isAlreadyLike);
 		
 		return "product/detail";
 	}
