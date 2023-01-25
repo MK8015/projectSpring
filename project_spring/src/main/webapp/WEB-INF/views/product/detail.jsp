@@ -315,23 +315,15 @@ $(document).ready(function() {
 		e.preventDefault();
 		
 		var url;
-		if (isLike == "true") {
-			console.log("좋아요 url: cancelLike");
-			url = "/spring/like/cancelLike";
-		} else {
-			console.log("좋아요 url: insertLike");
-			url = "/spring/like/insertLike";
-		}
-    
+ 
 		var sData = {"product_id" : "${productVo.product_id}"};
 		
 		//좋아요가 가능한 경우
-		if(isLike=="false"){
+		if(isLike=="false" || isLike==false){
 			console.log("isAlreadyLike false 실행됨");
 			url = "/spring/like/insertLike";
 			$.post(url,sData,function(rData){
 				if(rData=="couldlike-true"){
-					
  					$("#likeHeart").css("color", "#dd2222");
  					$("#heartIcon").attr("class", "fa fa-heart");
  					url="/spring/like/getProductLikeCount";
@@ -339,7 +331,7 @@ $(document).ready(function() {
  						$("#likeCount").text(rData);
  						});
  					getLikeCountNum();
- 					console.log("isalreadyLike:","${isAlreadyLike}");
+ 					console.log("isLike:",isLike);
 				}else if(rData=="couldlike-flase"){
 					alert("좋아요 등록에 실패했습니다.");
 				}else if(rData=="notLogin"){
@@ -347,7 +339,7 @@ $(document).ready(function() {
 	 				location.href="/spring/member/login";
 				}
 			});
-		}else{
+		}else if(isLike=="true" || isLike==true){
 			//좋아요가 이미 있어 불가능한 경우
 			console.log("isAlreadyLike true 실행됨");
 			url = "/spring/like/delete";
@@ -360,9 +352,9 @@ $(document).ready(function() {
  					$.post(url,sData,function(rData){
  						$("#likeCount").text(rData);
  						});
- 					
  					getLikeCountNum();
  					
+ 					console.log("isLike:",isLike);
 				}else{
 					alert("좋아요 삭제에 실패했습니다.");
 					
