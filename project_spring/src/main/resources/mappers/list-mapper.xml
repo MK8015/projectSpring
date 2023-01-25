@@ -26,37 +26,37 @@
 		            t_product c 
 		        where c.product_id = b.product_id(+)
 		        and c.product_id = a.product_id(+)
-		        order by c.product_id desc) d
-		        <if test='member_id neq null and member_id neq ""'>
-				        ,
-				        (
-				        select * 
-				        from t_like 
-				        where member_id = #{member_id}) e
-				    where d.product_id = e.product_id(+)
-   			 	</if>
+		        order by c.product_id) d
+		        <choose>
+		        	<when test='member_id neq null and member_id neq ""'>
+					        ,
+					        (
+					        select * 
+					        from t_like 
+					        where member_id = #{member_id}) e
+					    where d.product_id = e.product_id(+)
+		   			 	<if test='searchType neq null and keyword neq null and
+							searchType neq "" and keyword neq ""'>
+								<choose>
+									<when test='searchType eq "t"'>
+										and d.product_name like '%' || #{keyword} || '%'
+									</when>
+									<when test='searchType == "w"'>
+										and d.product_author like '%' || #{keyword} || '%'
+									</when>
+									<when test='searchType == "p"'>
+										and d.product_publisher like '%' || #{keyword} || '%'
+									</when>
+								</choose>			
+				    	 </if>
+				    </when>
+					 <otherwise>
+					 	<include refid="searchKeyword"></include>
+					 </otherwise>
+		    	 </choose>
 				    ) f
 		where rnum between #{startRow} and #{endRow}
-	<if test='searchType neq null and keyword neq null and
-			searchType neq "" and keyword neq ""'>
-			<choose>
-				<when test='searchType eq "t"'>
-					and f.product_name like '%' || #{keyword} || '%'
-				</when>
-				<when test='searchType == "w"'>
-					and f.product_author like '%' || #{keyword} || '%'
-				</when>
-				<when test='searchType == "p"'>
-					and f.product_publisher like '%' || #{keyword} || '%'
-				</when>
-			</choose>			
-    	 </if>
 	</select>
-	
-	
-	
-	
-	
 	
 	<!-- 카테고리별 목록 조회 -->
 	<select id="getListByCategory" resultType="ProductVo">

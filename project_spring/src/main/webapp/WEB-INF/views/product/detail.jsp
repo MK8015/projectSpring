@@ -374,6 +374,7 @@ $(document).ready(function() {
  					getLikeCountNum();
  					isLike = !isLike;
 					console.log("isLike:",isLike);
+
 				}else{
 					alert("좋아요 삭제에 실패했습니다.");
 					

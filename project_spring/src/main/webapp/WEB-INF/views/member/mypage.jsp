@@ -95,19 +95,26 @@
 
 <script>
 $(document).ready(
-		function() {
-			//회원 정보 창
-			$(document).on("click","#btnmemberInfo",function(){
-				$("#modifydiv").attr("style","display: block;");
-				$("#orderlistdiv").attr("style","display: none;");
-			});
+	
+	function() {
+		//회원 정보 창
+		$(document).on("click","#btnmemberInfo",function(){
+			$("#modifydiv").attr("style","display: block;");
+			$("#orderlistdiv").attr("style","display: none;");
+			// 클릭시 active 설정
+			$("#btnmemberInfo").parent().addClass("active");
+			$("#btnorderList").parent().removeClass("active");
 			
-			//주문 목록 창
-			$(document).on("click","#btnorderList",function(){
-				$("#orderlistdiv").attr("style","display: block;");
-				$("#modifydiv").attr("style","display: none;");
-			});
-			
+		});
+		
+		//주문 목록 창
+		$(document).on("click","#btnorderList",function(){
+			$("#orderlistdiv").attr("style","display: block;");
+			$("#modifydiv").attr("style","display: none;");
+			// 클릭시 active 설정
+			$("#btnorderList").parent().addClass("active");
+			$("#btnmemberInfo").parent().removeClass("active");
+		});
 
 
 	//회원가입 실패(flase시 안내창)
@@ -323,7 +330,7 @@ $(document).ready(
 								</td>
 								<td class="shoping__order__quantity">${orderList.order_amount}</td>
 								<td class="shoping__cart__price">
-								<fmt:formatNumber value="${orderList.price}" pattern="#,###"/>
+								<fmt:formatNumber value="${orderList.price*orderList.order_amount}" pattern="#,###"/>
 								원</td>
 							</tr>
 						</c:forEach>

@@ -53,7 +53,7 @@
 								</td>
 								<td class="shoping__order__quantity">${orderVo.order_amount}</td>
 								<td class="shoping__order__price">
-								<fmt:formatNumber value="${orderVo.price}" pattern="#,###"/>
+								<fmt:formatNumber value="${orderVo.price*orderVo.order_amount}" pattern="#,###"/>
 								원</td>
 							</tr>
 						</c:forEach>

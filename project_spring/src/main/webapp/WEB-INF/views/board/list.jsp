@@ -77,6 +77,7 @@ $(document).ready(function() {
 	if (checkOriginalWriter == "fail") {
 		var bno = "${bno}";
 		var re_group = "${re_group}";
+
 		$("#btnModal").attr("data-bno", bno);
 		$("#btnModal").attr("data-re_group", re_group);
 		$("#modal-secret").trigger("click");
@@ -180,7 +181,8 @@ function get_query(){
 					</div>
 					
 						<div class="modalbody spad">
-							<p style="text-align: center;">이 글은 비밀글입니다. 비밀번호를 입력해 주세요.
+							<p style="text-align: center;">이 글은 비밀글입니다. 비밀번호를 입력해 주세요.<br>
+							다른 사람의 글은 확인하실 수 없습니다.<br>
 							<input class="modal__input" type="password" name="password" id="password" placeholder="비밀번호 입력"><br>
 							<button type="button" id="btnModal"
 								 data-bno="" data-re_group="" class="modal-btn">
