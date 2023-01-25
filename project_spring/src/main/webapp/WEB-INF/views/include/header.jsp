@@ -117,9 +117,11 @@ $(document).ready(function() {
 			console.log("getcount rData:",rData);
 			if(rData==0){
 				$(".headerLikeCount").attr("style","display:none");
+				console.log("getLikeCountNumfunctionRdata:",rData);
 			}else{
 				$(".headerLikeCount").attr("style","");
 				$(".headerLikeCount").text(rData);
+				console.log("getLikeCountNumfunctionRdata:",rData);
 				var text= $(".headerLikeCount").text();
 			}
 		});

@@ -331,6 +331,7 @@ $(document).ready(function() {
  						$("#likeCount").text(rData);
  						});
  					getLikeCountNum();
+ 					isLike = !isLike;
  					console.log("isLike:",isLike);
 				}else if(rData=="couldlike-flase"){
 					alert("좋아요 등록에 실패했습니다.");
@@ -353,6 +354,7 @@ $(document).ready(function() {
  						$("#likeCount").text(rData);
  						});
  					getLikeCountNum();
+ 					isLike = !isLike;
  					
  					console.log("isLike:",isLike);
 				}else{
@@ -362,7 +364,7 @@ $(document).ready(function() {
 			});
 		}
 		
-		isLike = !isLike;
+		
 
 	}); // END : 좋아요 하트
 	

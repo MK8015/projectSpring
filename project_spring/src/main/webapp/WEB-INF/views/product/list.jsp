@@ -124,7 +124,13 @@ $(document).ready(function() {
  			if (rData == "couldlike-true") {
 				nowclickLike.attr("class","fa fa-trash");
 				getLikeCountNum();
-				showTextTag.text("위시 리스트에 담겼습니다.")
+				showTextTag.text("위시 리스트에 담겼습니다.");
+				var url="/spring/like/getProductLikeCount";
+				$.post(url, sData, function(rData) {
+					likeCount.text(rData);
+				});
+				
+				
 			} else if (rData == "couldlike-flase"){
 				alert("좋아요 등록 실패!");
 				return;
@@ -134,7 +140,11 @@ $(document).ready(function() {
 			} else if(rData=="coudntlike-true") {
 				getLikeCountNum();
 				nowclickLike.attr("class","fa fa-heart");
-				showTextTag.text("위시 리스트에서 삭제되었습니다.")
+				showTextTag.text("위시 리스트에서 삭제되었습니다.");
+				var url="/spring/like/getProductLikeCount";
+				$.post(url, sData, function(rData) {
+					likeCount.text(rData);
+				});
 			} else if(rData=="couldntlike-false"){
 				alert("삭제 실패");
 			}

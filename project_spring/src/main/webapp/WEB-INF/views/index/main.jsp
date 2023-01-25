@@ -82,7 +82,6 @@ $(document).ready(function() {
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
  		
- 		
 		var product_id = $(this).attr("data-product_id");
 		var alreadyclick=$(this).attr("data-already_click");
 	
