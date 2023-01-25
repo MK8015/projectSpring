@@ -68,6 +68,7 @@ public class MemberController {
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
 		} else {
+			//로그인 성공시
 			
 
 			// 멤버당 좋아요 개수
@@ -78,7 +79,15 @@ public class MemberController {
 			int memberCartCount = cartService.memberCartCount(member_id);
 			memberVo.setMemberCartCount(memberCartCount);
 			
-			//로그인 성공시
+			//아이디 저장 쿠키 넣기
+			Cookie cookie=new Cookie("member_id",member_id);
+			if(saveId!=null) {
+				cookie.setMaxAge(60*60*24*7);
+			}else{
+				cookie.setMaxAge(0);
+			}
+			response.addCookie(cookie);
+			
 			//로그인 세션에 넣어둠    
 			session.setAttribute("loginMemberVo", memberVo);
 			String returnURI = (String)session.getAttribute("returnURI");
@@ -93,14 +102,6 @@ public class MemberController {
 				return "redirect:/admin/index";
 			}
 			
-			//아이디 저장 쿠키 넣기
-			Cookie cookie=new Cookie("member_id",member_id);
-			if(saveId!=null) {
-				cookie.setMaxAge(60*60*24*7);
-			}else{
-				cookie.setMaxAge(0);
-			}
-			response.addCookie(cookie);
 			
 			page = "redirect:"+returnURI;
 		}
