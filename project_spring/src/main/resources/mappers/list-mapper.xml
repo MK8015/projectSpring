@@ -26,7 +26,7 @@
 		            t_product c 
 		        where c.product_id = b.product_id(+)
 		        and c.product_id = a.product_id(+)
-		        order by c.product_id) d
+		        order by c.product_id desc) d
 		        <if test='member_id neq null and member_id neq ""'>
 				        ,
 				        (
