@@ -46,7 +46,14 @@
 
 <script>
 $(document).ready(function() {
-	
+	var result = "${result}";
+	var location = document.referrer;
+	location.contains
+	if(result=="true"){
+		alert("입력 성공");
+	}else if(result == "false"){
+		alert("입력 실패")
+	}
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
