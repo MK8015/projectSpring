@@ -51,10 +51,12 @@ public class BoardController {
 
 		
 		MemberVo memberVo =(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id = memberVo.getMember_id();
-		System.out.println("로그인멤버" + member_id);
 		
-
+		String member_id = null;
+		if (memberVo != null) {
+			member_id = memberVo.getMember_id();
+		} 
+		
 		BoardVo boardVo = null;
 		if (bno == re_group) {
 			//원글
@@ -62,7 +64,9 @@ public class BoardController {
 		} else {
 			// 답글일 때
 			boardVo = boardService.checkOriginalWriter(member_id, bno, re_group);
-			// 답글인데 비회원일 때 
+			// 답글인데 비회원일 때
+			
+			
 			if (member_id == null || member_id.equals("admin")) {
 				boardVo = boardService.selectByBno(bno);
 				model.addAttribute("boardVo", boardVo);

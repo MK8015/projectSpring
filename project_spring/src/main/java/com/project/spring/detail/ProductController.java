@@ -60,7 +60,7 @@ public class ProductController {
 			likeVo.setMember_id(member_id);
 			boolean isLike = likeService.checkLike(likeVo);
 			// isLike 안에서
-			request.setAttribute("isLike", isLike);
+			request.setAttribute("isLike", isLike);	
 			request.setAttribute("isAlreadyLike", isAlreadyLike);
 		}
 		request.setAttribute("likeCount", likeCount);
