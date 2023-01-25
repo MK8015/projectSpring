@@ -51,6 +51,10 @@ public class ListController {
 		model.addAttribute("list", list);
 		model.addAttribute("pagingDto", pagingDto);
 		
+		System.out.println("category:"+category);
+		System.out.println("list:"+list);
+		System.out.println("pagingDto:"+pagingDto);
+		
 		return "product/list";
 	}
 	
