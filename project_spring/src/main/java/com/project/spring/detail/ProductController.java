@@ -64,7 +64,6 @@ public class ProductController {
 			request.setAttribute("isAlreadyLike", isAlreadyLike);
 		}
 		request.setAttribute("likeCount", likeCount);
-		
 		request.setAttribute("pagingDto", pagingDto);
 		request.setAttribute("productVo", productVo);
 		request.setAttribute("reviewCount", reviewCount);

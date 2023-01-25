@@ -132,6 +132,11 @@ $(document).ready(function() {
 	//카트에 담기
 	$("#btnInsertCart").click(function(e){
 		e.preventDefault();
+		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+		}
 		var cart_amount = $(".pro-qty").find("input").val();
 		var product_id = "${productVo.product_id}";
 		var sData = {
@@ -229,7 +234,6 @@ $(document).ready(function() {
 		var checkLogin = "${loginMemberVo}";
 		if(checkLogin == ""){
 			location.href = "/spring/member/login";
-			console.log("1");
 		}
 		var review_content = $("#review_content").text();
 		var review_rating = parseInt($('#stars li.selected').last().data('value'), 10);
@@ -313,9 +317,12 @@ $(document).ready(function() {
 	// 좋아요 하트
 	$("#likeHeart").click(function(e) {
 		e.preventDefault();
-		
+		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+		}
 		var url;
- 
 		var sData = {"product_id" : "${productVo.product_id}"};
 		
 		//좋아요가 가능한 경우
@@ -329,7 +336,7 @@ $(document).ready(function() {
  					url="/spring/like/getProductLikeCount";
  					$.post(url,sData,function(rData){
  						$("#likeCount").text(rData);
- 						});
+ 					});
  					getLikeCountNum();
  					isLike = !isLike;
  					console.log("isLike:",isLike);
@@ -345,7 +352,6 @@ $(document).ready(function() {
 			console.log("isAlreadyLike true 실행됨");
 			url = "/spring/like/delete";
 			$.post(url,sData,function(rData){
-				console.log("rData:",rData);
 				if(rData == "true"){
 					$("#likeHeart").css("color", "#6f6f6f");
  					$("#heartIcon").attr("class", "fa fa-heart-o");
@@ -355,8 +361,8 @@ $(document).ready(function() {
  						});
  					getLikeCountNum();
  					isLike = !isLike;
- 					
- 					console.log("isLike:",isLike);
+					console.log("isLike:",isLike);
+
 				}else{
 					alert("좋아요 삭제에 실패했습니다.");
 					

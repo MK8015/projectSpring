@@ -59,8 +59,14 @@ $(document).ready(function() {
  	
  	// 장바구니 클릭 : 비동기식 정보 넘기기
  	$(document).on("click", ".shopping-cart", function(e) {
- 		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
+ 		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+			return;
+		}
+ 		var showTextTagCart= $(this).parent().find("p").find("span");
 		var headerCartCount = $(".headerCartCount"); // 헤더 장바구니 딱지
 		
 		var product_id = $(this).attr("data-product_id");
@@ -105,6 +111,12 @@ $(document).ready(function() {
   	// 좋아요 클릭
  	$(document).on("click", ".like-cart", function(e) {
  		e.preventDefault();
+ 		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+			return;
+		}
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
 		var product_id = $(this).attr("data-product_id");

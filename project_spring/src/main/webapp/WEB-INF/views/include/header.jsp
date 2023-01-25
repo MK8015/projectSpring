@@ -48,6 +48,7 @@ $(document).ready(function() {
 		
 	var location = window.location.href;
 	
+	
 	//처음 실행시 라이크와 카운트 숫자 가져옴
 	var checkLogin = "${loginMemberVo}"
 	if(checkLogin != null && checkLogin != ""){
@@ -71,6 +72,30 @@ $(document).ready(function() {
 		$("#about").addClass("active");
 		$("#humabout").addClass("active");
 	}
+	
+	$("#likeList").click(function(e){
+		e.preventDefault();
+		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			window.location.href="/spring/member/login";
+			return;
+		}
+		window.location.href="/spring/like/list";
+	});
+	
+	$("#cartList").click(function(e){
+		e.preventDefault();
+		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			window.location.href="/spring/member/login";
+			return;
+		}
+		window.location.href="/spring/cart/list";
+	});
+	
+	
 
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
@@ -367,12 +392,12 @@ $(document).ready(function() {
 			<div class="col-lg-2">
 				<div class="header__cart">
 					<ul>
-						<li><a href="/spring/like/list"><i class="fa fa-heart"></i> 
+						<li><a href="#" id="likeList"><i class="fa fa-heart"></i> 
 							<span class="headerLikeCount" style="display: none">
 								
 							</span>
 							</a></li>
-						<li><a href="/spring/cart/list"><i class="fa fa-shopping-bag"></i> 
+						<li><a href="#" id="cartList"><i class="fa fa-shopping-bag"></i> 
 							<span class="headerCartCount" style="display: none"></span>
 						</a></li>
 					</ul>
