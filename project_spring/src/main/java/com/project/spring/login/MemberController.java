@@ -83,6 +83,9 @@ public class MemberController {
 			session.setAttribute("loginMemberVo", memberVo);
 			String returnURI = (String)session.getAttribute("returnURI");
 			if(returnURI == null) {
+				if(location.equals("/member/login")) {
+					return "redirect:/index/main";
+				}
 				returnURI = location;
 			}
 			session.removeAttribute("returnURI");
