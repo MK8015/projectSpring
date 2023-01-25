@@ -32,7 +32,12 @@ $(document).ready(function() {
  	$(document).on("click", ".shopping-cart", function(e) {
  		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
- 		
+ 		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+			return;
+		}
 		var product_id = $(this).attr("data-product_id");
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
@@ -78,6 +83,12 @@ $(document).ready(function() {
  	// 좋아요 클릭
  	$(document).on("click", ".like-cart", function(e) {
  		e.preventDefault();
+ 		var memberVo = "${loginMemberVo}";
+		if(memberVo == "" || memberVo == null){
+			alert("로그인후 이용바랍니다.");
+			location.href="/spring/member/login";
+			return;
+		}
  		//좋아요 그림 바꾸는 클래스 있는 i테그
  		var nowclickLike= $(this).find("i");
  		var showTextTag= $(this).parent().find("p").find("span");
