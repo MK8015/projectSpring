@@ -6,13 +6,13 @@ import lombok.Data;
 public class BoardPagingDto {
 	private int page=1;
 	private int startRow=1;
-	private int endRow=10;
+	private int endRow=5;
 	private int startPage=1;
-	private int endPage=10;
+	private int endPage=5;
 	private int totalPage;
 	private int count;
 	private int perPage=8;
-	private final int BLOCK_COUNT=10;
+	private final int BLOCK_COUNT=5;
 	
 	public void setPagingInform(int page, int perPage,int count) {
 		if(page>0) {
