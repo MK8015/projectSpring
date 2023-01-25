@@ -79,7 +79,7 @@ $(document).ready(function() {
 <div class="humberger__menu__wrapper">
 	<div class="humberger__menu__logo">
 
-		<a href="/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+		<a href="/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 	</div>
 	<div class="humberger__menu__cart">
 		<ul>
@@ -143,7 +143,7 @@ $(document).ready(function() {
 				<div class="col-lg-8">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="/spring/main/list">MAIN</a></li>
+							<li class="active"><a href="/spring/main/index">MAIN</a></li>
 							<li><a href="/spring/list/list">BOOK</a>
 								<ul class="header__menu__dropdown">
 									<li><a href="/spring/list/list?category=humanity">인문</a></li>
@@ -220,7 +220,7 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/spring/main/list"><img src="/spring/resources/img/logo.png" alt=""></a>
+					<a href="/spring/main/index"><img src="/spring/resources/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="humberger__menu__overlay"></div>
