@@ -15,7 +15,7 @@ public class PagingDto {
 	private String searchType;
 	private String keyword;
 	
-	private final int BLOCK_COUNT = 3;
+	private final int BLOCK_COUNT = 5;
 	
 	public void setPagingInfo(int page, int perPage, int count) {
 		if(page > 0) {
@@ -35,11 +35,11 @@ public class PagingDto {
 		
 		// count	totalPage
 		// 500 		50 =500/10
-		// 501		51=501/10¿Ã¸²
+		// 501		51=501/10ï¿½Ã¸ï¿½
 		// 30		4 = 30/8
-		// count	count/10¿Ã¸²
+		// count	count/10ï¿½Ã¸ï¿½
 		
-		// Math.ceil ¼Ò¼ýÀÚ ¼ýÀÚ ¿Ã¸²!
+		// Math.ceil ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½!
 		
 		this.totalPage = (int)Math.ceil((float)count/this.perPage);
 		if (this.endPage > this.totalPage) {

@@ -110,49 +110,4 @@ var marker = new kakao.maps.Marker({
 </script>
 <!-- Contact Section End -->
 
-
-
-<!-- 지도 Begin -->
-<section class="contact spad">
-	<div class="container">
-		<div class="text-center">
-			<h3>오시는 길</h3>
-		</div>
-		
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div>
-				지도~
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- 지도 End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <%@ include file="../include/footer.jsp" %>
