@@ -57,7 +57,7 @@ public class MemberController {
 	//로그인 화면
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginRun(String member_id, String password,HttpSession session
-							,RedirectAttributes rttr,String saveId,HttpServletResponse response) {
+							,RedirectAttributes rttr,String saveId,String location,HttpServletResponse response) {
 		
 		MemberVo memberVo=memberService.loginRun(member_id, password);
 		String page="";
@@ -83,7 +83,7 @@ public class MemberController {
 			session.setAttribute("loginMemberVo", memberVo);
 			String returnURI = (String)session.getAttribute("returnURI");
 			if(returnURI == null) {
-				returnURI = "/main/index";
+				returnURI = location;
 			}
 			session.removeAttribute("returnURI");
 			if(memberVo.getMember_id().equals("admin")) {

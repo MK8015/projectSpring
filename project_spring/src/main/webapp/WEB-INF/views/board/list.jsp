@@ -59,6 +59,19 @@ font {
 
 <script>
 $(document).ready(function() {
+	//현재 페이지
+	var pagelink = $(".pagelink");
+	$.each(pagelink,function(){
+		if($(this).attr("href") == 1){
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});			
+		}
+		if($(this).attr("href") == get_query().page){
+				pagelink.css({"background":"","border-color":"","color":""});			
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});
+			return;
+		}
+	});
+	
 	// 원글쓴이인지 확인 후 아니면 모달창 띄우기
 	var checkOriginalWriter = "${checkOriginalWriter}";
 	if (checkOriginalWriter == "fail") {
@@ -120,6 +133,7 @@ $(document).ready(function() {
 		$.post(url, sData, function(rData) {
 			console.log("rData", rData);
 			if (rData == "true") {
+				console.log("비밀번호 맞음");
 				runDetail(bno, re_group);
 			} else {
 				alert("비밀번호가 틀립니다. 다시 확인해 주세요.");
@@ -135,6 +149,16 @@ $(document).ready(function() {
 		$("#frmPaging").attr("action","/spring/board/list").submit();
 	});
 }); //$(document).ready(function()
+		
+function get_query(){
+    var url = document.location.href;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
+}
 </script>
 
 <%@ include file="../include/boardPageParam.jsp" %>
