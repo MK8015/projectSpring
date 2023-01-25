@@ -23,7 +23,18 @@
 </style>
 <script>
 $(document).ready(function() {
-	
+	//현재 페이지 css
+	var pagelink = $(".pagelink");
+	$.each(pagelink,function(){
+		if($(this).attr("href") == 1){
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});			
+		}
+		if($(this).attr("href") == get_query().page){
+				pagelink.css({"background":"","border-color":"","color":""});			
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});
+			return;
+		}
+	});
 	// 클릭시 active 설정
 	var location = window.location.href;
 	
@@ -166,6 +177,16 @@ $(document).ready(function() {
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
 });
+//페이징 표시 위해 현재 페이지의 파라미터를 객체로 반환
+function get_query(){
+    var url = document.location.href;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
+}
 </script>
 
 <!-- Product Section Begin -->

@@ -78,6 +78,7 @@ function closeForm(){
 	$(".productInsertForm").remove();
 	$(".productForm:gt(0)").parent().parent().remove();
 }
+
 </script>
 
 	<!--  입력,수정 양식 -->

@@ -80,10 +80,22 @@ a:hover {
 <script>
 //회원가입 성공 실패시 메시지
 $(document).ready(function(){
+		var location = (document.referrer).substring(document.referrer.indexOf("spring")+6);
+		console.log(location);
+		
+	$(".user").submit(function(){
+		var input = $("<input></input>");
+		input.attr("type","hidden");
+		input.attr("name","location");
+		input.attr("value",location);
+		$(this).append(input);
+	});
+	
 	var registerresult="${register_result}"
 	if(registerresult=="true"){
 		alert("회원가입에 성공하였습니다");
 	};
+	
 	
 	var isLogin="${isLogin}"
 	console.log("isLogin:",isLogin)
@@ -187,7 +199,7 @@ $(document).ready(function(){
 								<div class="text-center">
 									<br><h3>환영합니다</h3><br><br>
 								</div>
-									<form class="user" method="post" action="/spring/member/login">
+								<form class="user" method="post" action="/spring/member/login">
                               <div class="form-group" >
                                  <input type="text" class="mypage__input"
                                     id="member_id" name="member_id" aria-describedby="emailHelp"

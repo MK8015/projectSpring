@@ -118,6 +118,18 @@ img {
 <script>
 $(document).ready(function() {
 	
+	//현재 페이지 css
+	var pagelink = $(".pagelink");
+	$.each(pagelink,function(){
+		if($(this).attr("href") == 1){
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});			
+		}
+		if($(this).attr("href") == get_query().page){
+				pagelink.css({"background":"","border-color":"","color":""});			
+			$(this).css({"background":"#7fad39","border-color":"#7fad39","color":"#ffffff"});
+			return;
+		}
+	});
 
 	//리뷰 1페이지 로딩 
 	getReview(1);
@@ -376,6 +388,16 @@ $(document).ready(function() {
 	
 	
 });
+
+function get_query(){
+    var url = document.location.href;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
+}
 </script>
 
 
@@ -540,7 +562,7 @@ $(document).ready(function() {
 											</td>
 											<td style="width: 60%">
 												<div contenteditable="true" id="review_content"
-													style="resize: none; height: 100px; width: 90%; border: 1px solid #d3d3d3; padding: 10px; outline: none;"></div>		
+													style="resize: none; height: 100px; width: 594px; border: 1px solid #d3d3d3; padding: 10px; outline: none; overflow: auto;"></div>		
 											</td>
 											<td style="width: 15%"><a href="#" class="primary-btn btnInsertReview">등록</a></td>
 										</tr>

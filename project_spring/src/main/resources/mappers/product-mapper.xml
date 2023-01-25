@@ -12,7 +12,7 @@
 	
 	<select id="getList" resultType="ProductVo">
 		select * from t_product
-		order by product_id
+		order by product_id desc
 	</select>
 	
 	<insert id="insert">
