@@ -303,7 +303,7 @@ $(document).ready(function() {
 			<div class="row">
 				<div class="col-lg-2 col-md-5 order-md-1 order-2">
 					<div class="mypage__sidebar__item">
-						<h4>관리자<br>페이지</h4>
+						<h4>관리자<br>메뉴</h4>
 						<ul>
 							<li><a href="/spring/admin/product">상품 관리</a></li>
 							<li><a href="/spring/admin/order">주문 관리</a></li>

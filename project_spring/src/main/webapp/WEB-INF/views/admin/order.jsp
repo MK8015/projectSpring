@@ -2,17 +2,24 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../include/adminHeader.jsp" %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(document).ready(function(){
 	var openDetail = false;
 	//주문 입력 양식
 	$("#insertOrder").click(function(e){
 		e.preventDefault();
-		$(".orderForm:gt(0)").parent().parent().remove();
-		var form = $(".orderForm").eq(0).clone();
-		form.attr("class","insertOrderForm");
-		form.css("display","");
-		$(this).parent().append(form);
+		openDetail = !openDetail;
+		if(openDetail){
+			$(".orderForm:gt(0)").parent().parent().remove();
+			var form = $(".orderForm").eq(0).clone();
+			form.attr("class","insertOrderForm");
+			form.css("display","");
+			$(this).parent().append(form);
+		}else{
+			$(".insertOrderForm").remove();
+			$(".orderForm:gt(0)").parent().parent().remove();
+		}
 	});
 	//주문 상세 열기
 	$(".orderInfo").on("click","td",function(e){
@@ -37,10 +44,11 @@ $(document).ready(function(){
 				inputs.eq(5).val(jsonObject.order_address_detail);
 				inputs.eq(6).val(jsonObject.order_phonenum);
 				inputs.eq(7).val(jsonObject.order_date);
+				inputs.eq(7).parent().parent().css("display","");
 				form.css("display","");
 				tr.after("<tr><td colspan='5'></td></tr>");
 				var td = tr.next().find("td");
-				form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no);
+				form.find("a").attr("href","/spring/admin/deleteOrder?order_no="+jsonObject.order_no).css("display","");
 				form.find("form").attr("action","/spring/admin/updateOrder");
 				td.append(form);
 				
@@ -51,6 +59,15 @@ $(document).ready(function(){
 		}
 	});
 	
+	$(document).on("click",".address",function(){
+		var address = $(this);
+		 new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	            	address.val(data.address); // 주소 넣기
+	            	address.parent().next().find("input").focus(); //상세입력 포커싱
+	            }
+	        }).open();
+	});
 });
 </script>
 
@@ -102,9 +119,8 @@ $(document).ready(function(){
 				<div class="col-lg-10">
 					<input type="text" class="mypage__input address" 
 						  placeholder="배송지" name="order_address" style="margin-bottom: 10px;">
-					<p style="text-align: left; padding-left: 10px; margin-bottom: 10px;">상세</p>
 					<input type="text" class="mypage__input address_detail"
-						  placeholder="상세" name="address_detail">
+						  placeholder="상세주소" name="order_address_detail">
 				</div>
 			</div>
 			
@@ -119,7 +135,7 @@ $(document).ready(function(){
 			</div>
 				
 				
-			<div class="form-gruop row">
+			<div class="form-gruop row" style="display: none;">
 				<div class="col-lg-2">
 					<p style="text-align: left; padding-top: 13px;">주문 날짜</p>
 				</div>
@@ -130,7 +146,7 @@ $(document).ready(function(){
 			
 			<p style="text-align: left; padding-top: 7px; padding-bottom: 35px;">
 			<button type="submit" class="site-smbtn">작성 완료</button>
-			<a href="#" class="site-smbtn">삭제</a></p>
+			<a href="#" class="site-smbtn" style="display: none;">삭제</a></p>
 		</form>
 	</div>
 
