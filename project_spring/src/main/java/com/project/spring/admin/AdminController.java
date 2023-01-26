@@ -175,7 +175,9 @@ public class AdminController {
 		String originalFilename = file.getOriginalFilename();
 		try {
 			String product_image = ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
-			productVo.setProduct_image(product_image);
+			if(product_image != null) {
+				productVo.setProduct_image(product_image);				
+			}
 			boolean result = productService.update(productVo);
 			rttr.addFlashAttribute("result",result);
 		}catch (Exception e) {

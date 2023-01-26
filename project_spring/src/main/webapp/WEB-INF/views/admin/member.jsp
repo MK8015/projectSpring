@@ -19,7 +19,7 @@ $(document).ready(function(){
 		var spliteImgFileName = imgFileName.split("\\");
 		var ImageName= spliteImgFileName.pop();
 		input.next().text(ImageName);
-		input.parent().parent().prev().find("img").attr("src",e.target.result);
+		input.parent().prev().find("img").attr("src",e.target.result);
 		
 		};
 	});
