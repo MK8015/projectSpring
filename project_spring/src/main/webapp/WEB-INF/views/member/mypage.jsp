@@ -97,6 +97,10 @@
 $(document).ready(
 	
 	function() {
+		
+		if("${isNaverLogin}" == "true"){
+			$(".naver").css("display","none");
+		}
 		//회원 정보 창
 		$(document).on("click","#btnmemberInfo",function(){
 			$("#modifydiv").attr("style","display: block;");
@@ -207,12 +211,7 @@ $(document).ready(
 					action="/spring/member/modify" enctype="multipart/form-data" style="padding-left: 40px;">
 					<div class="row">
 					<div class="col-lg-12">
-					<c:choose>
-						<c:when test="${isNaverLogin==true}">
-						
-						</c:when>
-						<c:otherwise>
-						<div class="form-gruop row">
+						<div class="form-gruop row naver">
 							<div class="col-lg-2">
 								<p style="padding-top: 13px;">아이디</p>
 							</div>
@@ -222,7 +221,7 @@ $(document).ready(
 							</div>
 						</div>
 						
-						<div class="form-gruop row">
+						<div class="form-gruop row naver">
 							<div class="col-lg-2">
 								<p style="padding-top: 13px;">패스워드</p>
 							</div>
@@ -231,8 +230,6 @@ $(document).ready(
 									id="password" name="password" value="${memberVo.password}">
 							</div>
 						</div>
-						</c:otherwise>
-					</c:choose>
 					<div class="form-gruop row">
 						<div class="col-lg-2">
 							<p style="padding-top: 13px;">이름</p>

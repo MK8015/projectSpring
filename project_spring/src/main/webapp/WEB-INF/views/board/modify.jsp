@@ -169,7 +169,7 @@ function isNotify(){
 					<tr style ='vertical-align : middle'>
 						<td height="81" style="padding-top: 15px;">공지사항
 							<input type="checkbox" id="notifyChk" name="notifyChk" onclick="isNotify()"></td>
-						<td><input type="text" id="notify" name="notify" value="${boardVo.notify}"></td>
+						<td><input type="hidden" id="notify" name="notify" value="${boardVo.notify}"></td>
 					</tr>
 					</c:if>
 				</table>
