@@ -432,7 +432,7 @@ $(document).ready(function() {
 											<div class="col-lg-9">
 												<input type="text" class="modify__input" 
 													id="address" name="address">
-													<p style="padding-left: 10px;">상세<span>*</span></p>
+													<p style="padding-left: 10px;">상세<span></span></p>
 													<input type="text" class="modify__input" id="address_detail" 
 														name="address_detail">
 											</div>
@@ -440,7 +440,7 @@ $(document).ready(function() {
 										
 										<div class="form-gruop row">
 											<div class="col-lg-3">
-												<p style="padding-top: 13px;">사진<span>*</span></p>
+												<p style="padding-top: 13px;">사진<span></span></p>
 											</div>
 											<div class="col-lg-9">
 												<div class="col-lg-5 d-none d-lg-block bg-register-image" id="registerImage">

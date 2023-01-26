@@ -160,10 +160,10 @@ public class CartController {
 	@RequestMapping(value = "/insertCart", method = RequestMethod.GET)
 	public String insertCart(Model model, String product_id, String cart_amount, HttpSession session) {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id =memberVo.getMember_id();
-		if (member_id == null || member_id.equals("")) {
+		if (memberVo == null) {
 			return "member/login";
 		}
+		String member_id =memberVo.getMember_id();
 		boolean result = cartService.insertCart(product_id, member_id, cart_amount);
 		model.addAttribute("result", result);
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
