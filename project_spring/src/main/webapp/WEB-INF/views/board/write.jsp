@@ -159,9 +159,9 @@ function isNotify(){
 		<form id="frmUpdate" role="form" action="/spring/board/write" method="post" enctype="multipart/form-data">
 				<table>
 					<tr style ='vertical-align : middle'>
-						<td style="padding-top: 13px;">이름</td>
+						<td style="padding-top: 13px;">아이디</td>
 						<td><input type="text" class="qna__input" id="writer" 
-							name="writer" placeholder="이름을 입력해 주세요" required
+							name="writer" placeholder="아이디를 입력해 주세요" required
 							value="${loginMemberVo.member_id}"
 							<c:if test="${not empty loginMemberVo.member_id}">
 							readonly
