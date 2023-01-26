@@ -63,7 +63,7 @@ $(document).ready(function(){
 				tr.after("<tr><td colspan='4'></td></tr>");
 				img.attr("src","/spring/product/getImage?imageName="+ jsonObject.product_image);
 				var td = tr.next().find("td");
-				form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id);
+				form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id).css("display","");
 				form.find("form").attr("action","/spring/admin/productUpdate");
 				td.append(form);
 			});
@@ -166,7 +166,7 @@ function closeForm(){
 				</div>
 				<div class="col-lg-10">
 					<div class="col-lg-5 d-none d-lg-block bg-register-image" style="margin-bottom: 18px;">
-						<img src="/spring/resources/img/defaultprofile.png" style="margin-left: 10px;">
+						<img src="/spring/resources/img/product/default_book.png" style="margin-left: 10px;">
 					</div>
 					<div class="custom-file">
 						<input type="file" class="custom-file-input productImage" id="productImage" name="file"
@@ -180,7 +180,7 @@ function closeForm(){
 					
 			<p style="text-align: left; padding-top: 7px; padding-bottom: 35px;">
 			<button type="submit" class="site-smbtn">작성 완료</button>
-			<a href="#" class="site-smbtn">삭제</a></p>
+			<a href="#" class="site-smbtn" style="display: none;">삭제</a></p>
 		</form>
 	</div>
 

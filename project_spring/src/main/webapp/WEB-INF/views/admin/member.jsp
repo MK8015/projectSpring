@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../include/adminHeader.jsp" %>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(document).ready(function(){
 	var openDetail = false;
@@ -104,7 +104,7 @@ $(document).ready(function(){
 					<p style="padding-top: 13px;">비밀번호</p>
 				</div>
 				<div class="col-lg-10">
-					<input type="text" class="mypage__input" placeholder="이름" name="password"/>
+					<input type="text" class="mypage__input" placeholder="비밀번호" name="password"/>
 				</div>
 			</div>
 			
@@ -113,7 +113,7 @@ $(document).ready(function(){
 					<p style="padding-top: 13px;">전화번호</p>
 				</div>
 				<div class="col-lg-10">
-					<input type="text" class="mypage__input" placeholder="이름" name="phonenum"/>
+					<input type="text" class="mypage__input" placeholder="전화번호" name="phonenum"/>
 				</div>
 			</div>
 			
@@ -122,7 +122,7 @@ $(document).ready(function(){
 					<p style="padding-top: 13px;">이메일</p>
 				</div>
 				<div class="col-lg-10">
-					<input type="text" class="mypage__input" placeholder="이름" name="email"/>
+					<input type="text" class="mypage__input" placeholder="이메일" name="email"/>
 				</div>
 			</div>
 			
