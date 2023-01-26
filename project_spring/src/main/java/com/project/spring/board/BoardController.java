@@ -115,9 +115,9 @@ public class BoardController {
 		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		if (loginMemberVo != null) {
 			boardVo.setWriter(loginMemberVo.getMember_id());
-
 		}
 		boolean result = boardService.insertArticle(boardVo);
+		
 		rttr.addFlashAttribute("register_result", result);
 		return "redirect:/board/list";
 	}

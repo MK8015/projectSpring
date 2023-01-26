@@ -118,6 +118,9 @@ $(document).ready(function() {
 		}; // 
 		reader.readAsDataURL(file);
 	}); // $("#customFile").change(f	
+			
+	var result="${result}"
+	console.log("result:", result);
 }); //$(document).ready(function()
 		
 //공지글이면 Y
