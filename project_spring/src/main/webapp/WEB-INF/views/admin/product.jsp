@@ -21,6 +21,17 @@ $(document).ready(function(){
 		
 		};
 	});
+	
+	$(document).on("submit",".productInsert",function(){
+		var form = $(this);
+		console.log(form);
+		var input = $("<input></input>");
+		input.attr("type","hidden");
+		input.attr("name","product_image");
+		input.attr("value",$(this).find("label").text());
+		form.append(input);
+	});
+	
 	//상품 입력 양식
 	$("#productInsert").click(function(e){
 		e.preventDefault();
@@ -62,6 +73,7 @@ $(document).ready(function(){
 				form.css("display","");
 				tr.after("<tr><td colspan='4'></td></tr>");
 				img.attr("src","/spring/product/getImage?imageName="+ jsonObject.product_image);
+				img.parent().next().find("label").text(jsonObject.product_image);
 				var td = tr.next().find("td");
 				form.find("a").attr("href","/spring/admin/productDelete?product_id="+jsonObject.product_id).css("display","");
 				form.find("form").attr("action","/spring/admin/productUpdate");

@@ -248,6 +248,7 @@ $(document).ready(function() {
 			location.href = "/spring/member/login";
 		}
 		var review_content = $("#review_content").text();
+		$("#review_content").text("");
 		var review_rating = parseInt($('#stars li.selected').last().data('value'), 10);
 		if (isNaN(review_rating)) {
 			review_rating = 0;
@@ -305,6 +306,10 @@ $(document).ready(function() {
 					
 				}else{
 					tds.eq(0).find("span").text(jsonArray[i].member_id);				
+				}
+				if(jsonArray[i].member_id=="admin"){
+					tds.eq(0).find("img").removeClass().css("width","100px");
+					tds.eq(0).find("span").css("display","none");
 				}
 				var review_rating = tds.eq(0).find(".review_rating");
 				review_rating.empty();
@@ -543,7 +548,15 @@ function get_query(){
 															src="/spring/resources/img/defaultprofile.png"
 														</c:otherwise>
 													</c:choose>
-												width="50px" class="rounded-circle" /><br> ${loginMemberVo.member_id}<br>
+												width="100px" 
+												<c:if test="${loginMemberVo.member_id ne 'admin'}">
+													class="rounded-circle"
+												</c:if>
+												 />
+												 <c:if test="${loginMemberVo.member_id ne 'admin'}">
+													 <br> ${loginMemberVo.member_id}<br>											 
+												</c:if>
+												
 												<div class='rating-stars'>
 													<ul id='stars'>
 														<li class='star' data-value='1'><i
