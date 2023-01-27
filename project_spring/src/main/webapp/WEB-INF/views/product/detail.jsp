@@ -176,6 +176,7 @@ $(document).ready(function() {
 		var td = $(".reviewForm").find("td").eq(1).clone();
 		var review_no = $(this).attr("data-review_no");
 		td.attr("colspan",2);
+		td.find("div").text($(this).parent().prev().text());
 		$(this).parent().parent().after("<tr id='reviewUpdateForm'></tr>");
 		$("#reviewUpdateForm").append(td);
 		$("#reviewUpdateForm").append("<td><a href='#' class='site-smbtn btnUpdateRun' data-review_no='"+review_no+"'>작성 완료</a></td>");
