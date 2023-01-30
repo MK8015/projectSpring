@@ -147,7 +147,6 @@ $(document).ready(function() {
 
 				//들어간 값이 없을때
 				member_id = $("#member_id").val().trim();
-				console.log("member_id:", member_id);
 				if ($("#member_id").val().trim() == "") {
 					alert("아이디를 입력해주세요");
 					$("#member_id").focus();
@@ -159,7 +158,6 @@ $(document).ready(function() {
 						"member_id" : member_id
 					};
 					$.post(url, sData, function(rData) {
-						console.log("idcheck rData", rData);
 						if (rData) {
 							$("#isUsedid").hide(0).text(
 									"이미 사용중인 아이디입니다").attr(
@@ -206,8 +204,6 @@ $(document).ready(function() {
 		var isIdCheck = $("#isUsedid").attr("class");
 		if (isIdCheck == "alert alert-success") {
 			var idCanUse = $("#isUsedid").attr("data-idCanUse");
-			console.log("idCanUse", idCanUse);
-			console.log("member_id", member_id);
 			if (idCanUse == member_id) {
 				return true;
 			};
@@ -220,7 +216,6 @@ $(document).ready(function() {
 	$("#member_pic").change(function(e) {
 
 		var insertimage = this.files[0];
-		console.log("insertimage:", insertimage);
 
 		var fileReader = new FileReader();
 		fileReader.readAsDataURL(insertimage);

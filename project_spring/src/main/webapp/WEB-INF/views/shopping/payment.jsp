@@ -67,7 +67,6 @@ $(document).ready(function() {
 	
 	$("#paymentToss,#paymentKakao").click(function(){
 		
-		console.log($(this));
 		if($(this).get(0) == $("#paymentToss").get(0)){
 		
 			$("#iamportPaymentToss").prop("checked",true);

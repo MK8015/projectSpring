@@ -63,7 +63,6 @@ public class ReviewController {
 			jsonObject.append("checkBuyer", result);
 			jsonArray.put(jsonObject);
 		}
-		System.out.println(jsonArray);
 		return jsonArray.toString();
 	}
 	

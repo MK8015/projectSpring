@@ -18,11 +18,11 @@ import com.project.spring.vo.ProductVo;
 @Controller
 @RequestMapping("/main/*")
 public class MainController {
+	
 	@Autowired
 	MainService mainService;
 	@Autowired
 	LikeService likeService;
-	
 
 	// 메인 리스트
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -38,7 +38,6 @@ public class MainController {
 			model.addAttribute("list", list);
 		}
 		
-		
 		return "index/main";
 	}
 	
@@ -47,7 +46,6 @@ public class MainController {
 	public String runEvent(Model model) {
 		return "index/event";
 	}
-	
 	
 	// about 창 띄우기
 	@RequestMapping(value = "/about", method = RequestMethod.GET)

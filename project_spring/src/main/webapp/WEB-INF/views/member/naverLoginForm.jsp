@@ -57,7 +57,6 @@
   function naverSignInCallback() {
 	 
 	 //네이버에서 정보 받아오기
-	 console.log("naverSignInCallback실행됨");
 	 $("#loginToken").attr("value",naver_id_login.oauthParams.access_token);
 	 $("#naver_name").attr("value",naver_id_login.getProfileData('name'));
 	 $("#naver_eamil").attr("value",naver_id_login.getProfileData('email'));

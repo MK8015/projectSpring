@@ -14,13 +14,11 @@ $(document).ready(function(){
 		var fileReader = new FileReader();
 		fileReader.readAsDataURL(image);
 		fileReader.onload = function(e) {
-		
-		var imgFileName = input.val();
-		var spliteImgFileName = imgFileName.split("\\");
-		var ImageName= spliteImgFileName.pop();
-		input.next().text(ImageName);
-		input.parent().prev().find("img").attr("src",e.target.result);
-		
+			var imgFileName = input.val();
+			var spliteImgFileName = imgFileName.split("\\");
+			var ImageName= spliteImgFileName.pop();
+			input.next().text(ImageName);
+			input.parent().prev().find("img").attr("src",e.target.result);
 		};
 	});
 	
@@ -33,7 +31,6 @@ $(document).ready(function(){
 			var form = $(".memberForm").eq(0).clone();
 			var tds = $(this).parent().find("td");
 			var member_id = tds.eq(0).text();
-			console.log(member_id);
 			var tr = $(this).parent();
 			$.post("/spring/admin/memberDetail",{"member_id":member_id},function(rData){
 				var jsonObject = JSON.parse(rData);
@@ -62,20 +59,15 @@ $(document).ready(function(){
 	//주소 api
 	$(document).on("click",".address",function(){
 		var address = $(this);
-		 new daum.Postcode({
-	            oncomplete: function(data) { //선택시 입력값 세팅
-	            	address.val(data.address); // 주소 넣기
-	            	address.parent().next().find("input").focus(); //상세입력 포커싱
-	            }
-	        }).open();
+		new daum.Postcode({
+			oncomplete: function(data) { //선택시 입력값 세팅
+	          	address.val(data.address); // 주소 넣기
+	          	address.parent().next().find("input").focus(); //상세입력 포커싱
+	        }
+	    }).open();
 	});
-
-	
 });
 </script>
-
-
-
 	<!--  입력,수정 양식 -->
 	<div style="margin:10px; display:none" class="memberForm">
 		<form role="form" action="/spring/admin/updateMember" method="post" 
@@ -157,43 +149,39 @@ $(document).ready(function(){
 				</div>
 			</div>
 			
-			
-			
 			<button type="submit" class="site-smbtn">작성 완료</button>
 			<a href="#" class="site-smbtn">삭제</a>
-			
 		</form>
 	</div>
 	
+	<!-- 오른쪽 관리 부분 -->
+	<div class="col-lg-10 col-md-7 order-md-1 order-1">
+		<div class="mypage_title">
+			<h3>회원 관리</h3>
+			<p style="text-align: center; padding-top: 7px; padding-bottom: 15px;">항목을 누르면 수정/삭제 가능</p>
+		</div>
 	
-<!-- 오른쪽 관리 부분 -->
-<div class="col-lg-10 col-md-7 order-md-1 order-1">
-	<div class="mypage_title">
-		<h3>회원 관리</h3>
-		<p style="text-align: center; padding-top: 7px; padding-bottom: 15px;">항목을 누르면 수정/삭제 가능</p>
+		<table class="table table-hover" style="table-layout: fixed">
+			<thead>
+				<tr>
+					<th>회원 아이디</th>
+					<th>회원 이름</th>
+					<th>가입일</th>
+					<th>이메일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${list}" var="memberVo">
+				<tr class="memberInfo">
+					<td>${memberVo.member_id}</td>
+					<td>${memberVo.member_name}</td>
+					<td>${memberVo.regdate}</td>
+					<td>${memberVo.email}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>		
 	</div>
-	
-<table class="table table-hover" style="table-layout: fixed">
-	<thead>
-		<tr>
-			<th>회원 아이디</th>
-			<th>회원 이름</th>
-			<th>가입일</th>
-			<th>이메일</th>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${list}" var="memberVo">
-		<tr class="memberInfo">
-			<td>${memberVo.member_id}</td>
-			<td>${memberVo.member_name}</td>
-			<td>${memberVo.regdate}</td>
-			<td>${memberVo.email}</td>
-		</tr>
-		</c:forEach>
-	</tbody>
-</table>		
-</div>
 
 </div>
 </div>

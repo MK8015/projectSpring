@@ -36,7 +36,6 @@ public class BoardController {
 		boardPagingDto.setPagingInform(boardPagingDto.getPage(),boardPagingDto.getPerPage(), boardService.getCount());
 		List<BoardVo> list = boardService.listArticle(boardPagingDto);
 		// 공지 글 리스트 따로, 그냥 글 리스트 따로
-
 		List<BoardVo> listNotify = boardService.listNotify();
 		model.addAttribute("listNotify", listNotify);
 		model.addAttribute("list", list);

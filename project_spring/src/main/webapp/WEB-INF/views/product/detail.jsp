@@ -139,7 +139,6 @@ $(document).ready(function() {
 	
 	// 좋아요 눌렀는지 안 눌렀는지
 	var isLike = "${isLike}";
-	console.log("islike:",isLike);
 	
 	//카트에 담기
 	$("#btnInsertCart").click(function(e){
@@ -345,7 +344,6 @@ $(document).ready(function() {
 		
 		//좋아요가 가능한 경우
 		if(isLike=="false" || isLike==false){
-			console.log("isAlreadyLike false 실행됨");
 			url = "/spring/like/insertLike";
 			$.post(url,sData,function(rData){
 				if(rData=="couldlike-true"){
@@ -357,7 +355,6 @@ $(document).ready(function() {
  					});
  					getLikeCountNum();
  					isLike = !isLike;
- 					console.log("isLike:",isLike);
 				}else if(rData=="couldlike-flase"){
 					alert("좋아요 등록에 실패했습니다.");
 				}else if(rData=="notLogin"){
@@ -367,7 +364,6 @@ $(document).ready(function() {
 			});
 		}else if(isLike=="true" || isLike==true){
 			//좋아요가 이미 있어 불가능한 경우
-			console.log("isAlreadyLike true 실행됨");
 			url = "/spring/like/delete";
 			$.post(url,sData,function(rData){
 				if(rData == "true"){
@@ -379,7 +375,6 @@ $(document).ready(function() {
  						});
  					getLikeCountNum();
  					isLike = !isLike;
-					console.log("isLike:",isLike);
 
 				}else{
 					alert("좋아요 삭제에 실패했습니다.");
@@ -485,14 +480,15 @@ function get_query(){
 					<a href="#" class="primary-btn" id="btnInsertCart" style="margin-right: 18px;">장바구니 담기</a>
 					<!-- START : 좋아요 -->	
 					<a href="#" class="heart-icon" id="likeHeart" 
-						<c:if test="${isAlreadyLike == 'true'}">
+						<c:if test="${isLike == 'true'}">
 							style="color:#dd2222" 
-						</c:if>>		　
-					<c:if test="${isAlreadyLike == 'true'}">
+						</c:if>
+					>		　
+					<c:if test="${isLike == 'true'}">
 						<i class="fa fa-heart" aria-hidden="true" id="heartIcon"></i>
 					</c:if>
 								
-					<c:if test="${isAlreadyLike != 'true'}">
+					<c:if test="${isLike != 'true'}">
 						<i class="fa fa-heart-o" aria-hidden="true" id="heartIcon"></i>
 					</c:if>
 					<span style="font-size:16px; color:gray" id="likeCount"> ${likeCount}</span>　</a>

@@ -35,9 +35,11 @@ public class OrderService {
 	public boolean insertOrder(OrderVo orderVo) {
 		return orderDao.insertOrder(orderVo);
 	}
+	
 	public boolean deleteOrder(String order_no) {
 		return orderDao.deleteOrder(order_no);
 	}
+	
 	public boolean updateOrder(OrderVo orderVo) {
 		return orderDao.updateOrder(orderVo);
 	}
@@ -49,7 +51,6 @@ public class OrderService {
 	public Boolean updatePoint(String member_id,int usePoint) {
 		int now_point=orderDao.nowPoint(member_id);
 		int nowHavePoint=now_point-usePoint;
-		
 		return orderDao.updatePoint(member_id,nowHavePoint);
 	}
 	

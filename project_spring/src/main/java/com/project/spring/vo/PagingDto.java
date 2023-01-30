@@ -23,23 +23,12 @@ public class PagingDto {
 		}
 		this.perPage = perPage;
 		this.count = count;
-		
 		this.page = page;
 		this.endRow = page * perPage;
 		this.startRow = this.endRow - (perPage-1);
-		
 		this.startPage = ((page-1)/BLOCK_COUNT)*BLOCK_COUNT+1;
 		this.endPage = this.startPage + (BLOCK_COUNT-1);
-		
 		this.count = count;
-		
-		// count	totalPage
-		// 500 		50 =500/10
-		// 501		51=501/10�ø�
-		// 30		4 = 30/8
-		// count	count/10�ø�
-		
-		// Math.ceil �Ҽ��� ���� �ø�!
 		
 		this.totalPage = (int)Math.ceil((float)count/this.perPage);
 		if (this.endPage > this.totalPage) {

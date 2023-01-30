@@ -31,7 +31,6 @@ $(document).ready(function(){
 			var form = $(".orderForm").eq(0).clone();
 			var tds = $(this).parent().find("td");
 			var order_no = tds.eq(0).text();
-			console.log(order_no);
 			var tr = $(this).parent();
 			$.post("/spring/admin/detailOrder",{"order_no":order_no},function(rData){
 				var jsonObject = JSON.parse(rData);

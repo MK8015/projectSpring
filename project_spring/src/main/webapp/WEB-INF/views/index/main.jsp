@@ -42,7 +42,6 @@ $(document).ready(function() {
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
-			console.log(rData);
 			if (rData == "false"){
 				alert("장바구니 등록 실패!");
 				getCartCountNum();
@@ -56,7 +55,6 @@ $(document).ready(function() {
 				sData={"product_id":product_id};
 				$.post(url,sData,function(rData){
 					var AlreadyCartResult=rData;
-					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
 					if(AlreadyCartResult=="1"){
 						showTextTagCart.text("카트에 추가되었습니다");
 					}else{
@@ -113,7 +111,6 @@ $(document).ready(function() {
 			if (rData == "couldlike-true") {
 			
 				nowclickLike.attr("class","fa fa-trash");
-				console.log("좋아요 등록 성공");
 				getLikeCountNum();
 				showTextTag.text("위시 리스트에 담겼습니다.");
 			}else if (rData == "couldlike-flase"){

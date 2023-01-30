@@ -17,20 +17,28 @@
 		where rownum <= #{orderCount}
 		]]>
  	</select>
- 
+	<!--  	관리자용 주문내역 -->
  	<select id="orderList" resultType="OrderVo">
  		select a.*,b.* 
  		from t_order a, t_product b 
  		where a.product_id = b.product_id
  		order by a.order_no desc
  	</select>
- 	
+	<!--  	회원용 주문 내역 -->
  	<select id="myOrder" resultType="OrderVo">
  		select a.*,b.* 
  		from t_order a, t_product b 
  		where a.product_id =b.product_id
  		and a.member_id = #{member_id}
  		order by a.order_no desc
+ 	</select>
+ 	<!-- 이전 구매 내역 (최근 배송지 관련) -->
+ 	<select id="orderListBymemId" resultType="OrderVo">
+ 		select a.*,b.* from
+ 		(select * from t_member
+			where member_id = #{member_id}) a, t_order b 
+ 		where a.member_id = b.member_id
+ 		order by b.order_no desc
  	</select>
  	
 
@@ -68,20 +76,18 @@
 		where order_no = #{order_no}
 	</delete>
 	
-	<select id="orderListBymemId" resultType="OrderVo">
- 		select a.*,b.* from
- 		(select * from t_member
-			where member_id = #{member_id}) a, t_order b 
- 		where a.member_id = b.member_id
- 		order by b.order_no desc
- 	</select>
+	
  	
  	<update id="updatePoint">
-		update t_member set member_point=#{nowHavePoint} where member_id=#{member_id}
+		update t_member set 
+			member_point=#{nowHavePoint} 
+		where member_id=#{member_id}
 	</update>
 	
 	<select id="nowPoint" resultType="int">
-		select member_point from t_member where member_id=#{member_id}
+		select member_point 
+		from t_member 
+		where member_id=#{member_id}
 	</select>
 	
 	<select id="checkBuyer" resultType="int">
@@ -90,6 +96,8 @@
 		and product_id = #{product_id}
 	</select>
 	
+	
+	<!-- 	관리자 인덱스용  -->
 	<select id="getOrderList" resultType="OrderVo">
 	<![CDATA[
 		 select * from

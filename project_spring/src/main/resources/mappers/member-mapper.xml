@@ -75,7 +75,7 @@
  		order by a.order_no
  	</select>
  	
-	<select id="naverLoginRun" resultType="MemberVO">
+	<select id="naverLoginRun" resultType="MemberVo">
  		select * from t_member where member_id=#{naverMember_id}
  	</select>
  	

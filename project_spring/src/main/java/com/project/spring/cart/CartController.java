@@ -37,10 +37,10 @@ public class CartController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, HttpSession session) {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id =memberVo.getMember_id();
-		if (member_id == null || member_id.equals("")) {
+		if (memberVo == null) {
 			return "notLogin";
 		}
+		String member_id =memberVo.getMember_id();
 		List<CartVo> cartProductList = cartService.getCartList(member_id);
 		model.addAttribute("cartProductList", cartProductList);
 		return "shopping/cart";
@@ -52,22 +52,18 @@ public class CartController {
 	public String insertCart(Model model, String product_id, HttpSession session) {
 
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id = memberVo.getMember_id();
-
-		if (member_id == null || member_id.equals("")) {
+		if (memberVo == null) {
 			return "notLogin";
 		}
+		String member_id = memberVo.getMember_id();
 		boolean result = cartService.insertProductInCart(product_id, member_id);
 		// 세션 다시 넣기
 		if (result == true) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
-		
-			int count=cartService.getNowCartNum(member_id);
+			int count=cartService.memberCartCount(member_id);
 			loginMemberVo.setMemberCartCount(count);
 			session.setAttribute("loginMemberVo", loginMemberVo);
 			model.addAttribute("loginMemberVo", loginMemberVo);
-			
-			
 		}
 		return String.valueOf(result);
 	}
@@ -76,12 +72,9 @@ public class CartController {
 	@RequestMapping(value = "/isAlreadyCart", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(String product_id, HttpSession session) {
-		
-		
 		MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id=loginMemberVo.getMember_id();
 		int alreadyCartResult=cartService.isAlreadyCart(product_id,member_id);
-	
 		return String.valueOf(alreadyCartResult);
 	}
 	
@@ -91,9 +84,6 @@ public class CartController {
 	public String deleteCart(
 			@RequestParam(value="arr_product_id[]") String[] arr_product_id,
 			HttpSession session) {
-		for (String product_id : arr_product_id) {
-			System.out.println(product_id);
-		}
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id = memberVo.getMember_id();
 		boolean result = cartService.deleteCart(arr_product_id, member_id);
@@ -115,9 +105,6 @@ public class CartController {
 
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		String member_id =memberVo.getMember_id();
-		System.out.println("cartupdate실행" + cart_amount + "변경하고자하는 수량 "
-				+ "/ 상품:" + product_id + "/ 아이디: " + member_id);
-
 		boolean result = cartService.updateCart(cart_amount, product_id, member_id);
 		return String.valueOf(result);
 
@@ -127,7 +114,6 @@ public class CartController {
 	// 카트에서 결재로 결재품목만 list 넘기기 (cart_no) & 아이디별 주문 목록
 	@RequestMapping(value = "/paymentList",method = RequestMethod.POST)
 	public String paymentList(Model model, String arr_cart_no, HttpSession session) { // cart_no 배열로 받아서 list로 변환
-//		System.out.println("arr_cart_no"+ arr_cart_no);
 		List<Object> cartnoListjson = new JSONArray(arr_cart_no).toList();
 		List<CartVo> cartList = new ArrayList<CartVo>();
 		
@@ -135,7 +121,6 @@ public class CartController {
 			int cart_no = Integer.parseInt((String.valueOf(cartno))); // cartno list에서 int로 각각 데이터 꺼내기
 			
 			CartVo cartVo = cartService.getCartListByNo(cart_no);
-			System.out.println("cartVo:"+cartVo);
 			cartList.add(cartVo);
 		}
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
@@ -149,9 +134,6 @@ public class CartController {
 		
 		JSONArray arr_cartList = new JSONArray(cartList); 
 		model.addAttribute("arr_cartList", arr_cartList);
-		System.out.println("orderList"+orderList);
-		System.out.println("cartList"+cartList);
-		System.out.println("arr_cartList"+arr_cartList);
 		
 		return "shopping/payment";
 	}
@@ -178,8 +160,6 @@ public class CartController {
 		List<OrderVo> orderList = new ArrayList<>(); 
 		for(Object obj: array) {
 			JSONObject jsonObject = (JSONObject)obj;
-			System.out.println(jsonObject.get("product_id"));
-			System.out.println(jsonObject.get("cart_amount"));
 			OrderVo orderVo = new OrderVo();
 			orderVo.setMember_id(memberVo.getMember_id());
 			orderVo.setProduct_id(String.valueOf(jsonObject.get("product_id")));
@@ -201,7 +181,7 @@ public class CartController {
 	public int memberCartCount(HttpSession session){
 		MemberVo memberVo = (MemberVo)session.getAttribute("loginMemberVo");
 		
-		int count= cartService.getNowCartNum(memberVo.getMember_id());
+		int count= cartService.memberCartCount(memberVo.getMember_id());
 		return count; 
 	}
 }
