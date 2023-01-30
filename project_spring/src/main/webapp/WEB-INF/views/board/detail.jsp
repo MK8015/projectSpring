@@ -57,13 +57,9 @@ $(document).ready(function() {
 	});
 	// 사진 이름
 	$("#customFile").change(function(e) {
-		console.log("e" + e);
 		var file = this.files[0];
-		console.log(file);
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			console.log("파일 읽음");
-			console.log(e.target.result);
 			var val = $("#customFile").val();
 			var arrVal = val.split("\\"); 
 			var filename = arrVal.pop();

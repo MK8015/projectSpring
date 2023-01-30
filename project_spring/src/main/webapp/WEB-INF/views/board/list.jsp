@@ -120,21 +120,14 @@ $(document).ready(function() {
 		var bno = $(this).attr("data-bno");
 		var re_group = $(this).attr("data-re_group");
 		
-		console.log("password: " + password);
-		console.log("data-bno" + bno);
-		console.log("data-re_group" + re_group);
-		
 		var url = "/spring/board/checkPassword";
 		var sData = {
 				"bno" : bno,
 				"password" : password
 		};
-		console.log("sData", sData);
 		
 		$.post(url, sData, function(rData) {
-			console.log("rData", rData);
 			if (rData == "true") {
-				console.log("비밀번호 맞음");
 				runDetail(bno, re_group);
 			} else {
 				alert("비밀번호가 틀립니다. 다시 확인해 주세요.");

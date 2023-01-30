@@ -13,13 +13,7 @@
 		where a.product_id = b.product_id
 	</select>
 	
-	<!-- 카트에 상품 등록 -->
-<!-- 	<insert id="insertProductInCart"> -->
-<!-- 		insert into t_cart -->
-<!-- 			(cart_no, member_id, product_id, cart_amount) -->
-<!-- 		values -->
-<!-- 			(seq_cart_no.nextval, #{member_id}, #{product_id}, '1') -->
-<!-- 	</insert> -->
+	
 	<insert id="insertProductInCart">
 		<![CDATA[ 
 		MERGE INTO t_cart
@@ -63,7 +57,6 @@
 		where a.product_id = b.product_id
 	</select>
 	
-	
 	<!-- 멤버별 카트 개수 세기 -->
 	<select id="memberCartCount" resultType="int">
 		select count(*) from t_cart
@@ -75,14 +68,12 @@
 		insert into t_cart
 		values(seq_cart_no.nextval, #{member_id}, #{product_id}, #{cart_amount})
 	</insert>
-	<!--카트 장바구니 갯수-->
-	<select id="getNowCartNum" resultType="int">
-		select count(*) from t_cart where member_id=#{member_id}
-	</select>
 	
 	<!-- 카트 안에 품목 있는지 체크 -->
 	<select id="isAlreadyCart" resultType="int">
-		select cart_amount from t_cart where product_id=#{product_id} and member_id=#{member_id}
+		select cart_amount 
+		from t_cart 
+		where product_id=#{product_id} and member_id=#{member_id}
 	</select>	
 
 </mapper>

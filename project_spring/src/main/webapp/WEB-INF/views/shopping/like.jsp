@@ -43,7 +43,6 @@ $(document).ready(function() {
  	$(document).on("click", ".shopping-cart", function(e) {
  		var showTextTagCart= $(this).parent().find("p").find("span");
  		e.preventDefault();
- 		console.log("장바구니 클릭!!!");
  		
 		var headerCartCount = $(".headerCartCount"); // 헤더 장바구니 딱지
 		
@@ -51,7 +50,6 @@ $(document).ready(function() {
 		var sData = {"product_id" : product_id};
 		var url = "/spring/cart/insertProduct"
 		$.post(url, sData, function(rData) {
-// 			console.log("rData: "+rData); 
 			if (rData == "true") {
 
 				getCartCountNum();
@@ -59,7 +57,6 @@ $(document).ready(function() {
 				sData={"product_id":product_id};
 				$.post(url,sData,function(rData){
 					var AlreadyCartResult=rData;
-					console.log("parseInt(AlreadyCartResult):",parseInt(AlreadyCartResult));
 					if(AlreadyCartResult=="1"){
 						showTextTagCart.text("카트에 추가되었습니다");
 					}else{
@@ -78,7 +75,6 @@ $(document).ready(function() {
 			}
 		});
 		var p = $(this).next();
-// 		console.log(p);
 		p.css("display","");
 		setTimeout(hideDisplay, 1000, p.find(".closeBtn"));
  	});
@@ -97,7 +93,6 @@ $(document).ready(function() {
   	// 쓰레기통 클릭
  	$(document).on("click", ".like-delete", function(e) {
  		e.preventDefault();
- 		console.log("쓰레기통 클릭");
  		
 		var headerLikeCount = $("#headerLikeCount"); // 헤더 좋아요 딱지
 		var deleteEl = [];
@@ -111,7 +106,6 @@ $(document).ready(function() {
 		
 		$.post(url, sData, function(rData) {
  			if (rData == "true"){
- 				console.log("삭제 완료");
  				getLikeCountNum(); 				
 				$.each(deleteEl, function() {
 					$(this).fadeOut(1000, function() {

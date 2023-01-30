@@ -67,12 +67,10 @@
 //아이디 이메일 메시지 알림
 $(document).ready(function(){
 	var isEmpty="${isEmpty}";
-	console.log("isEmpty:",isEmpty);
 	if(isEmpty=="true"){
 		alert("아이디와 이메일을 적어주세요");
 	}
 	var isExist="${isExist}"
-	console.log("isExist:",isExist);
 	if(isExist=="false"){
 		alert("아이디나 이메일이 존재하지 않습니다 다시 확인해주세요")
 	}

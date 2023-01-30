@@ -62,15 +62,11 @@ public class MemberController {
 		MemberVo memberVo=memberService.loginRun(member_id, password);
 		String page="";
 		
-		
-		if(memberVo ==null){
-			//로그인 실패시 
+		if(memberVo ==null){	//로그인 실패시 
+			
 			rttr.addFlashAttribute("isLogin", "fail");
 			page="redirect:/member/login";
-		} else {
-			//로그인 성공시
-			
-
+		} else {	//로그인 성공시
 			// 멤버당 좋아요 개수
 			int memberLikeCount = likeService.memberLikeCount(member_id);
 			memberVo.setMemberLikeCount(memberLikeCount);
@@ -101,8 +97,6 @@ public class MemberController {
 			if(memberVo.getMember_id().equals("admin")) {
 				return "redirect:/admin/index";
 			}
-			
-			
 			page = "redirect:"+returnURI;
 		}
 		return page; 
@@ -117,21 +111,15 @@ public class MemberController {
 	//등록 띄우기
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
 	public String showRegister() {
-		
 		return "member/register";
 	}
-	
-	
 	
 	//등록 실행
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerRun(MemberVo memberVo, MultipartFile file, RedirectAttributes rttr) {
 		
-		
 		String page="";
 		String originalFilename=file.getOriginalFilename();
-		
-
 		try {
 		 String member_pic=ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());		
 		 memberVo.setMember_pic(member_pic);
@@ -184,11 +172,8 @@ public class MemberController {
 		
 		String uuid=UUID.randomUUID().toString();
 		String uuidsub = uuid.substring(0, uuid.indexOf("-"));
-		
 		if(memberService.updatePassword(emailDto.getTo(),uuidsub)) {
-			
 			MimeMessagePreparator preparator=new MimeMessagePreparator() {
-				
 				@Override
 				public void prepare(MimeMessage mimeMessage) throws Exception {
 					MimeMessageHelper helper=new MimeMessageHelper(
@@ -199,7 +184,6 @@ public class MemberController {
 					helper.setTo(emailDto.getTo());
 					helper.setSubject("임시비밀번호 발송안내");
 					helper.setText("새로운 임시비밀번호는 "+uuidsub+"입니다");
-
 				}
 			};
 			mailSender.send(preparator);
@@ -251,10 +235,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		
-		
-		
 		Boolean result= memberService.modifyInfo(memberVo);
-		
 		if(result) {
 			rttr.addFlashAttribute("isModify","true");
 		}else{
@@ -269,25 +250,18 @@ public class MemberController {
 	@RequestMapping(value = "/getProfile",method = RequestMethod.GET)
 	@ResponseBody
 	public byte[] getImage(String profileImage) { 
-		System.out.println("실행됨");
 		if(profileImage !=null && !profileImage.equals("")) {
-		   
 		   String filePath="//192.168.0.233/userpics/"+profileImage;
-		   
-		try {
-			FileInputStream fis = new FileInputStream(filePath);
-			byte[] bytes=IOUtils.toByteArray(fis);
-			   return bytes;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				FileInputStream fis = new FileInputStream(filePath);
+				byte[] bytes=IOUtils.toByteArray(fis);
+				   return bytes;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		   
-		}
-		
 		return null;
-		
-		
 	}
 	
 
@@ -300,29 +274,25 @@ public class MemberController {
 		String naverMember_id=(naver_id.substring(naver_id.length()-5,naver_id.length())).toLowerCase();
 		
 		MemberVo memberVo= memberService.naverLoginRun(naverMember_id);
-		
-		
 		if(memberVo==null||memberVo.equals("")) {
 			getmemberVo.setMember_id(naverMember_id);
 			getmemberVo.setPassword(naverMember_id);
 			model.addAttribute("MemberVo",getmemberVo);
 			page="member/naverRegister";
-			
 		}else {
-						// 멤버당 좋아요 개수
-						int memberLikeCount = likeService.memberLikeCount(naverMember_id);
-						memberVo.setMemberLikeCount(memberLikeCount);
-						
-						// 멤버당 장바구니 개수
-						int memberCartCount = cartService.memberCartCount(naverMember_id);
-						memberVo.setMemberCartCount(memberCartCount);
-						
-						//로그인 성공시
-						//로그인 세션에 넣어둠    
-						session.setAttribute("loginMemberVo", memberVo);
-						session.setAttribute("loginMember", memberVo.getMember_id());
-						session.setAttribute("isNaverLogin", true);
-						System.out.println("로그인 됨");
+			// 멤버당 좋아요 개수
+			int memberLikeCount = likeService.memberLikeCount(naverMember_id);
+			memberVo.setMemberLikeCount(memberLikeCount);
+			
+			// 멤버당 장바구니 개수
+			int memberCartCount = cartService.memberCartCount(naverMember_id);
+			memberVo.setMemberCartCount(memberCartCount);
+			
+			//로그인 성공시
+			//로그인 세션에 넣어둠    
+			session.setAttribute("loginMemberVo", memberVo);
+			session.setAttribute("loginMember", memberVo.getMember_id());
+			session.setAttribute("isNaverLogin", true);
 			page= "redirect:/main/index";
 		}
 		return page;

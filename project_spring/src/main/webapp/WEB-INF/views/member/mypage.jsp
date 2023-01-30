@@ -121,7 +121,7 @@ $(document).ready(
 		});
 
 
-	//회원가입 실패(flase시 안내창)
+	//회원가입 실패(false시 안내창)
 	var modifyresult = "${isModify}";
 	if (modifyresult == "flase") {
 		alert("수정에 실패하였습니다 새로고침 후 다시 시도해주세요");
@@ -145,7 +145,6 @@ $(document).ready(
 	$("#member_pic").change(function(e) {
 
 		var insertimage = this.files[0];
-		console.log("insertimage:", insertimage);
 
 		var fileReader = new FileReader();
 		fileReader.readAsDataURL(insertimage);

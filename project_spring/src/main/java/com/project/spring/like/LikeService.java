@@ -25,19 +25,9 @@ public class LikeService {
 		return likeDao.deleteLike(product_id, member_id);
 	}
 	
-	// 좋아요 했는지 체크
-	public boolean isAlreadyLike(String product_id, String member_id) {
-		return likeDao.isAlreadyLike(product_id, member_id);
-	}
-	
 	// 좋아요 등록
 	public boolean insertLike(String product_id, String member_id) {
 		return likeDao.insertLike(product_id, member_id);
-	}
-	
-	// 좋아요 취소
-	public boolean cancelLike(String product_id, String member_id) {
-		return likeDao.cancelLike(product_id, member_id);
 	}
 	
 	// 좋아요 개수 세기
@@ -47,11 +37,7 @@ public class LikeService {
 	
 	// 좋아요 눌렀나 안 눌렀나 체크
 	public boolean checkLike(LikeVo likeVo) {
-		int count = likeDao.checkLike(likeVo);
-		if (count > 0) {
-			return true;
-		}
-		return false;
+		return likeDao.checkLike(likeVo);
 	}
 	
 	// 멤버별 좋아요 카운트 수

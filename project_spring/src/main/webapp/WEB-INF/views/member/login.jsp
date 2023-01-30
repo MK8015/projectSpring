@@ -81,7 +81,6 @@ a:hover {
 //회원가입 성공 실패시 메시지
 $(document).ready(function(){
 		var location = (document.referrer).substring(document.referrer.indexOf("spring")+6);
-		console.log(location);
 		
 	$(".user").submit(function(){
 		var input = $("<input></input>");
@@ -98,7 +97,6 @@ $(document).ready(function(){
 	
 	
 	var isLogin="${isLogin}"
-	console.log("isLogin:",isLogin)
 	if(isLogin=="fail"){
 		alert("로그인에 실패하였습니다");
 	};

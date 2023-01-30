@@ -30,7 +30,6 @@ public class CartService {
 	public boolean updateCart(int cart_amount, String product_id, String member_id) {
 		return cartDao.updateCart(cart_amount, product_id, member_id);
 	}
-	
 
 	// cartno별 cartVo구하기
 	public CartVo getCartListByNo(int cart_no) {
@@ -44,10 +43,6 @@ public class CartService {
   // detail 에서 카트 추가
 	public boolean insertCart(String product_id, String member_id, String cart_amount) {
 		return cartDao.insertCart(product_id,member_id,cart_amount);
-
-	}
-	public int getNowCartNum(String member_id) {
-		return cartDao.getNowCartNum(member_id);
 	}
 	
 	public int isAlreadyCart(String product_id,String member_id){

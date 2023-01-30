@@ -57,13 +57,8 @@ $(document).ready(function() {
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
-		  console.log("검색버튼")
 		  var searchType = $("#frmSearch").find("[name=searchType]").val(); 
 		  var keyword = $("#frmSearch").find("[name=keyword]").val();
-// 		  if (keyword == null || keyword.trim() == "") {
-// 			  alert("검색어를 입력해주세요")
-// 			  return;
-// 		  } 
 		  $("#frmPaging").find("[name=searchType]").val(searchType);
 		  $("#frmPaging").find("[name=keyword]").val(keyword);
 		  $("#frmPaging").find("[name=page]").val("1");

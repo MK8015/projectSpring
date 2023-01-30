@@ -40,29 +40,28 @@ public class AdminController {
 	@Autowired
 	OrderService orderService;
 	
+	//관리자 인덱스
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
 		List<OrderVo> orderList = orderService.getOrderList();
+		List<AdminVo> bsList = orderService.getBestSeller();		
 		List<AdminVo> chartList = orderService.getChart();
-		List<AdminVo> bsList = orderService.getBestSeller();
-		
 		JSONArray chartArray = new JSONArray(chartList);
-	
 		model.addAttribute("orderList",orderList);
 		model.addAttribute("bsList",bsList);
 		model.addAttribute("chartArray",chartArray);
+		
 		return "admin/index";
 	}
 	
+	//관리자 주문관리
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
 	public String order(Model model) {
 		List<OrderVo> list = orderService.orderList();
-		System.out.println(list);
 		model.addAttribute("list",list);
 		return "admin/order";
 	}
 	
-	//
 	@RequestMapping(value = "/detailOrder", method = RequestMethod.POST, produces = "application/text;charset=utf-8")
 	@ResponseBody
 	public String detailOrder(String order_no) {
@@ -92,7 +91,9 @@ public class AdminController {
 		rttr.addFlashAttribute("result",result);
 		return "redirect:/admin/order";
 	}
+	// End: 주문관리
 	
+	//관리자 회원관리
 	@RequestMapping(value = "/member", method = RequestMethod.GET)
 	public String member(Model model) {
 		List<MemberVo> list = memberService.getMemberList();
@@ -119,7 +120,6 @@ public class AdminController {
 	@RequestMapping(value = "/updateMember", method = RequestMethod.POST)
 	public String updateMember(MemberVo memberVo, RedirectAttributes rttr,MultipartFile file) {
 		String originalFilename = file.getOriginalFilename();
-		System.out.println(originalFilename);
 		try {
 			String member_pic = ImageUploader.uploadFile("//192.168.0.233/userpics/", originalFilename, file.getBytes());
 			memberVo.setMember_pic(member_pic);
@@ -131,7 +131,9 @@ public class AdminController {
 		}
 		return "redirect:/admin/member";
 	}
+	// End: 회원관리
 	
+	//관리자 상품관리
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String product(Model model) {
 		List<ProductVo> list = productService.getList();
@@ -163,12 +165,10 @@ public class AdminController {
 	
 	@RequestMapping(value = "/productDelete", method = RequestMethod.GET)
 	public String productDelete(String product_id, RedirectAttributes rttr) {
-		System.out.println(product_id);
 		boolean result = productService.delete(product_id);
 		rttr.addFlashAttribute("result",result);
 		return "redirect:/admin/product";
 	}
-	
 	
 	@RequestMapping(value = "/productUpdate", method = RequestMethod.POST)
 	public String productUpdate(ProductVo productVo, RedirectAttributes rttr,MultipartFile file) {
@@ -185,7 +185,6 @@ public class AdminController {
 		}
 		return "redirect:/admin/product";
 	}
-	
-	
+	// End: 상품관리
 	
 }

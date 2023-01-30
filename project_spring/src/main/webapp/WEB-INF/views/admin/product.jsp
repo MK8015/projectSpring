@@ -12,19 +12,16 @@ $(document).ready(function(){
 		var fileReader = new FileReader();
 		fileReader.readAsDataURL(image);
 		fileReader.onload = function(e) {
-		
-		var imgFileName = input.val();
-		var spliteImgFileName = imgFileName.split("\\");
-		var ImageName= spliteImgFileName.pop();
-		input.next().text(ImageName);
-		input.parent().prev().find("img").attr("src",e.target.result);
-		
+			var imgFileName = input.val();
+			var spliteImgFileName = imgFileName.split("\\");
+			var ImageName= spliteImgFileName.pop();
+			input.next().text(ImageName);
+			input.parent().prev().find("img").attr("src",e.target.result);
 		};
 	});
 	
 	$(document).on("submit",".productInsert",function(){
 		var form = $(this);
-		console.log(form);
 		var input = $("<input></input>");
 		input.attr("type","hidden");
 		input.attr("name","product_image");
@@ -55,7 +52,6 @@ $(document).ready(function(){
 			var form = $(".productForm").eq(0).clone();
 			var tds = $(this).parent().find("td");
 			var product_id = tds.eq(0).text();
-			console.log(product_id);
 			var tr = $(this).parent();
 			$.post("/spring/admin/productDetail",{"product_id":product_id},function(rData){
 				var jsonObject = JSON.parse(rData);

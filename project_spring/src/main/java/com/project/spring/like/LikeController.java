@@ -19,9 +19,9 @@ import com.project.spring.vo.MemberVo;
 @Controller
 @RequestMapping("/like/*")
 public class LikeController {
+	
 	@Autowired
 	LikeService likeService;
-	
 	
 	// 좋아요 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -31,31 +31,19 @@ public class LikeController {
 		if (member_id == null || member_id.equals("")) {
 			return "member/login";
 		}
-		System.out.println("member_id: " + member_id);
 		List<LikeVo> likeProductList = likeService.getLikeList(member_id);
 		model.addAttribute("likeProductList", likeProductList);
 		return "shopping/like";
 	}
 	
-
-	// 좋아요 취소 GET
-	@RequestMapping(value = "/cancelLike", method = RequestMethod.GET)
-	@ResponseBody
-	public String cancelLike(String product_id, HttpSession session) {
-		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id =memberVo.getMember_id();
-		if (member_id == null || member_id.equals("")) {
-			return "notLogin";
-		}
-		boolean result = likeService.cancelLike(product_id, member_id);
-		return String.valueOf(result);
-	}
-
 	// 위시 리스트에서 좋아요 삭제
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteLike(String product_id, HttpSession session) {
 		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
+		if (memberVo == null) {
+			return "notLogin";
+		}
 		String member_id =memberVo.getMember_id();
 		boolean result = likeService.deleteLike(product_id, member_id);
 		
@@ -69,25 +57,7 @@ public class LikeController {
 		
 		return String.valueOf(result);
 	}
-	
-
-	// 좋아요 등록 GET
-	@RequestMapping(value = "/insertLike", method = RequestMethod.GET)
-	@ResponseBody
-	public String insertLike(String product_id, HttpSession session) {
 		
-		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id =memberVo.getMember_id();
-		if (member_id == null || member_id.equals("")) {
-			return "notLogin";
-		}
-		boolean result = likeService.insertLike(product_id, member_id);
-		return String.valueOf(result);
-		
-	}
-	
-	
-	
 	// 좋아요 등록 POST
 	@RequestMapping(value = "/insertLike", method = RequestMethod.POST)
 	@ResponseBody
@@ -99,10 +69,13 @@ public class LikeController {
 			return "notLogin";
 		}
 		//좋아요 있는지 체크
-		boolean isLike= likeService.isAlreadyLike(product_id,member_id);
+		LikeVo likeVo = new LikeVo();
+		likeVo.setMember_id(member_id);
+		likeVo.setProduct_id(product_id);
+		boolean isLike= likeService.checkLike(likeVo);
 		if(isLike) {
 			//좋아요가 이미 있다면
-			boolean result = likeService.cancelLike(product_id, member_id);
+			boolean result = likeService.deleteLike(product_id, member_id);
 			if(result) {
 			MemberVo loginMemberVo = (MemberVo)session.getAttribute("loginMemberVo");
 			session.setAttribute("loginMemberVo", loginMemberVo);
@@ -130,19 +103,8 @@ public class LikeController {
 		}
 		
 	}
-	
-	@RequestMapping(value = "/isAlreadyLike", method = RequestMethod.POST)
-	@ResponseBody
-	public String isAlreadyLike(HttpSession session,String product_id) {
-		MemberVo memberVo=(MemberVo)session.getAttribute("loginMemberVo");
-		String member_id=memberVo.getMember_id();
-		boolean result= likeService.isAlreadyLike(product_id,member_id);
-		return String.valueOf(result);
-	}
-	
-	
-	
-	//라이크 숫자 가져오기
+		
+	//멤버 라이크 숫자 가져오기
 	@RequestMapping(value = "/getLikeCount", method = RequestMethod.POST)
 	@ResponseBody
 	public int getMemberLikeCount(HttpSession session) {
@@ -152,11 +114,11 @@ public class LikeController {
 	}
 	
 	//프로덕트별 라이크 숫자 가져오기
-		@RequestMapping(value = "/getProductLikeCount", method = RequestMethod.POST)
-		@ResponseBody
-		public int getLikeCount(String product_id) {
-			int reuslt= likeService.getLikeCount(product_id);
-			return reuslt;
-		}
+	@RequestMapping(value = "/getProductLikeCount", method = RequestMethod.POST)
+	@ResponseBody
+	public int getLikeCount(String product_id) {
+		int reuslt= likeService.getLikeCount(product_id);
+		return reuslt;
+	}
 	
 }

@@ -23,7 +23,6 @@ public class CartDao {
 		return sqlSession.selectList(NAME_SPACE + "getCartList", member_id);
 	}
 	
-
 	// 카트 상품 등록
 	public boolean insertProductInCart(String product_id, String member_id) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -83,11 +82,6 @@ public class CartDao {
 		}
 		return false;
 	}
-	
-	public int getNowCartNum(String member_id) {
-		int count=sqlSession.selectOne(NAME_SPACE+"getNowCartNum",member_id);
-			return count;
-	}	
 	
 	public int isAlreadyCart(String product_id,String member_id){
 		Map<String, String>map=new HashMap<>();

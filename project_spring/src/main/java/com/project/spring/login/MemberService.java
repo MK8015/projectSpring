@@ -54,6 +54,7 @@ public class MemberService {
 	public boolean deleteMember(String member_id) {
 		return memberDao.deleteMember(member_id);
 	}
+	
 	@Transactional 
 	public Map<String, Object> getMyInfo(String member_id) {
 		Map<String, Object>map=new HashMap<>(); 

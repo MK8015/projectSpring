@@ -100,7 +100,6 @@ $(document).ready(function() {
 	// 검색 버튼
 	   $("#btnSearch").click(function(e) {
 		  e.preventDefault();
-		  console.log("검색버튼");
 		  var searchType = $("#frmSearch").find("[name=searchType]").val(); 
 		  var keyword = $("#frmSearch").find("[name=keyword]").val();
 // 		  if (keyword == null || keyword.trim() == "") {
@@ -121,7 +120,6 @@ $(document).ready(function() {
 		url="/spring/cart/countNum";
 		sData={};
 		$.post(url,sData,function(rData){
-			console.log("getcount rData:",rData);
 			if(rData==0){
 				$(".headerCartCount").attr("style","display:none");
 				
@@ -139,14 +137,11 @@ $(document).ready(function() {
 		url="/spring/like/getLikeCount";
 		sData={};
 		$.post(url,sData,function(rData){
-			console.log("getcount rData:",rData);
 			if(rData==0){
 				$(".headerLikeCount").attr("style","display:none");
-				console.log("getLikeCountNumfunctionRdata:",rData);
 			}else{
 				$(".headerLikeCount").attr("style","");
 				$(".headerLikeCount").text(rData);
-				console.log("getLikeCountNumfunctionRdata:",rData);
 				var text= $(".headerLikeCount").text();
 			}
 		});

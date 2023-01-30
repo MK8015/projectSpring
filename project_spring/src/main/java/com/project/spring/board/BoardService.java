@@ -68,12 +68,12 @@ public class BoardService {
 		return count;
 	}
 	
-	// 占쏙옙 占쏙옙占쏙옙
+	// 글 수정
 	public boolean updateArticle(BoardVo boardVo) {
 		return boardDao.updateArticle(boardVo);
 	}
 	
-	// 占쏙옙 占쏙옙占쏙옙
+	// 글 삭제
 	public boolean deleteArticle(int bno) {
 		return boardDao.deleteArticle(bno);
 	}
