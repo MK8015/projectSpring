@@ -126,8 +126,6 @@ $(document).ready(
 			$("#member_pic").change(function(e) {
 
 				var insertimage = this.files[0];
-				console.log("insertimage:", insertimage);
-
 				var fileReader = new FileReader();
 				fileReader.readAsDataURL(insertimage);
 				fileReader.onload = function(e) {

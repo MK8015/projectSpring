@@ -68,7 +68,6 @@ public class CartController {
 		return String.valueOf(result);
 	}
 	
-	
 	@RequestMapping(value = "/isAlreadyCart", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCart(String product_id, HttpSession session) {
