@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,12 @@ import com.project.spring.vo.ProductVo;
 @Controller
 @RequestMapping("/main/*")
 public class MainController {
+	
+	@Value("${kakao.apikey}")
+	private String KAKAOAPIKEY;
+	
+	@Value("${naver.apikey}")
+	private String NAVERAPIKEY;
 	
 	@Autowired
 	MainService mainService;
@@ -50,6 +57,7 @@ public class MainController {
 	// about 창 띄우기
 	@RequestMapping(value = "/about", method = RequestMethod.GET)
 	public String runAbout(Model model) {
+		model.addAttribute("KAKAOAPIKEY",KAKAOAPIKEY);
 		return "index/about";
 	}
 }

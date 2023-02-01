@@ -92,7 +92,7 @@ h3 {
 
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=yourApiKey"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAOAPIKEY}"></script>
 <script type="text/javascript">
 
 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스

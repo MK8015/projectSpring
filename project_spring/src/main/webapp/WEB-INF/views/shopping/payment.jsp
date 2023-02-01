@@ -124,7 +124,7 @@ function Kakaopayment(){
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
 	var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
-	IMP.init("imp85835735");
+	IMP.init("${IAMPORTAPIKEY}");
 	IMP.request_pay({
 		pg: "kakaopay.TC0ONETIME",
 		pay_method:"card",
@@ -155,7 +155,7 @@ function Tosspayment(){
 	var order_phonenum = $("#phonenum1").val()+'-'+$("#phonenum2").val()+'-'+$("#phonenum3").val();
 	var address = $("#road_address").val() + "," + $("#detail_address").val();
 	var total_price=$(".totalPrice").text().trim().replace("원","").replace(",","");
-	IMP.init("imp85835735");
+	IMP.init("${IAMPORTAPIKEY}");
 	IMP.request_pay({
 		pg: "uplus.tlgdacomxpay",
 		pay_method:"card",

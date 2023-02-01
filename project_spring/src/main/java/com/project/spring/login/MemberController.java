@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -34,6 +35,9 @@ import com.project.spring.vo.OrderVo;
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
+	
+	@Value("${naver.apikey}")
+	private String NAVERAPIKEY;
 	
 	@Autowired
 	private MemberService memberService;
@@ -301,8 +305,8 @@ public class MemberController {
 	
 	//네이버 로그인 실행 폼
 	@RequestMapping(value="/naverLoginForm", method=RequestMethod.GET)
-    public String loginPOSTNaver(HttpSession session) {
-		
+    public String loginPOSTNaver(Model model) {
+		model.addAttribute("NAVERAPIKEY",NAVERAPIKEY);
         return "member/naverLoginForm";
     }
 

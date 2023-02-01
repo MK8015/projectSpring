@@ -48,7 +48,7 @@
 
 <script type="text/javascript">
 
-  var naver_id_login = new naver_id_login("JEjTlMWI0tXdC909VWl8", "http://localhost/spring/member/naverLoginForm");
+  var naver_id_login = new naver_id_login("${NAVERAPIKEY}", "http://localhost/spring/member/naverLoginForm");
 
   // 접근 토큰 값 출력
  // 네이버 사용자 프로필 조회

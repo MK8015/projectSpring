@@ -24,6 +24,7 @@ public class ProductDao {
 	public List<ProductVo> getList(){
 		return sqlSession.selectList(NAME_SPACE+"getList");
 	}
+	
 	public boolean insert(ProductVo productVo) {
 		int count = sqlSession.insert(NAME_SPACE+"insert",productVo);
 		if(count>0) {
@@ -31,6 +32,7 @@ public class ProductDao {
 		}
 		return false;
 	}
+	
 	public boolean delete(String product_id) {
 		int count = sqlSession.delete(NAME_SPACE+"delete",product_id);
 		if(count>0) {
@@ -38,6 +40,7 @@ public class ProductDao {
 		}
 		return false;
 	}
+	
 	public boolean update(ProductVo productVo) {
 		int count = sqlSession.update(NAME_SPACE+"update",productVo);
 		if(count>0) {

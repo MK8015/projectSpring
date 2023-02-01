@@ -23,7 +23,6 @@ public class BoardDao {
 		Map<String, String>map=new HashMap<>();
 		map.put("startRow", String.valueOf(boardPagingDto.getStartRow()));
 		map.put("endRow", String.valueOf(boardPagingDto.getEndRow()));
-		System.out.println("map:"+map);
 		List<BoardVo> list = sqlSession.selectList(NAME_SPACE + "listArticle", map);
 		return list;
 	}

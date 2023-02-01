@@ -47,6 +47,7 @@ public class OrderService {
 	public List<OrderVo> orderListBymemId(String member_id){
 		return orderDao.orderListBymemId(member_id);
 	}
+	
 	@Transactional
 	public Boolean updatePoint(String member_id,int usePoint) {
 		int now_point=orderDao.nowPoint(member_id);

@@ -116,7 +116,6 @@ $(document).ready(function() {
 	}); // $("#customFile").change(f	
 			
 	var result="${result}"
-	console.log("result:", result);
 }); //$(document).ready(function()
 		
 //공지글이면 Y

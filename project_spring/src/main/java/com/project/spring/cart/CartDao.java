@@ -70,7 +70,7 @@ public class CartDao {
 		return sqlSession.selectOne(NAME_SPACE + "memberCartCount", member_id);
 	}
   
-  // detail 에서 카트 추가
+	// detail 에서 카트 추가
 	public boolean insertCart(String product_id, String member_id, String cart_amount) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("product_id", product_id);
