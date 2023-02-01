@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,10 @@ import com.project.spring.vo.MemberVo;
 @Controller
 @RequestMapping("/cart/*")
 public class CartController {
+	
+	@Value("${iamport.apikey}")
+	private String IAMPORTAPIKEY;
+	
 	@Autowired
 	CartService cartService;
 	
@@ -133,7 +138,7 @@ public class CartController {
 		
 		JSONArray arr_cartList = new JSONArray(cartList); 
 		model.addAttribute("arr_cartList", arr_cartList);
-		
+		model.addAttribute("IAMPORTAPIKEY",IAMPORTAPIKEY);
 		return "shopping/payment";
 	}
 
